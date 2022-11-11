@@ -12,7 +12,7 @@
         $item_category=$_POST['item_category'];
 
 
-        $sql = "INSERT INTO pet_item VALUES ('$item_id','$item_name','$item_brand','$item_qty','$item_price','$item_category')";
+        $sql = "INSERT INTO medicine VALUES ('$item_id','$item_name','$item_brand','$item_qty','$item_price','$item_category')";
         $result = mysqli_query($conn,$sql);
         
         if($result==TRUE) { 
@@ -29,7 +29,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/additem.css">
+    <link rel="stylesheet" href="css/addmedicine.css">
     <title>Add New Item</title>
 </head>
 <body>
