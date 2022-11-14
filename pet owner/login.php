@@ -21,7 +21,7 @@
          //session_register("myemail");
          $_SESSION['login_user'] = $myemail;
          
-         header("location: additem.php");
+         header("location: welcome.php");
       }else {
          $error = "Your Login Name or Password is invalid";
       }
@@ -38,25 +38,32 @@
     <title>Document</title>
 </head>
 <body>
+
+
     <div class="container">
-        <div class="left">
-            <img class= "bg" src="images/bg2.png" > 
-        </div>
+    
         <div class="right">
             <form  method="POST" action="">
                 <p class="welcome">Welcome To</p>
-                <p class="pet_store">PET STORE</p>
-                <label>Email</label>
-                <input type="text" name="email" placeholder="email"><br>
-                <label>Password</label>
-                <input type="password" name="password" placeholder="password"><br> 
-                <span class="psw">Don't have an account? <a href="#">Sign In</a></span>
+                <p class="pet_life">PET LIFE</p>
+                <div class="form-content">
+                    <label class="loging-label1">Email</label>
+                    <input type="text" name="email" placeholder="email" required>
+                </div>
+                <div class="form-content">
+                    <label class="loging-label2">Password</label>
+                    <input type="password" name="password" placeholder="password" required><br> 
+                </div>
                 <p>
                     <button class="btn-login" type="submit">Login</button>
-                    <button class="btn-exit"type="submit">Exit</button>
+                    <button class="btn-exit"type="submit">Cancel</button>
                 </p>
+                
+                <span class="psw">Don't have an account? <a href="#">Sign In</a></span>
+                
             </form>
         </div>
     </div>
+   
 </body>
 </html>
