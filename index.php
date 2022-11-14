@@ -21,7 +21,7 @@
          //session_register("myemail");
          $_SESSION['login_user'] = $myemail;
          
-         header("location: welcome.php");
+         header("location: additem.php");
       }else {
          $error = "Your Login Name or Password is invalid";
       }
