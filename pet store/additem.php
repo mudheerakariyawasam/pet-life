@@ -31,7 +31,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" href="css/add.css">
+    <link rel="stylesheet" href="css/navbar.css">
     <title>Add New Item</title>
 </head>
 <body>
@@ -39,9 +40,9 @@
         
     <div class="navbar">
             <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="viewitem.php">Home</a></li>
                 <li><a class="active" href="#">Pet Items</a></li>
-                <li><a href="#">Medicine</a></li>
+                <li><a href="addmedicine.php">Medicine</a></li>
                 <li><a href="#">Leave Requests</a></li>
                 <li><a href="#">My Profile</a></li>
                 <li><a href="#">Logout</a></li>
@@ -56,7 +57,6 @@
             <br>
             <span class="main-topic">Add New Item</span>
             <span class="sub-topic">Add the information about the item</span>
-            <link rel="stylesheet" href="css/add.css">
             <br>
             
             <form action="" method="POST">
