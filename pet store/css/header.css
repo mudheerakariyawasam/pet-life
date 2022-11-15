@@ -1,0 +1,61 @@
+body{
+    margin: 0;
+}
+
+.topic{  
+    background-color: #96CDE1;;
+}
+
+.welcome{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 55px;
+}
+
+.name{
+    font-family: 'Amatic SC';
+    font-style:  normal;
+    font-weight: 400;
+    font-size: 55px;
+    line-height: 88px;
+}
+
+.logout{
+    font-family: 'Alegreya Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+    position: absolute;
+    width: 90px;
+    height: 34px;
+    left: 1305px;
+    top: 25px;
+    border-radius: 10px;
+}
+
+.messages{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 1215px;
+    top: 18px;
+    border-radius: 50%;
+}
+
+.notification{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 1138px;
+    top: 18px;
+    border-radius: 50%;
+
+}
+button{
+    border: none;
+}
+button:hover{
+    opacity: .70;
+}
