@@ -9,8 +9,7 @@ body{
     font-weight: 700;
     font-size: 30px;
     display: flex;
-    align-items: center;
-    padding: 20px;
+    padding-top: 20px;
 }
 
 .sub-topic{
@@ -30,20 +29,18 @@ input{
     height: 30px;
     border-radius: 8px;
     border: none;
+    padding: 3px;
+    margin-bottom: 10px;
 }
 
 .dropdown-list{
-    width: 500px;
-    height: 30px;
-    border-radius: 8px;
-    border: none;
     position: relative;
 }
 
 button{
     font-size: 15px;
     width: 150px;
-    padding: 5px;
+    padding: 10px;
     border: none;
     border-radius: 8px;
 }
@@ -74,7 +71,7 @@ button:hover{
     width: 85%;
     overflow: hidden;
     position: relative;
-    margin: 10px;
+    margin: 20px;
 }
 
 .navbar{
@@ -101,7 +98,12 @@ button:hover{
     border-radius: 30px;
     padding-left: 300px;
     padding-right: 300px;
-    padding-top: 15px;
+    padding-top: 20px;
     padding-bottom: 15px;
+
+    font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
 }
 

@@ -12,8 +12,7 @@
         $item_qty=$_POST['item_qty'];
         $item_price=$_POST['item_price'];
         $item_category=$_POST['item_category'];
-
-
+        
         $sql = "INSERT INTO pet_item VALUES ('$item_id','$item_name','$item_brand','$item_qty','$item_price','$item_category')";
         $result = mysqli_query($conn,$sql);
         
@@ -61,7 +60,18 @@
             
             <form action="" method="POST">
                 <label>Item ID</label><br>
-                <input type="text" name="item_id" placeholder="Item ID"><br>
+                <input type="text" name="item_id" placeholder="Item ID" value="" disabled><br>
+                <?php
+                    $sql_get_id="SELECT item_id FROM pet_item ORDER BY item_id DESC LIMIT 1";
+                    $sql_result=$conn->query($sql_get_id);
+                    
+                    if ($sql_result->num_rows > 0) {
+                        // output data of each row
+                        while($row = $sql_result->fetch_assoc()) {
+                          echo "" . $row["item_id"];
+                        }
+                      }
+                ?>   
                 <label>Product Name</label><br>
                 <input type="text" name="item_name" placeholder="Product Name"><br>
                 <label>Product Brand</label><br>
@@ -71,8 +81,8 @@
                 <label>Price</label><br>
                 <input type="text" name="item_price" placeholder="Price"><br>
                 <label>Category</label><br>
-                <div class="dropdown-list">
-                    <select name="item_category" id="Category" class="category">
+                <div class="dropdown-list" style="width:200px;">
+                    <select name="item_category" >
                         <option value="Pet Food">Pet Food</option>
                         <option value="Sleeping Items">Sleeping Items</option>
                         <option value="Collars">Collars</option>
