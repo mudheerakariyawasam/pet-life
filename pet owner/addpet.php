@@ -5,6 +5,7 @@
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       
+        $pet_id = $_POST['pet_id'];
         $pet_name = $_POST['pet_name'];
         $pet_gender=$_POST['pet_gender'];
         $pet_dob=$_POST['pet_dob'];
@@ -12,10 +13,7 @@
         $pet_breed=$_POST['pet_breed'];
         $owner_id=$_POST['owner_id'];
  
-        
-
-
-        $sql = "INSERT INTO pet_owner VALUES (' $pet_name',' $pet_gender',' $pet_dob',' $pet_type','$pet_breed','$owner_id')";
+        $sql = "INSERT INTO pet VALUES ('$pet_id','$pet_name','$pet_gender','$pet_dob','$pet_type','$pet_breed','$owner_id')";
         $result = mysqli_query($conn,$sql);
         
         if($result==TRUE) { 
@@ -41,7 +39,7 @@
 <body>
 
 <div class="topic">
-        <span class="welcome">Welcome </span>
+        <span class="welcome">Welcome</span>
         <span class="name">NAME</span>
         <button type="submit" class="notification"><img src="images/bell.png"></button>
         <button type="submit" class="messages"><img src="images/message-square.png"></button>
@@ -51,9 +49,12 @@
     <div class="container">
 
         <div class="left">
-            <form method="POST" action="">
+            <form method="POST">
                 <p class="welcome">Register your pet here</p>
-
+                <div class="form-content">
+                    <label class="loging-label1">Pet ID</label>
+                    <input type="text" name="pet_id" placeholder="petID">
+                </div>
                 <div class="form-content">
                     <label class="loging-label1">Pet's Name</label>
                     <input type="text" name="pet_name" placeholder="name">
@@ -65,7 +66,7 @@
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Date of birth</label>
-                    <input type="text" name="pet_dob" placeholder="dob">
+                    <input type="date" name="pet_dob" placeholder="dob">
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Type</label>
@@ -75,6 +76,10 @@
                     <label class="loging-label1">Breed</label>
                     <input type="text" name="pet_breed" placeholder="breed">
                 </div>
+                <div class="form-content">
+                    <label class="loging-label1">Owner ID</label>
+                    <input type="text" name="owner_id" placeholder="ID">
+                </div>
                 <p>
                     <button class="btn-login" type="submit">Register</button>
                     <button class="btn-exit" type="submit">Cancel</button>
@@ -83,7 +88,7 @@
         </div>
 
         <div class="right">
-            <img class="image" src="./images/addpet.png" alt="image">
+            <img class="image" src="images/addpet.png" alt="image">
         </div>
 
     </div>

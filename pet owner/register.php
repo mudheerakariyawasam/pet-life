@@ -5,6 +5,7 @@
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       
+        $owner_id=$_POST['owner_id'];
         $owner_fname = $_POST['owner_fname'];
         $owner_lname=$_POST['owner_lname'];
         $owner_email=$_POST['owner_email'];
@@ -15,11 +16,11 @@
         
 
 
-        $sql = "INSERT INTO pet_owner VALUES (' $owner_fname',' $owner_lname',' $owner_email',' $owner_contactno','$owner_address','$owner_nic', '$owner_pwd')";
+        $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$owner_pwd')";
         $result = mysqli_query($conn,$sql);
         
         if($result==TRUE) { 
-            header("location: viewpet.php");
+            header("location: dashboard.php");
         }else {
             $error = "There is an error in adding!";
         }
@@ -44,10 +45,10 @@
         <div class="normal-link">
             <div class="nav-item item1 active-home"><a href="./index.php">Home</a></div>
             <div class="nav-item item2"><a href="./aboutus.php">About us</a></div>
-            <div class="nav-item item3"><a href="./VIP.php">VIP Programs</a></div>
+            <div class="nav-item item3"><a href="./vip.php">VIP Programs</a></div>
             <div class="nav-item item2"><a href="./services.php">Services</a></div>
             <div class="nav-item item4"><a href="./contactus.php">Contact Us</a></div>
-            <div class="nav-item item2"><a href="./appointmentC.php">Book an Appointmnet</a></div>
+            <div class="nav-item item2"><a href="./appointmentc.php">Book an Appointmnet</a></div>
         </div>
     </div>
 
@@ -57,6 +58,10 @@
             <form method="POST" action="">
                 <p class="welcome">Sign Up Free</p>
 
+                <div class="form-content">
+                    <label class="loging-label1">Owner ID</label>
+                    <input type="text" name="owner_id" placeholder="Owner ID">
+                </div>
                 <div class="form-content">
                     <label class="loging-label1">First Name</label>
                     <input type="text" name="owner_fname" placeholder="first name">
@@ -85,10 +90,7 @@
                     <label class="loging-label1">Password</label>
                     <input type="text" name="owner_pwd" placeholder="password">
                 </div>
-                <div class="form-content">
-                    <label class="loging-label1">Confirm Password</label>
-                    <input type="text" name="owner_pwd" placeholder="password">
-                </div>
+              
                 <p>
                     <button class="btn-login" type="submit">Sign Up</button>
                     <button class="btn-exit" type="submit">Cancel</button>

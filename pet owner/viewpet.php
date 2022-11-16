@@ -55,7 +55,8 @@
             {
                 echo '<table>
                 <tr>
-                    <th colspan="2">pet Name</th>
+                    <th >pet ID</th>
+                    <th>Name</th>
                     <th>Gender</th>
                     <th>DOB</th>
                     <th>Type</th>
@@ -68,6 +69,7 @@
                     echo '<tr > 
                         <td>' . $row["pet_id"] . '</td>
                         <td>' . $row["pet_name"] . '</td>
+                        <td> ' . $row["pet_gender"] . '</td>
                         <td> ' . $row["pet_dob"] . '</td>
                         <td>' . $row["pet_type"] . '</td> 
                         <td>' . $row["pet_breed"] . '</td>

@@ -8,7 +8,7 @@
       $owner_email = mysqli_real_escape_string($conn,$_POST['owner_email']);
       $owner_pwd = mysqli_real_escape_string($conn,$_POST['owner_pwd']); 
       
-      $sql = "SELECT all FROM pet_owner WHERE owner_email = '$owner_email' and owner_pwd = '$owner_pwd'";
+      $sql = "SELECT * FROM pet_owner WHERE owner_email = '$owner_email' and owner_pwd = '$owner_pwd'";
       $result = mysqli_query($conn,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       //$active = $row['active'];
@@ -43,7 +43,7 @@
     <div class="container">
     
         <div class="right">
-            <form  method="POST" action="">
+            <form  method="POST" >
                 <p class="welcome">Welcome To</p>
                 <p class="pet_life">PET LIFE</p>
                 <div class="form-content">
