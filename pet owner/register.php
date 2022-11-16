@@ -1,31 +1,29 @@
 <?php
-include("dbconnection.php");
-session_start();
+   include("dbconnection.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // username and password sent from form 
+   session_start();
+   
+   if($_SERVER["REQUEST_METHOD"] == "POST") {
+      
+        $owner_fname = $_POST['owner_fname'];
+        $owner_lname=$_POST['owner_lname'];
+        $owner_email=$_POST['owner_email'];
+        $owner_contactno=$_POST['owner_contactno'];
+        $owner_address=$_POST['owner_address'];
+        $owner_nic=$_POST['owner_nic'];
+        $owner_pwd=$_POST['owner_pwd'];
+        
 
-    $myemail = mysqli_real_escape_string($conn, $_POST['email']);
-    $mypassword = mysqli_real_escape_string($conn, $_POST['password']);
 
-    $sql = "SELECT emp_designation FROM employee WHERE emp_email = '$myemail' and emp_pwd = '$mypassword'";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    //$active = $row['active'];
-
-    $count = mysqli_num_rows($result);
-
-    // If result matched $myusername and $mypassword, table row must be 1 row
-
-    if ($count == 1) {
-        //session_register("myemail");
-        $_SESSION['login_user'] = $myemail;
-
-        header("location: dashboard.php");
-    } else {
-        $error = "Your Login Name or Password is invalid";
-    }
-}
+        $sql = "INSERT INTO pet_owner VALUES (' $owner_fname',' $owner_lname',' $owner_email',' $owner_contactno','$owner_address','$owner_nic', '$owner_pwd')";
+        $result = mysqli_query($conn,$sql);
+        
+        if($result==TRUE) { 
+            header("location: viewpet.php");
+        }else {
+            $error = "There is an error in adding!";
+        }
+   }
 ?>
 
 
@@ -65,11 +63,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Last Name</label>
-                    <input type="password" name="owner_lname" placeholder="last name">
+                    <input type="text" name="owner_lname" placeholder="last name">
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Email</label>
-                    <input type="text" name="email" placeholder="email">
+                    <input type="text" name="owner_email" placeholder="email">
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Phone</label>

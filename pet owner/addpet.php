@@ -1,31 +1,29 @@
 <?php
-include("dbconnection.php");
-session_start();
+   include("dbconnection.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // username and password sent from form 
+   session_start();
+   
+   if($_SERVER["REQUEST_METHOD"] == "POST") {
+      
+        $pet_name = $_POST['pet_name'];
+        $pet_gender=$_POST['pet_gender'];
+        $pet_dob=$_POST['pet_dob'];
+        $pet_type=$_POST['pet_type'];
+        $pet_breed=$_POST['pet_breed'];
+        $owner_id=$_POST['owner_id'];
+ 
+        
 
-    $myemail = mysqli_real_escape_string($conn, $_POST['email']);
-    $mypassword = mysqli_real_escape_string($conn, $_POST['password']);
 
-    $sql = "SELECT emp_designation FROM employee WHERE emp_email = '$myemail' and emp_pwd = '$mypassword'";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    //$active = $row['active'];
-
-    $count = mysqli_num_rows($result);
-
-    // If result matched $myusername and $mypassword, table row must be 1 row
-
-    if ($count == 1) {
-        //session_register("myemail");
-        $_SESSION['login_user'] = $myemail;
-
-        header("location: welcome.php");
-    } else {
-        $error = "Your Login Name or Password is invalid";
-    }
-}
+        $sql = "INSERT INTO pet_owner VALUES (' $pet_name',' $pet_gender',' $pet_dob',' $pet_type','$pet_breed','$owner_id')";
+        $result = mysqli_query($conn,$sql);
+        
+        if($result==TRUE) { 
+            header("location: viewpet.php");
+        }else {
+            $error = "There is an error in adding!";
+        }
+   }
 ?>
 
 
@@ -58,27 +56,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="form-content">
                     <label class="loging-label1">Pet's Name</label>
-                    <input type="text" name="name" placeholder="name">
+                    <input type="text" name="pet_name" placeholder="name">
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Pet gender</label>
-                    <input type="password" name="gender" placeholder="gender">
+                    <input type="text" name="pet_gender" placeholder="gender">
+                    
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Date of birth</label>
-                    <input type="text" name="dob" placeholder="dob">
+                    <input type="text" name="pet_dob" placeholder="dob">
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Type</label>
-                    <input type="text" name="type" placeholder="type of pet">
+                    <input type="text" name="pet_type" placeholder="type of pet">
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Breed</label>
-                    <input type="text" name="breed" placeholder="breed">
-                </div>
-                <div class="form-content">
-                    <label class="loging-label1">Owner ID</label>
-                    <input type="text" name="ownerid" placeholder="ownerID">
+                    <input type="text" name="pet_breed" placeholder="breed">
                 </div>
                 <p>
                     <button class="btn-login" type="submit">Register</button>
