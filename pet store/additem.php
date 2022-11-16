@@ -47,9 +47,7 @@
                 <li><a href="#">Logout</a></li>
             </ul>
         </div>
-        
-
-        
+             
         <div class="container">
         <div class="content">
             <span class="pet-item">PET ITEMS</span>
@@ -58,20 +56,36 @@
             <span class="sub-topic">Add the information about the item</span>
             <br>
             
-            <form action="" method="POST">
-                <label>Item ID</label><br>
-                <input type="text" name="item_id" placeholder="Item ID" value="" disabled><br>
+            <form method="POST">
+                <label>Item ID</label><br> 
                 <?php
-                    $sql_get_id="SELECT item_id FROM pet_item ORDER BY item_id DESC LIMIT 1";
-                    $sql_result=$conn->query($sql_get_id);
+                
+    $sql_get_id="SELECT item_id FROM pet_item ORDER BY item_id DESC LIMIT 1";
+    $result_get_id=mysqli_query($conn,$sql_get_id);
+    $row=mysqli_fetch_array($result_get_id);
+
+    $lastid="";
                     
-                    if ($sql_result->num_rows > 0) {
-                        // output data of each row
-                        while($row = $sql_result->fetch_assoc()) {
-                          echo "" . $row["item_id"];
-                        }
-                      }
-                ?>   
+    if(mysqli_num_rows($result_get_id)>0){
+        $lastid=$row['item_id'];
+    }
+
+    if($lastid==""){
+        $id="I001";
+    }else {
+        $item_id=substr($lastid,3);
+        $item_id=intval($item_id);
+
+        if($item_id>='9'){
+            $item_id="I0".($item_id+1);
+        } else if($item_id>='99'){
+            $item_id="I".($item_id+1);
+        }else{
+            $item_id="I00".($item_id+1);
+        }
+    }
+                ?>
+                <input type="text" name="item_id" placeholder="Item ID" value="<?php echo $item_id?>" disabled><br>
                 <label>Product Name</label><br>
                 <input type="text" name="item_name" placeholder="Product Name"><br>
                 <label>Product Brand</label><br>
@@ -92,9 +106,10 @@
                         <option value="Other">Other</option>
                     </select><br>
                 </div>
+                <button class="btn-add" type="submit">Add </button>
+                <button class="btn-exit"type="submit">Exit</button>
             </form> 
-            <button class="btn-add" type="submit">Add </button>
-            <button class="btn-exit"type="submit">Exit</button>
+
         </div>
     </div>
 
