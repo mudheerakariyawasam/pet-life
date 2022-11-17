@@ -28,7 +28,7 @@
         }
     }
    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $item_id = $_POST['item_id'];
+        
         $item_name=$_POST['item_name'];
         $item_brand=$_POST['item_brand'];
         $item_qty=$_POST['item_qty'];
@@ -39,7 +39,7 @@
         $result = mysqli_query($conn,$sql);
         
         if($result==TRUE) { 
-            header("location: viewitem.php");
+            header("location: dashboard.php");
         }else {
             $error = "There is an error in adding!";
         }
@@ -61,9 +61,9 @@
         
     <div class="navbar">
             <ul>
-                <li><a href="viewitem.php">Home</a></li>
-                <li><a class="active" href="#">Pet Items</a></li>
-                <li><a href="addmedicine.php">Medicine</a></li>
+                <li><a href="dashboard.php">Home</a></li>
+                <li><a class="active" href="viewallitems.php">Pet Items</a></li>
+                <li><a href="viewallmedicine.php">Medicine</a></li>
                 <li><a href="#">Leave Requests</a></li>
                 <li><a href="#">My Profile</a></li>
                 <li><a href="#">Logout</a></li>
@@ -80,8 +80,7 @@
             
             <form method="POST">
                 <label><b>Item ID : </label> 
-               
-                <label class="item-id"name="item_id" ><?php echo $item_id;?></b><br><br>
+                <label class="item-id" name="item_id" ><?php echo $item_id;?></b><br><br>
                 <label>Product Name</label><br>
                 <input type="text" name="item_name" placeholder="Product Name"><br>
                 <label>Product Brand</label><br>
@@ -102,8 +101,10 @@
                         <option value="Other">Other</option>
                     </select><br><br>
                 </div>
+                
                 <button class="btn-add" type="submit">Add </button>
-                <button class="btn-exit"type="submit">Exit</button>
+                <a class="btn-exit" href="viewallitems.php">Exit</a>
+                
             </form> 
 
         </div>

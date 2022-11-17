@@ -3,7 +3,6 @@
    include ("header.php");
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +19,8 @@
         <div class="navbar">
             <ul>
                 <li><a href="dashboard.php">Home</a></li>
-                <li><a class="active" href="#">Pet Items</a></li>
-                <li><a href="addmedicine.php">Medicine</a></li>
+                <li><a href="viewallitems.php">Pet Items</a></li>
+                <li><a class="active" href="#">Medicine</a></li>
                 <li><a href="#">Leave Requests</a></li>
                 <li><a href="#">My Profile</a></li>
                 <li><a href="#">Logout</a></li>
@@ -30,34 +29,35 @@
     
         <div class="container">
 
-        <span class="pet-item">PET ITEMS</span>
+        <span class="pet-item">MEDICINE</span>
         <br><br><br>
 
         <!-- search items-->
         <div class="topbar">
             <div class="bar-content search-bar">
                 <form> 
-                    <label><b>Item ID </b></label><br>
-                    <input class ="item-id"type="text" name="item_id" placeholder="Enter Item ID">
+                    <label><b>Medicine ID </b></label><br>
+                    <input class ="item-id"type="text" name="medicine_id" placeholder="Enter Medicine ID">
                     <button type="submit"><img src="images/search.png"></button>
                 </form>
             </div>
         <div class="bar-content add-bar">
-            <a href="additem.php"> <button class="btn-add" type="submit"><img class="add" src="images/add.png">New Item</button></a>
+            <a href="additem.php"> <button class="btn-add" type="submit"><img class="add" src="images/add.png">New Medicine</button></a>
         </div>
 
         </div>
         <!--View All Items Code-->
         <?php
-                $sql = "SELECT * FROM pet_item";
+                $sql = "SELECT * FROM medicine";
                 
                 $result = mysqli_query($conn, $sql);
                 if(mysqli_num_rows($result) > 0)
                 {
                     echo '<table>
                     <tr>
-                        <th colspan="2">Product Details</th>
+                        <th colspan="2">Medicine Details</th>
                         <th>Brand</th>
+                        <th>Exp Date</th>
                         <th>Price</th>
                         <th>Qty</th>
                         <th colspan="2">Actions</th>
@@ -66,11 +66,12 @@
                     while($row = mysqli_fetch_assoc($result)){
                     
                         echo '<tr > 
-                            <td>' . $row["item_id"] . '</td>
-                            <td class="details">' . $row["item_name"] . '<br>'. $row["item_category"]. '<br><br>'.$row["item_id"].'</td>
-                            <td> ' . $row["item_brand"] . '</td>
-                            <td>' . $row["item_price"] . '</td> 
-                            <td>' . $row["item_qty"] . '</td>
+                            <td>' . $row["medicine_id"] . '</td>
+                            <td class="details">' . $row["medicine_name"] . '<br>'. $row["medicine_category"]. '<br><br>'.$row["medicine_id"].'</td>
+                            <td> ' . $row["medicine_brand"] . '</td>
+                            <td> ' . $row["medicine_brand"] . '</td>
+                            <td>' . $row["medicine_brand"] . '</td> 
+                            <td>' . $row["medicine_brand"] . '</td>
                             <td class="action"><button type="submit"><img src="images/update.png"></button></td>
                             <td class="action"><button type="submit"><img src="images/delete.png"></button></td>
                         </tr>';
