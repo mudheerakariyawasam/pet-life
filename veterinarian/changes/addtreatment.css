@@ -189,30 +189,10 @@ border-top: none;
 border-left: none;
 border-right: none;
 margin-left: 160px;
-}
-.c-box{
-margin-left: 130px;
 
 }
-input[type="checkbox"]{
-    font-family: 'Alegreya Sans';
-    font-style: normal;
-    font-weight: 500;
-}
-label{
-font-family: 'Alegreya Sans';
-font-style: normal;
-font-weight: 500;
-color: #000000;
-}
-.container{
-    font-family: 'Alegreya Sans';
-    font-style: normal;
-    font-weight: 500;
-    color: #000000;
-}
-.input--style-1{
-font-family: 'Alegreya Sans';
-font-style: normal;
-font-weight: 500;
+.c-box{
+
+    margin-left: 130px;
+
 }

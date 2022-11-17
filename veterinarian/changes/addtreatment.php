@@ -1,7 +1,77 @@
+<?php
+    $connection = null;
+
+    function checkConnection($db) {
+        if (mysqli_connect_error($db)) {
+            echo '<br /><span style="color: red>"'.mysqli_connect_error($db).'</span>';
+            exit();
+        }
+    }
+
+    /** This function will execute the specified query in the database.
+     *  if the query success, return true otherwise false
+     */
+    function executeQuery($query, $db) {
+        checkConnection($db);
+        $result = mysqli_query($db, $query);
+        if ($result) {
+            return true;
+        }
+
+        print_r(mysqli_error($db)); // print the mysql errors after the execution of the above query
+        return false;
+    }
+
+    $treatments = [
+        "Swelling"
+        "Collapsed",
+        "Diarrhoea",
+        "Vomiting",
+        "Ear Problem",
+        "Eye Problem",
+        "Bloated",
+        "Difficult to Walk",
+        "Bleeding",
+        "Skin Redness",
+        "Scratching",
+        "Furr Loss",
+        "Fluffed Up",
+    ];
+
+    if (isset($_POST['treatment'])) {
+        $time = strtotime($_POST['followup_date']);
+
+        $treatmentList = "";
+        for ($i = 0; $i < count($treatments); $i++) {
+            if (isset($_POST['Surgery'.$i])) {
+                $treatmentList .= $treatments[$i];
+            }
+        }
+
+        $query = "INSERT INTO treatment(treatment_type, clinical_symptoms, lab_investigations, differential_diagnosis, definitive_diagnosis, followup_date, special_comments) 
+        VALUES ($_POST['treatment'], $treatmentList, $_POST['lab_investigation'], $_POST['differential_diagnosis'], $_POST['definitive_diagnosis'], date('Y-m-d', $time), $_POST['special_comments'])";
+        if (executeQuery($query, $connection)) {
+            echo 'Treatment successfully added!';
+        } else {
+            echo 'Treatment not added!';
+        }
+    } else if (isset($_POST['Surgery'])) {
+        $time = strtotime($_POST['followup_date']);
+
+        $query = "INSERT INTO treatment(treatment_type, clinical_symptoms, lab_investigations, differential_diagnosis, definitive_diagnosis, followup_date, special_comments) 
+        VALUES ($_POST['treatment'], $treatmentList, $_POST['lab_investigation'], $_POST['differential_diagnosis'], $_POST['definitive_diagnosis'], date('Y-m-d', $time), $_POST['special_comments'])";
+        if (executeQuery($query, $connection)) {
+            echo 'Treatment successfully added!';
+        } else {
+            echo 'Treatment not added!';
+        }
+    }
+?>
+
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="css/addtreatment.css">
+    <link rel="stylesheet" type="text/css" href="addtreatment.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@500&family=Amatic+SC:wght@700&family=Poppins:wght@300&family=Roboto&display=swap" rel="stylesheet">
@@ -88,7 +158,7 @@
 <div><img src="images/dog.png" style="width:40%;margin-left: 50px;"></div>
 <div>
 
-    <form action="" class="form" method="POST">
+    <form action="addtreatment.php" class="form" method="POST">
 
 <div>
     <label for="date" style="margin-left: 200px;font-family: 'Alegreya Sans';font-style: normal;">Date</label><br/><br/>
@@ -110,27 +180,28 @@
 
 
 <div class="sym-list"><div class="sym-list-left" style="float: left; width: 50%;">
-    	 <input type="checkbox" name="symptoms[]">Swelling </br>
-        <input type="checkbox" name="symptoms[]">Collapsed<br/>
-        <input type="checkbox" name="symptoms[]">Diarrhoea<br/>
-        <input type="checkbox" name="symptoms[]">Vomiting<br/>
-        <input type="checkbox" name="symptoms[]">Ear Problem<br/>
-        <input type="checkbox" name="symptoms[]">Eye Problem<br/>
-        <input type="checkbox" name="symptoms[]">Bloated<br/>
-        <input type="checkbox" name="symptoms[]">Lameness and Stiffness<br/>
-        <input type="checkbox" name="symptoms[]">Difficult to Walk<br/>
-        <input type="checkbox" name="symptoms[]">Fluffed Up<br/>
+    <?php
+        for ($i = 0; $i < $cnt; $i++) {
+    ?>
+    <input type="checkbox" name="Surgery<?php echo $i; ?>"><?php echo $treatments[$i]; ?><br/>
+    <?php } ?>
+    <input type="checkbox" name="treatment">  Swelling  </br>
+        <!--<input type="checkbox" name="Surgery">Collapsed <br/>
+        <input type="checkbox" name="Surgery">Diarrhoea <br/>
+        <input type="checkbox" name="Surgery">Vomiting   <br/>
+        <input type="checkbox" name="Surgery">Ear Problem<br/>
+        <input type="checkbox" name="Surgery">Eye Problem<br/>
+        <input type="checkbox" name="Surgery">Bloated<br/>
+        <input type="checkbox" name="Surgery">Difficult to Walk<br/>-->
 </div>
 
 <div class="sym-list-right" style="float: right; width: 50%;">
-
-    	<input type="checkbox" name="symptoms[]">Bleeding </br>
-        <input type="checkbox" name="symptoms[]">Skin Redness<br/>
-        <input type="checkbox" name="symptoms[]">Scratching<br/>
-        <input type="checkbox" name="symptoms[]">Furr Loss<br/>
-        <input type="checkbox" name="symptoms[]">Loss of Appetite<br/>
-        <input type="checkbox" name="symptoms[]">Infection on Beck<br/>
-        <input type="checkbox" name="symptoms[]">Weakness and Tiredness<br/>
+    <input type="checkbox" name="treatment">  Bleeding </br>
+        <!--<input type="checkbox" name="Surgery">Skin Redness<br/>
+        <input type="checkbox" name="Surgery">Scratching<br/>
+        <input type="checkbox" name="Surgery">Furr Loss<br/>
+        <input type="checkbox" name="Surgery">Fluffed Up<br/>-->
+  
 </div>
 
 </div>
@@ -170,7 +241,7 @@
     <br><br>
     <label for="special comments">Laboratory Investigations</label>
     <label class="container">XRay
-      <input type="checkbox">
+      <input type="checkbox" name="lab_investigation">
       <span class="checkmark"></span>
     </label>
     <label class="container">FBC
@@ -195,19 +266,19 @@
       <span class="checkmark"></span>
     </label>
                       <div class="input-group">
-                          <input class="input--style-1" type="text" placeholder="Differential Diagnosis" name="differentialDiagnosis" required="required" >
+                          <input class="input--style-1" type="text" placeholder="Differential Diagnosis" name="differential_diagnosis" required="required" >
                       </div>
   
                       <div class="input-group">
-                          <input class="input--style-1" type="text" placeholder="Definitive Diagnosis" name="definitive Diagnosis" required="required">
+                          <input class="input--style-1" type="text" placeholder="Definitive Diagnosis" name="definitive_diagnosis" required="required">
                       </div>
                       <div class="treatment-date">
                       <label for="followup date">FollowUp Date</label>
-                      <input type="date" id="date" name="date">
+                      <input name="followup_date" type="date" id="date" name="date">
                       </div>
                       <label for="special comments">Special Comments</label>
                       <br>
-                      <textarea rows="4" cols="50" name="comment" form="usrform"></textarea>
+                      <textarea rows="4" cols="50" name="special_comments" form="usrform"></textarea>
                       <br><br>
                       <div class="p-t-20">
                           <button class="btn btn--radius btn--green" type="submit">Save New Treatment</button>

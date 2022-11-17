@@ -1,3 +1,77 @@
+<?php
+    $connection = null;
+
+    function checkConnection($db) {
+        if (mysqli_connect_error($db)) {
+            echo '<br /><span style="color: red>"'.mysqli_connect_error($db).'</span>';
+            exit();
+        }
+    }
+
+    /** This function will execute the specified query in the database.
+     *  if the query success, return true otherwise false
+     */
+    function executeQuery($query, $db) {
+        checkConnection($db);
+        $result = mysqli_query($db, $query);
+        if ($result) {
+            return true;
+        }
+
+        print_r(mysqli_error($db)); // print the mysql errors after the execution of the above query
+        return false;
+    }
+
+    $treatments = [
+        "Swelling",
+        "Collapsed",
+        "Diarrhoea",
+        "Vomiting",
+        "Ear Problem",
+        "Eye Problem",
+        "Bloated",
+        "Lameness and Stiffness",
+        "Difficult to Walk",
+        "Fluffed Up",
+        "Bleeding",
+        "Skin Redness",
+        "Scratching",
+        "Furr Loss",
+        "Loss of Appetite",
+        "Infection on Beck",
+        "Weakness and Tiredness",
+    ];
+
+    if (isset($_POST['treatment'])) {
+        $time = strtotime($_POST['followup_date']);
+
+        $treatmentList = "";
+        for ($i = 0; $i < count($treatments); $i++) {
+            if (isset($_POST['Surgery'.$i])) {
+                $treatmentList .= $treatments[$i];
+            }
+        }
+
+        $query = "INSERT INTO treatment(treatment_type, clinical_symptoms, lab_investigations, differential_diagnosis, definitive_diagnosis, followup_date, special_comments) 
+        VALUES ($_POST[treatment], $treatmentList, $_POST[lab_investigation], $_POST[differential_diagnosis], $_POST[definitive_diagnosis], date('Y-m-d', $time), $_POST[special_comments])";
+        if (executeQuery($query, $connection)) {
+            echo 'Treatment successfully added!';
+        } else {
+            echo 'Treatment not added!';
+        }
+    } else if (isset($_POST['Surgery'])) {
+        $time = strtotime($_POST['followup_date']);
+
+        $query = "INSERT INTO treatment(treatment_type, clinical_symptoms, lab_investigations, differential_diagnosis, definitive_diagnosis, followup_date, special_comments) 
+        VALUES ($_POST[treatment], $treatmentList, $_POST[lab_investigation], $_POST[differential_diagnosis], $_POST[definitive_diagnosis], date('Y-m-d', $time), $_POST[special_comments])";
+        if (executeQuery($query, $connection)) {
+            echo 'Treatment successfully added!';
+        } else {
+            echo 'Treatment not added!';
+        }
+    }
+?>
+
 <html>
 
 <head>
@@ -67,7 +141,7 @@
                 </li><br /><br/>
                 <li>
                     <div class="left-main-navigation">
-                        <div class="main-left-left"><img class="main-left-icon" src="images/log-out.png"></div>
+                        <div class="main-left-left"><img class="main-left-icon" src="images/ri_logout-circle-fill.png"></div>
                         <div class="main-left-right">Log Out</div>
                     </div>
                 </li><br /><br/>
@@ -88,7 +162,7 @@
 <div><img src="images/dog.png" style="width:40%;margin-left: 50px;"></div>
 <div>
 
-    <form action="" class="form" method="POST">
+    <form action="addtreatment.php" class="form" method="POST">
 
 <div>
     <label for="date" style="margin-left: 200px;font-family: 'Alegreya Sans';font-style: normal;">Date</label><br/><br/>
@@ -106,11 +180,14 @@
     </div>
 <br/>
 
-<div><font>Clinical Signs/Symptoms</font></div><br/>
-
-
+<div><font style="font-family: 'Alegreya Sans'; font-style: normal; font-weight: 500;">Clinical Signs/Symptoms</font></div><br/>
 <div class="sym-list"><div class="sym-list-left" style="float: left; width: 50%;">
-    	 <input type="checkbox" name="symptoms[]">Swelling </br>
+    <?php
+        for ($i = 0; $i < $cnt; $i++) {
+    ?>
+    <input type="checkbox" name="symptoms[]<?php echo $i; ?>"><?php echo $treatments[$i]; ?><br/>
+    <?php } ?>
+        <input type="checkbox" name="symptoms[]">Swelling </br>
         <input type="checkbox" name="symptoms[]">Collapsed<br/>
         <input type="checkbox" name="symptoms[]">Diarrhoea<br/>
         <input type="checkbox" name="symptoms[]">Vomiting<br/>
@@ -123,33 +200,26 @@
 </div>
 
 <div class="sym-list-right" style="float: right; width: 50%;">
-
-    	<input type="checkbox" name="symptoms[]">Bleeding </br>
+        <input type="checkbox" name="symptoms[]">Bleeding </br>
         <input type="checkbox" name="symptoms[]">Skin Redness<br/>
         <input type="checkbox" name="symptoms[]">Scratching<br/>
         <input type="checkbox" name="symptoms[]">Furr Loss<br/>
         <input type="checkbox" name="symptoms[]">Loss of Appetite<br/>
         <input type="checkbox" name="symptoms[]">Infection on Beck<br/>
         <input type="checkbox" name="symptoms[]">Weakness and Tiredness<br/>
+  
 </div>
 
 </div>
-
-
-
     </form>
-
-
 </div>
-
-
 
     </div>
     <div class="content-right">
         <br/><br/>
 
 <form action="">
-    <label for="special comments">Medicines</label>
+    <label for="medicines"> Medicines</label>
     <br>
     <label class="container">trimethoprim-sulfa
       <input type="checkbox">
@@ -170,7 +240,7 @@
     <br><br>
     <label for="special comments">Laboratory Investigations</label>
     <label class="container">XRay
-      <input type="checkbox">
+      <input type="checkbox" name="lab_investigation">
       <span class="checkmark"></span>
     </label>
     <label class="container">FBC
@@ -181,7 +251,9 @@
       <input type="checkbox">
       <span class="checkmark"></span>
     </label>
-    <label for="special comments">Vaccines</label>
+    <br><br>
+    <label for="vaccines">Vaccines</label>
+    <br><br>
     <label class="container">CPV
       <input type="checkbox">
       <span class="checkmark"></span>
@@ -195,25 +267,25 @@
       <span class="checkmark"></span>
     </label>
                       <div class="input-group">
-                          <input class="input--style-1" type="text" placeholder="Differential Diagnosis" name="differentialDiagnosis" required="required" >
+                          <input class="input--style-1" type="text" placeholder="Differential Diagnosis" name="differential_diagnosis" required="required" >
                       </div>
   
                       <div class="input-group">
-                          <input class="input--style-1" type="text" placeholder="Definitive Diagnosis" name="definitive Diagnosis" required="required">
+                          <input class="input--style-1" type="text" placeholder="Definitive Diagnosis" name="definitive_diagnosis" required="required">
                       </div>
                       <div class="treatment-date">
                       <label for="followup date">FollowUp Date</label>
-                      <input type="date" id="date" name="date">
+                      <input name="followup_date" type="date" id="date" name="date">
                       </div>
                       <label for="special comments">Special Comments</label>
                       <br>
-                      <textarea rows="4" cols="50" name="comment" form="usrform"></textarea>
+                      <textarea rows="4" cols="50" name="special_comments" form="usrform"></textarea>
                       <br><br>
                       <div class="p-t-20">
-                          <button class="btn btn--radius btn--green" type="submit">Save New Treatment</button>
+                          <button class="btn btn--radius btn--green" name="save_new_treatment" type="submit">Save New Treatment</button>
                       </div>
                       <div class="p-t-20">
-                          <button class="btn btn--radius btn--green" type="submit">Send Treatment Details</button>
+                          <button class="btn btn--radius btn--green" name="send_new_treatment"type="submit">Send Treatment Details</button>
                       </div>
 </form>
     
@@ -228,11 +300,6 @@
 
 </div>
 
-
-
-
-
-
         </div>
 
 
@@ -240,4 +307,4 @@
     </div>
 
 </body>
-</head>
+</html>
