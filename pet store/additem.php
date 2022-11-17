@@ -3,9 +3,31 @@
    include("header.php");
    
    session_start();
-   
+    $sql_get_id="SELECT item_id FROM pet_item ORDER BY item_id DESC LIMIT 1";
+    $result_get_id=mysqli_query($conn,$sql_get_id);
+    $row=mysqli_fetch_array($result_get_id);
+
+    $lastid="";
+                    
+    if(mysqli_num_rows($result_get_id)>0){
+        $lastid=$row['item_id'];
+    }
+
+    if($lastid==""){
+        $item_id="I001";
+    }else {
+        $item_id=substr($lastid,3);
+        $item_id=intval($item_id);
+
+        if($item_id>='9'){
+            $item_id="I0".($item_id+1);
+        } else if($item_id>='99'){
+            $item_id="I".($item_id+1);
+        }else{
+            $item_id="I00".($item_id+1);
+        }
+    }
    if($_SERVER["REQUEST_METHOD"] == "POST") {
-      
         $item_id = $_POST['item_id'];
         $item_name=$_POST['item_name'];
         $item_brand=$_POST['item_brand'];
@@ -57,35 +79,9 @@
             <br>
             
             <form method="POST">
-                <label>Item ID</label><br> 
-                <?php
-                
-    $sql_get_id="SELECT item_id FROM pet_item ORDER BY item_id DESC LIMIT 1";
-    $result_get_id=mysqli_query($conn,$sql_get_id);
-    $row=mysqli_fetch_array($result_get_id);
-
-    $lastid="";
-                    
-    if(mysqli_num_rows($result_get_id)>0){
-        $lastid=$row['item_id'];
-    }
-
-    if($lastid==""){
-        $id="I001";
-    }else {
-        $item_id=substr($lastid,3);
-        $item_id=intval($item_id);
-
-        if($item_id>='9'){
-            $item_id="I0".($item_id+1);
-        } else if($item_id>='99'){
-            $item_id="I".($item_id+1);
-        }else{
-            $item_id="I00".($item_id+1);
-        }
-    }
-                ?>
-                <input type="text" name="item_id" placeholder="Item ID" value="<?php echo $item_id?>" disabled><br>
+                <label><b>Item ID : </label> 
+               
+                <label class="item-id"name="item_id" ><?php echo $item_id;?></b><br><br>
                 <label>Product Name</label><br>
                 <input type="text" name="item_name" placeholder="Product Name"><br>
                 <label>Product Brand</label><br>
@@ -104,7 +100,7 @@
                         <option value="Combs">Toys</option>
                         <option value="Food Bowls">Food Bowls</option>
                         <option value="Other">Other</option>
-                    </select><br>
+                    </select><br><br>
                 </div>
                 <button class="btn-add" type="submit">Add </button>
                 <button class="btn-exit"type="submit">Exit</button>

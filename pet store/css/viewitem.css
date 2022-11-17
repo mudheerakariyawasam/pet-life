@@ -2,39 +2,44 @@ body{
     font-family: 'Alegreya Sans';
     font-style: normal;
     background: #96CDE1;
-    padding: 25px;
+    margin: 0;
+}
+
+.main-container{
+    display: flex;
+}
+
+.navbar{
+    width: 15%;
+    height: 100%;
+}
+
+.container{
+    width: 85%;
+    height: 100%;
+}
+
+button{
+    border: none;
+    border-radius: 50px;
+    background-color: #96CDE1;
 }
 
 button:hover{
     opacity: .70;
 }
 
-button{
-    font-size: 15px;
-    width: 100px;
-    padding: 5px;
-    border: none;
-    border-radius: 8px;
+table {
+    border-collapse: collapse;
 }
-
-.btn-search{
-    background-color: #88E471;
+th {
+    background-color:green;
+    Color:white;
 }
-
-input{
-    width: 500px;
-    height: 30px;
-    border-radius: 8px;
-    border: none;
+th, td {
+    width:150px;
+    text-align:center;
+    border:1px solid black;
+    padding:5px
+ 
 }
-
-table{
-    font-size: 20px;
-    align-items: center;
-}
-
-td, th {
-    text-align: left;
-    padding: 8px;
-  }
-
