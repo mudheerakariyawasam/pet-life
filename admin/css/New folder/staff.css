@@ -1,0 +1,52 @@
+.title{
+background-color:blue;
+font-size:30px;
+font-weight:bold;
+text-align:center;
+//width:99%;
+border-radius:10px;
+margin-left:100px;
+margin-right:100px;
+}
+table{
+width:99%;
+font-size:20px;
+}
+
+td{
+  background-color:grey;
+}
+
+thead{
+text-align:center;
+text-weight:bold;
+color:green;
+}
+
+tbody{
+text-align:center;
+}
+.content{
+width:99%;
+margin-top:80px;
+margin-left:250px;
+}
+
+.f{
+width:100%;
+display:flex;
+}
+.f1{
+width:50%;
+}
+.f2{
+width:50%;
+}
+
+
+//.hom-right{
+//background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)),url(../images/back1.png);
+//background-size: cover;
+//background-position: center;
+//height: 100vh;
+//}
