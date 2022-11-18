@@ -28,6 +28,7 @@ body{
     border-radius: 20px;
     background-color: #C38D9E;
     font-size: 20px;
+    padding: 20px;
 }
 
 button:hover{
