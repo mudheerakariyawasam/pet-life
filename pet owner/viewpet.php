@@ -2,32 +2,7 @@
    include("dbconnection.php");
    session_start();
    
-   if($_SERVER["REQUEST_METHOD"] == "POST") {   
-      
-      $pet_id = mysqli_real_escape_string($conn,$_POST['pet_id']);
-      
-      $sql = "SELECT *  FROM pet WHERE pet_id = '$pet_id'";
-      
-      $result = mysqli_query($conn, $sql);;
-
-        if (mysqli_num_rows($result) > 0) {
-            while($row = mysqli_fetch_assoc($result)){
-                    // to output mysql data in HTML table format
-                        echo '<tr > 
-                            <td>' . $row["pet_id"] . '</td>
-                            <td>' . $row["pet_name"] . '</td>
-                            <td> ' . $row["pet_gender"] . '</td>
-                            <td>' . $row["pet_dob"] . '</td> 
-                            <td>' . $row["pet_type"] . '</td>
-                            <td>' . $row["pet_breed"] . '</td>
-                            <td>' . $row["owner_id"] . '</td>
-
-                        </tr>';
-            }
-        } else {
-            echo "0 results";
-        }
-   }
+   
 ?>
 
 <!DOCTYPE html>
