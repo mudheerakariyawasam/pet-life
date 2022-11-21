@@ -42,14 +42,15 @@
                 </form>
             </div>
         <div class="bar-content add-bar">
-            <a href="additem.php"> <button class="btn-add" type="submit"><img class="add" src="images/add.png">New Medicine</button></a>
+            <a href="addmedicine.php"> <button class="btn-add" type="submit"><img class="add" src="images/add.png">New Medicine</button></a>
         </div>
 
         </div>
         <!--View All Items Code-->
         <?php
-                $sql = "SELECT * FROM medicine";
+
                 
+                $sql = "SELECT * FROM medicine";
                 $result = mysqli_query($conn, $sql);
                 if(mysqli_num_rows($result) > 0)
                 {

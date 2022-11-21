@@ -21,7 +21,7 @@
             <ul>
                 <li><a href="dashboard.php">Home</a></li>
                 <li><a class="active" href="#">Pet Items</a></li>
-                <li><a href="addmedicine.php">Medicine</a></li>
+                <li><a href="viewallmedicine.php">Medicine</a></li>
                 <li><a href="#">Leave Requests</a></li>
                 <li><a href="#">My Profile</a></li>
                 <li><a href="#">Logout</a></li>
