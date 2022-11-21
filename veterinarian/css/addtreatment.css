@@ -1,159 +1,218 @@
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@500&family=Amatic+SC:wght@700&family=Poppins:wght@300&family=Roboto&display=swap');
 body{
-    margin: 0%;
-}
-header{
-    background: #96CDE1;
+margin:0;
 }
 
-h2{
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 70px;
-    line-height: 82px;
-    color: #0B0A0A;
-    display: inline;
-    padding: 20px;
+.header-font-1{
+font-size:40px;
+padding:20px;
+font-family: 'Roboto';
 }
-h2.name-text {
+.header-font-2{
+    font-size:40px;
+    /* padding:40px; */
     font-family: 'Amatic SC';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 70px;
-    line-height: 88px;
-    color: #000000;
-    display: inline;
-    padding: 20px;
+ }
+.nav-bar{
+display:flex;
+position: fixed;
+width:100%;
+/* overflow: hidden; */
+background-color:#96CDE1; 
 }
-/* .background-image{
-background-image: url(../images/container.jpg);
+.nav-left{
+width:40%;
+float:left;
+}
+.nav-right{
+width:60%;
+text-align:right;
+float:right;
+}
+.navbar-ul{
+list-style-type:none;
+}
+.navbar-ul li{
+display:inline;
+margin-right:3%;
+}
+.notification{
+width:5%;
+margin-right:3%;
+}
+.msg{
+width:5%;
+margin-right:3%;
+}
+.log{
+margin-bottom:20px;
+background-color:white;
+/* align:center; */
+}
+
+.not-li{
+background-color:white;
+}
+
+.main{
+
+width:100%;
+display:flex;
+}
+.main-left{
+width:18%;
+background-color:#96CDE1; 
+float:left;
+}
+.doc-name{
+font-family: 'Alegreya Sans';
+font-style: normal;
+font-weight: 700;
+}
+.main-left ul{
+    list-style-type: none;
+    font-size: 15px;
+    font-weight:bold;
+}
+.main-left-right{
+font-family: 'Alegreya Sans';
+font-style: normal;
+font-weight: 400;
+}
+
+.main-right{
+width:82%;
+float:right;
+background-image: url(../images/doctor.jpg);
 background-size: cover;
 background-position: center;
-display: flex;
-} */
-.animal-name{
-position: absolute;
-width: 185px;
-height: 48px;
-left: 200px;
-top: 100px;
+height: 100vh;
+width:100%;
+z-index: -1;
+isolation: isolate;
+position: relative;
+}
+.main-right::after{  
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: white;
+    opacity: 0.5;
+}
+.notification{
+width:3%;
+}
+.msg{
+width:3%;
+}
+.log-out{
+width:3%;
+}
+.clear{
+clear:both;
+}
+
+.main-left-icon{
+width:50%;
+
+}
+.main-left-left{
+float:left;
+width: 30%;
+
+
+}
+.main-left-right{
+float:right;
+padding-right: 30px;;
+width: 70%;
+}
+.left-main-navigation{
+    width:100%;
+    display: flex;
+}
+.doctor-img{
+    width:60%;
+
+}
+.doc-name{
+font-size: 20px;
+text-align: center;
+font-weight: bold;
+}
+.pet-name{
 font-family: 'Poppins';
 font-style: normal;
 font-weight: 300;
 font-size: 32px;
-line-height: 48px;
-color: #000000;
 }
-.animal-photo{
-    position: absolute;
-    width: 351px;
-    height: 214px;
-    left: 200px;
-    top: 120px;
+.treatment-title{
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-weight:bold;
+    background-color:#85CDCA;
+    padding-left:430px; 
+    padding-right:430px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 30px;;
+    opacity: 90%;
 }
-.treatment-date{
-left: 520px;
-top: 532px;
-margin-top: 300px;
-font-family: 'Alegreya Sans';
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-color: #000000;
-}
-.check{ 
-    display: inline;
- }
-.divider{
-
+.content{
     width:100%;
     display: flex;
 }
-.divider-01{
-    width:20%;
+
+.content-left{
+width:50%;
+float:left;
+margin-top: 30px;
+margin-left: 80px;
 }
-.divider-02{
-    width:40%;
+
+.content-rigth{
+    width:50%;
+    float:right;
+  
 }
-.divider-03{
-    width:40%;
+.pet-name{
+
+    font-size: 20px;
 }
-/* Customize the label (the container) */
-.container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
+input[type="date"]{
+background-color:transparent;
+border-top: none;
+border-left: none;
+border-right: none;
+margin-left: 160px;
+}
+.c-box{
+margin-left: 130px;
+
+}
+input[type="checkbox"]{
     font-family: 'Alegreya Sans';
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-/* identical to box height */
-
-
+}
+label{
+font-family: 'Alegreya Sans';
+font-style: normal;
+font-weight: 500;
 color: #000000;
-
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  /* Hide the browser's default checkbox */
-  .container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  /* Create a custom checkbox */
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #eee;
-  }
-  
-  /* On mouse-over, add a grey background color */
-  .container:hover input ~ .checkmark {
-    background-color: #ccc;
-  }
-  
-  /* When the checkbox is checked, add a blue background */
-  .container input:checked ~ .checkmark {
-    background-color: #2196F3;
-  }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  /* Style the checkmark/indicator */
-  .container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-
+}
+.container{
+    font-family: 'Alegreya Sans';
+    font-style: normal;
+    font-weight: 500;
+    color: #000000;
+}
+.input--style-1{
+font-family: 'Alegreya Sans';
+font-style: normal;
+font-weight: 500;
+}

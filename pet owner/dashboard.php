@@ -19,18 +19,20 @@
         <button type="submit" class="logout">logout</button>
     </div>
 
-    <div class="sidebar">
-    <div class="normal-link">
-            <div class="nav-item item1 active-home"> <a href="./index.php">Home</a></div>
-            <div class="nav-item item2"><a href="./dashboard.php">Dashboard</a></div>
-            <div class="nav-item item3"><a href="./treatment.php">Treatments</a></div>
-            <div class="nav-item item4"><a href="./vaccination.php">Vaccinations</a></div>
-            <div class="nav-item item5"><a href="./ownerprofile.php">My Profile</a></div>
-            <div class="nav-item item6"><a href="./vip.php">VIP Programmes</a></div>
-            <div class="nav-item item7"><a href="./petshop.php">Pet Shop</a></div>
-            <div class="nav-item item8"><a href="./inquiries.php">Inquiries</a></div>
-    </div>
-    </div>
+
+    <ul>
+        <li><a class="active" href="#">Home</a></li>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Treatments</a></li>
+        <li><a href="#">Vaccinations</a></li>
+        <li><a href="#">My Profile</a></li>
+        <li><a href="#">VIP Programmes</a></li>
+        <li><a href="#">Pet Shop</a></li>
+        <li><a href="#">Inquiries</a></li>
+      </ul>
+      
+</body>
+</html>
 
 
 </body>

@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Amatic SC', cursive;
+    font-family: 'Roboto', sans-serif;
+}
+
+section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+section .imgbox {
+    position: relative;
+    width: 50%;
+    height: 100%;
+
+}
+
+section .imgbox :before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  
+
+}
+
+section .imgbox img {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    object-fit: cover;
+}
+
+section .contentbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+}
+
+form {
+    width: 100%;
+}
+
+.flex {
+    display: flex;
+}
+
+section .contentbox .formbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+section .contentbox .formbox h1 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+}
+
+section .contentbox .formbox h2 {
+    font-family: 'Amatic SC';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 70px;
+    color: #000000;
+}
+
+section .contentbox .formbox .inputbox {
+    margin-bottom: 20px;
+}
+
+.inputbox input {
+    width: 100%;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-end;
+}
+
+.signup{
+    align-self: center;
+}
+
+section .contentbox .formbox .inputbox span {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+section .contentbox .formbox .inputbox input {
+    width: 100%;
+    padding: 10px 20px;
+    outline: none;
+    font-weight: 400;
+    border: 1px solid white;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color:black;
+    background: transparent;
+    border-radius: 25px;
+}
+button {
+    transition: all .5s ease;
+    color: #fff;
+    border: 3px solid white;
+    font-family: 'Roboto';
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1;
+    font-size: 17px;
+    background-color : transparent;
+    padding: 10px;
+    outline: none;
+    border-radius: 15px;
+}
+button:hover {
+    color: #001F3F;
+    background-color: #fff;
+}
+/* section .contentbox .formbox .inputbox input[type="submit"] {
+    background:#ff9999;
+    color: white;
+    outline: none;
+    border:white;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    font-family: 'Roboto';
+    font-style:normal;
+  
+} */
+
+/* section .contentbox .formbox .inputbox input[type="submit"]:hover {
+    background:;
+} */
+/* button {
+    border-radius: 15px;
+    background-color: #ff9999;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px;
+    width: 200px;
+    height: 35px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 16px;
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0,.7);
+  }
+  
+  button{
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  } */
+  
+  /* button:after { */
+    /* content: '»'; */
+    /* position: absolute;
+    opacity: 0;  
+    top: 14px;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  button:hover{
+    padding-right: 24px;
+    padding-left:8px;
+  }
+  
+  button:hover:after {
+    opacity: 1;
+    right: 10px;
+  } */
+
+section .contentbox .formbox .remember {
+    margin-bottom: 20px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #2B2B2B;
+}
+
+section .contentbox .formbox .inputbox p {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #2B2B2B;
+}
+
+section .contentbox .formbox .inputbox p a {
+    color: #9747FF;
+}

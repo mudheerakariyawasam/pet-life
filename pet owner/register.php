@@ -1,30 +1,31 @@
 <?php
-   include("dbconnection.php");
+include("dbconnection.php");
 
-   session_start();
-   
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
-      
-        $owner_id=$_POST['owner_id'];
-        $owner_fname = $_POST['owner_fname'];
-        $owner_lname=$_POST['owner_lname'];
-        $owner_email=$_POST['owner_email'];
-        $owner_contactno=$_POST['owner_contactno'];
-        $owner_address=$_POST['owner_address'];
-        $owner_nic=$_POST['owner_nic'];
-        $owner_pwd=$_POST['owner_pwd'];
-        
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $owner_id = $_POST['owner_id'];
+    $owner_fname = $_POST['owner_fname'];
+    $owner_lname = $_POST['owner_lname'];
+    $owner_email = $_POST['owner_email'];
+    $owner_contactno = $_POST['owner_contactno'];
+    $owner_address = $_POST['owner_address'];
+    $owner_nic = $_POST['owner_nic'];
+    $owner_pwd = $_POST['owner_pwd'];
 
 
-        $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$owner_pwd')";
-        $result = mysqli_query($conn,$sql);
-        
-        if($result==TRUE) { 
-            header("location: dashboard.php");
-        }else {
-            $error = "There is an error in adding!";
-        }
-   }
+
+    $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$owner_pwd')";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result == TRUE) {
+        header("location: dashboard.php");
+    } else {
+        $error = "There is an error in adding!";
+    }
+
+}
 ?>
 
 
@@ -72,11 +73,11 @@
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Email</label>
-                    <input type="text" name="owner_email" placeholder="email">
+                    <input type="email" name="owner_email" placeholder="email">
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Phone</label>
-                    <input type="text" name="owner_contactno" placeholder="phone">
+                    <input type="number" name="owner_contactno" placeholder="phone">
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Address</label>
@@ -88,9 +89,10 @@
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Password</label>
-                    <input type="text" name="owner_pwd" placeholder="password">
+                    <input type="text" name="owner_pwd" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}" 
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters" required>
                 </div>
-              
+
                 <p>
                     <button class="btn-login" type="submit">Sign Up</button>
                     <button class="btn-exit" type="submit">Cancel</button>
