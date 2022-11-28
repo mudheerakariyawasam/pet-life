@@ -1,7 +1,8 @@
 <?php
    include('session.php');
 ?>
-<html">
+
+<html>
    
    <head>
       <title>Welcome </title>

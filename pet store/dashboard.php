@@ -1,5 +1,5 @@
 <?php
-    include("dbconnection.php");
+    include("data/dbconnection.php");
     include("header.php");
 
     //Get the total no of items in the database
@@ -58,12 +58,12 @@
 
     <div class="navbar">
             <ul>
-                <li><a class="active" href="#">Home</a></li>
-                <li><a  href="viewallitems.php">Pet Items</a></li>
-                <li><a href="viewallmedicine.php">Medicine</a></li>
-                <li><a href="#">Leave Requests</a></li>
-                <li><a href="#">My Profile</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a class="active" href="dashboard.php"><img src ="images/nav_home.png" class="nav_icon">Home</a></li>
+                <li><a href="viewallitems.php"><img src ="images/nav_item.png" class="nav_icon">Pet Items</a></li>
+                <li><a href="viewallmedicine.php"><img src ="images/nav_medicine.png" class="nav_icon">Medicine</a></li>
+                <li><a href="#"><img src ="images/nav_holiday.png" class="nav_icon">Leave Requests</a></li>
+                <li><a href="#"><img src ="images/nav_profile.png" class="nav_icon">My Profile</a></li>
+                <li><a href="#"><img src ="images/nav_logout.png" class="nav_icon">Logout</a></li>
             </ul>
         </div>
     
@@ -71,9 +71,10 @@
     <div class="container">
         <div class="summary">
             <div class="summary-content  total-items">
-                <span class="tot">Total Items</span>
+                <a href="viewallitems.php">
+                <span class="tot">Total Items</span><br>
                 <span class="number"><?php echo $total;?></span>
-                <div><img class="shopping-cart" src="images/shopping-bag.png"></div>
+                <div><img class="shopping-cart" src="images/shopping-bag.png"></div></a>
             </div>
 
             <div class="summary-content low-stock">

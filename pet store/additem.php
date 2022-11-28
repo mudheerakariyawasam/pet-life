@@ -1,8 +1,8 @@
 <?php
-   include("dbconnection.php");
+   include("data/dbconnection.php");
    include("header.php");
    
-   session_start();
+    session_start();
     $sql_get_id="SELECT item_id FROM pet_item ORDER BY item_id DESC LIMIT 1";
     $result_get_id=mysqli_query($conn,$sql_get_id);
     $row=mysqli_fetch_array($result_get_id);
@@ -27,6 +27,7 @@
             $item_id="I00".($item_id+1);
         }
     }
+    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $item_name=$_POST['item_name'];
@@ -61,12 +62,12 @@
         
     <div class="navbar">
             <ul>
-                <li><a href="dashboard.php">Home</a></li>
-                <li><a class="active" href="viewallitems.php">Pet Items</a></li>
-                <li><a href="viewallmedicine.php">Medicine</a></li>
-                <li><a href="#">Leave Requests</a></li>
-                <li><a href="#">My Profile</a></li>
-                <li><a href="#">Logout</a></li>
+            <li><a  href="dashboard.php"><img src ="images/nav_home.png" class="nav_icon">Home</a></li>
+                <li><a class="active" href="viewallitems.php"><img src ="images/nav_item.png" class="nav_icon">Pet Items</a></li>
+                <li><a href="viewallmedicine.php"><img src ="images/nav_medicine.png" class="nav_icon">Medicine</a></li>
+                <li><a href="#"><img src ="images/nav_holiday.png" class="nav_icon">Leave Requests</a></li>
+                <li><a href="#"><img src ="images/nav_profile.png" class="nav_icon">My Profile</a></li>
+                <li><a href="#"><img src ="images/nav_logout.png" class="nav_icon">Logout</a></li>
             </ul>
         </div>
              
@@ -91,7 +92,7 @@
                 <input type="text" name="item_price" placeholder="Price"><br>
                 <label>Category</label><br>
                 <div class="dropdown-list" style="width:200px;">
-                    <select name="item_category" >
+                    <select name="item_category" class="dropdown-list" >
                         <option value="Pet Food">Pet Food</option>
                         <option value="Sleeping Items">Sleeping Items</option>
                         <option value="Collars">Collars</option>

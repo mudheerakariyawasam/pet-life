@@ -1,5 +1,5 @@
 <?php
-   include("dbconnection.php");
+   include("data/dbconnection.php");
    include("header.php");
    
    session_start();
@@ -59,12 +59,12 @@
         
     <div class="navbar">
             <ul>
-                <li><a href="dashboard.php">Home</a></li>
-                <li><a href="viewallitems.php">Pet Items</a></li>
-                <li><a class="active" href="viewallmedicine.php">Medicine</a></li>
-                <li><a href="#">Leave Requests</a></li>
-                <li><a href="#">My Profile</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a  href="dashboard.php"><img src ="images/nav_home.png" class="nav_icon">Home</a></li>
+                <li><a  href="viewallitems.php"><img src ="images/nav_item.png" class="nav_icon">Pet Items</a></li>
+                <li><a class="active" href="viewallmedicine.php"><img src ="images/nav_medicine.png" class="nav_icon">Medicine</a></li>
+                <li><a href="#"><img src ="images/nav_holiday.png" class="nav_icon">Leave Requests</a></li>
+                <li><a href="#"><img src ="images/nav_profile.png" class="nav_icon">My Profile</a></li>
+                <li><a href="#"><img src ="images/nav_logout.png" class="nav_icon">Logout</a></li>
             </ul>
         </div>
              
@@ -85,7 +85,7 @@
                 <input type="text" name="medicine_brand" placeholder="Medicine Brand"><br>
                 <label>Category</label><br>
                 <div class="dropdown-list" style="width:200px;">
-                    <select name="medicine_category" >
+                    <select name="medicine_category" class="dropdown-list">
                         <option value="Pet Food">Pet Food</option>
                         <option value="Sleeping Items">Sleeping Items</option>
                         <option value="Collars">Collars</option>

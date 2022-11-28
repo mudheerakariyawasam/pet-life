@@ -13,7 +13,6 @@
         <span class="name">NAME</span>
         <button type="submit" class="notification"><img src="images/bell.png"></button>
         <button type="submit" class="messages"><img src="images/message-square.png"></button>
-        <button type="submit" class="logout">logout</button>
     </div>
 </body>
 </html>

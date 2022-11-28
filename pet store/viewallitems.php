@@ -1,5 +1,5 @@
 <?php
-   include("dbconnection.php");
+   include("data/dbconnection.php");
    include ("header.php");
 ?>
 
@@ -19,12 +19,12 @@
     
         <div class="navbar">
             <ul>
-                <li><a href="dashboard.php">Home</a></li>
-                <li><a class="active" href="#">Pet Items</a></li>
-                <li><a href="viewallmedicine.php">Medicine</a></li>
-                <li><a href="#">Leave Requests</a></li>
-                <li><a href="#">My Profile</a></li>
-                <li><a href="#">Logout</a></li>
+            <li><a  href="dashboard.php"><img src ="images/nav_home.png" class="nav_icon">Home</a></li>
+                <li><a class="active" href="viewallitems.php"><img src ="images/nav_item.png" class="nav_icon">Pet Items</a></li>
+                <li><a href="viewallmedicine.php"><img src ="images/nav_medicine.png" class="nav_icon">Medicine</a></li>
+                <li><a href="#"><img src ="images/nav_holiday.png" class="nav_icon">Leave Requests</a></li>
+                <li><a href="#"><img src ="images/nav_profile.png" class="nav_icon">My Profile</a></li>
+                <li><a href="#"><img src ="images/nav_logout.png" class="nav_icon">Logout</a></li>
             </ul>
         </div>
     

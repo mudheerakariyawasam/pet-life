@@ -1,7 +1,8 @@
 body{
   margin: 0;
-  
+  font-size: 15px;
 }
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -13,7 +14,7 @@ ul {
 li a {
   display: block;
   color: #000;
-  padding: 40px 16px;
+  padding: 16px 16px;
   text-decoration: none;
 }
 
@@ -25,4 +26,10 @@ li a.active {
 li a:hover:not(.active) {
   background-color: #f1f1f1;
   color: #C38D9E;
+}
+
+nav_icon{
+  width: 20px;
+  height: 20px;
+  padding-right: 20px;
 }
