@@ -2,6 +2,7 @@
    include("dbconnection.php");
 
    session_start();
+ 
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       
@@ -19,7 +20,7 @@
         if($result==TRUE) { 
             header("location: viewpet.php");
         }else {
-            $error = "There is an error in adding!";
+            echo "There is an error in adding!";
         }
    }
 ?>
@@ -41,46 +42,20 @@
 <div class="topic">
         <span class="welcome">Welcome</span>
         <span class="name">NAME</span>
-        <button type="submit" class="notification"><img src="images/bell.png"></button>
-        <button type="submit" class="messages"><img src="images/message-square.png"></button>
-        <button type="submit" class="logout">logout</button>
+        <button type="submit" class="notification"><a href="#"><img src="images/bell.png"></a></button>
+        <button type="submit" class="messages"><a href="#"><img src="images/message-square.png"></a></button>
+        <button type="submit" class="logout"><a href="./home.php">logout</a></button>
     </div>
 
     <div class="container">
 
         <div class="left">
             <form method="POST">
-            <?php
-                
-                $sql_get_id="SELECT pet_id FROM pet ORDER BY pet_id DESC LIMIT 1";
-                $result_get_id=mysqli_query($conn,$sql_get_id);
-                $row=mysqli_fetch_array($result_get_id);
-            
-                $lastid="";
-                                
-                if(mysqli_num_rows($result_get_id)>0){
-                    $lastid=$row['pet_id'];
-                }
-            
-                if($lastid==""){
-                    $id="I001";
-                }else {
-                    $pet_id=substr($lastid,3);
-                    $pet_id=intval($pet_id);
-            
-                    if($pet_id>='9'){
-                        $pet_id="I0".($pet_id+1);
-                    } else if($pet_id>='99'){
-                        $pet_id="I".($pet_id+1);
-                    }else{
-                        $pet_id="I00".($pet_id+1);
-                    }
-                }
-                            ?>
+           
                 <p class="welcome">Register your pet here</p>
                 <div class="form-content">
                     <label class="loging-label1">Pet ID</label>
-                    <input type="text" name="pet_id" placeholder="petID" value="<?php echo $pet_id?>" disabled>
+                    <input type="text" name="pet_id" placeholder="petID">
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Pet's Name</label>
@@ -109,7 +84,7 @@
                 </div>
                 <p>
                     <button class="btn-login" type="submit">Register</button>
-                    <button class="btn-exit" type="submit">Cancel</button>
+                    <button class="btn-exit" type="submit"><a href="./dashboard.php">Cancel</a></button>
                 </p>
             </form>
         </div>

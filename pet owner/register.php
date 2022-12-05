@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result == TRUE) {
         header("location: dashboard.php");
     } else {
-        $error = "There is an error in adding!";
+        echo "There is an error in adding!";
     }
 
 }
@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="navbar">
         <div class="normal-link">
-            <div class="nav-item item1 active-home"><a href="./index.php">Home</a></div>
+            <div class="nav-item item1 active-home"><a href="./home.php">Home</a></div>
             <div class="nav-item item2"><a href="./aboutus.php">About us</a></div>
             <div class="nav-item item3"><a href="./vip.php">VIP Programs</a></div>
             <div class="nav-item item2"><a href="./services.php">Services</a></div>
@@ -89,17 +89,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Password</label>
-                    <input type="text" name="owner_pwd" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}" 
+                    <input type="password" name="owner_pwd" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}" 
                     title="Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters" required>
                 </div>
 
                 <p>
                     <button class="btn-login" type="submit">Sign Up</button>
-                    <button class="btn-exit" type="submit">Cancel</button>
+                    <button class="btn-exit" type="submit"><a href="./home.php">Cancel</a></button>
                 </p>
             </form>
 
-            <span class="psw">Already have an account? <a href="#">Login</a></span>
+            <span class="psw">Already have an account? <a href="./login.php">Login</a></span>
         </div>
 
         <div class="right">

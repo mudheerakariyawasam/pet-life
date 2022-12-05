@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         header("location: dashboard.php");
     } else {
-        $error = "Your Login email or Password is invalid";
+        echo "Your Login email or Password is invalid";
     }
 
    
@@ -52,18 +52,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="pet_life">PET LIFE</p>
                 <div class="form-content">
                     <label class="loging-label1">Email</label>
-                    <input type="text" name="owner_email" placeholder="email" required>
+                    <input type="email" name="owner_email" placeholder="email" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label2">Password</label>
                     <input type="password" name="owner_pwd" placeholder="password" required><br>
                 </div>
                 <p>
-                    <button class="btn-login" type="submit">Login</button>
-                    <button class="btn-exit" type="submit">Cancel</button>
+                    <button class="btn-login" type="submit" >Login</button>
+                    
+                    <button class="btn-exit" type="submit" onclick="document.location='home.php'">Cancel</button>
                 </p>
 
-                <span class="psw">Don't have an account? <a href="#">Sign In</a></span>
+                <span class="psw">Don't have an account? <a href="./register.php">Sign In</a></span>
 
             </form>
         </div>
