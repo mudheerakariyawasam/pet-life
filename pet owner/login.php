@@ -65,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </p>
 
                 <span class="psw">Don't have an account? <a href="./register.php">Sign In</a></span>
+                <span class="psw"><a href="./resetpss.php">Forgot Password? </a></span>
 
             </form>
         </div>
