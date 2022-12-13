@@ -8,10 +8,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $owner_email = mysqli_real_escape_string($conn, $_POST['owner_email']);
     $owner_pwd = mysqli_real_escape_string($conn, $_POST['owner_pwd']);
 
+
+
     $sql = "SELECT * FROM pet_owner WHERE owner_email = '$owner_email' and owner_pwd = '$owner_pwd'";
+    
     $result = mysqli_query($conn, $sql);
+    
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    print_r($row);
     //$active = $row['active'];
+   
+    $hashed_pw = $row['owner_pwd'];
+
+    $verify = password_verify($owner_pwd, $hashed_pw);
 
     $count = mysqli_num_rows($result);
 
@@ -26,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Your Login email or Password is invalid";
     }
 
-   
+
 }
 ?>
 
@@ -59,8 +68,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="password" name="owner_pwd" placeholder="password" required><br>
                 </div>
                 <p>
-                    <button class="btn-login" type="submit" >Login</button>
-                    
+                    <button class="btn-login" type="submit">Login</button>
+
                     <button class="btn-exit" type="submit" onclick="document.location='home.php'">Cancel</button>
                 </p>
 

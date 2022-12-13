@@ -14,10 +14,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $owner_nic = $_POST['owner_nic'];
     $owner_pwd = $_POST['owner_pwd'];
 
+    $password_hash = password_hash('owner_pwd', PASSWORD_DEFAULT);
 
 
-    $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$owner_pwd')";
+
+    $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$password_hash')";
     $result = mysqli_query($conn, $sql);
+
+    $name = $_POST["$owner_fname"];
+    if (!preg_match("/^[a-zA-z]*$/", $name)) {
+        $ErrMsg = "Only alphabets and whitespace are allowed.";
+        echo $ErrMsg;
+    } else {
+        echo $name;
+    }
 
     if ($result == TRUE) {
         header("location: dashboard.php");
@@ -61,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="form-content">
                     <label class="loging-label1">Owner ID</label>
-                    <input type="text" name="owner_id" placeholder="Owner ID">
+                    <input type="number" name="owner_id" placeholder="Owner ID" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">First Name</label>
@@ -69,28 +79,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Last Name</label>
-                    <input type="text" name="owner_lname" placeholder="last name">
+                    <input type="text" name="owner_lname" placeholder="last name" pattern="[A-Za-z]" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Email</label>
-                    <input type="email" name="owner_email" placeholder="email">
+                    <input type="email" name="owner_email" placeholder="email" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Phone</label>
-                    <input type="number" name="owner_contactno" placeholder="phone">
+                    <input type="number" name="owner_contactno" placeholder="phone" pattern="{10}" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Address</label>
-                    <input type="text" name="owner_address" placeholder="address">
+                    <input type="text" name="owner_address" placeholder="address" pattern="[A-Za-z]{1,32}" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">NIC</label>
-                    <input type="text" name="owner_nic" placeholder="NIC">
+                    <input type="text" name="owner_nic" placeholder="NIC" pattern="[A-Za-z]{1,32}" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Password</label>
-                    <input type="password" name="owner_pwd" placeholder="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}" 
-                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters" required>
+                    <input type="password" name="owner_pwd" placeholder="password"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}"
+                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters"
+                        required>
                 </div>
 
                 <p>
