@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +14,7 @@
 <body>
     <div class="topic">
         <span class="welcome">Welcome </span>
-        <span class="name">NAME</span>
+        <span class="name"><?php echo $_SESSION['user_name'] ?></span>
         <button type="submit" class="notification"><img src="images/bell.png"></button>
         <button type="submit" class="messages"><img src="images/message-square.png"></button>
     </div>

@@ -2,6 +2,8 @@
     include("data/dbconnection.php");
     include("header.php");
 
+    // session_start();
+
     //Get the total no of items in the database
 
     $sql_total="SELECT COUNT(*) AS total FROM pet_item";
