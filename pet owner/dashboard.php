@@ -1,5 +1,10 @@
 <?php
 include("dbconnection.php");
+session_start();
+if (!isset($_SESSION['login_user'])) {
+    header("Location:login.php");
+    exit;
+}
 
 //Get the total no of items in the database
 
@@ -54,16 +59,35 @@ if (mysqli_num_rows($result_total2) > 0) {
 
 <body>
 
+
+
     <div class="topic">
         <span class="welcome">Welcome </span>
         <span class="name">NAME</span>
         <button type="submit" class="notification"><img src="images/bell.png"></button>
         <button type="submit" class="messages"><img src="images/message-square.png"></button>
-        <button type="submit" class="logout">logout</button>
+        <button type="submit" class="logout"><a href="./logout.php">logout</a></button>
     </div>
 
+ 
+
     <div class="container">
+
+ <div class="nav_bar">
+        <ul>
+            <li><a class="active" href="#">Home</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Treatments</a></li>
+            <li><a href="#">Vaccinations</a></li>
+            <li><a href="#">My Profile</a></li>
+            <li><a href="#">VIP Programmes</a></li>
+            <li><a href="#">Pet Shop</a></li>
+            <li><a href="#">Inquiries</a></li>
+        </ul>
+    </div>
+    
         <div class="summary">
+       
             <div class="summary-content  total-items">
                 <a href="appointment.php">
                     <span class="tot">Your Upcoming Appointments</span><br>
@@ -79,7 +103,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                 <span class="number">
                     <?php echo $total1; ?>
                 </span>
-                <div><button class="shopping-cart">Register Here</div>
+                <div><button class="shopping-cart"><a href="./addpet.php">Register Here</a></div>
             </div>
 
             <div class="summary-content out-of-stock">
@@ -90,19 +114,8 @@ if (mysqli_num_rows($result_total2) > 0) {
                 <div><img class="shopping-cart" src="images/shopping-bag.png"></div>
             </div>
         </div>
-</div>
-       
-    <ul>
-            <li><a class="active" href="#">Home</a></li>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Treatments</a></li>
-            <li><a href="#">Vaccinations</a></li>
-            <li><a href="#">My Profile</a></li>
-            <li><a href="#">VIP Programmes</a></li>
-            <li><a href="#">Pet Shop</a></li>
-            <li><a href="#">Inquiries</a></li>
-        </ul>
-   
+    </div>
+
 
 </body>
 

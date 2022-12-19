@@ -118,12 +118,12 @@ body{
 
 .shopping-cart{
   width: 70px;
-  height: 70px;
+  height: 50px;
 }
 
 .best-summary{
    
-    display: flex;
+    display:flex;
     flex-direction: row;
     justify-content: space-around;
 }
@@ -137,14 +137,14 @@ body{
 
 .container{
     margin-left: 140px;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 button {
     float: right;
     padding: 10px 15px;
     color: black;
-    margin-right: 70px;
+    margin-right: 90px;
     border: none;
     width: 300px;
     background-color: #C38D9E;
