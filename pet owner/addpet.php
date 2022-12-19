@@ -14,7 +14,7 @@
         $pet_breed=$_POST['pet_breed'];
         $owner_id=$_POST['owner_id'];
  
-        $sql = "INSERT INTO pet VALUES ('$pet_id','$pet_name','$pet_gender','$pet_dob','$pet_type','$pet_breed')";
+        $sql = "INSERT INTO pet VALUES ('$pet_id','$pet_name','$pet_gender','$pet_dob','$pet_type','$pet_breed','$owner_id')";
         $result = mysqli_query($conn,$sql);
         
         if($result==TRUE) { 
@@ -77,6 +77,10 @@
                 <div class="form-content">
                     <label class="loging-label1">Breed</label>
                     <input type="text" name="pet_breed" placeholder="breed">
+                </div>
+                <div class="form-content">
+                    <label class="loging-label1">Owner ID<label>
+                    <input type="text" name="owner_id" placeholder="ownerID">
                 </div>
                 <p>
                     <button class="btn-login" type="submit">Register</button>

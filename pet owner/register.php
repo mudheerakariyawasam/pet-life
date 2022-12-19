@@ -16,10 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $password_hash = password_hash('owner_pwd', PASSWORD_DEFAULT);
 
-
-
-    $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$password_hash')";
-    $result = mysqli_query($conn, $sql);
+    $name = $_POST["$owner_lname"];
+    if (!preg_match("/^[a-zA-z]*$/", $name)) {
+        $ErrMsg = "Only alphabets and whitespace are allowed.";
+        echo $ErrMsg;
+    } else {
+        echo $name;
+    }
 
     $name = $_POST["$owner_fname"];
     if (!preg_match("/^[a-zA-z]*$/", $name)) {
@@ -29,8 +32,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo $name;
     }
 
+
+
+    $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$password_hash')";
+    $result = mysqli_query($conn, $sql);
+
+   
+
     if ($result == TRUE) {
-        header("location: dashboard.php");
+        header("location: login.php");
     } else {
         echo "There is an error in adding!";
     }
@@ -75,11 +85,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">First Name</label>
-                    <input type="text" name="owner_fname" placeholder="first name">
+                    <input type="text" name="owner_fname" placeholder="first name" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Last Name</label>
-                    <input type="text" name="owner_lname" placeholder="last name" pattern="[A-Za-z]" required>
+                    <input type="text" name="owner_lname" placeholder="last name" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Email</label>
@@ -87,15 +97,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Phone</label>
-                    <input type="number" name="owner_contactno" placeholder="phone" pattern="{10}" required>
+                    <input type="number" name="owner_contactno" placeholder="phone" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Address</label>
-                    <input type="text" name="owner_address" placeholder="address" pattern="[A-Za-z]{1,32}" required>
+                    <input type="text" name="owner_address" placeholder="address" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">NIC</label>
-                    <input type="text" name="owner_nic" placeholder="NIC" pattern="[A-Za-z]{1,32}" required>
+                    <input type="text" name="owner_nic" placeholder="NIC"required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Password</label>

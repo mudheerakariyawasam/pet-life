@@ -13,9 +13,19 @@
     <title>Document</title>
 </head>
 <body>
+
+<div class="topic">
+        <span class="welcome">Welcome </span>
+        <span class="name">NAME</span>
+        <button type="submit" class="notification"><img src="images/bell.png"></button>
+        <button type="submit" class="messages"><img src="images/message-square.png"></button>
+        <button type="submit" class="logout">logout</button>
+    </div>
+
     <div class="main-container">
     
-        <div class="navbar">
+   
+    <div class="navbar">
             <ul>
             <li><a  href="dashboard.php"><img src ="images/nav_home.png" class="nav_icon">Home</a></li>
                 <li><a class="active" href="treatments.php"><img src ="images/nav_item.png" class="nav_icon">Treatments</a></li>
@@ -67,7 +77,7 @@
                     
                         echo '<tr > 
                             <td>' . $row["pet_id"] . '</td>
-                            <td class="details">' . $row["pet_name"] . '<br>'. '<br><br>'.$row["pet_id"].'</td>
+                            <td class="details">' . $row["pet_name"] .'</td>
                             <td> ' . $row["pet_name"] . '</td>
                             <td>' . $row["pet_gender"] . '</td> 
                             <td>' . $row["pet_dob"] . '</td>
