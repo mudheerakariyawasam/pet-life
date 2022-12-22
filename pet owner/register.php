@@ -1,11 +1,10 @@
 <?php
 include("dbconnection.php");
 
-session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $owner_id = $_POST['owner_id'];
+    // $owner_id = $_POST['owner_id'];
     $owner_fname = $_POST['owner_fname'];
     $owner_lname = $_POST['owner_lname'];
     $owner_email = $_POST['owner_email'];
@@ -14,23 +13,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $owner_nic = $_POST['owner_nic'];
     $owner_pwd = $_POST['owner_pwd'];
 
-    $password_hash = password_hash('owner_pwd', PASSWORD_DEFAULT);
+    $hashedPassword = md5($owner_pwd); 
 
 
 
-    $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$password_hash')";
+    $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$hashedPassword')";
     $result = mysqli_query($conn, $sql);
 
-    $name = $_POST["$owner_fname"];
-    if (!preg_match("/^[a-zA-z]*$/", $name)) {
-        $ErrMsg = "Only alphabets and whitespace are allowed.";
-        echo $ErrMsg;
-    } else {
-        echo $name;
-    }
+   
 
     if ($result == TRUE) {
-        header("location: dashboard.php");
+        header("location: login.php");
     } else {
         echo "There is an error in adding!";
     }
@@ -69,17 +62,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method="POST" action="">
                 <p class="welcome">Sign Up Free</p>
 
-                <div class="form-content">
+                <!-- <div class="form-content">
                     <label class="loging-label1">Owner ID</label>
-                    <input type="number" name="owner_id" placeholder="Owner ID" required>
-                </div>
+                    <input type="text" name="owner_id" placeholder="Owner ID" required>
+                </div> -->
                 <div class="form-content">
                     <label class="loging-label1">First Name</label>
-                    <input type="text" name="owner_fname" placeholder="first name">
+                    <input type="text" name="owner_fname" placeholder="first name" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Last Name</label>
-                    <input type="text" name="owner_lname" placeholder="last name" pattern="[A-Za-z]" required>
+                    <input type="text" name="owner_lname" placeholder="last name" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Email</label>
@@ -87,15 +80,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Phone</label>
-                    <input type="number" name="owner_contactno" placeholder="phone" pattern="{10}" required>
+                    <input type="number" name="owner_contactno" placeholder="phone" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Address</label>
-                    <input type="text" name="owner_address" placeholder="address" pattern="[A-Za-z]{1,32}" required>
+                    <input type="text" name="owner_address" placeholder="address" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">NIC</label>
-                    <input type="text" name="owner_nic" placeholder="NIC" pattern="[A-Za-z]{1,32}" required>
+                    <input type="text" name="owner_nic" placeholder="NIC"required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Password</label>

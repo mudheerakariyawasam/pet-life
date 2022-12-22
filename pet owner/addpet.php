@@ -2,23 +2,33 @@
    include("dbconnection.php");
 
    session_start();
- 
+   if(!isset($_SESSION['login_user']))
+   {
+    header("Location:login.php");
+    exit;
+   } 
+
+        $loggedInUser = $_SESSION['login_user'];
+        $sql2 =  "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";
+        $result2 = mysqli_query($conn, $sql2);
+        $row2 = mysqli_fetch_assoc($result2);
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       
-        $pet_id = $_POST['pet_id'];
+        $pet_id = '';
         $pet_name = $_POST['pet_name'];
         $pet_gender=$_POST['pet_gender'];
         $pet_dob=$_POST['pet_dob'];
         $pet_type=$_POST['pet_type'];
         $pet_breed=$_POST['pet_breed'];
-        $owner_id=$_POST['owner_id'];
+        $owner_id=$row2['owner_id'];
  
-        $sql = "INSERT INTO pet VALUES ('$pet_id','$pet_name','$pet_gender','$pet_dob','$pet_type','$pet_breed')";
+        $sql = "INSERT INTO pet VALUES ('$pet_id','$pet_name','$pet_gender','$pet_dob','$pet_type','$pet_breed','$owner_id')";
         $result = mysqli_query($conn,$sql);
+        print_r($result);
         
         if($result==TRUE) { 
-            header("location: viewpet.php");
+            header("Location: viewpet.php");
         }else {
             echo "There is an error in adding!";
         }
@@ -44,7 +54,7 @@
         <span class="name">NAME</span>
         <button type="submit" class="notification"><a href="#"><img src="images/bell.png"></a></button>
         <button type="submit" class="messages"><a href="#"><img src="images/message-square.png"></a></button>
-        <button type="submit" class="logout"><a href="./home.php">logout</a></button>
+        <button type="submit" class="logout"><a href="./logout.php">logout</a></button>
     </div>
 
     <div class="container">
@@ -53,10 +63,10 @@
             <form method="POST">
            
                 <p class="welcome">Register your pet here</p>
-                <div class="form-content">
+                <!-- <div class="form-content">
                     <label class="loging-label1">Pet ID</label>
                     <input type="text" name="pet_id" placeholder="petID">
-                </div>
+                </div> -->
                 <div class="form-content">
                     <label class="loging-label1">Pet's Name</label>
                     <input type="text" name="pet_name" placeholder="name">
@@ -78,9 +88,14 @@
                     <label class="loging-label1">Breed</label>
                     <input type="text" name="pet_breed" placeholder="breed">
                 </div>
+                <!-- <div class="form-content">
+                    <label class="loging-label1">Owner ID</label>
+                    <input type="text" name="owner_id" placeholder="owner ID">
+                </div> -->
+               
                 <p>
                     <button class="btn-login" type="submit">Register</button>
-                    <button class="btn-exit" type="submit"><a href="./dashboard.php">Cancel</a></button>
+                    <!-- <button class="btn-exit" type="submit"><a href="./dashboard.php">Cancel</a></button> -->
                 </p>
             </form>
         </div>

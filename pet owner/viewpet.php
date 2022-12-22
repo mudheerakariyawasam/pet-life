@@ -1,5 +1,11 @@
 <?php
    include("dbconnection.php");
+    session_start();
+   if(!isset($_SESSION['login_user']))
+    {
+     header("Location:login.php");
+     exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +19,19 @@
     <title>Document</title>
 </head>
 <body>
+
+<div class="topic">
+        <span class="welcome">Welcome </span>
+        <span class="name">NAME</span>
+        <button type="submit" class="notification"><img src="images/bell.png"></button>
+        <button type="submit" class="messages"><img src="images/message-square.png"></button>
+        <button type="submit" class="logout"><a href="./logout.php">logout</a></button>
+    </div>
+
     <div class="main-container">
     
-        <div class="navbar">
+   
+    <div class="navbar">
             <ul>
             <li><a  href="dashboard.php"><img src ="images/nav_home.png" class="nav_icon">Home</a></li>
                 <li><a class="active" href="treatments.php"><img src ="images/nav_item.png" class="nav_icon">Treatments</a></li>
@@ -48,14 +64,23 @@
         </div>
         <!--View All Items Code-->
         <?php
-                $sql = "SELECT * FROM pet";
+        $loggedInUser = $_SESSION['login_user'];
+       
+
+        
+   
+                $sql2 =  "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";
+                $result2 = mysqli_query($conn, $sql2);
+                $row2 = mysqli_fetch_assoc($result2);
+
+                $sql = "SELECT * FROM pet WHERE owner_id ='{$row2['owner_id']}'";
                 
                 $result = mysqli_query($conn, $sql);
                 if(mysqli_num_rows($result) > 0)
                 {
                     echo '<table>
                     <tr>
-                        <th colspan="2">Pet Details</th>
+                        <th>Pet ID</th>
                         <th>Pet Name</th>
                         <th>Gender</th>
                         <th>DOB</th>
@@ -67,7 +92,6 @@
                     
                         echo '<tr > 
                             <td>' . $row["pet_id"] . '</td>
-                            <td class="details">' . $row["pet_name"] . '<br>'. '<br><br>'.$row["pet_id"].'</td>
                             <td> ' . $row["pet_name"] . '</td>
                             <td>' . $row["pet_gender"] . '</td> 
                             <td>' . $row["pet_dob"] . '</td>
