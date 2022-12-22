@@ -2,13 +2,13 @@
 include("dbconnection.php");
 session_start();
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // username and password sent from form 
 
-    if(empty($_POST["owner_email"]) ){  
-        echo '<script>alert("Email is required")</script>';  
-      
-    } else if(empty($_POST["owner_pwd"])){
+    if (empty($_POST["owner_email"])) {
+        echo '<script>alert("Email is required")</script>';
+
+    } else if (empty($_POST["owner_pwd"])) {
         echo '<script>alert("Password is required")</script>';
     } else {
         $owner_email = mysqli_real_escape_string($conn, $_POST['owner_email']);
@@ -16,16 +16,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $sql = "SELECT * FROM pet_owner WHERE owner_email = '$owner_email'";
         $result = mysqli_query($conn, $sql);
-        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-         
-        if (mysqli_num_rows($result) > 0){
-                $hashedPassword = md5($owner_pwd);
-                if ($hashedPassword == $row["owner_pwd"]){   
-                    $_SESSION['login_user'] = $owner_email;
-                    header("location: ../pet owner/dashboard1.php");
-                } else { 
-                    echo '<script>alert("Wrong User Details")</script>';
-                }
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+        if (mysqli_num_rows($result) > 0) {
+            $hashedPassword = md5($owner_pwd);
+            if ($hashedPassword == $row["owner_pwd"]) {
+                $_SESSION['login_user'] = $owner_email;
+                header("location: ../pet owner/dashboard1.php");
+            } else {
+                echo '<script>alert("Wrong User Details")</script>';
+            }
         }
     }
 }
@@ -64,10 +64,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <button class="btn-exit" type="submit" onclick="document.location='home.php'">Cancel</button>
                 </p>
-
-                <span class="psw">Don't have an account? <a href="./register.php">Sign Up</a></span>
-                <span class="psw"><a href="./resetpss.php">Forgot Password? </a></span>
-
+                <div>
+                    <span class="psw">Don't have an account? <a href="./register.php">Sign Up</a></span>
+                    <span class="psw"><a href="./resetpss.php">Forgot Password? </a></span>
+                </div>
             </form>
         </div>
     </div>

@@ -61,29 +61,30 @@ if (mysqli_num_rows($result_total2) > 0) {
 <body>
     <div class="sidebar">
         <div class="user-img">
-            <center><img src="images/user.png" width= 150px><br />Mr.Kane Phillip</center>
+            <center><img src="images/petlife.png" width= 200px></center>
         </div>
         <ul>
+            
             <li>
                 <a href="#" class="active"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-calendar-plus"></i><span>Appointments</span></a>
+                <a href="#"><i class="fa-solid fa-calendar-plus"></i><span>Treatments</span></a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-user"></i></i><span>Clients</span></a>
+                <a href="#"><i class="fa-solid fa-file-lines"></i></i><span>Vaccinations</span></a>
             </li>
             <li>
-                <a href="staff.php"><i class=" fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
+                <a href="staff.php"><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
+                <a href="#"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
+                <a href="#"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+                <a href="#"><i class="fa fa-user"></i><span>Inquiries</span></a>
             </li>
         </ul>
         <div class="logout">
@@ -137,7 +138,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <p>2</p>
                     </div>
                     <div>
-                        <button class="register-btn"><a href="./addpet.php">Register New</a></button>
+                        <button class="register-btn"><a href="./makeappointments.php">Register New</a></button>
                     </div>
                 </div>
 
