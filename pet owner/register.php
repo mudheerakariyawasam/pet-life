@@ -4,6 +4,8 @@ include("dbconnection.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    
+
     // $owner_id = $_POST['owner_id'];
     $owner_fname = $_POST['owner_fname'];
     $owner_lname = $_POST['owner_lname'];
