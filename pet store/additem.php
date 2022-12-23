@@ -88,7 +88,7 @@
         </ul>
         <div class="logout">
             <hr>
-            <a href="#"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>        
     </div>
     

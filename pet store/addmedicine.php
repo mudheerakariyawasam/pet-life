@@ -1,7 +1,11 @@
 <?php
-   include("data/dbconnection.php");
-   include("header.php");
-   
+    include("data/dbconnection.php");
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("location:login.php");
+        exit;
+    }
+
     $sql_get_id="SELECT medicine_id FROM medicine ORDER BY medicine_id DESC LIMIT 1";
     $result_get_id=mysqli_query($conn,$sql_get_id);
     $row=mysqli_fetch_array($result_get_id);
@@ -50,31 +54,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/add.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <title>Add New Medicine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <title>Document</title>
 </head>
 <body>
     <div class="main-container">
-        
-    <div class="navbar">
-            <ul>
-                <li><a  href="dashboard.php"><img src ="images/nav_home.png" class="nav_icon">Home</a></li>
-                <li><a  href="viewallitems.php"><img src ="images/nav_item.png" class="nav_icon">Pet Items</a></li>
-                <li><a class="active" href="viewallmedicine.php"><img src ="images/nav_medicine.png" class="nav_icon">Medicine</a></li>
-                <li><a href="#"><img src ="images/nav_holiday.png" class="nav_icon">Leave Requests</a></li>
-                <li><a href="#"><img src ="images/nav_profile.png" class="nav_icon">My Profile</a></li>
-                <li><a href="#"><img src ="images/nav_logout.png" class="nav_icon">Logout</a></li>
-            </ul>
+
+    <!-- left side nav bar -->
+
+    <div class="left-container">
+        <div class="user-img">
+            <center><img src="images/logo_transparent black.png"></center>
         </div>
-             
-        <div class="container">
-        <div class="content">
-            <span class="pet-item">MEDICINE</span>
-            <br>
-            <span class="main-topic">Add New Medicine</span>
-            <span class="sub-topic">Add the information about the medicine</span>
-            <br>
-            
+        <ul>
+                <li><a  href="dashboard.php"><i class="fa fa-tachometer"></i><span>Home</span></a></li>
+                <li><a href="viewallitems.php"><i class="fa fa-paw"></i><span>Pet Items</span></a></li>
+                <li><a class="active" href="viewallmedicine.php"><i class="fa fa-stethoscope"></i><span>Medicine</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a></li>
+                <li><a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a></li>
+        </ul>
+        <div class="logout">
+            <hr>
+            <a href="logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+        </div>        
+    </div>
+    
+    
+    <!-- right side container -->
+
+    <div class="right-container">
+    
+        <div class="top-bar">
+            <div class="nav-icon">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="hello">
+                <font class="header-font-1">Welcome </font> &nbsp
+                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+            </div>
+        </div>
+    
+        <div class="content" style="background-size: cover;
+            background-position: center;
+            height: 100vh;">
+        
+            <p class="topic">Add New Medicine</p><hr><br>
+        
             <form method="POST">
                 <label><b>Item ID : </label> 
                 <label class="item-id" name="medicine_id" ><?php echo $medicine_id;?></b><br><br>
@@ -99,11 +124,9 @@
                 <a class="btn-exit" href="viewallmedicine.php">Exit</a>
                 
             </form> 
-
         </div>
     </div>
-
-
+    
     </div>
 </body>
 </html>

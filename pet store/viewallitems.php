@@ -5,46 +5,6 @@
         header("location:login.php");
         exit;
     }
-
-    //Get the total no of items in the database
-
-    $sql_total="SELECT COUNT(*) AS total FROM pet_item";
-    $result_total = mysqli_query($conn, $sql_total);
-    $row=mysqli_fetch_array($result_total);
-    $total="";
-                    
-    if(mysqli_num_rows($result_total)>0){
-        $total=$row['total'];
-        
-    }else {
-        $total="0";
-    }
-    
-    //get the items which are low in stock (<15)
-    $sql_low="SELECT COUNT(*) AS low FROM pet_item WHERE item_qty<15 AND item_qty>0";
-    $result_low = mysqli_query($conn, $sql_low);
-    $row=mysqli_fetch_array($result_low);
-    $low="";
-                    
-    if(mysqli_num_rows($result_low)>0){
-        $low=$row['low'];
-        
-    }else {
-        $low="0";
-    } 
-
-    //get the items which are out in stock 
-    $sql_out="SELECT COUNT(*) AS outofstock FROM pet_item WHERE item_qty=0";
-    $result_out = mysqli_query($conn, $sql_out);
-    $row=mysqli_fetch_array($result_out);
-    $outofstock="";
-                    
-    if(mysqli_num_rows($result_out)>0){
-        $outofstock=$row['outofstock'];
-        
-    }else {
-        $outofstock="0";
-    } 
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +35,7 @@
         </ul>
         <div class="logout">
             <hr>
-            <a href="#"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>        
     </div>
     

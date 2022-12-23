@@ -1,6 +1,11 @@
 <?php
-   include("data/dbconnection.php");
-   include ("header.php");
+    include("data/dbconnection.php");
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("location:login.php");
+        exit;
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -10,45 +15,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/viewitem.css">
-    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <title>Document</title>
 </head>
 <body>
     <div class="main-container">
+
+    <!-- left side nav bar -->
+
+    <div class="left-container">
+        <div class="user-img">
+            <center><img src="images/logo_transparent black.png"></center>
+        </div>
+        <ul>
+                <li><a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Home</span></a></li>
+                <li><a href="viewallitems.php"><i class="fa fa-paw"></i><span>Pet Items</span></a></li>
+                <li><a class="active" href="viewallmedicine.php"><i class="fa fa-stethoscope"></i><span>Medicine</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a></li>
+                <li><a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a></li>
+        </ul>
+        <div class="logout">
+            <hr>
+            <a href="logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+        </div>        
+    </div>
     
-        <div class="navbar">
-            <ul>
-            <li><a  href="dashboard.php"><img src ="images/nav_home.png" class="nav_icon">Home</a></li>
-                <li><a  href="viewallitems.php"><img src ="images/nav_item.png" class="nav_icon">Pet Items</a></li>
-                <li><a class="active" href="viewallmedicine.php"><img src ="images/nav_medicine.png" class="nav_icon">Medicine</a></li>
-                <li><a href="#"><img src ="images/nav_holiday.png" class="nav_icon">Leave Requests</a></li>
-                <li><a href="#"><img src ="images/nav_profile.png" class="nav_icon">My Profile</a></li>
-                <li><a href="#"><img src ="images/nav_logout.png" class="nav_icon">Logout</a></li>
-            </ul>
+    
+    <!-- right side container -->
+
+    <div class="right-container">
+    
+        <div class="top-bar">
+            <div class="nav-icon">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="hello">
+                <font class="header-font-1">Welcome </font> &nbsp
+                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+            </div>
         </div>
     
-        <div class="container">
+        <div class="content" style="
+            background-position: center;
+            height: 100vh;">
 
-        <span class="pet-item">MEDICINE</span>
-        <br><br><br>
-
+            <p class="topic"> Pet Medicine</p><hr><br>
         <!-- search items-->
         <div class="topbar">
             <div class="bar-content search-bar">
                 <form> 
-                    <label><b>Medicine ID </b></label><br>
-                    <input class ="item-id"type="text" name="medicine_id" placeholder="Enter Medicine ID">
-                    <button type="submit"><img src="images/search.png"></button>
+                    <label><b>Medicine ID </b></label>
+                    <input class ="item-id"type="text" name="item_id" placeholder="Enter Medicine ID">
+                    <button type="submit" class="search-btn"><img src="images/search.png"></button>
                 </form>
             </div>
-        <div class="bar-content add-bar">
-            <a href="addmedicine.php"> <button class="btn-add" type="submit">New Medicine</button></a>
-            <a href="addbatch.php"> <button class="btn-add" type="submit">New Batch</button></a>
-        </div>
+            <div class="bar-content add-bar">
+                <a href="addmedicine.php"> <button class="btn-add" type="submit">New Medicine</button></a><br>
+                <a href="addbatch.php"> <button class="btn-add" type="submit">New Batch</button></a>
+            </div>
 
         </div>
-        
+        <br>
         <!--View All Items Code-->
+    
         <?php
                 
                 $sql = "SELECT * FROM batch";
@@ -89,6 +118,7 @@
                 }
             ?>
         </div>
+</div>
     </div>
 </body>
 </html>

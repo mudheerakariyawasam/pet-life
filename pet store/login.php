@@ -20,6 +20,16 @@
                 $_SESSION['user_name'] = $row["emp_name"];
                 header("location: dashboard.php");
             }
+            if($row["emp_designation"]=="Pet owner"){
+                $_SESSION['login_user'] = $myemail;
+                $_SESSION['user_name'] = $row["emp_name"];
+                header("location: ../pet owner/dashboard1.php");
+            }
+            if($row["emp_designation"]=="Store manager"){
+                $_SESSION['login_user'] = $myemail;
+                $_SESSION['user_name'] = $row["emp_name"];
+                header("location: dashboard.php");
+            }
             
         } else {
             echo '<script>alert("Wrong User Details")</script>';
