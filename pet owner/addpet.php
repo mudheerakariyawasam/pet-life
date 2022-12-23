@@ -69,24 +69,24 @@
                 </div> -->
                 <div class="form-content">
                     <label class="loging-label1">Pet's Name</label>
-                    <input type="text" name="pet_name" placeholder="name">
+                    <input type="text" name="pet_name" placeholder="name" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Pet gender</label>
-                    <input type="text" name="pet_gender" placeholder="gender">
+                    <input type="text" name="pet_gender" placeholder="gender" required>
                     
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Date of birth</label>
-                    <input type="date" name="pet_dob" placeholder="dob">
+                    <input type="date" name="pet_dob" placeholder="dob" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Type</label>
-                    <input type="text" name="pet_type" placeholder="type of pet">
+                    <input type="text" name="pet_type" placeholder="type of pet" required>
                 </div>
                 <div class="form-content">
                     <label class="loging-label1">Breed</label>
-                    <input type="text" name="pet_breed" placeholder="breed">
+                    <input type="text" name="pet_breed" placeholder="breed" required>
                 </div>
                 <!-- <div class="form-content">
                     <label class="loging-label1">Owner ID</label>

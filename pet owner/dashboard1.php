@@ -173,7 +173,9 @@ if (mysqli_num_rows($result_total2) > 0) {
                 </div>
 
             </div>
-
+            <div>
+                        <button class="register-btn2"><a href="./viewpet.php">View Pets</a></button>
+                    </div>
         </div>
         <script src="script.js"></script>
 
