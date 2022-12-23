@@ -28,7 +28,7 @@ if (!isset($_SESSION['login_user'])) {
         <ul>
 
             <li>
-                <a href="#"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
+                <a href="dashboard1.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
                 <a href="#"><i class="fa-solid fa-calendar-plus"></i><span>Treatments</span></a>
@@ -64,7 +64,7 @@ if (!isset($_SESSION['login_user'])) {
                 <div class="nav-icon">
                     <i class="fa-solid fa-bars"></i>
                 </div>
-                <div class="hello">Welcome <div class="name">Name</div>
+                <div class="hello">Welcome &nbsp <div class="name"><?php echo $_SESSION['user_name'];?></div>
                 </div>
             </div>
 
