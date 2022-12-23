@@ -2,8 +2,6 @@
    include("data/dbconnection.php");
    include("header.php");
    
-    session_start();
-
     //get the next batch ID
 
     $sql_get_id="SELECT batch_id FROM batch ORDER BY batch_id DESC LIMIT 1";
@@ -85,7 +83,6 @@
             <span class="main-topic">Add New Batch</span>
             <span class="sub-topic">Add the information about the new batch</span>
             <br>
-            
             <form method="POST" >
                 <label><b>Batch ID : </label> 
                 <label class="item-id" name="batch_id" ><?php echo $batch_id;?></b><br><br>

@@ -1,51 +1,64 @@
 <?php
-   include("data/dbconnection.php");
-   include("header.php");
-   
+    include("data/dbconnection.php");
     session_start();
-    $sql_get_id="SELECT item_id FROM pet_item ORDER BY item_id DESC LIMIT 1";
-    $result_get_id=mysqli_query($conn,$sql_get_id);
-    $row=mysqli_fetch_array($result_get_id);
-
-    $lastid="";
-                    
-    if(mysqli_num_rows($result_get_id)>0){
-        $lastid=$row['item_id'];
+    if(!isset($_SESSION["login_user"])){
+        header("location:login.php");
+        exit;
     }
 
-    if($lastid==""){
-        $item_id="I001";
-    }else {
-        $item_id=substr($lastid,3);
-        $item_id=intval($item_id);
-
-        if($item_id>='9'){
-            $item_id="I0".($item_id+1);
-        } else if($item_id>='99'){
-            $item_id="I".($item_id+1);
-        }else{
-            $item_id="I00".($item_id+1);
-        }
-    }
-    
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
-        
-        $item_name=$_POST['item_name'];
-        $item_brand=$_POST['item_brand'];
-        $item_qty=$_POST['item_qty'];
-        $item_price=$_POST['item_price'];
-        $item_category=$_POST['item_category'];
-        
-        $sql = "INSERT INTO pet_item VALUES ('$item_id','$item_name','$item_brand','$item_qty','$item_price','$item_category')";
-        $result = mysqli_query($conn,$sql);
-        
-        if($result==TRUE) { 
-            header("location: dashboard.php");
-        }else {
-            $error = "There is an error in adding!";
-        }
-   }
-?>
+     $sql_get_id="SELECT item_id FROM pet_item ORDER BY item_id DESC LIMIT 1";
+     $result_get_id=mysqli_query($conn,$sql_get_id);
+     $row=mysqli_fetch_array($result_get_id);
+ 
+     $lastid="";
+                     
+     if(mysqli_num_rows($result_get_id)>0){
+         $lastid=$row['item_id'];
+     }
+ 
+     if($lastid==""){
+         $item_id="I001";
+     }else {
+         $item_id=substr($lastid,3);
+         $item_id=intval($item_id);
+ 
+         if($item_id>=9){
+             $item_id="I0".($item_id+1);
+         } else if($item_id>=99){
+             $item_id="I".($item_id+1);
+         }else{
+             $item_id="I00".($item_id+1);
+         }
+     }
+     
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+ 
+         //checking only numbers
+ 
+         if(!(is_numeric($_POST['item_qty']))){
+             echo '<script>alert("Please enter only numbers as the qty!")</script>';
+         }else if(!(is_numeric($_POST['item_price']))){
+             echo '<script>alert("Please enter only numbers as the price!")</script>';
+         }else{
+             $item_name=$_POST['item_name'];
+             $item_brand=$_POST['item_brand'];
+             $item_qty=$_POST['item_qty'];
+             $item_price=$_POST['item_price'];
+             $item_category=$_POST['item_category'];
+     
+             $sql = "INSERT INTO pet_item VALUES ('$item_id','$item_name','$item_brand','$item_qty','$item_price','$item_category')";
+             $result = mysqli_query($conn,$sql);
+             
+             if($result==TRUE) { 
+                 header("location: viewallitems.php");
+             }else {
+                 $error = "There is an error in adding!";
+             } 
+         }
+         
+     }
+     
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,42 +67,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/add.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <title>Add New Item</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <title>Document</title>
 </head>
 <body>
     <div class="main-container">
-        
-    <div class="navbar">
-            <ul>
-            <li><a  href="dashboard.php"><img src ="images/nav_home.png" class="nav_icon">Home</a></li>
-                <li><a class="active" href="viewallitems.php"><img src ="images/nav_item.png" class="nav_icon">Pet Items</a></li>
-                <li><a href="viewallmedicine.php"><img src ="images/nav_medicine.png" class="nav_icon">Medicine</a></li>
-                <li><a href="#"><img src ="images/nav_holiday.png" class="nav_icon">Leave Requests</a></li>
-                <li><a href="#"><img src ="images/nav_profile.png" class="nav_icon">My Profile</a></li>
-                <li><a href="#"><img src ="images/nav_logout.png" class="nav_icon">Logout</a></li>
-            </ul>
+
+    <!-- left side nav bar -->
+
+    <div class="left-container">
+        <div class="user-img">
+            <center><img src="images/logo_transparent black.png"></center>
         </div>
-             
-        <div class="container">
-        <div class="content">
-            <span class="pet-item">PET ITEMS</span>
-            <br>
-            <span class="main-topic">Add New Item</span>
-            <span class="sub-topic">Add the information about the item</span>
-            <br>
-            
+        <ul>
+                <li><a  href="dashboard.php"><i class="fa fa-tachometer"></i><span>Home</span></a></li>
+                <li><a class="active" href="viewallitems.php"><i class="fa fa-paw"></i><span>Pet Items</span></a></li>
+                <li><a href="viewallmedicine.php"><i class="fa fa-stethoscope"></i><span>Medicine</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a></li>
+                <li><a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a></li>
+        </ul>
+        <div class="logout">
+            <hr>
+            <a href="#"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+        </div>        
+    </div>
+    
+    
+    <!-- right side container -->
+
+    <div class="right-container">
+    
+        <div class="top-bar">
+            <div class="nav-icon">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="hello">
+                <font class="header-font-1">Welcome </font> &nbsp
+                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+            </div>
+        </div>
+    
+        <div class="content" style="background-size: cover;
+            background-position: center;
+            height: 100vh;">
+        
+            <p class="topic">Add New Item</p><hr><br>
+        
             <form method="POST">
                 <label><b>Item ID : </label> 
                 <label class="item-id" name="item_id" ><?php echo $item_id;?></b><br><br>
                 <label>Product Name</label><br>
-                <input type="text" name="item_name" placeholder="Product Name"><br>
+                <input type="text" name="item_name" placeholder="Product Name" required><br>
                 <label>Product Brand</label><br>
-                <input type="text" name="item_brand" placeholder="Product Brand"><br>
+                <input type="text" name="item_brand" placeholder="Product Brand" required><br>
                 <label>Qty</label><br>
-                <input type="text" name="item_qty" placeholder="Quantity"><br>
+                <input type="text" name="item_qty" placeholder="Quantity" required><br>
                 <label>Price</label><br>
-                <input type="text" name="item_price" placeholder="Price"><br>
+                <input type="text" name="item_price" placeholder="Price" required><br>
                 <label>Category</label><br>
                 <div class="dropdown-list" style="width:200px;">
                     <select name="item_category" class="dropdown-list" >
@@ -107,11 +141,9 @@
                 <a class="btn-exit" href="viewallitems.php">Exit</a>
                 
             </form> 
-
         </div>
     </div>
-
-
+    
     </div>
 </body>
 </html>

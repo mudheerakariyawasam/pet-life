@@ -1,0 +1,122 @@
+body{
+    font-family: poppins, sans-serif;
+    font-style: normal;
+    background-color: #A3CCD9;
+    margin: 0;
+    padding: 20px;
+}
+
+.topic{
+    font-size: 22px;
+    font-weight: 650;
+}
+.main-content{
+    display: flex;
+}
+
+.left-content{
+    width: 70%;
+}
+
+.right-content{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    background-color: #D9D9D9;
+    border-radius: 20px;
+    padding: 20px;
+    border-style: solid;
+    border-color: white;
+}
+
+.footer-content{
+    display: flex;
+}
+
+.skills{
+    width: 25%;
+}
+
+.experience{
+    width: 75%;
+    text-align: justify;
+}
+
+
+.pwd-content{
+    flex: 30%;
+}
+form{
+    font-size: 15px;   
+}
+
+input{
+    width: 350px;
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+    padding: 3px;
+    margin-bottom: 10px;
+}
+
+select.dropdown-list{
+    width: 350px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    padding: 3px;
+    margin-bottom: 10px;
+}
+
+.item-id{
+
+        width: 500px;
+        height: 30px;
+        border-radius: 8px;
+        border: none;
+        padding: 3px;
+        margin-bottom: 10px;
+}
+
+button{
+    font-size: 15px;
+    width: 150px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+}
+
+.btn-add{
+    background-color: #C38D9E;
+}
+
+.btn-exit{
+    background-color: #C38D9E;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 15px;
+    width: 150px;
+}
+
+a{
+    text-decoration: none;
+}
+.btn-exit:hover{
+    opacity: .70;
+}
+
+button:hover{
+    opacity: .70;
+}
+
+.row-wise{
+    display: flex;
+}
+
+.column-wise{
+    width: 50%;
+}
+
+label{
+    font-weight: 500;
+}

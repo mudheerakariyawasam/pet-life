@@ -2,7 +2,6 @@
    include("data/dbconnection.php");
    include("header.php");
    
-   session_start();
     $sql_get_id="SELECT medicine_id FROM medicine ORDER BY medicine_id DESC LIMIT 1";
     $result_get_id=mysqli_query($conn,$sql_get_id);
     $row=mysqli_fetch_array($result_get_id);
@@ -84,15 +83,13 @@
                 <label>Medicine Brand</label><br>
                 <input type="text" name="medicine_brand" placeholder="Medicine Brand"><br>
                 <label>Category</label><br>
-                <div class="dropdown-list" style="width:200px;">
+                <div class="dropdown-list">
                     <select name="medicine_category" class="dropdown-list">
-                        <option value="Pet Food">Pet Food</option>
-                        <option value="Sleeping Items">Sleeping Items</option>
-                        <option value="Collars">Collars</option>
-                        <option value="Toys">Toys</option>
-                        <option value="Combs">Toys</option>
-                        <option value="Food Bowls">Food Bowls</option>
-                        <option value="Other">Other</option>
+                        <option value="antibiotics">Antibiotics</option>
+                        <option value="antiparasitics">Antiparasitics</option>
+                        <option value="antifungals">Antifungals</option>
+                        <option value="steroids">Steroids</option>
+                        <option value="pain-relievers">Pain Relievers</option>
                     </select><br><br>
                 </div>
                 <label>Medicine Usage</label><br>

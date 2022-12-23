@@ -9,24 +9,22 @@
       $mypassword = mysqli_real_escape_string($conn,$_POST['password']); 
       
       $sql = "SELECT `emp_designation`,`emp_name` FROM employee WHERE emp_email = '$myemail' and emp_pwd = '$mypassword'";
-      $result = mysqli_query($conn,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      $active = $row['active'];
       
-      $count = mysqli_num_rows($result);
-      
-      // If result matched $myusername and $mypassword, table row must be 1 row
-		
-      if($count == 1) {
-         //session_register("myemail");
-         $_SESSION['login_user'] = $myemail;
-         $_SESSION['user_name'] = $row["emp_name"];
-         
-         header("location: dashboard.php");
-      }else {
-         $error = "Your Login Name or Password is invalid";
-      }
-   }
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        
+        if (mysqli_num_rows($result) > 0) {
+
+            if($row["emp_designation"]=="Store manager"){
+                $_SESSION['login_user'] = $myemail;
+                $_SESSION['user_name'] = $row["emp_name"];
+                header("location: dashboard.php");
+            }
+            
+        } else {
+            echo '<script>alert("Wrong User Details")</script>';
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -48,9 +46,9 @@
                 <p class="welcome">Welcome To</p>
                 <p class="pet_store">PET STORE</p>
                 <label>Email</label>
-                <input type="text" name="email" placeholder="email"><br>
+                <input type="text" name="email" placeholder="email" required><br>
                 <label>Password</label>
-                <input type="password" name="password" placeholder="password"><br> 
+                <input type="password" name="password" placeholder="password" required><br> 
                 <span class="psw">Don't have an account? <a href="#">Sign In</a></span>
                 <p>
                     <button class="btn-login" type="submit">Login</button>
