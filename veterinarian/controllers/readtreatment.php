@@ -1,7 +1,7 @@
 <?php
     include('../dbconnection.php');
     session_start();
-    $id=$_SESSION["treatment_id"] ;
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +56,7 @@
                 </div>
                 <div class="hello">
                     <font class="header-font-1">Welcome </font> &nbsp
-                    <font class="header-font-2"><?php echo $_SESSION['user_name'];?></font>
+                    <font class="header-font-2">SENURI</font>
                 </div>
             </div>
 
