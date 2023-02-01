@@ -1,4 +1,4 @@
-:root {
+root {
     --colour1: #000D2F;
     --colour2: rgba(215, 226, 255, 0.6);
     /* --backgroundcolour3: #EEF3FF; */
@@ -18,7 +18,7 @@
 
 body {
     margin: 0;
-    background-image: url(../images/Dash.png);
+    background-image: url(../images/dash.png);
     background-size: cover;
     background-repeat: no-repeat;
 }
