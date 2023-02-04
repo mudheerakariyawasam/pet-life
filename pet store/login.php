@@ -8,13 +8,13 @@
       $myemail = mysqli_real_escape_string($conn,$_POST['email']);
       $mypassword = mysqli_real_escape_string($conn,$_POST['password']); 
       
-      $sql = "SELECT `emp_designation`,`emp_name` FROM employee WHERE emp_email = '$myemail' and emp_pwd = '$mypassword'";
+      $sql = "SELECT `emp_id`,`emp_designation`,`emp_name` FROM employee WHERE emp_email = '$myemail' and emp_pwd = '$mypassword'";
       
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         
         if (mysqli_num_rows($result) > 0) {
-
+            $_SESSION['emp_id'] = $row["emp_id"];
             if($row["emp_designation"]=="Store manager"){
                 $_SESSION['login_user'] = $myemail;
                 $_SESSION['user_name'] = $row["emp_name"];

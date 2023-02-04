@@ -14,9 +14,14 @@
     text-decoration: none;
     list-style-type: none;
   }
- 
-body {
+
+body{
     background-color: var(--backgroundcolour3);
+}
+
+.topic{
+    font-size: 22px;
+    font-weight: 650;
 }
 
 .main-container{
@@ -184,8 +189,6 @@ body {
     padding: 100px 40px 75px;
 }
 
-
-
   a:link {
     text-decoration: none;
     color: black;
@@ -201,32 +204,8 @@ body {
     font-weight: 700;
   }
 
-  table {
-    border: none;
-    border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-th, td {
-    width:150px;
-    text-align:center;
-    padding:8px; 
-    background-color:#96CDE1;  
-    height: 50px;
-}
-
-td{
-    background-color:#FAF2F2;   
-    border-bottom: 5px solid white;
-}
-
 .details{
     text-align:left;
-}
-
-.search-btn{
-    border: none;
 }
 
 .action-btn{
@@ -275,12 +254,3 @@ button.btn-add{
     transition: 0.7s;
   }
 
-  input.item-id {
-    width: 250px;
-    height: 30px;
-    border-radius: 8px;
-    border: none;
-    padding: 3px;
-    margin-bottom: 10px;
-    background-color: rgba(215,226,255,0.6);
-  }

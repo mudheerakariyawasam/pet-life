@@ -5,7 +5,6 @@
         header("location:login.php");
         exit;
     }
-
 ?>
 
 <!DOCTYPE html>
