@@ -101,7 +101,7 @@
             background-position: center;
             height: 100vh;">
 
-            <p class="topic"> Update Profile</p><hr><br>
+            <p class="topic"> My Profile</p><hr><br>
             
             <div class="main-content">
         <div class="left-content">
