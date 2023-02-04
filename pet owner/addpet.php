@@ -51,7 +51,7 @@
 
 <div class="topic">
         <span class="welcome">Welcome</span>
-        <span class="name">NAME</span>
+        <span class="name">Fathima</span>
         <button type="submit" class="notification"><a href="#"><img src="images/bell.png"></a></button>
         <button type="submit" class="messages"><a href="#"><img src="images/message-square.png"></a></button>
         <button type="submit" class="logout"><a href="./logout.php">logout</a></button>

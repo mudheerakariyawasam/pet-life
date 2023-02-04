@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $hashedPassword = md5($owner_pwd);
             if ($hashedPassword == $row["owner_pwd"]) {
                 $_SESSION['login_user'] = $owner_email;
-                $_SESSION['user_name'] = $row["emp_name"];
+                $_SESSION['user_name'] = $row["owner_fname"];
                 header("location: ../pet owner/dashboard1.php");
             } else {
                 echo '<script>alert("Wrong User Details")</script>';
