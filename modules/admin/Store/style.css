@@ -1,0 +1,382 @@
+
+h2{
+margin-left:15px;
+}
+
+p{
+font-size:13px;
+color:#3D3D3D;
+}
+
+.drop-wl {
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+.dropdown-wl {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content-wl {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 410px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 26px 20px;
+  z-index: 1;
+  right:0;
+
+}
+.dropdown-content-wl a {
+  color: black;
+  padding: 16px 16px;
+  text-decoration: none;
+  
+}
+
+.dropdown-wl:hover .dropdown-content-wl {
+  display: block;
+}
+
+
+
+.drop-ebay {
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+.dropdown-ebay {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content-ebay {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content-ebay a {
+  color: black;
+  padding: 5px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content-ebay a:hover {
+background-color: #f1f1f1;
+text-decoration:underline;
+
+}
+
+.dropdown-ebay:hover .dropdown-content-ebay {
+  display: block;
+}
+
+
+.drop-notification {
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+.dropdown-notification {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content-notification {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 410px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 100px 20px;
+  z-index: 1;
+  right:0;
+
+}
+.dropdown-content-notification a {
+  color: black;
+  padding: 0px 0px;
+  text-decoration: none;
+  
+}
+
+.dropdown-notification:hover .dropdown-content-notification {
+  display: block;
+}
+
+
+.drop-shopping {
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+.dropdown-shopping {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content-shopping {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 20px 20px;
+  z-index: 1;
+  right:0;
+
+}
+.dropdown-content-shopping a {
+  color: black;
+  padding: 16px 16px;
+  text-decoration: none;
+  
+}
+
+.dropdown-shopping:hover .dropdown-content-shopping {
+  display: block;
+}
+
+.zoom:hover{
+transform:scale(1.15);
+opacity:0.9;
+}
+
+.abc:hover{
+color:blue;
+}
+
+
+.home-section{
+width:100%;
+display:flex;
+}
+.home-right{
+width:70%;
+float:right;
+}
+.home-left{
+width:30%;
+float:left;
+background-color:#af3005;
+background-color:rgb(116, 4, 95);
+}
+
+.offer{
+font-size:35px; 
+color:#ffe0c3; 
+font-family:arial; 
+font-width:bold;
+margin:30px;
+}
+
+.sign{
+font-size:20px; 
+color:#ffe0c3; 
+font-family:arial; 
+font-width:bold;
+}
+
+.btn{
+margin:30px;
+font-size:20px;
+background-color:transparent;
+padding-left:30px;
+padding-right:30px;
+padding-top:11px;
+padding-bottom:11px;
+border-style:solid;
+border-color:#ffe0c3;
+color:#ffffff;
+cursor:pointer;
+
+}
+
+.btn:hover{
+background-color:#ffe0c3;
+color:#af3005;
+transition: .3s;
+}
+
+.searchbtn{
+background-color:blue;
+background-color:rgb(116, 4, 95);
+padding-left:60px;
+padding-right:60px;
+padding-top:11px;
+padding-bottom:11px;
+border-style:none;
+color:#ffffff;
+cursor:pointer;
+}
+
+.popular-category-1 a{
+color:#000000;
+text-decoration:none;
+}
+.popular-category-1 a:hover{
+text-decoration:underline;
+}
+.popular-category-2 button{
+  padding: 3px 13px;
+  background-color: white;
+  border: solid green;
+  color:green;
+  cursor: pointer;
+}
+.popular-category-2 button:hover{
+  background-color:green;
+  color:white;
+}
+.daily-deals button{
+  padding: 3px 13px;
+  background-color: white;
+  border: solid rgb(128, 0, 115);
+  color:rgb(128, 0, 115);
+  cursor: pointer;
+}
+.daily-deals button:hover{
+  background-color:rgb(128, 0, 115);
+  color:white;
+}
+.daily-deals a{
+color:#000000;
+text-decoration:none;
+}
+.daily-deals a:hover{
+text-decoration:underline;
+}
+.daily-deals{
+overflow-y: scroll;
+}
+.daily-deals img{
+width: 250px;
+}
+.daily-deals span{
+color:red;
+}
+.popular-category-2 a{
+color:#000000;
+text-decoration:none;
+}
+.popular-category-2 a:hover{
+text-decoration:underline;
+}
+
+
+.bottom{
+display:flex;
+width:100%;
+color:#4B4B4B;
+
+}
+.columns{
+text-align:left;
+width:20%;
+
+}
+.columns li{
+list-style-type:none;
+}
+
+.columns li a{
+color:#4B4B4B;
+text-decoration:none;
+}
+.columns li a:hover{
+text-decoration:underline;
+}
+
+.brands a{
+  color:#000000;
+  text-decoration:none;
+  }
+  .brands a:hover{
+  text-decoration:underline;
+  }
+  .brands{
+  overflow-y: scroll;
+  }
+  .brands img{
+  width: 200px;
+  height: 150px;
+  }
+  .brands span{
+  color:red;
+  }
+
+
+.advertisment{
+  width:100%;
+  display: flex;
+}
+.ad1{
+  width: 32%;
+  margin-left: 1%;
+}
+.ad2{
+  width: 32%;
+  margin-left: 1%;
+}
+.ad3{
+  width: 32%;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+.article{
+  width: 100%;
+  display: flex;
+}
+.art-left{
+  width:40%;
+}
+.art-right{
+  width:60%;
+}
+.art-right p{
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  margin-left: 2%;
+}
+.art-right button{
+  padding: 5px 25px;
+  color: white;
+  background-color: green;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+  margin-left: 2%;
+}
+.art-left img{
+  width: 500px;
+  height: 300px;
+}
+.foot{
+width:100%;
+display:flex;
+}
+.f-left{
+width:85%;
+float:left;
+text-align:left;
+margin-left:15px;
+}
+
+.f-left a{
+color:#6E6E6E;
+}
+
+.f-right{
+width:15%;
+float:right;
+text-align:right;
+margin-right:15px;
+}
+
+
+

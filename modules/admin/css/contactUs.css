@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
+body{
+margin:0;
+ 
+}
+.nav-bar{
+
+display:flex;
+  position: fixed;
+width:100%;
+overflow: hidden;
+ 
+  z-index: 2;
+ background-color: rgb(255, 255, 255); 
+}
+.nav-left{
+width:10%;
+}
+.nav-right{
+width:90%;
+text-align:right;
+}
+
+.logo{
+width:60px;
+}
+.navbar-ul{
+list-style-type:none;
+}
+.navbar-ul li{
+display:inline;
+font-weight:bold;
+margin-right:3%;
+
+}
+.home-section{
+
+  background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)),url(../images/contus.png);
+ background-size:cover;
+  background-position: center;
+height:75vh;
+  
+  
+  }
+
+
+
+.continfo{
+
+  width: 100%;
+  display: flex;
+}
+.continfo-left{
+  width: 50%;
+}
+.continfo-right{
+width: 50%;  
+}
+
+.continfo-left h3{
+  margin-left: 10%;
+  font-family: 'Poppins', sans-serif;
+}
+ul span{
+
+  margin-left:10px;
+}
+.continfo-left h4{
+  margin-left: 5%;
+  font-family: 'Poppins', sans-serif;
+}
+.continfo-left ul{
+  margin-left: 2%;
+}
+.dateandtime{
+display:flex;
+width:100%;
+}
+.date{
+width: 20%;
+}
+.time{
+  width: 80%;
+}
+
+.continfo-right h3{
+  margin-top:100px;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+.continfo-right h1{
+  
+  font-family: 'Amatic SC', cursive;
+  text-align: center;
+}
+.continfo-right button{
+  margin-top: 30px;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 20px;
+  color: white;
+  background-color: rgb(245, 57, 185);
+  border: none;
+  
+}
+.continfo-right button:hover{
+
+  color: black;
+  background-color: rgb(255, 255, 255);
+  border: solid black;
+  cursor: pointer;
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer{
+  background-color: rgb(212, 239, 249); 
+}
+.about-us{
+  width:90%;
+  display: flex;
+  font-size:13px;
+font-weight:400;
+
+}
+.about-us hr{
+  border-width: 2px;
+  width:30%;
+  margin-left:0;
+  border-color: black;
+}
+.about{
+  width:30%;
+  margin-left:10%;
+}
+.about .title{
+font-weight: bolder;
+}
+.about p{
+  font-family: 'Poppins', sans-serif;
+}
+.ulinks{
+  width:30%;
+   margin-left:5%;
+}
+.ulinks p{
+  font-family: 'Poppins', sans-serif;
+}
+.ulinks .title{
+  font-weight: bolder;
+  
+  }
+
+.gitouch{
+  width:30%;
+  margin-left:5%;
+}
+.gitouch p{
+  font-family: 'Poppins', sans-serif;
+}
+.gitouch .title{
+  font-weight: bolder;
+  
+  }
+  .gitouch ul span{
+    margin-left: 10px;;
+  }
+  ul li{
+    list-style-type: none;
+      font-family: 'Poppins', sans-serif;
+
+
+  }
+  .ulinks ul hr{
+    border-width: 1px;
+    width:30%;
+    margin-left:0;
+    border-color: rgb(0, 0, 0);
+    border-style: dotted;
+  }
+  a{
+    color:black;
+    text-decoration: none;
+  }
