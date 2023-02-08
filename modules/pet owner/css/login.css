@@ -1,0 +1,138 @@
+
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.left{
+    width: 100%;
+}
+
+.right{
+    width: 50%;
+}
+
+.bg{
+    width: 80%;
+    height: 100vh;
+}
+
+body{
+    margin: 0;
+    background-color: #96CDE1;
+    background-image: url(../images/LoginBG.jpg);
+    background-size: cover;
+    background-repeat: no-repeat; 
+    height: 100vh;
+   
+}
+
+*{
+    font-family: roboto;
+    box-sizing: padding-box;
+}
+
+form { 
+    padding: 35px;
+   background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0px 5px 5px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    margin: 25px;
+    height: 90%;
+    width: 70%;
+    
+}
+
+.form-content{
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+}
+
+.welcome {
+    text-align: center; 
+    font-size: 64px;   
+    font-weight: 500;
+    margin-bottom: 0px;
+}
+
+.pet_life{
+    font-family: 'Amatic SC';
+    font-size: 80px;
+    text-align: center;  
+    margin-top: 0px;  
+}
+
+input {
+    display: block;
+    border: 2px solid #ccc;
+    width: 400px;
+    padding: 8px;
+    margin:0;
+    border-radius: 30px;
+    background-color:#C38D9E;
+    
+   
+}
+
+label {
+    color: black;
+    font-size: 18px;
+    padding: 10px;
+    margin:0px 20px 0px 0px;
+}
+
+label.loging-label1{
+    margin-left:25px ;
+}
+
+
+button {
+    float: right;
+    padding: 10px 15px;
+    color: black;
+    margin-right: 70px;
+    border: none;
+    width: 150px;
+}
+
+.btn-login{
+    background-color: #C38D9E;
+    padding: 10px;
+   border-radius: 30px;
+   
+}
+
+.btn-exit{
+    background-color: #C38D9E;
+    border-radius: 30px;
+   
+}
+
+button:hover{
+    opacity: .60;
+}
+
+.error {
+   background: #F2DEDE;
+   color: #0c0101;
+   padding: 10px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 20px auto;
+}
+
+a:hover{
+    opacity: .7;
+}
+
+.psw{
+    font-style: italic;
+    margin-top: 100px;
+    text-align: center;
+    margin-left: 180px;
+}
+
+
+

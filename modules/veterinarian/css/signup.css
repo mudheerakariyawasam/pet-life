@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Poppins&family=Roboto&display=swap');
+
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.welcome {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    font-weight:600;
+}
+
+.left {
+    width: 50%;
+    height: 100%;
+}
+.row-1{
+    width: 50%;
+    height: 10%;
+}
+.row-2{
+    width: 50%;
+    height: 90%;  
+}
+
+.right {
+    width: 50%;
+    height: 100%;
+    /* border: 2px solid black; */
+
+}
+
+.image{
+    width: 650px;
+    height: 600px;
+    margin-left: 10%;
+}
+body {
+    margin: 0;
+    background-image: linear-gradient(to bottom right, #96CDE1, #fff);
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+}
+
+form {
+    padding: 35px;
+    background-color: rgba(255, 255, 255, 0);
+    margin-right: 90px;
+    height: 90%;
+    width: 50%;
+
+}
+.form-group{
+    font-family: 'Alegreya Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+}
+input[type="text"]{
+    background-color:transparent;
+    border: 2px solid #ccc;
+    margin-left: 125px;  
+    width: 300px;
+    padding: 6px;
+    margin: 0;
+    border-radius: 30px;
+    background-color: #C38D9E;
+}
+input[type="password"]{
+    background-color:transparent;
+    border: 2px solid #ccc;
+    margin-left: 125px; 
+    width: 300px;
+    padding: 6px;
+    margin: 0;
+    border-radius: 30px; 
+    background-color: #C38D9E;
+}
+
+
+.form-content {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+.form-group input {
+    display: block;
+    border: 2px solid #ccc;
+    width: 300px;
+    padding: 6px;
+    margin: 0;
+    border-radius: 30px;
+    background-color: #C38D9E;
+}
+
+label {
+    color: black;
+    font-family: 'Alegreya Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+}
+.card-header h4{
+    margin-left: 44px;
+    font-family: 'Alegreya Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+}
+.card-body{
+    margin-top: 10px;
+}
+
+input[type="submit"] {
+    float: right;
+    transition: all .5s ease;
+    color:black;
+    border: 3px solid  #C38D9E;
+    font-family: 'Alegreya Sans';
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1;
+    font-size: 16px;
+    background-color : transparent;
+    padding: 10px;
+    outline: none;
+    border-radius: 15px;
+}
+input[type="submit"]:hover {
+    color: #001F3F;
+    background-color:  #C38D9E;
+}
+
+.btn-login {
+    background-color: #C38D9E;
+    padding: 10px;
+    border-radius: 30px;
+
+}
+
+.btn-exit {
+    background-color: #C38D9E;
+    border-radius: 30px;
+
+}
+
+
+
+.error {
+    background: #F2DEDE;
+    color: #0c0101;
+    padding: 10px;
+    width: 95%;
+    border-radius: 5px;
+    margin: 20px auto;
+}
+
+.psw{
+    font-style: italic;
+    margin-top: 100px;
+    text-align: center;
+    margin-left: 300px;
+}
+
+
+a{
+    text-decoration: none;
+    color: black;
+}

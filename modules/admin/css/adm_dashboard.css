@@ -1,0 +1,166 @@
+body{
+margin:0;
+}
+
+.header-font{
+font-size:40px;
+padding:40px;
+}
+.nav-bar{
+display:flex;
+position: fixed;
+width:100%;
+/* overflow: hidden; */
+  
+background-color:#96CDE1; 
+}
+.nav-left{
+width:40%;
+float:left;
+}
+.nav-right{
+width:60%;
+text-align:right;
+float:right;
+}
+.navbar-ul{
+list-style-type:none;
+}
+.navbar-ul li{
+display:inline;
+margin-right:3%;
+}
+.notification{
+width:5%;
+margin-right:3%;
+}
+.msg{
+width:5%;
+margin-right:3%;
+}
+.log{
+margin-bottom:20px;
+background-color:white;
+/* align:center; */
+}
+
+.not-li{
+background-color:white;
+}
+
+.main{
+
+width:100%;
+display:flex;
+}
+.main-left{
+width:18%;
+background-color:#96CDE1; 
+float:left;
+
+
+}
+.main-left ul{
+    list-style-type: none;
+    font-size: 15px;
+    font-weight:bold;
+}
+
+.main-right{
+width:82%;
+float:right;
+background-image: url(doctor.jpg);
+background-size: cover;
+background-position: center;
+height: 100vh;
+width:100%;
+z-index: -1;
+
+}
+.notification{
+width:3%;
+}
+.msg{
+width:3%;
+}
+.log-out{
+width:3%;
+}
+.clear{
+clear:both;
+}
+
+.main-left-icon{
+width:50%;
+
+}
+.main-left-left{
+float:left;
+width: 30%;
+
+
+}
+.main-left-right{
+float:right;
+padding-right: 30px;;
+width: 70%;
+}
+.left-main-navigation{
+    width:100%;
+    display: flex;
+}
+.doctor-img{
+    width:60%;
+
+}
+.doc-name{
+font-size: 20px;
+text-align: center;
+font-weight: bold;
+
+}
+.treatment-title{
+    text-align: center;
+    font-size: 18px;
+    font-weight:bold;
+    background-color:#85CDCA;
+    padding-left:430px; 
+    padding-right:430px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 30px;;
+    opacity: 90%;
+}
+.content{
+    width:100%;
+    display: flex;
+}
+
+.content-left{
+width:50%;
+float:left;
+margin-top: 30px;
+margin-left: 80px;
+}
+
+.content-rigth{
+    width:50%;
+    float:right;
+}
+.pet-name{
+
+    font-size: 20px;
+}
+input[type="date"]{
+background-color:transparent;
+border-top: none;
+border-left: none;
+border-right: none;
+margin-left: 160px;
+
+}
+.c-box{
+
+    margin-left: 130px;
+
+}

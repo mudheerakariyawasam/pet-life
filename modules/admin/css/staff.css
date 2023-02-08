@@ -1,0 +1,186 @@
+body{
+margin:0;
+}
+
+.header-font{
+font-size:40px;
+padding:40px;
+}
+.nav-bar{
+display:flex;
+position: fixed;
+width:100%;
+/* overflow: hidden; */
+  
+background-color:#96CDE1; 
+z-index:2;
+}
+.nav-left{
+width:40%;
+float:left;
+}
+.nav-right{
+width:60%;
+text-align:right;
+float:right;
+}
+.navbar-ul{
+list-style-type:none;
+}
+.navbar-ul li{
+display:inline;
+margin-right:3%;
+}
+.notification{
+width:5%;
+margin-right:3%;
+}
+.msg{
+width:5%;
+margin-right:3%;
+}
+.log{
+margin-bottom:20px;
+background-color:white;
+/* align:center; */
+}
+
+.not-li{
+background-color:white;
+}
+
+.main{
+
+width:100%;
+display:flex;
+}
+.main-left{
+width:18%;
+background-color:#96CDE1; 
+float:left;
+
+
+}
+.main-left ul{
+    list-style-type: none;
+    font-size: 15px;
+    font-weight:bold;
+}
+
+.main-right{
+width:82%;
+float:right;
+background-image: url(../images/ad_panel.jpg);
+background-size: cover;
+background-position: center;
+height: 100vh;
+width:100%;
+
+opacity:0.8;
+
+}
+.notification{
+width:3%;
+}
+.msg{
+width:3%;
+}
+.log-out{
+width:3%;
+}
+.clear{
+clear:both;
+}
+
+.main-left-icon{
+width:50%;
+
+}
+.main-left-left{
+float:left;
+width: 30%;
+
+
+}
+.main-left-right{
+float:right;
+padding-right: 30px;;
+width: 70%;
+}
+.left-main-navigation{
+    width:100%;
+    display: flex;
+}
+.doctor-img{
+    width:60%;
+
+}
+.doc-name{
+font-size: 20px;
+text-align: center;
+font-weight: bold;
+
+}
+.staff-title{
+    text-align: center;
+    font-size: 18px;
+    font-weight:bold;
+    background-color:#85CDCA;
+    padding-left:430px; 
+    padding-right:430px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 30px;
+margin-left:100px;
+margin-right:100px;
+
+}
+
+table{
+width:99%;
+font-size:20px;
+}
+td{
+  background-color:white;
+background-color: rgba(255, 255, 255,.7);
+text-align:center;
+font-weight:bold;
+}
+thead{
+color:red;
+}
+.f{
+display:flex;
+width:100%;
+}
+.f1{
+width:50%;
+text-align:center;
+}
+.f2{
+width:50%;
+}
+
+
+.add-button button{
+background-color:#C38D9E;
+padding-left:30px;
+padding-right:30px;
+padding-top:8px;
+padding-bottom:8px;
+color:white;
+font-weight:bold;
+margin-left:1050px;
+margin-top:100px;
+border:none;
+border-radius:20px;
+
+
+}
+
+.add-button button:hover{
+color:black;
+background-color:green;
+cursor:pointer;
+
+}

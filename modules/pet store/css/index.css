@@ -1,0 +1,104 @@
+.container{
+    width: 100%;
+    display: flex;
+}
+
+.left{
+    width: 50%;
+}
+
+.right{
+    width: 50%;
+}
+
+.bg{
+    width: 80%;
+    height: 100vh;
+}
+
+body{
+    margin: 0;
+    background-color: #96CDE1;
+}
+
+*{
+    font-family: poppins, sans-serif;
+    box-sizing: padding-box;
+}
+
+form { 
+    padding: 35px;
+    background: #FFFFFF;
+    box-shadow: inset 0px 5px 5px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    margin: 25px;
+    height: 80%;
+}
+
+.welcome {
+    text-align: center; 
+    font-size: 64px;   
+    font-weight: 500;
+    margin-bottom: 0px;
+}
+
+.pet_store{
+    font-family: 'Amatic SC';
+    font-size: 80px;
+    text-align: center;  
+    margin-top: 0px;  
+}
+
+input {
+    display: block;
+    border: 2px solid #ccc;
+    width: 95%;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+
+label {
+    color: #888;
+    font-size: 18px;
+    padding: 10px;
+}
+
+button {
+    float: right;
+    padding: 10px 15px;
+    color: #fff;
+    border-radius: 10px;
+    margin-right: 10px;
+    border: none;
+    width: 300px;
+}
+
+.btn-login{
+    background-color: #88E471;
+}
+
+.btn-exit{
+    background-color: #E05555;
+}
+
+button:hover{
+    opacity: .10;
+}
+
+.error {
+   background: #F2DEDE;
+   color: #0c0101;
+   padding: 10px;
+   width: 95%;
+   border-radius: 5px;
+   margin: 20px auto;
+}
+
+a:hover{
+    opacity: .7;
+}
+
+.psw{
+    font-style: italic;
+}
