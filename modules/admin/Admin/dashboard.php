@@ -1,3 +1,8 @@
+<?php
+    include("../../../db/dbconnection.php");
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +44,7 @@
         </ul>
         <div class="logout">
             <hr>
-            <a href="../logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="../../../Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>
     </div>
 
@@ -50,7 +55,7 @@
                 <div class="nav-icon">
                     <i class="fa-solid fa-bars"></i>
                 </div>
-<div class="hello">Hello Admin</div>
+<div class="hello">Hello <?php echo $_SESSION['user_name'];?> </div>
             </div>
 
 

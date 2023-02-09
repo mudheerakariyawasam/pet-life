@@ -39,7 +39,7 @@
         </ul>
         <div class="logout">
             <hr>
-            <a href="../logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="../../../Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>
     </div>
 
@@ -72,17 +72,12 @@
         </div>
         <div class="container">
 
-        <?php
-define('TITLE', 'Client');
-define('PAGE', 'client');
+<?php
+        define('TITLE', 'Client');
+        define('PAGE', 'client');
 
-include('../dbConnection.php');
-session_start();
- if(isset($_SESSION['is_adminlogin'])){
-  $aEmail = $_SESSION['aEmail'];
- } else {
-  echo "<script> location.href='login.php'; </script>";
- }
+        include('../dbConnection.php');
+        session_start();
 ?>
 
 
@@ -106,7 +101,6 @@ session_start();
 <th scope="col">Contact No</th>
 <th scope="col">Address</th>
 <th scope="col">Nic</th>
-<th scope="col">Password</th>
     <th scope="col">Action</th>
    </tr>
   </thead>
@@ -121,8 +115,6 @@ echo '<td>'. $row["owner_email"].'</td>';
     echo '<td>'.$row["owner_contactno"].'</td>';
     echo '<td>'.$row["owner_address"].'</td>';
     echo '<td>'.$row["owner_nic"].'</td>';
-
-echo '<td>'. $row["owner_pwd"].'</td>';
 
     echo '<td class="sub">
     <div class="f">

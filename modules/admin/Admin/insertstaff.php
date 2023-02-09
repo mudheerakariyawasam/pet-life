@@ -39,7 +39,7 @@
         </ul>
         <div class="logout">
             <hr>
-            <a href="../logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="../../../Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>
     </div>
 
@@ -77,11 +77,7 @@ define('TITLE', 'Add New Staff');
 define('PAGE', 'staff'); 
 include('../dbConnection.php');
 session_start();
- if(isset($_SESSION['is_adminlogin'])){
-  $aEmail = $_SESSION['aEmail'];
- } else {
-  echo "<script> location.href='login.php'; </script>";
- }
+ 
 if(isset($_REQUEST['empsubmit'])){
  // Checking for Empty Fields
  if(($_REQUEST['emp_id'] == "") || ($_REQUEST['emp_name'] == "") || ($_REQUEST['emp_address'] == "") || ($_REQUEST['emp_contactno'] == "") || ($_REQUEST['emp_designation'] == "") || ($_REQUEST['emp_email'] == "") || ($_REQUEST['emp_nic'] == "") || ($_REQUEST['emp_dateassigned'] == "") || ($_REQUEST['emp_pwd'] == "")) {

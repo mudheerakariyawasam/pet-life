@@ -1,3 +1,7 @@
+<?php
+    include("../../../db/dbconnection.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +43,7 @@
         </ul>
         <div class="logout">
             <hr>
-            <a href="../logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="../../../Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>
     </div>
 
@@ -73,19 +77,49 @@
         <div class="container">
             <br/><br/><br/>
 
-            <?php
-define('TITLE', 'Appointment');
-define('PAGE', 'appointment');
-include('../dbConnection.php');
-session_start();
- if(isset($_SESSION['is_adminlogin'])){
-  $aEmail = $_SESSION['aEmail'];
- } else {
-  echo "<script> location.href='login.php'; </script>";
- }
-?>
-<div class="col-sm-4 mb-5">
+            
+  <div class="col-sm-4 mb-5">
   <!-- Main Content area start Middle -->
+  <div>
+    <button class="btn-add" type="submit">Pending </button>
+    <button class="btn-add" type="submit">Accepted </button>
+    <br>
+
+    <?php
+                $sql = "SELECT * FROM appointment";
+                
+                $result = mysqli_query($conn, $sql);
+                if(mysqli_num_rows($result) > 0)
+                {
+                    echo '<table>
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Vet ID</th>
+                        <th>Pet ID</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Type</th>
+                        <th colspan="2">Actions</th>
+                    </tr>';
+
+                    while($row = mysqli_fetch_assoc($result)){
+                    
+                        echo '<tr > 
+                            <td><b>' . $row["item_id"] . '</b></td>
+                            <td class="details">' . $row["item_name"] . '<br>'. $row["item_category"]. '</td>
+                            <td> ' . $row["item_brand"] . '</td>
+                            <td>' . $row["item_price"] . '</td> 
+                            <td>' . $row["item_qty"] . '</td>
+                            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
+                            <td class="action-btn"><button type="submit"><img src="images/delete.png"></button></td>
+                        </tr>';
+                    }
+                    echo '</table>';
+                }else{
+                    echo "0 results";
+                }
+            ?>
+  </div>
   <?php 
  $sql = "SELECT appointment_id, appointment_date, appointment_time FROM appointment";
  $result = $conn->query($sql);
@@ -128,19 +162,19 @@ if(isset($_REQUEST['close'])){
  ?>
 
 <?php    
-if(session_id() == '') {
-  session_start();
-}
-if(isset($_SESSION['is_adminlogin'])){
- $aEmail = $_SESSION['aEmail'];
-} else {
- echo "<script> location.href='login.php'; </script>";
-}
- if(isset($_REQUEST['view'])){
-  $sql = "SELECT * FROM appointment WHERE appointment_id = {$_REQUEST['id']}";
- $result = $conn->query($sql);
- $row = $result->fetch_assoc();
- }
+    include("../../../db/dbconnection.php");
+    session_start();
+
+    if(!isset($_SESSION["login_user"])){
+        header("location:login.php");
+        exit;
+    }
+    
+    if(isset($_REQUEST['view'])){
+      $sql = "SELECT * FROM appointment WHERE appointment_id = {$_REQUEST['id']}";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    }
 
  //  Assign work Order Request Data going to submit and save on db assignwork_tb table
  if(isset($_REQUEST['assign'])){
@@ -150,12 +184,12 @@ if(isset($_SESSION['is_adminlogin'])){
    $msg = '<div class="alert alert-warning col-sm-6 ml-5 mt-2" role="alert"> Fill All Fileds </div>';
   } else {
     // Assigning User Values to Variable
-    $aid = $_REQUEST['appointmentid'];
-    $adate = $_REQUEST['appointmentdate'];
-    $atime = $_REQUEST['appointmenttime'];
-    $avid = $_REQUEST['vetid'];
-    $apid = $_REQUEST['petid'];
-    $atype = $_REQUEST['appointmenttype'];
+        $aid = $_REQUEST['appointmentid'];
+        $adate = $_REQUEST['appointmentdate'];
+        $atime = $_REQUEST['appointmenttime'];
+        $avid = $_REQUEST['vetid'];
+        $apid = $_REQUEST['petid'];
+        $atype = $_REQUEST['appointmenttype'];
  
     $sql = "INSERT INTO test (appointment_id, appointment_date, appointment_time, vet_id, pet_id, appointment_type) VALUES ('$aid', '$adate','$atime', '$avid', '$apid', '$atype')";
     if($conn->query($sql) == TRUE){

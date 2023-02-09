@@ -39,7 +39,7 @@
         </ul>
         <div class="logout">
             <hr>
-            <a href="../logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="../../../Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>
     </div>
 
@@ -80,11 +80,7 @@ define('PAGE', 'staff');
 
 include('../dbConnection.php');
 session_start();
- if(isset($_SESSION['is_adminlogin'])){
-  $aEmail = $_SESSION['aEmail'];
- } else {
-  echo "<script> location.href='login.php'; </script>";
- }
+
 ?>
 
 
