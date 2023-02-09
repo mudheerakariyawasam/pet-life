@@ -60,7 +60,7 @@
                 <div class="nav-icon">
                     <i class="fa-solid fa-bars"></i>
                 </div>
-<div class="hello">Hello Admin</div>
+<div class="hello">Hello <?php echo $_SESSION['user_name'];?></div>
             </div>
 
 
@@ -89,15 +89,13 @@
   <div>
     
     <form method="post">
-        <input type="submit" name="pending" class="button" value="pending" />
-         
-        <input type="submit" name="accepted" class="button" value="accepted" />
-        <input type="submit" name="rejected" class="button" value="rejected" />
+        <input type="submit" name="pending" class="button" value="Pending" />         
+        <input type="submit" name="accepted" class="button" value="Accepted" />
+        <input type="submit" name="rejected" class="button" value="Rejected" />
     </form>
 
     <?php
-
-      displayPending($conn);
+    
       if(array_key_exists('pending', $_POST)) {
         displayPending($conn);
       }
@@ -105,6 +103,38 @@
         displayAccepted($conn);
       }else if(array_key_exists('rejected', $_POST)) {
         displayRejected($conn);
+      }else{
+        $sql = "SELECT * FROM appointment";
+                
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0){
+          echo '<table>
+          <tr>
+            <th>Appointment ID</th>
+            <th>Vet ID</th>
+            <th>Pet ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Status</th>
+          </tr>';
+
+        while($row = mysqli_fetch_assoc($result)){
+                    
+          echo '<tr > 
+            <td><b>' . $row["appointment_id"] . '</b></td>
+            <td>' . $row["vet_id"] .'</td>
+            <td> ' . $row["pet_id"] . '</td>
+            <td>' . $row["appointment_date"] . '</td> 
+            <td>' . $row["appointment_time"] . '</td>
+            <td>' . $row["appointment_type"] . '</td>
+            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
+          </tr>';
+        }
+          echo '</table>';
+        }else{
+          echo "No appointments to show!";
+        }
       }
 
       function displayPending($conn){
@@ -210,19 +240,19 @@
       }
     ?>
   </div>
-  <?php 
+<?php 
 
-// after assigning work we will delete data from submitrequesttable by pressing close button
-if(isset($_REQUEST['close'])){
-  $sql = "DELETE FROM appointment WHERE appointment_id = {$_REQUEST['id']}";
-  if($conn->query($sql) === TRUE){
-    // echo "Record Deleted Successfully";
-    // below code will refresh the page after deleting the record
-    echo '<meta http-equiv="refresh" content= "0;URL=?closed" />';
-    } else {
-      echo "Unable to Delete Data";
-    }
-  }
+    // after assigning work we will delete data from submitrequesttable by pressing close button
+    if(isset($_REQUEST['close'])){
+      $sql = "DELETE FROM appointment WHERE appointment_id = {$_REQUEST['id']}";
+      if($conn->query($sql) === TRUE){
+        // echo "Record Deleted Successfully";
+        // below code will refresh the page after deleting the record
+        echo '<meta http-equiv="refresh" content= "0;URL=?closed" />';
+        } else {
+          echo "Unable to Delete Data";
+        }
+      }
  ?>
 
 <?php    
@@ -258,12 +288,13 @@ if(isset($_REQUEST['close'])){
     }
   }
   }
- // Assign work Order Request Data going to submit and save on db assignwork_tb table [END]
+
  ?>
+
 <div class="col-sm-5 mt-5 jumbotron">
   <!-- Main Content area Start Last -->
   <form action="" method="POST">
-    <h5 class="text-center">Assign Work Order Request</h5>
+    <h5 class="text-center">Approve/Reject Appointment</h5><br>
     <div class="form-group">
       <label for="appointmentid">Appointment ID</label>
       <input type="text" class="form-control" id="appointmentid" name="appointmentid" value="<?php if(isset($row['appointment_id'])) {echo $row['appointment_id']; }?>"
@@ -291,22 +322,9 @@ if(isset($_REQUEST['close'])){
         <input type="text" class="form-control" id="appointmenttype" name="appointmenttype" value="<?php if(isset($row['appointment_type'])) {echo $row['appointment_type']; }?>">
       </div>
     </div>
-    <div class="form-row">
-     
-      
-     
-    </div>
-    <div class="form-row">
-     
-     
-    </div>
-    <div class="form-row">
-     
-    
-    </div>
     <div class="float-right">
-      <button type="submit" class="btn btn-success" name="assign">Assign</button>
-      <button type="reset" class="btn btn-secondary">Reset</button>
+      <button type="submit" class="btn btn-success" name="assign">Accept</button>
+      <button type="reset" class="btn btn-secondary">Reject</button>
     </div>
   </form>
   <!-- below msg display if required fill missing or form submitted success or failed -->
@@ -317,8 +335,7 @@ if(isset($_REQUEST['close'])){
 ?>
       
 
-            
-    </div>
+</div>
     <!-- <script src="script.js"></script> -->
 </body>
 

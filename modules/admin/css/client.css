@@ -195,9 +195,8 @@ height: 100vh;
   
   td{
     background-color: #96CDE1;
- 
-  text-align:center;
-  font-weight:bold;
+    text-align:center;
+    font-weight:bold;
   }
   thead{
     background-color: #000D2F;
