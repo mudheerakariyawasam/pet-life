@@ -31,7 +31,7 @@
                 <a href="#"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+                <a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
             </li>
         </ul>
         <div class="logout">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="hello">
                     <font class="header-font-1">Welcome </font> &nbsp 
-                    <font class="header-font-2">Dr John</font>
+                    <font class="header-font-2"> Senuri</font>
                 </div>
             </div>
 
