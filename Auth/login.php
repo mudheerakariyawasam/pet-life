@@ -29,6 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_name'] = $row["emp_name"];
             header("location: /pet-life/modules/veterinarian/controllers/dashboard.php");
         }
+ if ($row["emp_designation"] == "Assistant") {
+            $_SESSION['login_user'] = $myemail;
+            $_SESSION['user_name'] = $row["emp_name"];
+            header("location: /pet-life/modules/assistant/controllers/dashboard.php");
+        }
 
         if ($row["emp_designation"] == "Admin") {
             $_SESSION['login_user'] = $myemail;
