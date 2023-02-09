@@ -289,3 +289,7 @@ input{
 form{
   font-size: 15px;   
 }
+
+input[type="text"] {
+  height: 100px;
+}

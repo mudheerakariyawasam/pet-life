@@ -35,7 +35,7 @@
         </ul>
         <div class="logout">
             <hr>
-            <a href="logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="../../Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>        
     </div>
     
@@ -89,10 +89,37 @@
             </div>
             
             <div class="request-type">
+                <div>
                 <p>Request Status</p>
                 <button class="btn-add" type="submit">Pending </button>
                 <button class="btn-add" type="submit">Approved </button>
                 <button class="btn-add" type="submit">Cancel </button>
+                </div>
+
+                <div>
+                    <table>
+                        <tr>
+                            <th>Leave Type</th>
+                            <th>From</th>
+                            <th>To</th>
+                        </tr>
+                        <tr>
+                            <td>Sick Leave</td>
+                            <td>2023-01-05</td>
+                            <td>2023-01-07</td>
+                        </tr>
+                        <tr>
+                            <td>Sick Leave</td>
+                            <td>2023-02-07</td>
+                            <td>2023-02-07</td>
+                        </tr>
+                        <tr>
+                            <td>Sick Leave</td>
+                            <td>2023-01-05</td>
+                            <td>2023-01-07</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             </div>
         </div>
