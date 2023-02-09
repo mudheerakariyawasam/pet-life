@@ -1,5 +1,11 @@
 <?php
     include("../../../db/dbconnection.php");
+    session_start();
+
+    if(!isset($_SESSION["login_user"])){
+        header("location:login.php");
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -81,72 +87,130 @@
   <div class="col-sm-4 mb-5">
   <!-- Main Content area start Middle -->
   <div>
-    <button class="btn-add" type="submit">Pending </button>
-    <button class="btn-add" type="submit">Accepted </button>
-    <br>
+    
+    <form method="post">
+        <input type="submit" name="pending" class="button" value="pending" />
+         
+        <input type="submit" name="accepted" class="button" value="accepted" />
+        <input type="submit" name="rejected" class="button" value="rejected" />
+    </form>
 
     <?php
-                $sql = "SELECT * FROM appointment";
-                
-                $result = mysqli_query($conn, $sql);
-                if(mysqli_num_rows($result) > 0)
-                {
-                    echo '<table>
-                    <tr>
-                        <th>Appointment ID</th>
-                        <th>Vet ID</th>
-                        <th>Pet ID</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Type</th>
-                        <th colspan="2">Actions</th>
-                    </tr>';
 
-                    while($row = mysqli_fetch_assoc($result)){
+      displayPending($conn);
+      if(array_key_exists('pending', $_POST)) {
+        displayPending($conn);
+      }
+      else if(array_key_exists('accepted', $_POST)) {
+        displayAccepted($conn);
+      }else if(array_key_exists('rejected', $_POST)) {
+        displayRejected($conn);
+      }
+
+      function displayPending($conn){
+        $sql = "SELECT * FROM appointment WHERE appointment_status='Pending'";
+                
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0){
+          echo '<table>
+          <tr>
+            <th>Appointment ID</th>
+            <th>Vet ID</th>
+            <th>Pet ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Status</th>
+          </tr>';
+
+        while($row = mysqli_fetch_assoc($result)){
                     
-                        echo '<tr > 
-                            <td><b>' . $row["item_id"] . '</b></td>
-                            <td class="details">' . $row["item_name"] . '<br>'. $row["item_category"]. '</td>
-                            <td> ' . $row["item_brand"] . '</td>
-                            <td>' . $row["item_price"] . '</td> 
-                            <td>' . $row["item_qty"] . '</td>
-                            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
-                            <td class="action-btn"><button type="submit"><img src="images/delete.png"></button></td>
-                        </tr>';
-                    }
-                    echo '</table>';
-                }else{
-                    echo "0 results";
-                }
-            ?>
+          echo '<tr > 
+            <td><b>' . $row["appointment_id"] . '</b></td>
+            <td>' . $row["vet_id"] .'</td>
+            <td> ' . $row["pet_id"] . '</td>
+            <td>' . $row["appointment_date"] . '</td> 
+            <td>' . $row["appointment_time"] . '</td>
+            <td>' . $row["appointment_type"] . '</td>
+            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
+          </tr>';
+        }
+          echo '</table>';
+        }else{
+          echo "No appointments to show!";
+        }
+      }
+
+      function displayAccepted($conn){
+        $sql = "SELECT * FROM appointment WHERE appointment_status='Accepted'";
+                
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0){
+          echo '<table>
+          <tr>
+            <th>Appointment ID</th>
+            <th>Vet ID</th>
+            <th>Pet ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Status</th>
+          </tr>';
+
+        while($row = mysqli_fetch_assoc($result)){
+                    
+          echo '<tr > 
+            <td><b>' . $row["appointment_id"] . '</b></td>
+            <td>' . $row["vet_id"] .'</td>
+            <td> ' . $row["pet_id"] . '</td>
+            <td>' . $row["appointment_date"] . '</td> 
+            <td>' . $row["appointment_time"] . '</td>
+            <td>' . $row["appointment_type"] . '</td>
+            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
+          </tr>';
+        }
+          echo '</table>';
+        }else{
+          echo "No appointments to show!";
+        }
+      }
+
+      function displayRejected($conn){
+        $sql = "SELECT * FROM appointment WHERE appointment_status='Rejected'";
+                
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) > 0){
+          echo '<table>
+          <tr>
+            <th>Appointment ID</th>
+            <th>Vet ID</th>
+            <th>Pet ID</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Status</th>
+          </tr>';
+
+        while($row = mysqli_fetch_assoc($result)){
+                    
+          echo '<tr > 
+            <td><b>' . $row["appointment_id"] . '</b></td>
+            <td>' . $row["vet_id"] .'</td>
+            <td> ' . $row["pet_id"] . '</td>
+            <td>' . $row["appointment_date"] . '</td> 
+            <td>' . $row["appointment_time"] . '</td>
+            <td>' . $row["appointment_type"] . '</td>
+            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
+          </tr>';
+        }
+          echo '</table>';
+        }else{
+          echo "No appointments to show!";
+        }
+      }
+    ?>
   </div>
   <?php 
- $sql = "SELECT appointment_id, appointment_date, appointment_time FROM appointment";
- $result = $conn->query($sql);
- if($result->num_rows > 0){
-    while($row = $result->fetch_assoc()){
-        echo '<div class="card mt-5 mx-5">';
-        echo '<div class="card-header">';
-        echo 'Appointment ID : '. $row['appointment_id'];
-        echo '</div>';
-        echo '<div class="card-body">';
-        echo '<h5 class="card-title">Appointment Date : ' . $row['appointment_date'] . '</h5>';
-
-        echo '<p class="card-text">Appointment Time: ' . $row['appointment_time'] . '</p>';
-        echo '<div class="float-right">';
-        echo '<form action="" method="POST"> <input type="hidden" name="id" value='. $row["appointment_id"] .'><input type="submit" class="btn btn-danger mr-3" name="view" value="View"><input type="submit" class="btn btn-secondary" name="close" value="Close"></form>';
-        echo '</div>' ;
-        echo '</div>' ;
-        echo'</div>';
-  }
- } else {
-  echo '<div class="alert alert-info mt-5 col-sm-6" role="alert">
-  <h4 class="alert-heading">Well done!</h4>
-  <p>Aww yeah, you successfully assigned all Requests.</p>
-  <hr>
-  <h5 class="mb-0">No Pending Requests</h5>
-</div>';
- }
 
 // after assigning work we will delete data from submitrequesttable by pressing close button
 if(isset($_REQUEST['close'])){
@@ -162,13 +226,6 @@ if(isset($_REQUEST['close'])){
  ?>
 
 <?php    
-    include("../../../db/dbconnection.php");
-    session_start();
-
-    if(!isset($_SESSION["login_user"])){
-        header("location:login.php");
-        exit;
-    }
     
     if(isset($_REQUEST['view'])){
       $sql = "SELECT * FROM appointment WHERE appointment_id = {$_REQUEST['id']}";

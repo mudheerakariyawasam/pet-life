@@ -108,7 +108,7 @@
                 <i class="fa-solid fa-bars"></i>
             </div>
             <div class="hello">
-                <font class="header-font-1">Welcome </font> &nbsp
+                <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
         </div>
