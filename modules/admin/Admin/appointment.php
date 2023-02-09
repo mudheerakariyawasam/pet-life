@@ -71,11 +71,7 @@
                             <i class="fa-solid fa-bell"></i>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
+                    <li><a href="#"><i class="fa-solid fa-message"></i></a></li>
                    
                 </ul>
             </div>
@@ -128,7 +124,7 @@
             <td>' . $row["appointment_date"] . '</td> 
             <td>' . $row["appointment_time"] . '</td>
             <td>' . $row["appointment_type"] . '</td>
-            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
+            <td class="action-btn"><button type="submit"><img src="../images/view-eye.png"></button></td>
           </tr>';
         }
           echo '</table>';
@@ -162,7 +158,7 @@
             <td>' . $row["appointment_date"] . '</td> 
             <td>' . $row["appointment_time"] . '</td>
             <td>' . $row["appointment_type"] . '</td>
-            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
+            <td class="action-btn"><a href="appointment.php?id='.$row["appointment_id"].'"><img class="view-img" src="../images/view-eye.png"></a></td>
           </tr>';
         }
           echo '</table>';
@@ -196,7 +192,7 @@
             <td>' . $row["appointment_date"] . '</td> 
             <td>' . $row["appointment_time"] . '</td>
             <td>' . $row["appointment_type"] . '</td>
-            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
+            <td class="action-btn"><a href="appointment.php?id='.$row["appointment_id"].'"><img class="view-img" src="../images/view-eye.png"></a></td>
           </tr>';
         }
           echo '</table>';
@@ -221,6 +217,7 @@
             <th>Status</th>
           </tr>';
 
+          //href = 'ptlife/folder/file?id='
         while($row = mysqli_fetch_assoc($result)){
                     
           echo '<tr > 
@@ -230,7 +227,7 @@
             <td>' . $row["appointment_date"] . '</td> 
             <td>' . $row["appointment_time"] . '</td>
             <td>' . $row["appointment_type"] . '</td>
-            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
+            <td class="action-btn"><a href="appointment.php?id='.$row["appointment_id"].'"><img class="view-img" src="../images/view-eye.png"></a></td>
           </tr>';
         }
           echo '</table>';
@@ -238,104 +235,69 @@
           echo "No appointments to show!";
         }
       }
+
+      function displayAppointment($conn){
+        $sql = "SELECT * FROM appointment WHERE appointment_id='".$_GET['id']."'";           
+        $result = mysqli_query($conn, $sql);
+        $row=mysqli_fetch_assoc($result);
+        return $row;
+        
+      }
     ?>
   </div>
-<?php 
-
-    // after assigning work we will delete data from submitrequesttable by pressing close button
-    if(isset($_REQUEST['close'])){
-      $sql = "DELETE FROM appointment WHERE appointment_id = {$_REQUEST['id']}";
-      if($conn->query($sql) === TRUE){
-        // echo "Record Deleted Successfully";
-        // below code will refresh the page after deleting the record
-        echo '<meta http-equiv="refresh" content= "0;URL=?closed" />';
-        } else {
-          echo "Unable to Delete Data";
-        }
-      }
- ?>
-
-<?php    
+<?php
+  if(isset($_GET['id'])) {
     
-    if(isset($_REQUEST['view'])){
-      $sql = "SELECT * FROM appointment WHERE appointment_id = {$_REQUEST['id']}";
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-    }
-
- //  Assign work Order Request Data going to submit and save on db assignwork_tb table
- if(isset($_REQUEST['assign'])){
-  // Checking for Empty Fields
-  if(($_REQUEST['appointmentid'] == "") || ($_REQUEST['appointmentdate'] == "") || ($_REQUEST['appointmenttime'] == "") || ($_REQUEST['vetid'] == "") || ($_REQUEST['petid'] == "") || ($_REQUEST['appointmenttype'] == "")){
-   // msg displayed if required field missing
-   $msg = '<div class="alert alert-warning col-sm-6 ml-5 mt-2" role="alert"> Fill All Fileds </div>';
-  } else {
-    // Assigning User Values to Variable
-        $aid = $_REQUEST['appointmentid'];
-        $adate = $_REQUEST['appointmentdate'];
-        $atime = $_REQUEST['appointmenttime'];
-        $avid = $_REQUEST['vetid'];
-        $apid = $_REQUEST['petid'];
-        $atype = $_REQUEST['appointmenttype'];
- 
-    $sql = "INSERT INTO test (appointment_id, appointment_date, appointment_time, vet_id, pet_id, appointment_type) VALUES ('$aid', '$adate','$atime', '$avid', '$apid', '$atype')";
-    if($conn->query($sql) == TRUE){
-     // below msg display on form submit success
-     $msg = '<div class="alert alert-success col-sm-6 ml-5 mt-2" role="alert"> Work Assigned Successfully </div>';
-    } else {
-     // below msg display on form submit failed
-     $msg = '<div class="alert alert-danger col-sm-6 ml-5 mt-2" role="alert"> Unable to Assign Work </div>';
-    }
+    $row=displayAppointment($conn);
+    //var_dump($row);
   }
-  }
+?>
 
- ?>
-
-<div class="col-sm-5 mt-5 jumbotron">
-  <!-- Main Content area Start Last -->
-  <form action="" method="POST">
+<div class="content-form">
+    <form action="" method="POST">
     <h5 class="text-center">Approve/Reject Appointment</h5><br>
-    <div class="form-group">
-      <label for="appointmentid">Appointment ID</label>
+
+      <div class="form-left">
+      <label for="appointmentid">Appointment ID:</label><br>
       <input type="text" class="form-control" id="appointmentid" name="appointmentid" value="<?php if(isset($row['appointment_id'])) {echo $row['appointment_id']; }?>"
         readonly>
-    </div>
-    <div class="form-group">
-      <label for="appointmentdate">Appointment Date</label>
-      <input type="text" class="form-control" id="appointmentdate" name="appointmentdate" value="<?php if(isset($row['appointment_date'])) {echo $row['appointment_date']; }?>">
-    </div>
-    <div class="form-group">
-      <label for="appointmenttime">Appointment Time</label>
-      <input type="text" class="form-control" id="appointmenttime" name="appointmenttime" value="<?php if(isset($row['appointment_time'])) { echo $row['appointment_time']; } ?>">
-    </div>
-    <div class="form-group">
-      <label for="vetid">Vet ID</label>
-      <input type="text" class="form-control" id="vetid" name="vetid" value="<?php if(isset($row['vet_id'])) { echo $row['vet_id']; } ?>">
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="petid">Pet ID</label>
+      <br><br>
+        <label for="appointmentid">Customer Name:</label><br>
+      <input type="text" class="form-control" id="appointmentid" name="appointmentid" value="<?php if(isset($row['appointment_id'])) {echo $row['appointment_id']; }?>"
+        readonly>
+      <br><br>
+      <label for="petid">Pet ID:</label><br>
         <input type="text" class="form-control" id="petid" name="petid" value="<?php if(isset($row['pet_id'])) { echo $row['pet_id']; } ?>">
+    <br><br>
+      <label for="appointmenttype">Appointment Type:</label><br>
+      <input type="text" class="form-control" id="petid" name="petid" value="<?php if(isset($row['pet_id'])) { echo $row['pet_id']; } ?>">
+    <br>   <br>
       </div>
-      <div class="form-group col-md-6">
-        <label for="appointmenttype">Appointment Type</label>
-        <input type="text" class="form-control" id="appointmenttype" name="appointmenttype" value="<?php if(isset($row['appointment_type'])) {echo $row['appointment_type']; }?>">
+      
+      <div class="form-right">
+        <label for="appointmentdate">Mobile:</label><br>
+        <input type="text" class="form-control" id="appointmentdate" name="appointmentdate" value="<?php if(isset($row['appointment_date'])) {echo $row['appointment_date']; }?>">
+        <br> <br>  
+        <label for="vetid">Vet ID:</label><br>
+        <input type="text" class="form-control" id="vetid" name="vetid" value="<?php if(isset($row['vet_id'])) { echo $row['vet_id']; } ?>">
+        <br> <br>
+        <label for="appointmentdate">Appointment Date:</label><br>
+        <input type="date" class="form-control" id="appointmentdate" name="appointmentdate" value="<?php if(isset($row['appointment_date'])) {echo $row['appointment_date']; }?>">
+        <br> <br>
+        <label for="appointmenttime">Appointment Time:</label><br>
+        <input type="text" class="form-control" id="appointmenttime" name="appointmenttime" value="<?php if(isset($row['appointment_time'])) { echo $row['appointment_time']; } ?>">
+        <br> <br>
       </div>
-    </div>
-    <div class="float-right">
       <button type="submit" class="btn btn-success" name="assign">Accept</button>
       <button type="reset" class="btn btn-secondary">Reject</button>
-    </div>
+   
   </form>
+</div>
   <!-- below msg display if required fill missing or form submitted success or failed -->
   <?php if(isset($msg)) {echo $msg; } ?>
-  <?php 
- 
-  $conn->close();
+<?php 
+   $conn->close();
 ?>
-      
-
-</div>
     <!-- <script src="script.js"></script> -->
 </body>
 
