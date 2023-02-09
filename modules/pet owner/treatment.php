@@ -97,6 +97,7 @@ if (!isset($_SESSION['login_user'])) {
                         <button class="register-btn2"><a href="./viewpet.php">View Pets</a></button>
                     </div> -->
         </div>
+      
         <script src="script.js"></script>
 
 </body>

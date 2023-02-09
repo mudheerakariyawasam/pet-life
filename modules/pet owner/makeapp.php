@@ -29,7 +29,7 @@
                 <!-- <div class="form-content">
                     <label class="loging-label1">Pet ID</label>
                     <input type="text" name="pet_id" placeholder="petID">
-                </div> -->
+                </div>
                 <div class="form-content">
                     <label class="loging-label1">First Name</label>
                     <input type="text" name="pet_name" placeholder="name" required>
@@ -50,7 +50,7 @@
                 <div class="form-content">
                     <label class="loging-label1">Address</label>
                     <input type="text" name="pet_breed" placeholder="breed" required>
-                </div>
+                </div> -->
                 <div class="form-content">
                     <label class="loging-label1">Pet ID</label>
                     <input type="text" name="owner_id" placeholder="owner ID">

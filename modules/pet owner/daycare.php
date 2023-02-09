@@ -91,13 +91,58 @@ if (!isset($_SESSION['login_user'])) {
 
 
         <div class="container">
+      
 
-            <div class="top-container">
+<!-- <div class="left"> -->
+    <form method="POST" action="">
+        <p class="welcome">Sign Up Free</p>
 
-            <!-- <div>
-                        <button class="register-btn2"><a href="./viewpet.php">View Pets</a></button>
-                    </div> -->
+        
+        <div class="form-content">
+            <label class="loging-label1">First Name</label>
+            <input type="text" name="owner_fname" placeholder="first name" required>
         </div>
+        <div class="form-content">
+            <label class="loging-label1">Last Name</label>
+            <input type="text" name="owner_lname" placeholder="last name" required>
+        </div>
+        <div class="form-content">
+            <label class="loging-label1">Email</label>
+            <input type="email" name="owner_email" placeholder="email" required>
+        </div>
+        <div class="form-content">
+            <label class="loging-label1">Phone</label>
+            <input type="number" name="owner_contactno" placeholder="phone" required>
+        </div>
+        <div class="form-content">
+            <label class="loging-label1">Pets Name</label>
+            <input type="text" name="pet_name" placeholder="address" required>
+        </div>
+        <div class="form-content">
+            <label class="loging-label1">Pet ID</label>
+            <input type="text" name="pet_id" placeholder="NIC"required>
+        </div>
+         <div class="form-content">
+            <label class="loging-label1">Meetup Date</label>
+            <input type="text" name="meetup_date" placeholder="Meetup Date" required>
+        </div> 
+        
+
+        <p>
+            <button class="btn-login" type="submit">Sign Up</button>
+            <button class="btn-exit" type="submit"><a href="./home.php">Cancel</a></button>
+        </p>
+    </form>
+
+    
+</div>
+
+            <!-- <div class="top-container">
+
+         <div>
+                        <button class="register-btn2"><a href="./viewpet.php">View Pets</a></button>
+                    </div>
+        </div> -->
         <script src="script.js"></script>
 
 </body>

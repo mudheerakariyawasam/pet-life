@@ -1,12 +1,33 @@
 <?php
 include("dbconnection.php");
 
+$sql_get_id="SELECT owner_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
+     $result_get_id=mysqli_query($conn,$sql_get_id);
+     $row=mysqli_fetch_array($result_get_id);
+ 
+     $lastid="";
+                     
+     if(mysqli_num_rows($result_get_id)>0){
+         $lastid=$row['owner_id'];
+     }
+ 
+     if($lastid==""){
+         $owner_id="O001";
+     }else {
+         $owner_id=substr($lastid,3);
+         $owner_id=intval($owner_id);
+ 
+         if($owner_id>=9){
+             $owner_id="O0".($owner_id+1);
+         } else if($owner_id>=99){
+             $owner_id="O".($owner_id+1);
+         }else{
+             $owner_id="O00".($owner_id+1);
+         }
+     }
+     
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    
-
-    $owner_id = "O002";
     $owner_fname = $_POST['owner_fname'];
     $owner_lname = $_POST['owner_lname'];
     $owner_email = $_POST['owner_email'];
