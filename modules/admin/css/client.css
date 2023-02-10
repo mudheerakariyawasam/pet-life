@@ -162,6 +162,12 @@ font-size:25px;
    font-size: 1rem;
  }
 
+ font.header-font-2 {
+  font-size: 30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
+
  #userName {
    font-weight: bold;
  }
@@ -177,13 +183,13 @@ font-size:25px;
  .container {
 background-size: cover;
 background-position: center;
-height: 100vh;
+padding: 20px;
  }
  
   .client-title{
 
-    font-size: 20px;
-    font-weight:bold;
+    font-size: 35px;
+    font-weight: 700;
   margin-top:50px;
   margin-left: 50px;
   

@@ -1,3 +1,8 @@
+<?php
+    include("../../../db/dbconnection.php");
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +55,10 @@
                 <div class="nav-icon">
                     <i class="fa-solid fa-bars"></i>
                 </div>
-<div class="hello">Hello Admin</div>
+                <div class="hello">
+                <font class="header-font-1">Hello </font> &nbsp
+                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+            </div>
             </div>
 
 
@@ -72,7 +80,7 @@
         </div>
         <div class="container">
         <br/>
-<div class="leave-title">Leave Manage</div>
+<div class="leave-title">Leave Manage</div><hr>
 <br/>
 
 <div class="title-set">

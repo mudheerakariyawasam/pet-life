@@ -1,3 +1,8 @@
+<?php
+    include("../../../db/dbconnection.php");
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +55,10 @@
                 <div class="nav-icon">
                     <i class="fa-solid fa-bars"></i>
                 </div>
-<div class="hello">Hello Admin</div>
+                <div class="hello">
+                <font class="header-font-1">Hello </font> &nbsp
+                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+            </div>
             </div>
 
 
@@ -75,9 +83,6 @@
 <?php
         define('TITLE', 'Client');
         define('PAGE', 'client');
-
-        include('../dbConnection.php');
-        session_start();
 ?>
 
 
@@ -85,7 +90,7 @@
 <div>
   <!--Table-->
 <br/>
-<div class="client-title">List of Clients</div>
+<div class="client-title">List of Clients</div><hr><br>
 <br/>
   <?php
     $sql = "SELECT * FROM pet_owner";

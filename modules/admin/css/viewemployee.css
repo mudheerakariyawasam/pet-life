@@ -22,6 +22,12 @@ body{
     margin: 20px;
 }
 
+font.header-font-2 {
+    font-size: 30px;
+      font-family: 'Amatic SC';
+      font-weight: bold;
+  }
+    
 button{
     border: none;
 }

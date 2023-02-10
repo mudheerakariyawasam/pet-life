@@ -208,6 +208,11 @@ color: white;
   background-color: transparent;
   cursor: pointer;
 }
+font.header-font-2 {
+  font-size: 30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
 
 table {
   border: none;

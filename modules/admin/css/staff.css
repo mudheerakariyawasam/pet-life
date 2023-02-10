@@ -16,13 +16,19 @@
  }
 
  body {
-   background-color: var(--backgroundcolour3);
+   background-color: white;
  }
 
 .user-img{
 color:white;
-
 }
+
+.container {
+  background-size: cover;
+  background-position: center;
+  background-color: white;
+  padding: 20px;
+   }
 
  .sidebar {
 font-family: poppins, sans-serif;
@@ -178,10 +184,15 @@ font-size:25px;
    font-size: 1.5rem;
  }
 
-.staff-title{
+ font.header-font-2 {
+  font-size: 30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
 
-  font-size: 20px;
-  font-weight:bold;
+.staff-title{
+  font-size: 35px;
+  font-weight: 700;
 margin-top:50px;
 margin-left: 50px;
 

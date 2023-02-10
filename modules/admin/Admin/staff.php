@@ -1,3 +1,8 @@
+<?php
+    include("../../../db/dbconnection.php");
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,10 +36,10 @@
                 <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
+                <a href="report.php"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+                <a href="profile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
             </li>
         </ul>
         <div class="logout">
@@ -50,7 +55,10 @@
                 <div class="nav-icon">
                     <i class="fa-solid fa-bars"></i>
                 </div>
-<div class="hello">Hello Admin</div>
+                <div class="hello">
+                <font class="header-font-1">Hello </font> &nbsp
+                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+            </div>
             </div>
 
 
@@ -70,16 +78,11 @@
                 </ul>
             </div>
         </div>
-        <div class="container" style="background-size: cover;
-background-position: center;
-height: 100vh;">
+        <div class="container" >
             
 <?php
 define('TITLE', 'Staff');
 define('PAGE', 'staff');
-
-include('../dbConnection.php');
-session_start();
 
 ?>
 
@@ -88,7 +91,7 @@ session_start();
 <div>
   <!--Table-->
 <br/>
-<div class="staff-title">List of Staff Members<br><br><hr></div>
+<div class="staff-title">List of Staff Members<br></div><hr>
 <br/>
   <?php
     $sql = "SELECT * FROM employee";

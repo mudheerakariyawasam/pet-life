@@ -19,6 +19,12 @@ body {
   background-color: var(--backgroundcolour3);
 }
 
+.container {
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+}
+
 .user-img{
 color:#000;
 
@@ -188,15 +194,20 @@ height: 100vh;
  }
 
  .report-title{
-
-  font-size: 20px;
-  font-weight:bold;
+  font-size: 35px;
+    font-weight: 700;
 margin-top:50px;
 margin-left: 50px;
 
 }
+
+font.header-font-2 {
+  font-size: 30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
+
 .title-set{
-  margin-top: 12px;
   display:flex;
   width:94%;
   margin-left: 3%;
