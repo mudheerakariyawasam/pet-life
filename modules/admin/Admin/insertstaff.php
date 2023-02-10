@@ -1,3 +1,37 @@
+<?php
+    include("../../../db/dbconnection.php");
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("location:../../../../../Auth/login.php");
+        exit;
+    }
+
+    $sql_get_id="SELECT emp_id FROM employee ORDER BY emp_id DESC LIMIT 1";
+     $result_get_id=mysqli_query($conn,$sql_get_id);
+     $row=mysqli_fetch_array($result_get_id);
+ 
+     $lastid="";
+                     
+     if(mysqli_num_rows($result_get_id)>0){
+         $lastid=$row['emp_id'];
+     }
+ 
+     if($lastid==""){
+         $emp_id="E001";
+     }else {
+         $emp_id=substr($lastid,3);
+         $emp_id=intval($emp_id);
+ 
+         if($emp_id>=9){
+             $emp_id="E0".($emp_id+1);
+         } else if($emp_id>=99){
+             $emp_id="E".($emp_id+1);
+         }else{
+             $emp_id="E00".($emp_id+1);
+         }
+     }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +84,10 @@
                 <div class="nav-icon">
                     <i class="fa-solid fa-bars"></i>
                 </div>
-<div class="hello">Hello Admin</div>
+                <div class="hello">
+                <font class="header-font-1">Hello </font> &nbsp
+                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+            </div>
             </div>
 
 
@@ -75,17 +112,15 @@
 <?php
 define('TITLE', 'Add New Staff');
 define('PAGE', 'staff'); 
-include('../dbConnection.php');
-session_start();
  
 if(isset($_REQUEST['empsubmit'])){
  // Checking for Empty Fields
- if(($_REQUEST['emp_id'] == "") || ($_REQUEST['emp_name'] == "") || ($_REQUEST['emp_address'] == "") || ($_REQUEST['emp_contactno'] == "") || ($_REQUEST['emp_designation'] == "") || ($_REQUEST['emp_email'] == "") || ($_REQUEST['emp_nic'] == "") || ($_REQUEST['emp_dateassigned'] == "") || ($_REQUEST['emp_pwd'] == "")) {
+ if(($_REQUEST['emp_name'] == "") || ($_REQUEST['emp_address'] == "") || ($_REQUEST['emp_contactno'] == "") || ($_REQUEST['emp_designation'] == "") || ($_REQUEST['emp_email'] == "") || ($_REQUEST['emp_nic'] == "") || ($_REQUEST['emp_dateassigned'] == "") || ($_REQUEST['emp_pwd'] == "")) {
   // msg displayed if required field missing
   $msg = '<div class="alert" role="alert"> Fill All Fileds </div>';
  } else {
    // Assigning User Values to Variable
-    $eId = $_REQUEST['emp_id'];
+
       $eName = $_REQUEST['emp_name'];
     $eAddress = $_REQUEST['emp_address'];
     $eContact = $_REQUEST['emp_contactno'];
@@ -94,7 +129,7 @@ if(isset($_REQUEST['empsubmit'])){
       $eNIC = $_REQUEST['emp_nic'];
     $eDate = $_REQUEST['emp_dateassigned'];
     $ePwd = $_REQUEST['emp_pwd'];
-   $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_dateassigned, emp_pwd ) VALUES ('$eId', '$eName', '$eAddress', '$eContact', '$eDesignation', '$eEmail', '$eNIC', '$eDate', '$ePwd')";
+   $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_dateassigned, emp_pwd ) VALUES ('$emp_id', '$eName', '$eAddress', '$eContact', '$eDesignation', '$eEmail', '$eNIC', '$eDate', '$ePwd')";
    if($conn->query($sql) == TRUE){
     // below msg display on form submit success
     $msg = '<div class="alert" role="alert"> Added Successfully </div>';
@@ -108,15 +143,12 @@ if(isset($_REQUEST['empsubmit'])){
 <div>
 <div>
 <br/>
-<div class="staff-title">Add New Staff Member</div><br><hr><br>
+<div class="staff-title">Add a New Staff Member</div><br><hr><br>
 
 
 <div class="add-form">
   <form action="" method="POST">
-    <div class="sec">
-      <div class="sec-1"><label for="emp_id">Emp Id</label></div>
-      <div class="sec-2"><input type="text" class="form-control" id="emp_id" name="emp_id"></div>
-    </div>
+
     <div class="sec">
       <div class="sec-1"><label for="emp_name">Name</label></div>
       <div class="sec-2"><input type="text" class="form-control" id="emp_name" name="emp_name"></div>

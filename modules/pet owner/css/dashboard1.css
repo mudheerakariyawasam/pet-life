@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;700&display=swap');
+
 root {
     --colour1: #000D2F;
     --colour2: rgba(215, 226, 255, 0.6);
@@ -15,7 +17,6 @@ root {
     list-style-type: none;
 }
 
-
 body {
     margin: 0;
     background-image: url(../images/dash.png);
@@ -23,12 +24,10 @@ body {
     background-repeat: no-repeat;
 }
 
-
 .user-img {
     color: rgb(0, 0, 0);
 
 }
-
 
 .sidebar {
     position: fixed;
@@ -110,6 +109,7 @@ body {
     background: var(--backgroundcolour3);
     width: 82%;
     margin-left: 18%;
+    margin-bottom: 56px;
 }
 
 .logout hr {
@@ -130,6 +130,7 @@ body {
     justify-content: space-between;
     width: 82%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    margin-top: 25px;
 }
 
 .navbar__left {
@@ -170,15 +171,17 @@ body {
     height: max-content;
     left: 63px;
     top: 164px;
-    background: rgba(133, 205, 202, 0.6);
+    background: rgba(133, 205, 201, 0.585);
     border: 1px solid #FFFFFF;
     border-radius: 20px;
     padding: 20PX;
+    margin-top: 20px;
 }
 
 .top-text{
     margin: 20px 0px 0px 0px;
     font-weight: bold;
+    font-size: medium;
 }
 
 .count{
@@ -202,7 +205,7 @@ body {
     border-radius: 30px;
     margin-left: 1050px;
     width: 10%;
-    margin-top: 200px;
+    margin-top: 100px;
 }
 
 .navbar__right ul {
@@ -237,4 +240,72 @@ body {
     background-image: url(../images/admin_panel.jpg);
     background-size: cover;
     background-position: center;
+}
+
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 100vmax / 1600 * 100;
+  @media (max-width: 992px) {
+    font-size: 60px;
+  }
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-image: linear-gradient(45deg, #d1fdff, #fddb92); */
+  font-size: 0.24rem;
+  font-family: 'Nunito', sans-serif;
+  padding: 0.5rem 0.2rem;
+  color: #333;
+}
+
+table {
+    border: none;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(255, 255, 255, 0.771);
+    margin-top: 30px;
+    width: 70%;
+    
+}
+
+th, td {
+    width:150px;
+    text-align:center;
+    padding:5px; 
+    background-color: rgba(255, 255, 255, 0.5);
+    font-size: medium;
+    
+}
+
+td{
+   
+    background-color: rgba(255, 255, 255, 0.5);
+    
+}
+
+.details{
+    text-align:left;
+    font-size: medium;
+}
+
+.action{
+    width: 40px;
+}
+
+.app{
+    font-size: large;
+    margin-left: 130px;
 }

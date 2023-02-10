@@ -1,12 +1,33 @@
 <?php
-include("dbconnection.php");
+include("../../db/dbconnection.php");
 
+$sql_get_id="SELECT owner_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
+     $result_get_id=mysqli_query($conn,$sql_get_id);
+     $row=mysqli_fetch_array($result_get_id);
+ 
+     $lastid="";
+                     
+     if(mysqli_num_rows($result_get_id)>0){
+         $lastid=$row['owner_id'];
+     }
+ 
+     if($lastid==""){
+         $owner_id="O001";
+     }else {
+         $owner_id=substr($lastid,3);
+         $owner_id=intval($owner_id);
+ 
+         if($owner_id>=9){
+             $owner_id="O0".($owner_id+1);
+         } else if($owner_id>=99){
+             $owner_id="O".($owner_id+1);
+         }else{
+             $owner_id="O00".($owner_id+1);
+         }
+     }
+     
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    
-
-    $owner_id = "O002";
     $owner_fname = $_POST['owner_fname'];
     $owner_lname = $_POST['owner_lname'];
     $owner_email = $_POST['owner_email'];
@@ -51,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="normal-link">
             <div class="nav-item item1 active-home"><a href="./home.php">Home</a></div>
             <div class="nav-item item2"><a href="./aboutus.php">About us</a></div>
-            <div class="nav-item item3"><a href="./vip.php">VIP Programs</a></div>
+            <div class="nav-item item3"><a href="./daycare.php">VIP Programs</a></div>
             <div class="nav-item item2"><a href="./services.php">Services</a></div>
             <div class="nav-item item4"><a href="./contactus.php">Contact Us</a></div>
             <div class="nav-item item2"><a href="./appointmentc.php">Book an Appointmnet</a></div>

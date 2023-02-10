@@ -1,3 +1,13 @@
+<?php
+    include("../../../db/dbconnection.php");
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("location:../../../../../Auth/login.php");
+        exit;
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +60,10 @@
                 <div class="nav-icon">
                     <i class="fa-solid fa-bars"></i>
                 </div>
-<div class="hello">Hello Admin</div>
+                <div class="hello">
+                <font class="header-font-1">Hello </font> &nbsp
+                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+            </div>
             </div>
 
 
@@ -74,7 +87,7 @@
 
 
         <br/>
-><div class="report-title">Reports</div>
+        <div class="report-title">Reports<br></div><hr>
 <br/>
 
 <div class="title-set">

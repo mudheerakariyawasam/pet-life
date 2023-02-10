@@ -1,7 +1,64 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
-?>
+include("../dbconnection.php");
+    if(!isset($_SESSION["login_user"])){
+        header("location:login.php");
+        exit;
+    }
 
+//Get the total no of clients in the database
+
+    $sql_total="SELECT COUNT(*) AS total FROM pet_owner";
+    $result_total = mysqli_query($conn, $sql_total);
+    $row=mysqli_fetch_array($result_total);
+    $total="";
+                    
+    if(mysqli_num_rows($result_total)>0){
+        $total=$row['total'];
+        
+    }else {
+        $total="0";
+    }
+    //Get the total no of pets in the database
+
+    $sql_pet="SELECT COUNT(*) AS total_pets FROM pet";
+    $result_pet = mysqli_query($conn, $sql_pet);
+    $row=mysqli_fetch_array($result_pet);
+    $total_pets="";
+                    
+    if(mysqli_num_rows($result_pet)>0){
+        $total_pets=$row['total_pets'];
+        
+    }else {
+        $total_pets="0";
+    }
+     //Get the total no of treatments in the database
+
+     $sql_treatments="SELECT COUNT(*) AS total_treatments FROM treatment";
+     $result_treatments = mysqli_query($conn, $sql_treatments);
+     $row=mysqli_fetch_array($result_treatments);
+     $total_treatments="";
+                     
+     if(mysqli_num_rows($result_treatments)>0){
+        $total_treatments=$row['total_treatments'];
+         
+     }else {
+        $total_treatments="0";
+     }
+     //Get the total no of appointments in the database
+
+     $sql_appointments="SELECT COUNT(*) AS total_appointments FROM appointment";
+     $result_appointments = mysqli_query($conn, $sql_appointments);
+     $row=mysqli_fetch_array($result_appointments);
+     $total_appointments="";
+                     
+     if(mysqli_num_rows($result_total)>0){
+        $total_appointments=$row['total_appointments'];
+         
+     }else {
+        $total_appointments="0";
+     }
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,11 +88,11 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
+                <a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+                <a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
             </li>
         </ul>
         <div class="logout">
@@ -81,16 +138,16 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
 
             <div class="dashboard-title">
                 <div class="dash-1">
-                    <p>Clients&nbsp;&nbsp;&nbsp;<span style="color:green;">73</span></p><img style="padding-left:100px;" src="../images/d1.png">
+                    <p>Clients&nbsp;&nbsp;&nbsp;<span style="color:green;"><?php echo $total;?></span></p><img style="padding-left:100px;" src="../images/d1.png">
                 </div>
                 <div class="dash-2">
-                    <p>Pets&nbsp;&nbsp;&nbsp;<span style="color:green;">73</span></p><img style="padding-left:100px;" src="../images/d2.png">
+                    <p>Pets&nbsp;&nbsp;&nbsp;<span style="color:green;"><?php echo $total_pets;?></span></p><img style="padding-left:100px;" src="../images/d2.png">
                 </div>
                 <div class="dash-3">
-                    <p>Treatments&nbsp;&nbsp;&nbsp;<span style="color:green;">73</span></p><img style="padding-left:100px;" src="../images/d3.png">
+                    <p>Treatments&nbsp;&nbsp;&nbsp;<span style="color:green;"><?php echo $total_treatments;?></span></p><img style="padding-left:100px;" src="../images/d3.png">
                 </div>
                 <div class="dash-4">
-                    <p>Appointments&nbsp;&nbsp;&nbsp;<span style="color:green;">73</span></p><img style="padding-left:100px;" src="../images/d4.png">
+                    <p>Appointments&nbsp;&nbsp;&nbsp;<span style="color:green;"><?php echo $total_appointments;?></span></p><img style="padding-left:100px;" src="../images/d4.png">
                 </div>
             </div>
             <center>

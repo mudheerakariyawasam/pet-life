@@ -1,7 +1,7 @@
  :root {
    --colour1: #000D2F;
    --colour2: rgba(215,226,255,0.6);
-   --backgroundcolour3: #EEF3FF;
+   --backgroundcolour3: white;
    --colour4: black;
    --colour5: white;
  }
@@ -19,6 +19,11 @@
    background-color: var(--backgroundcolour3);
  }
 
+.container {
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+}
 .user-img{
 color:#000;
 
@@ -87,7 +92,11 @@ background-color:#96CDE1;
    padding-left: 1.8rem;
  }
 
-
+ font.header-font-2 {
+  font-size: 30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
 
  .logout a i {
    font-size: 1.2rem;
@@ -200,9 +209,8 @@ opacity: 0.7;
 
 
  .leave-title{
-
-  font-size: 20px;
-  font-weight:bold;
+  font-size: 35px;
+  font-weight: 700;
 margin-top:50px;
 margin-left: 50px;
 

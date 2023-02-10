@@ -1,10 +1,11 @@
 <?php
-include("dbconnection.php");
-session_start();
-if (!isset($_SESSION['login_user'])) {
-    header("Location:login.php");
-    exit;
-}
+    include("../../db/dbconnection.php");
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("location:../../Auth/login.php");
+        exit;
+    }
+
 
 //Get the total no of items in the database
 
@@ -78,7 +79,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                 <a href="profile.php" ><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
             </li>
             <li>
-                <a href="vip.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
             </li>
             <li>
                 <a href="petshop.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
@@ -138,7 +139,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <p>2</p>
                     </div>
                     <div>
-                        <button class="register-btn"><a href="./makeappointments.php">Register New</a></button>
+                        <button class="register-btn"><a href="./makeapp.php">Register New</a></button>
                     </div>
                 </div>
 
@@ -159,14 +160,83 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <p>Pets Treatment Records</p>
                     </div>
                     <div class="count">
-                        <p>8</p>
+                        <p>1</p>
+                    </div>
+                    <div>
+                        <button class="register-btn"><a href="./treatment.php">View Now</a></button>
                     </div>
                 </div>
             </div>
 
             <div class="bottom-container">
                 <div class="left-part">
+                    <div class ="app">
+                <p> LATEST APPOINTMNETS </P>
+                    </div>
+                    
+                <?php
+            $loggedInUser = $_SESSION['login_user'];
 
+
+
+
+            // $sql_getownerid = "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";
+            // $result_getownerid = mysqli_query($conn, $sql_getownerid);
+            // $row_getownerid = mysqli_fetch_assoc($result_getownerid);
+            // print_r($row_getownerid);
+            // $sql_getpetid = "SELECT pet_id FROM pet WHERE owner_id='{$row_getownerid['owner_id']}'";
+            // $result_getpetid = mysqli_query($conn, $sql_getpetid);
+            //    $num_rows = mysqli_num_rows($result_getpetid);
+            // $row_getpetid = mysqli_fetch_assoc($result_getpetid);
+            // print_r($num_rows);
+
+            // $sql_getdetails = "SELECT * FROM appointment WHERE pet_id ='{$row_getpetid['pet_id']}'";
+            // $result_getdetails = mysqli_query($conn, $sql_getdetails);
+
+           $sql = "SELECT *  FROM appointment a INNER JOIN pet p 
+                    ON a.pet_id = p.pet_id INNER JOIN pet_owner o 
+                    ON o.owner_id = p.owner_id 
+                    WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')" ;
+                $result_getdetails = mysqli_query($conn, $sql);
+
+
+            if (mysqli_num_rows($result_getdetails) > 0) {
+
+                echo ' 
+                <table>
+                  <tr>
+                      <th>Pet ID</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Type</th>
+                  </tr>';
+
+                while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {
+                //   $sql_petname = "SELECT pet_name FROM pet WHERE pet_id = '{$row_getpetid['pet_id']}'";
+                //   $result_petname = mysqli_query($conn, $sql_petname);
+                //   $row_petname = mysqli_fetch_assoc($result_petname);
+
+                //     $sql_doctor = "SELECT * FROM employee WHERE emp_id = '{$sql_getdetails['vet_id']}'";
+                //     $result_doctor = mysqli_query($conn, $sql_doctor);
+                //     $row_doctor = mysqli_fetch_assoc($result_doctor);
+                // <td>' . $row_doctor["emp_name"] . '</td> 
+                // <td>' . $row_petname["pet_name"] . '</td>
+                    echo '<tr > 
+                    <td> ' . $row_getdetails["pet_id"] . '</td>
+                    <td>' . $row_getdetails["appointment_date"] . '</td>
+                    <td>' . $row_getdetails["appointment_time"] . '</td>
+                    <td>' . $row_getdetails["appointment_type"] . '</td>
+                    <td class="action"><button type="submit"><img src="images/update.png"></button></td>
+                    <td class="action"><button type="submit"><img src="images/delete.png"></button></td>
+                </tr>';
+                }
+                echo '</table>';
+            }
+            else {
+                echo "0 results";
+            }
+          
+            ?>
                 </div>
                 <div class="right-part">
 
@@ -177,8 +247,12 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <button class="register-btn2"><a href="./viewpet.php">View Pets</a></button>
                     </div>
         </div>
-        <script src="script.js"></script>
+        <script src="script.js">
+           
+
+        </script>
 
 </body>
 
 </html>
+

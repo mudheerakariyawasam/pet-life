@@ -1,12 +1,11 @@
 <?php
-include("dbconnection.php");
-session_start();
-if (!isset($_SESSION['login_user'])) {
-    header("Location:login.php");
-    exit;
-}
+    include("../../db/dbconnection.php");
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("location:../../Auth/login.php");
+        exit;
+    }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +28,7 @@ if (!isset($_SESSION['login_user'])) {
         <ul>
             
         <li>
-                <a href="dashboard1.php" ><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
+                <a href="dashboard.php" ><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
                 <a href="treatment.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatments</span></a>
@@ -41,7 +40,7 @@ if (!isset($_SESSION['login_user'])) {
                 <a href="profile.php" ><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
             </li>
             <li>
-                <a href="vip.php" class="active"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php" class="active"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
             </li>
             <li>
                 <a href="petshop.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
@@ -91,13 +90,58 @@ if (!isset($_SESSION['login_user'])) {
 
 
         <div class="container">
+      
 
-            <div class="top-container">
+<!-- <div class="left"> -->
+    <form method="POST" action="">
+        <p class="welcome">Register Now</p>
 
-            <!-- <div>
-                        <button class="register-btn2"><a href="./viewpet.php">View Pets</a></button>
-                    </div> -->
+        
+        <div class="form-content">
+            <label class="loging-label1">First Name</label>
+            <input type="text" name="owner_fname" placeholder="first name" required>
         </div>
+        <div class="form-content">
+            <label class="loging-label1">Last Name</label>
+            <input type="text" name="owner_lname" placeholder="last name" required>
+        </div>
+        <div class="form-content">
+            <label class="loging-label1">Email</label>
+            <input type="email" name="owner_email" placeholder="email" required>
+        </div>
+        <div class="form-content">
+            <label class="loging-label1">Phone</label>
+            <input type="number" name="owner_contactno" placeholder="phone" required>
+        </div>
+        <div class="form-content">
+            <label class="loging-label1">Pets Name</label>
+            <input type="text" name="pet_name" placeholder="address" required>
+        </div>
+        <div class="form-content">
+            <label class="loging-label1">Pet ID</label>
+            <input type="text" name="pet_id" placeholder="NIC"required>
+        </div>
+         <div class="form-content">
+            <label class="loging-label1">Meetup Date</label>
+            <input type="text" name="meetup_date" placeholder="Meetup Date" required>
+        </div> 
+        
+
+        <p>
+            <button class="btn-login" type="submit">Register</button>
+            <button class="btn-exit" type="submit"><a href="./home.php">Cancel</a></button>
+        </p>
+    </form>
+
+    
+</div>
+
+            <!-- <div class="top-container">
+
+         <div>
+                        <button class="register-btn2"><a href="./viewpet.php">View Pets</a></button>
+                    </div>
+        </div> -->
         <script src="script.js"></script>
 
 </body>

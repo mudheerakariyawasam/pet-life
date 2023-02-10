@@ -1,7 +1,7 @@
  :root {
    --colour1: #000D2F;
    --colour2: rgba(215,226,255,0.6);
-   --backgroundcolour3: #EEF3FF;
+   --backgroundcolour3: #white;
    --colour4: black;
    --colour5: white;
  }
@@ -183,9 +183,6 @@ height: 100vh;
 
   font-size: 20px;
   font-weight:bold;
-
-
-
 margin-top:50px;
 margin-left: 50px;
 
@@ -206,43 +203,39 @@ color: white;
 .accepted{
   width:70px;
   border-radius: 20px;
-padding: 3px;
-border: none;
-background-color: transparent;
-cursor: pointer;
+  padding: 3px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
-table{
-  width: 96%;
-  margin-top: 3px;
-  text-align: center;
-  
+font.header-font-2 {
+  font-size: 30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
 
-  padding: 5px;
-  margin-left:2% ;
-  margin-right:2% ;
-  margin: 10PX;
-  border-radius: 15px;
+table {
+  border: none;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
 }
-thead{
-background-color: transparent;
-background-color: #000D2F;
-color: #fff;
-font-size:medium;
 
+th, td {
+  width:150px;
+  text-align:center;
+  padding:8px; 
+  background-color: #000D2F; 
+  height: 50px;
+  color: white;
 }
-tbody{
-  background-color: rgba(87, 114, 222, 0.5);
-  background-color: #96CDE1;
 
+td{
+  color: black;
+  background-color:#96CDE1;   
+  border-bottom: 5px solid white;
+}
 
-}
-tr th{
-  width:24%;
-}
-tr td{
-  width:24%;
-
-}
 .approve-reject{
   background-color: rgba(255, 119, 119, 0.3);
   width:96%;
@@ -289,4 +282,58 @@ padding: 3px;
 border: none;
 background-color: white;
 cursor: pointer;
+}
+
+input.button {
+  background-color: #C38D9E;
+  width: 85px;
+  height: 25px;
+  margin: 5px;
+  font-weight: 600;
+}
+
+input.button :hover{
+  background-color:rgba(215,226,255,0.6);
+  transition: 0.7s;
+}
+
+.content-form{
+    display: flex;
+    background-color: #D9D9D9;
+    border-radius: 20px;
+    padding: 20px;
+    border-style: solid;
+    border-color: white;
+    width: 600px;
+    margin-left: 300px;
+}
+
+.form-right{
+  float: right;
+  width: 50%;
+}
+
+.form-left{
+  float:left;
+  width: 50%;
+}
+
+input{
+  width: 220px;
+  height: 25px;
+}
+
+label{
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.text-center{
+  font-size: 20px;
+  text-align: center;
+}
+
+.view-img{
+  width: 20px;
+  height: 15px;
 }

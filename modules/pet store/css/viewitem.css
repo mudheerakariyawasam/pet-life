@@ -212,12 +212,14 @@ th, td {
     width:150px;
     text-align:center;
     padding:8px; 
-    background-color:#96CDE1;  
+    background-color: #000D2F; 
+  color: white;
     height: 50px;
 }
 
 td{
-    background-color:#FAF2F2;   
+    background-color:#FAF2F2;  
+    color: black;
     border-bottom: 5px solid white;
 }
 
