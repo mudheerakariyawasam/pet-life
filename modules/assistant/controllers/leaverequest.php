@@ -24,19 +24,19 @@
                 <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-user"></i></i><span>Clients</span></a>
+                <a href="showclients.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
 
             <li>
-                <a href="#" class="active"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
+                <a href="leaverequest.php" class="active"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+                <a href="myprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
             </li>
         </ul>
         <div class="logout">
             <hr>
-            <a href="logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="/pet-life/Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>
     </div>
 
@@ -51,7 +51,7 @@
                 </div>
                 <div class="hello">
                     <font class="header-font-1">Welcome </font> &nbsp 
-                    <font class="header-font-2">Dr John</font>
+                    <font class="header-font-2">JOHN</font>
                 </div>
             </div>
 
@@ -77,7 +77,53 @@
             </div>
         </div>
         <div class="container">
-           
+        <div class="heading">Leave Request</div>
+        <br/>
+        <div class="request-area">
+            <div class="request-area-left">
+<center><div class="form-details"><form>
+    <table>
+<tr>
+    <td><lable>*Leave Type</lable></td>
+<td><input type="text"></td><br/>
+</tr>
+<tr>
+<td><lable>*No of Dates</lable></td>
+<td><input type="text"></td>
+</tr>
+<tr>
+    <td>
+<label>*Dates</label></td>
+
+<td><lable>From</label><br/>
+<input type="date">
+<br/>
+<lable>To</label></br>
+<input type="date"></td>
+</tr>
+<tr>
+
+<td><label>About</label></td>
+<td><textarea></textarea></td></tr>
+</table>
+<br/>
+
+<button> Request Now</button>
+<button> Cancel</buttton><br/>
+</form></div></center>
+
+<div></div>
+            </div>
+            <div class="request-area-right">
+<div class="status">
+    <br/>
+    <h3 style="margin-left:20px;">Request Status</h3>
+<div><button style="background-color:pink; color:white; padding:3px 6px; border-radius:20px; border:none; margin-left:20px;">Pending</button>&nbsp; Approved &nbsp; Cancel</div>
+<br/><textarea style="margin-left:20px; width:93%; border-radius:20px;" placeholder="aaaaaaaaaaa"&nbsp; &nbsp;>No Pending Request"></textarea>
+</div>
+
+            </div>
+        </div>
            
         </div>
         <script src="script.js"></script>

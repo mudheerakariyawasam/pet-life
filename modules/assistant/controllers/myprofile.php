@@ -70,15 +70,14 @@
             <center><img src="../images/logo_transparent black.png"></center>
         </div>
         <ul>
-                <li><a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Home</span></a></li>
-                <li><a href="viewallitems.php"><i class="fa fa-paw"></i><span>Pet Items</span></a></li>
-                <li><a href="viewallmedicine.php"><i class="fa fa-stethoscope"></i><span>Medicine</span></a></li>
+                <li><a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a></li>
+                <li><a href="showclients.php"><i class="fa fa-user"></i><span>Clients</span></a></li>
                 <li><a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a></li>
-                <li><a class="active" href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a></li>
+                <li><a class="active" href="myprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a></li>
         </ul>
         <div class="logout">
             <hr>
-            <a href="logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="/pet-life/Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>        
     </div>
     

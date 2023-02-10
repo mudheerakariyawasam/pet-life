@@ -109,7 +109,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/assistant/permission.php'
                     <tr>
                         <td>
                             <div style="display:flex;">
-                                <div><img src="../images/client.png"></div>
+                                <div><img src="../images/c1.png"></div>
                                 <div><br />
                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tushan Janith</p>
                                 </div>
@@ -123,7 +123,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/assistant/permission.php'
                     <tr>
                         <td>
                             <div style="display:flex;">
-                                <div><a href="viewcustomer.php"><img src="../images/client.png"></a></div>
+                                <div><a href="viewcustomer.php"><img src="../images/c2.png" width=51px height=50px></a></div>
                                 <div><br />
                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="viewcustomer.php">Sachintha
                                             Perera</a></p>
@@ -138,7 +138,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/assistant/permission.php'
                     <tr>
                         <td>
                             <div style="display:flex;">
-                                <div><img src="../images/client.png"></div>
+                                <div><img src="../images/c3.png" width=51px height=50px></div>
                                 <div><br />
                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Navindu Usliyanage</p>
                                 </div>
