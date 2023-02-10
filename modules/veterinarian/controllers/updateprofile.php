@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="top-bar">
                 <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
+                    <i class="fa-solid fa-bars"></i>&nbsp&nbsp&nbsp
                 </div>
                 <div class="hello">
                     <font class="header-font-1">Welcome </font> &nbsp
