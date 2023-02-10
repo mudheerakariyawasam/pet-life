@@ -39,6 +39,7 @@
         </div>        
     </div>
     
+ 
     
     <!-- right side container -->
 
@@ -66,12 +67,11 @@
                     <label>Leave Type</label><br>
                     <div class="dropdown-list" style="width:200px;">
                         <select name="holiday_type" class="dropdown-list" >
-                            <option value="Pet Food">Pet Food</option>
-                            <option value="Sleeping Items">Sleeping Items</option>
-                            <option value="Collars">Collars</option>
-                            <option value="Toys">Toys</option>
-                            <option value="Combs">Toys</option>
-                            <option value="Food Bowls">Food Bowls</option>
+                            <option value="Holidays">Holidays</option>
+                            <option value="Sick Leave">Sick Leave</option>
+                            <option value="Vacation">Vacation</option>
+                            <option value="Emergencies">Emergencies</option>
+                            <option value="Parental Leave">Parental Leave</option>
                             <option value="Other">Other</option>
                         </select><br><br>
                     </div>
@@ -87,13 +87,16 @@
                     <button class="btn-add" type="submit">Clear </button>
                 </form> 
             </div>
-            
+            <center>
             <div class="request-type">
                 <div>
-                <p>Request Status</p>
-                <button class="btn-add" type="submit">Pending </button>
-                <button class="btn-add" type="submit">Approved </button>
-                <button class="btn-add" type="submit">Cancel </button>
+                <p><b>Request Status</b></p>
+                <form method="post">
+                    <input type="submit" name="pending" class="button" value="Pending" />         
+                    <input type="submit" name="accepted" class="button" value="Accepted" />
+                    <input type="submit" name="rejected" class="button" value="Rejected" />
+                </form>
+                <br>
                 </div>
 
                 <div>
@@ -121,6 +124,7 @@
                     </table>
                 </div>
             </div>
+</center>
             </div>
         </div>
 </div>
