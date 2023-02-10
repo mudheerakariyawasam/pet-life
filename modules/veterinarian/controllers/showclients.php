@@ -24,7 +24,7 @@
                 <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
-                <a href="#" class="active"><i class="fa fa-user"></i></i><span>Clients</span></a>
+                <a href="showclients.php" class="active"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
 
             <li>

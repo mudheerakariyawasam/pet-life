@@ -1,37 +1,48 @@
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
 
-
-
-$sql = "SELECT medicine_id , medicine_name FROM medicine";
+$_SESSION['treatment_added'] = false;
+$sql = "SELECT medicine_id , medicine_name, medicine_category FROM medicine";
 $all_medicines = mysqli_query($conn, $sql);
 $medicine = [];
+$vaccine = [];
 
 while ($row = mysqli_fetch_assoc($all_medicines)) {
     // check availablity
     $current_med = [];
     $med_id = $row['medicine_id'];
-    $check_with_batch = "SELECT batch_qty, batch_expdate FROM batch WHERE medicine_id = '$med_id'";
+    $check_with_batch = "SELECT batch_id, batch_qty, batch_expdate FROM batch WHERE medicine_id = '$med_id'";
     $med = mysqli_query($conn, $check_with_batch);
     $med_data = mysqli_fetch_assoc($med);
     if ($med_data == null) {
         $row['availability'] = false;
+        $row['batch_id'] = null;
     } else {
         $today = date("Y-m-d");
         $exp_date = $med_data['batch_expdate'];
         $med_qty = $med_data['batch_qty'];
         $expired = $today >= $exp_date;
+        $row['batch_id'] = $med_data['batch_id'];
         if (!$expired && $med_qty > 0) {
             $row['availability'] = true;
         } else {
             $row['availability'] = false;
         }
     }
-
-    array_push($medicine, $row);
+    if ($row['medicine_category'] == 'vaccine') {
+        array_push($vaccine, $row);
+    } else {
+        array_push($medicine, $row);
+    }
+    // die(print_r($medicine));
 }
-
+// die(print_r($medicine));
 // echo json_encode($medicine);
 // die();
 
@@ -39,29 +50,22 @@ $sql = "SELECT lab_id , lab_name FROM lab_investigations";
 $lab_inv = mysqli_query($conn, $sql);
 
 
-$sql = "SELECT medicine_id ,medicine_name FROM medicine WHERE medicine_category='vaccines'";
-$vaccines = mysqli_query($conn, $sql);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $_SESSION['treatment_added'] = false;
 
-    // if (isset($_POST['selected_medicine'])) {
-    //     $id = $_POST['selected_medicine'];
-    //     foreach ($id as $student) {
-    //         $extract_ = explode(',', $student);
-
-
-    //         // $query = "INSERT INTO student (id,name) values ('$extract[0]','$extract[1]')";
-    //     }
-    // }
-    // $treatment = mysqli_real_escape_string($conn, $_REQUEST['treatment']);
-    // $surgery = mysqli_real_escape_string($conn, $_REQUEST['surgery']);
-    if (isset($_POST['symptoms']) && !empty($_POST['symptoms']) && isset($_POST['def_diagnosis']) && isset($_POST['followup_date'])) {
+    if (
+        isset($_POST["save-info"]) && isset($_POST['symptoms']) && !empty($_POST['symptoms']) && isset($_POST['def_diagnosis'])
+        && isset($_POST['followup_date']) && isset($_POST['sp_comments'])
+    ) {
         // die($_POST['symptoms']);
         $sql = 'SELECT * FROM treatment ORDER BY treatment_id  DESC LIMIT 1';
         $last_record = mysqli_query($conn, $sql);
 
         $last_record_data = mysqli_fetch_assoc($last_record);
-
+        if (!$last_record_data) {
+            $last_record_data['treatment_id'] = 'T000';
+        }
         $last_id = substr($last_record_data['treatment_id'], 1);
         $next_t_id = 'T' . str_pad(intval($last_id) + 1, strlen($last_id), '0', STR_PAD_LEFT);
 
@@ -69,16 +73,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $symptoms = mysqli_real_escape_string($conn, $_REQUEST['symptoms']);
         $def_diagnosis = mysqli_real_escape_string($conn, $_REQUEST['def_diagnosis']);
+        $sp_comment = mysqli_real_escape_string($conn, $_REQUEST['sp_comments']);
         $followup_date = mysqli_real_escape_string($conn, $_REQUEST['followup_date']);
 
-
-        $sql = "INSERT INTO treatment (treatment_id,vet_id, pet_id, symptoms, definitive_diagnosis, followup_date) VALUES ('$next_t_id','E002', 'P001', '$symptoms', '$def_diagnosis', '$followup_date')";
+        $emp_id = $_SESSION['emp_id'];
+        $sql = "INSERT INTO treatment (treatment_id,vet_id, pet_id, symptoms, definitive_diagnosis, special_comments, followup_date, treatment_bill)
+         VALUES ('$next_t_id','$emp_id', 'P001', '$symptoms', '$def_diagnosis', '$sp_comment', '$followup_date', '5000.00')";
 
         if (mysqli_query($conn, $sql) == 1) {
+            // die( $_SESSION['treatment_added']);
             $_SESSION['treatment_added'] = true;
+            unset($_POST["save-info"]);
+
+            if (isset($_POST['treatment_type'])) {
+                foreach ($_POST['treatment_type'] as $ch => $value) {
+                    $sql = "INSERT INTO treatment_type (treatment_id,treatment_type) VALUES ('$next_t_id','$value')";
+                    mysqli_query($conn, $sql);
+                }
+            }
+
+            if (isset($_POST['slected_medicine'])) {
+                foreach ($_POST['slected_medicine'] as $ch => $value) {
+                    $sql = "SELECT batch_id FROM batch WHERE medicine_id = '$value'";
+                    $data = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                    $batch_id = $data['batch_id'];
+                    $sql = "INSERT INTO treatment_medicine (treatment_id,batch_id) VALUES ('$next_t_id','$batch_id')";
+                    mysqli_query($conn, $sql);
+                }
+            }
+            if (isset($_POST['selected_lab'])) {
+                foreach ($_POST['selected_lab'] as $ch => $value) {
+                    $sql = "INSERT INTO treatment_lab (treatment_id,lab_id) VALUES ('$next_t_id','$value')";
+                    mysqli_query($conn, $sql);
+                }
+            }
+
+            if (isset($_POST['selected_vaccine'])) {
+                foreach ($_POST['selected_vaccine'] as $ch => $value) {
+                    $sql = "INSERT INTO treatment_vaccine (treatment_id,batch_id) VALUES ('$next_t_id','$value')";
+                    mysqli_query($conn, $sql);
+                }
+            }
         } else {
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
         }
+        unset($_POST["save-info"]);
     } else {
     }
 }
@@ -96,23 +135,126 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../css/add_treatment_.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <title>Pet Life</title>
 </head>
 
 <body>
-    <section class="section">
-        <button class="show-modal button">Show Modal</button>
-        <span class="overlay"></span>
-        <div class="modal-box">
-            <i class="fa-regular fa-circle-check"></i>
-            <h3>Completed</h3>
-            <p>You have sucessfully downloaded all the source code files.</p>
-            <div class="buttons">
-                <button class="close-btn">OK, Close</button>
-                <button>Open File</button>
+    <?php if (isset($_SESSION['treatment_added']) && $_SESSION['treatment_added'] == true) { ?>
+
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h1 class="modal-title"> Treatment ID : <?php echo $next_t_id ?></h1>
+
+                <table class="view-data">
+                    <tr class="data-record">
+                        <?php if (isset($_POST['treatment_type']) && count($_POST['treatment_type']) > 0) {
+                            echo "<td class='table-subject'><i class='fa-solid fa-house-chimney-medical'></i> Treatment type </td>";
+                            foreach ($_POST['treatment_type'] as $ch => $value) {
+                                echo "<td style='padding-right: 10px;'> <i class='fa-regular fa-square-check'></i> $value </td>";
+                            }
+                        }
+                        ?>
+                    </tr>
+                    <tr class="data-record">
+                        <td class="table-subject"><i class="fa-solid fa-house-medical-circle-exclamation"></i>Clinical Signs/Symptoms </td>
+                        <td><?php echo $symptoms ?></td>
+                    </tr>
+                    <tr>
+                        <td class="table-subject"><i class="fa-solid fa-stethoscope"></i>Definitive Diagnosis </td>
+                        <td><?php echo $def_diagnosis ?></td>
+                    </tr>
+
+                    <?php if (strlen($sp_comment) > 0) { ?>
+                        <tr>
+                            <td class="table-subject"><i class="fa-solid fa-comment-medical"></i>Special comments </td>
+                            <td><?php echo $sp_comment ?></td>
+                        </tr>
+                    <?php } ?>
+
+                    <tr class="data-record">
+                        <?php if (isset($_POST['slected_medicine']) && count($_POST['slected_medicine']) > 0) {
+                            echo "<td class='table-subject'><i class='fa-solid fa-capsules'></i> Medicine </td>";
+                            foreach ($_POST['slected_medicine'] as $ch => $value) {
+                                echo "<td style='padding-right: 10px;'> <i class='fa-solid fa-tablets'></i> $value </td>";
+                            }
+                        }
+                        ?>
+                    </tr>
+
+                    <tr class="data-record">
+                        <?php if (isset($_POST['selected_lab']) && count($_POST['selected_lab']) > 0) {
+                            echo "<td class='table-subject'><i class='fa-solid fa-vial-virus'></i> Lab investigations </td>";
+                            foreach ($_POST['selected_lab'] as $ch => $value) {
+                                echo "<td style='padding-right: 10px;'><i class='fa-solid fa-vial'></i> $value </td>";
+                            }
+                        }
+                        ?>
+                    </tr>
+
+                    <tr class="data-record">
+                        <?php if (isset($_POST['selected_vaccine']) && count($_POST['selected_vaccine']) > 0) {
+                            echo "<td class='table-subject'><i class='fa-solid fa-shield-virus'></i> Vaccines </td>";
+                            foreach ($_POST['selected_vaccine'] as $ch => $value) {
+                                echo "<td style='padding-right: 10px;'><i class='fa-solid fa-syringe'></i> $value </td>";
+                            }
+                        }
+                        ?>
+                    </tr>
+                    <tr class="data-record">
+                        <?php
+
+                        if (isset($_POST['followup_date'])) {
+                            $today = date("Y-m-d");
+                            $f_date = $_POST['followup_date'];
+                            if ($today < $f_date) {
+                                echo "<td class='table-subject'><i class='fa-solid fa-calendar-days'></i> Followup date </td>";
+                                echo "<td style='padding-right: 10px;'> $f_date </td>";
+                            }
+                        }
+                        ?>
+                    </tr>
+
+                </table>
+
+                <div style="color: green;text-align: center;"><?php echo $next_t_id ?> <p style="padding-left: 8px;"> is successfully added.</p></div>
             </div>
+
         </div>
-    </section>
+        <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("btn-save");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            modal.style.display = "block";
+            modal.style.opacity = 1;
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+
+
+    <?php } ?>
+
+
     <div class="sidebar">
         <div class="user-img">
             <center><img src="../images/logo_transparent black.png"></center>
@@ -183,11 +325,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="treatment-data">
                         <div class="t-symptoms">
+
                             <div class="first-row">
                                 <div class="checkbox-wrapper-43">
                                     <label for="">Treatment</label>
-                                    <input type="checkbox" name="treatment" id="cbx-43">
-                                    <label for="cbx-43" class="check">
+                                    <input type="checkbox" class="treatment-type-t" name="treatment_type[]" value="treatment" id="cbx-43">
+                                    <label for="cbx-43" onclick="clickTcheck()" class="check t-check">
                                         <svg width="18px" height="18px" viewBox="0 0 18 18">
                                             <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
                                             </path>
@@ -198,8 +341,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <div class="checkbox-wrapper-4">
                                     <label for="">Surgery</label>
-                                    <input type="checkbox" name="surgery" id="cbx-4">
-                                    <label for="cbx-4" class="check">
+                                    <input type="checkbox" class="treatment-type-s" name="treatment_type[]" value="surgery" id="cbx-4">
+                                    <label for="cbx-4" class="check s-check" onclick="clickScheck()">
                                         <svg width="18px" height="18px" viewBox="0 0 18 18">
                                             <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
                                             </path>
@@ -209,11 +352,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                             </div>
 
+
                             <label for="textarea">Clinical Signs/Symptoms</label>
-                            <textarea class="" name="symptoms" placeholder="balla gana kiyanna"></textarea>
+                            <textarea class="add-symptoms" onclick="symptomClick()" name="symptoms" placeholder="Please enter clinical symptoms"></textarea>
 
                             <label for="textarea">Definitive Diagnosis</label>
-                            <textarea class="" name="def_diagnosis"></textarea>
+                            <textarea class="add-diagnosis" onclick="diagnosisClick()" name="def_diagnosis" placeholder="Please enter the definitive diagnosis"></textarea>
 
                             <div class="form__group field">
                                 <input type="input" class="form__field" placeholder="Name" name="sp_comments" id='name' />
@@ -243,11 +387,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 foreach ($medicine as $row) {
                                                     $disable = $row['availability'] ? '' : 'disabled="disabled"';
                                                     $opacity = $row['availability'] ? '1' : '0.6';
-                                                    echo "<input type='checkbox' " . $disable . "  id=" . $row["medicine_name"] . " name='slected_medicine[]' value=" . $row["medicine_name"] . ">";
+                                                    echo "<input type='checkbox' " . $disable . "  id=" . $row["medicine_name"] . " name='slected_medicine[]' value=" . $row["medicine_id"] . ">";
                                                     echo "<label style='opacity: " . $opacity . "' > " . $row["medicine_name"] . "</label><br>";
                                                 }
                                             } else {
-                                                echo "<pre style='text-align: center'> No investigations </pre>";
+                                                echo "<pre style='text-align: center'> No Medicines </pre>";
                                             }
                                             ?>
 
@@ -255,22 +399,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </section>
                                     <input type="radio" name="accordion" id="cb2" />
                                     <section class="box">
-                                        <label class="box-title" for="cb2">Laboratory Investigations</label>
+                                        <label class="box-title" for="cb2">Laboratory</label>
                                         <label class="box-close" for="acc-close" onclick="clickLab()"></label>
                                         <div class="box-content" id="lab" style="-webkit-column-count: 2">
                                             <?php
-                                            if (!$lab_inv == 1) {
-                                                echo "<pre style='text-align: center'> No investigations </pre>";
-                                            } else {
-                                                if (mysqli_num_rows($lab_inv) > 0) {
-                                                    // output data of each row
-                                                    while ($row = mysqli_fetch_assoc($lab_inv)) {
-                                                        echo "<input type='checkbox' id='vehicle1' name='vehicle1' value=" . $row["lab_investigations"] . ">";
-                                                        echo "<label> " . $row["lab_investigations"] . "</label><br>";
-                                                    }
-                                                } else {
-                                                    echo "0 results";
+                                            if (mysqli_num_rows($lab_inv) > 0) {
+                                                // output data of each row
+                                                while ($row = mysqli_fetch_assoc($lab_inv)) {
+                                                    echo "<div><input type='checkbox' name='selected_lab[]' value=" . $row["lab_id"] . ">";
+                                                    echo "<label> " . $row["lab_name"] . "</label><br></div>";
                                                 }
+                                            } else {
+                                                echo "<pre style='text-align: center'> No investigations </pre>";
                                             }
 
                                             ?>
@@ -283,16 +423,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <div class="box-content" id="vac">
 
                                             <?php
-                                            if (!$vaccines == 1) {
-                                                echo "<pre style='text-align: center'> No Vaccines </pre>";
-                                            } else {
-                                                if (mysqli_num_rows($vaccines) > 0) {
-                                                    // output data of each row
-                                                    while ($row = mysqli_fetch_assoc($vaccines)) {
-                                                        echo "<input type='checkbox' id='vehicle1' name='vehicle1' value=" . $row["vaccines"] . ">";
-                                                        echo "<label> " . $row["vaccines"] . "</label><br>";
-                                                    }
+                                            if (count($vaccine) > 0) {
+                                                // output data of each row
+                                                foreach ($vaccine as $row) {
+                                                    $disable = $row['availability'] ? '' : 'disabled="disabled"';
+                                                    $opacity = $row['availability'] ? '1' : '0.6';
+                                                    echo "<input type='checkbox' " . $disable . "  id=" . $row["medicine_name"] . " name='selected_vaccine[]' value=" . $row["batch_id"] . ">";
+                                                    echo "<label style='opacity: " . $opacity . "' > " . $row["medicine_name"] . "</label><br>";
                                                 }
+                                            } else {
+                                                echo "<pre style='text-align: center'> No Vaccines </pre>";
                                             }
                                             ?>
                                         </div>
@@ -313,7 +453,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
 
                                 <div class="save-btn">
-                                    <button class="button-01" type="submit" role="button">Save</button>
+                                    <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save" type="submit" role="button">Save</button>
                                 </div>
                             </div>
 
@@ -370,36 +510,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             function clickLab() {
                 document.getElementById("lab").style.cssText = 'display: none';
             }
-
-            const section = document.querySelector('.section'),
-                overlay = document.querySelector('.overlay'),
-                showBtn = document.querySelector('.show-modal'),
-                closeBtn = document.querySelector('.close-btn');
-
-            
-            
-                section.classList.add('active');
-
-                <? if($_SESSION['treatment_added']) {
-                    echo "section.classList.add('active');";
-                    $_SESSION['treatment_added'] = false;
-                } ?>
-            
-            
-            
+            console.log(document.getElementById("btn-save"));
+            // document.getElementById("btn-save").disabled = true;
+            const save = document.querySelector('#btn-save');
+            const treatmentBox = document.querySelector('.treatment-type-t');
+            const surgeryBox = document.querySelector('.treatment-type-s');
+            const sympotmsTA = document.querySelector('.add-symptoms');
+            const diagnosisTA = document.querySelector('.add-diagnosis');
             
 
+            const tCheckBox = document.querySelector('.t-check');
+            const sCheckBox = document.querySelector('.s-check');
 
-            closeBtn.addEventListener('click', () => {
-                section.classList.remove('active');
-                console.log('11');
-            });
-            overlay.addEventListener('click', () => {
-                section.classList.remove('active');
-                console.log('12');
-            });
+            
+            function clickTcheck() {
+                tCheckBox.style = 'background-color:unset';
+                sCheckBox.style = 'background-color:unset';
+            }
+            function clickScheck() {
+                sCheckBox.style = 'background-color:unset';
+                tCheckBox.style = 'background-color:unset';
+            }
+            function symptomClick() {
+                sympotmsTA.style = 'border-color:unset';
+            }
+            function diagnosisClick() {
+                diagnosisTA.style = 'border-color:unset';
+            }
 
+            function saveTreatment(event) {
+                let checkInputs = true;
+                if ((!treatmentBox.checked && !surgeryBox.checked)) {
+                   
+                    tCheckBox.style = 'background-color:red';
+                    sCheckBox.style = 'background-color:red';
+                    checkInputs = false;
+                }
+
+                  
+                if(sympotmsTA.value == '') {
+                    sympotmsTA.style = "border-color: red"; 
+                    checkInputs = false;
+                } 
+                if(diagnosisTA.value == '') {
+                    diagnosisTA.style = "border-color: red";
+                    checkInputs = false; 
+                }
+
+                if(!checkInputs) {
+                    event.preventDefault(); 
+                }
+  
+            }
         </script>
 </body>
 
-</html>
+<!-- </html> -->

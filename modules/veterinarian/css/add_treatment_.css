@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap");
 
 :root {
-  --colour1: #000D2F;
+  --colour1: #000d2f;
   --colour2: rgba(215, 226, 255, 0.6);
-  --backgroundcolour3: #EEF3FF;
+  --backgroundcolour3: #eef3ff;
   --colour4: black;
   --colour5: white;
 }
@@ -23,7 +23,6 @@ body {
 
 .user-img {
   color: black;
-
 }
 
 .user-img img {
@@ -38,9 +37,9 @@ body {
   width: 18%;
   left: 0;
   top: 0;
-  background-color: #96CDE1;
-  background-color: #000D2F;
-  background-color: #96CDE1;
+  background-color: #96cde1;
+  background-color: #000d2f;
+  background-color: #96cde1;
   /* padding-top: .9rem; */
   display: flex;
   flex-direction: column;
@@ -95,8 +94,6 @@ body {
   padding-left: 1.8rem;
 }
 
-
-
 .logout a i {
   font-size: 1.2rem;
   padding-right: 1.5rem;
@@ -121,7 +118,7 @@ body {
 .logout hr {
   width: 80%;
   margin-bottom: 2px;
-  background-color: #A0ACBD;
+  background-color: #a0acbd;
 }
 
 /*Navbar*/
@@ -131,7 +128,7 @@ body {
   display: flex;
   padding: 10px 20px;
   align-items: center;
-  background-color: #96CDE1;
+  background-color: #96cde1;
   display: flex;
   justify-content: space-between;
   width: 82%;
@@ -157,7 +154,7 @@ body {
 .header-font-2 {
   font-size: 30px;
   /* padding:40px; */
-  font-family: 'Amatic SC';
+  font-family: "Amatic SC";
   font-weight: bold;
 }
 
@@ -194,7 +191,6 @@ body {
   font-size: 1.5rem;
 }
 
-
 /* .treatment-title{
     text-align: center;
     font-size: 18px;
@@ -219,32 +215,27 @@ margin-top:50px;
   font-size: 24px;
 }
 
-
 .contentt {
   width: 96%;
   display: flex;
   margin-left: 2%;
-
 }
 
 .content-left {
   width: 48%;
-
 }
 
 .content-right {
   width: 48%;
-
 }
 
 .pet-name {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
   margin-top: 30px;
   margin-left: 70px;
-
 }
 
 .pet-img {
@@ -271,23 +262,21 @@ input[type="text"] {
   border-left: none;
   border-right: none;
   margin-left: 125px;
-
 }
 
 label {
-  font-family: 'poppins';
+  font-family: "poppins";
   font-style: normal;
   font-weight: 500;
   color: #000000;
 }
-
 
 .label-date {
   display: flex;
 }
 
 .label-date label {
-  font-family: 'poppins';
+  font-family: "poppins";
   font-style: normal;
   font-weight: 700;
 }
@@ -302,28 +291,27 @@ label {
 
 .label-title-a {
   margin-left: 0px;
-  font-family: 'poppins';
+  font-family: "poppins";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-
 }
 
 .label-title-a label {
-  font-family: 'poppins';
+  font-family: "poppins";
   font-style: normal;
   font-weight: 700;
 }
 
 input[type="checkbox"] {
-  font-family: 'poppins';
+  font-family: "poppins";
   font-style: normal;
   font-weight: 500;
 }
 
 .sym-list {
   width: 100%;
-  font-family: 'poppins';
+  font-family: "poppins";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -340,12 +328,11 @@ input[type="checkbox"] {
 }
 
 .label-title-b {
-
   margin-left: 140px;
 }
 
 .label-title-b label {
-  font-family: 'poppins';
+  font-family: "poppins";
   font-style: normal;
   font-weight: 700;
 }
@@ -367,12 +354,12 @@ input[type="checkbox"] {
 }
 
 .button {
-  background-color: #C38D9E;
+  background-color: #c38d9e;
   color: black;
 
   padding: 3px 15px;
   border-radius: 20px;
-  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.0), 0 2px 2px 0 rgba(0, 0, 0, 1);
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 1);
   border: none;
   margin: auto;
   width: 20%;
@@ -382,7 +369,6 @@ input[type="checkbox"] {
   font-weight: 800;
   margin-right: 50px;
   cursor: pointer;
-
 }
 
 .button:hover {
@@ -403,7 +389,7 @@ input[type="checkbox"] {
 }
 
 .content::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
   inset: 0;
@@ -424,7 +410,6 @@ input[type="checkbox"] {
 }
 
 .treatment-header h2 {
-
   text-align: center;
   margin-top: 5rem;
   font-size: 28px;
@@ -465,7 +450,6 @@ textarea {
   background-color: #f8f8f8;
   font-size: 16px;
   resize: none;
-
 }
 
 .form__group {
@@ -492,7 +476,7 @@ textarea {
   color: transparent;
 }
 
-.form__field:placeholder-shown~.form__label {
+.form__field:placeholder-shown ~ .form__label {
   font-size: 16px;
   cursor: text;
   top: 20px;
@@ -515,7 +499,7 @@ textarea {
   border-image-slice: 1;
 }
 
-.form__field:focus~.form__label {
+.form__field:focus ~ .form__label {
   position: absolute;
   top: 0;
   display: block;
@@ -542,11 +526,6 @@ textarea {
   justify-content: space-around;
   margin: 10px 0 40px 0;
 }
-
-
-
-
-
 
 .checkbox-wrapper-43 input[type="checkbox"] {
   display: none;
@@ -610,24 +589,20 @@ textarea {
   stroke: #4285f4;
 }
 
-.checkbox-wrapper-43 input[type="checkbox"]:checked+.check svg {
+.checkbox-wrapper-43 input[type="checkbox"]:checked + .check svg {
   stroke: #4285f4;
 }
 
-.checkbox-wrapper-43 input[type="checkbox"]:checked+.check svg path {
+.checkbox-wrapper-43 input[type="checkbox"]:checked + .check svg path {
   stroke-dashoffset: 60;
   transition: all 0.3s linear;
 }
 
-.checkbox-wrapper-43 input[type="checkbox"]:checked+.check svg polyline {
+.checkbox-wrapper-43 input[type="checkbox"]:checked + .check svg polyline {
   stroke-dashoffset: 42;
   transition: all 0.2s linear;
   transition-delay: 0.15s;
 }
-
-
-
-
 
 .checkbox-wrapper-4 input[type="checkbox"] {
   display: none;
@@ -691,21 +666,20 @@ textarea {
   stroke: #4285f4;
 }
 
-.checkbox-wrapper-4 input[type="checkbox"]:checked+.check svg {
+.checkbox-wrapper-4 input[type="checkbox"]:checked + .check svg {
   stroke: #4285f4;
 }
 
-.checkbox-wrapper-4 input[type="checkbox"]:checked+.check svg path {
+.checkbox-wrapper-4 input[type="checkbox"]:checked + .check svg path {
   stroke-dashoffset: 60;
   transition: all 0.3s linear;
 }
 
-.checkbox-wrapper-4 input[type="checkbox"]:checked+.check svg polyline {
+.checkbox-wrapper-4 input[type="checkbox"]:checked + .check svg polyline {
   stroke-dashoffset: 42;
   transition: all 0.2s linear;
   transition-delay: 0.15s;
 }
-
 
 /* accordian */
 
@@ -722,11 +696,11 @@ textarea {
   position: relative;
   background: white;
   height: 64px;
-  transition: all .15s ease-in-out;
+  transition: all 0.15s ease-in-out;
 }
 
 .box::before {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   top: 0;
@@ -734,7 +708,8 @@ textarea {
   left: 0;
   right: 0;
   pointer-events: none;
-  box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24);
+  box-shadow: 0 -1px 0 #e5e5e5, 0 0 2px rgba(0, 0, 0, 0.12),
+    0 2px 4px rgba(0, 0, 0, 0.24);
 }
 
 .box-title {
@@ -756,10 +731,9 @@ textarea {
   width: calc(100% - 40px);
   padding: 30px 20px;
   font-size: 11pt;
-  color: rgba(0, 0, 0, .54);
+  color: rgba(0, 0, 0, 0.54);
   /* display: none; */
 }
-
 
 .box-close {
   position: absolute;
@@ -771,21 +745,21 @@ textarea {
   display: none;
 }
 
-input:checked+.box {
+input:checked + .box {
   height: auto;
   margin: 16px 0;
-  box-shadow: 0 0 6px rgba(0, 0, 0, .16), 0 6px 12px rgba(0, 0, 0, .32);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.16), 0 6px 12px rgba(0, 0, 0, 0.32);
 }
 
-input:checked+.box .box-title {
-  border-bottom: 1px solid rgba(0, 0, 0, .18);
+input:checked + .box .box-title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
 }
 
-input:checked+.box .box-content,
-input:checked+.box .box-close {
+input:checked + .box .box-content,
+input:checked + .box .box-close {
   display: inline-block;
 }
-input:not(:checked)+.box .box-content {
+input:not(:checked) + .box .box-content {
   display: none !important;
 }
 
@@ -797,23 +771,21 @@ input:not(:checked)+.box .box-content {
 .arrows section .box-title:before {
   position: absolute;
   display: block;
-  content: '\203a';
+  content: "\203a";
   font-size: 18pt;
   left: 20px;
   top: -2px;
-  transition: transform .15s ease-in-out;
-  color: rgba(0, 0, 0, .54);
+  transition: transform 0.15s ease-in-out;
+  color: rgba(0, 0, 0, 0.54);
 }
 
-input:checked+section.box .box-title:before {
+input:checked + section.box .box-title:before {
   transform: rotate(90deg);
 }
 
 .box-content input {
   display: inline !important;
 }
-
-
 
 /* SAVE BUTTON CSS */
 .save-btn {
@@ -827,7 +799,7 @@ input:checked+section.box .box-title:before {
   background-color: #f9f9f9;
   border-radius: 40em;
   border-style: none;
-  box-shadow: #b6ecef  0 -12px 6px inset;
+  box-shadow: #b6ecef 0 -12px 6px inset;
   box-sizing: border-box;
   color: #000000;
   cursor: pointer;
@@ -841,7 +813,7 @@ input:checked+section.box .box-title:before {
   quotes: auto;
   text-align: center;
   text-decoration: none;
-  transition: all .15s;
+  transition: all 0.15s;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -860,12 +832,87 @@ input:checked+section.box .box-title:before {
 @media (min-width: 768px) {
   .button-01 {
     /* font-size: 1.5rem; */
-    padding: .75rem 2rem;
+    padding: 0.75rem 2rem;
   }
 }
 
+/* The Modal (background) */
+.modal {
+  display: display; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 999999; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: #2b3f46b5; /* Black w/ opacity */
+  opacity: 1;
+  animation-name: example;
+  animation-duration: 0.2s;
+}
+@keyframes example {
+  0%   {opacity:0}
+  25%   {opacity:0.25}
+  50%  {opacity:0.5}
+100%  {opacity:1}
 
-.button {
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  border-radius: 15px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-title {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.view-data {
+  display: flex;
+  justify-content: center;
+}
+.table-subject {
+  color: brown;
+  padding: 0 55px 0 0;
+}
+
+.data-record {
+  padding-bottom: 10px;
+}
+
+.view-data td {
+  padding-bottom: 24px;
+}
+.view-data i {
+  padding-right: 10px;
+}
+
+/* .button {
   font-size: 18px;
   font-weight: 400;
   color: #fff;
@@ -948,4 +995,4 @@ input:checked+section.box .box-title:before {
   font-weight: 400;
   padding: 6px 12px;
   margin: 0 10px;
-} 
+}  */
