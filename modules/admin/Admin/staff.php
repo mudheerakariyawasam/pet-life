@@ -111,7 +111,7 @@ session_start();
   <tbody>';
   while($row = $result->fetch_assoc()){
    echo '<tr>';
-    echo '<th style="color:#000D2;" scope="row">'.$row["emp_id"].'</th>';
+    echo '<td><b>'.$row["emp_id"].'</b></td>';
     echo '<td>'. $row["emp_name"].'</td>';
 echo '<td>'. $row["emp_address"].'</td>';
 echo '<td>'. $row["emp_contactno"].'</td>';

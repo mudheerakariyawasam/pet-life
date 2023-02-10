@@ -1,7 +1,7 @@
  :root {
    --colour1: #000D2F;
    --colour2: rgba(215,226,255,0.6);
-   --backgroundcolour3: #EEF3FF;
+   --backgroundcolour3: white;
    --colour4: black;
    --colour5: white;
  }
@@ -179,10 +179,7 @@ background-size: cover;
 background-position: center;
 height: 100vh;
  }
- table{
-  width:98%;
-  margin-left: 1%;
-  }
+ 
   .client-title{
 
     font-size: 20px;
@@ -191,17 +188,26 @@ height: 100vh;
   margin-left: 50px;
   
   }
+  table {
+    border: none;
+    border-collapse: collapse;
+    width:98%;
+  margin-left: 1%;
+  }
   
+  th, td {
+    width:150px;
+    text-align:center;
+    padding:8px; 
+    background-color: #000D2F; 
+    height: 50px;
+    color: white;
+  }
   
   td{
-    background-color: #96CDE1;
-    text-align:center;
-    font-weight:bold;
-  }
-  thead{
-    background-color: #000D2F;
-    color: #fff;
-    font-size:medium;
+    color: black;
+    background-color:#96CDE1;   
+    border-bottom: 5px solid white;
   }
   .f{
   display:flex;
