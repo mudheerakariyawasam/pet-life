@@ -1,5 +1,5 @@
 <?php
-include("dbconnection.php");
+include("../../db/dbconnection.php");
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($hashedPassword == $row["owner_pwd"]) {
                 $_SESSION['login_user'] = $owner_email;
                 $_SESSION['user_name'] = $row["owner_fname"];
-                header("location: ../pet owner/dashboard1.php");
+                header("location: ../pet owner/dashboard.php");
             } else {
                 echo '<script>alert("Wrong User Details")</script>';
             }

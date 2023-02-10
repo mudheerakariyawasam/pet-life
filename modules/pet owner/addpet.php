@@ -1,12 +1,11 @@
 <?php
-   include("dbconnection.php");
+    include("../../db/dbconnection.php");
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("location:../../Auth/login.php");
+        exit;
+    }
 
-   session_start();
-   if(!isset($_SESSION['login_user']))
-   {
-    header("Location:login.php");
-    exit;
-   } 
 
         $loggedInUser = $_SESSION['login_user'];
         $sql2 =  "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";

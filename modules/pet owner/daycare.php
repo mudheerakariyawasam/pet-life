@@ -1,12 +1,11 @@
 <?php
-include("dbconnection.php");
-session_start();
-if (!isset($_SESSION['login_user'])) {
-    header("Location:login.php");
-    exit;
-}
+    include("../../db/dbconnection.php");
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("location:../../Auth/login.php");
+        exit;
+    }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +28,7 @@ if (!isset($_SESSION['login_user'])) {
         <ul>
             
         <li>
-                <a href="dashboard1.php" ><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
+                <a href="dashboard.php" ><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
                 <a href="treatment.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatments</span></a>
@@ -41,7 +40,7 @@ if (!isset($_SESSION['login_user'])) {
                 <a href="profile.php" ><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
             </li>
             <li>
-                <a href="vip.php" class="active"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php" class="active"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
             </li>
             <li>
                 <a href="petshop.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
@@ -95,7 +94,7 @@ if (!isset($_SESSION['login_user'])) {
 
 <!-- <div class="left"> -->
     <form method="POST" action="">
-        <p class="welcome">Sign Up Free</p>
+        <p class="welcome">Register Now</p>
 
         
         <div class="form-content">
@@ -129,7 +128,7 @@ if (!isset($_SESSION['login_user'])) {
         
 
         <p>
-            <button class="btn-login" type="submit">Sign Up</button>
+            <button class="btn-login" type="submit">Register</button>
             <button class="btn-exit" type="submit"><a href="./home.php">Cancel</a></button>
         </p>
     </form>

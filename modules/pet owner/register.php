@@ -1,5 +1,5 @@
 <?php
-include("dbconnection.php");
+include("../../db/dbconnection.php");
 
 $sql_get_id="SELECT owner_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
      $result_get_id=mysqli_query($conn,$sql_get_id);
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="normal-link">
             <div class="nav-item item1 active-home"><a href="./home.php">Home</a></div>
             <div class="nav-item item2"><a href="./aboutus.php">About us</a></div>
-            <div class="nav-item item3"><a href="./vip.php">VIP Programs</a></div>
+            <div class="nav-item item3"><a href="./daycare.php">VIP Programs</a></div>
             <div class="nav-item item2"><a href="./services.php">Services</a></div>
             <div class="nav-item item4"><a href="./contactus.php">Contact Us</a></div>
             <div class="nav-item item2"><a href="./appointmentc.php">Book an Appointmnet</a></div>

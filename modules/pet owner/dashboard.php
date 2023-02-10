@@ -1,10 +1,11 @@
 <?php
-include("dbconnection.php");
-session_start();
-if (!isset($_SESSION['login_user'])) {
-    header("Location:login.php");
-    exit;
-}
+    include("../../db/dbconnection.php");
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("location:../../Auth/login.php");
+        exit;
+    }
+
 
 //Get the total no of items in the database
 
@@ -78,7 +79,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                 <a href="profile.php" ><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
             </li>
             <li>
-                <a href="vip.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
             </li>
             <li>
                 <a href="petshop.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
@@ -138,7 +139,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <p>2</p>
                     </div>
                     <div>
-                        <button class="register-btn"><a href="./makeappointments.php">Register New</a></button>
+                        <button class="register-btn"><a href="./makeapp.php">Register New</a></button>
                     </div>
                 </div>
 
@@ -159,7 +160,10 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <p>Pets Treatment Records</p>
                     </div>
                     <div class="count">
-                        <p>8</p>
+                        <p>1</p>
+                    </div>
+                    <div>
+                        <button class="register-btn"><a href="./treatment.php">View Now</a></button>
                     </div>
                 </div>
             </div>
@@ -169,6 +173,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                     <div class ="app">
                 <p> LATEST APPOINTMNETS </P>
                     </div>
+                    
                 <?php
             $loggedInUser = $_SESSION['login_user'];
 
