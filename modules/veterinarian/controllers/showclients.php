@@ -28,7 +28,7 @@
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
+                <a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
             </li>
             <li>
                 <a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
@@ -36,7 +36,7 @@
         </ul>
         <div class="logout">
             <hr>
-            <a href="logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="/pet-life/Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>
     </div>
 
