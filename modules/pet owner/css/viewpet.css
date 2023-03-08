@@ -45,7 +45,7 @@ body{
 
 body {
     margin: 0;
-    background-image: url(../images/Dash.png);
+    background-image: url(../images/dash.png);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -254,7 +254,7 @@ body {
 }
 
 .container {
-    background-image: url(../images/admin_panel.jpg);
+    /* background-image: url(../images/admin_panel.jpg); */
     background-size: cover;
     background-position: center;
 }
@@ -274,33 +274,36 @@ button:hover{
 table {
     border: none;
     border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(255, 255, 255, 0.5);
-    margin-top: 30px;
-}
-
-th, td {
-    width:150px;
+    width:90%;
+  margin-left: 50px;
+  }
+  
+  th, td {
+    width:120px;
     text-align:center;
-    padding:5px; 
-    background-color: rgba(255, 255, 255, 0.5);
-    
-}
-
-td{
-   
-    background-color: rgba(255, 255, 255, 0.5);
-    
-}
+    padding:p7x; 
+    background-color: #000D2F; 
+    height: 50px;
+    color: white;
+    font-size: medium;
+  }
+  
+  td{
+    color: black;
+    background-color:#96CDE1;   
+    border-bottom: 5px solid white;
+    width:60px;
+  }
 
 .details{
     text-align:left;
 }
 
 .action{
-    width: 40px;
+    width: 30px;
+    padding: 4px;
 }
+
 
 .pet-item{
     background: rgba(133, 205, 202, 0.6);

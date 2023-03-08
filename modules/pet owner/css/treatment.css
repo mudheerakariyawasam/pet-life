@@ -107,7 +107,7 @@ body {
 
 .content {
     position: fixed;
-    background: var(--backgroundcolour3);
+    background: white;
     width: 82%;
     margin-left: 18%;
 }
@@ -234,7 +234,27 @@ body {
 }
 
 .container {
-    background-image: url(../images/admin_panel.jpg);
-    background-size: cover;
-    background-position: center;
+    padding: 100px;
 }
+
+table {
+    border: none;
+    border-collapse: collapse;
+    width:98%;
+  margin-left: 70px;
+  }
+  
+  th, td {
+    width:150px;
+    text-align:center;
+    padding:8px; 
+    background-color: #000D2F; 
+    height: 50px;
+    color: white;
+  }
+  
+  td{
+    color: black;
+    background-color:#96CDE1;   
+    border-bottom: 5px solid white;
+  }

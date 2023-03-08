@@ -45,9 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-
     <div class="container">
-
+        
         <div class="right">
             <form method="POST">
                 <p class="welcome">Welcome To</p>

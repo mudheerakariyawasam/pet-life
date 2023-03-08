@@ -272,13 +272,7 @@ body {
     margin: 0;
     background-color: #96CDE1;
     min-height: 100vh;
-    font-family: 'Roboto', sans-serif;
     border: none;
-}
-
-* {
-    font-family: roboto;
-    box-sizing: padding-box;
 }
 
 form {

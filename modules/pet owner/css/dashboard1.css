@@ -171,7 +171,7 @@ body {
     height: max-content;
     left: 63px;
     top: 164px;
-    background: rgba(133, 205, 201, 0.585);
+    background: #96CDE1;
     border: 1px solid #FFFFFF;
     border-radius: 20px;
     padding: 20PX;
@@ -273,36 +273,34 @@ body {
 table {
     border: none;
     border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(255, 255, 255, 0.771);
-    margin-top: 30px;
-    width: 70%;
-    
-}
-
-th, td {
-    width:150px;
+    width:90%;
+  margin-left: 50px;
+  }
+  
+  th, td {
+    width:120px;
     text-align:center;
-    padding:5px; 
-    background-color: rgba(255, 255, 255, 0.5);
+    padding:p7x; 
+    background-color: #000D2F; 
+    height: 50px;
+    color: white;
     font-size: medium;
-    
-}
-
-td{
-   
-    background-color: rgba(255, 255, 255, 0.5);
-    
-}
+  }
+  
+  td{
+    color: black;
+    background-color:#96CDE1;   
+    border-bottom: 5px solid white;
+    width:60px;
+  }
 
 .details{
     text-align:left;
-    font-size: medium;
 }
 
 .action{
-    width: 40px;
+    width: 30px;
+    padding: 4px;
 }
 
 .app{
