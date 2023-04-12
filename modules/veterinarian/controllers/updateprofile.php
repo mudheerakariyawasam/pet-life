@@ -77,7 +77,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <li>
                     <a href="showclients.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
                 </li>
-
+                <li>
+                <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment History</span></a></a>
+            </li>
                 <li>
                     <a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a>
                 </li>

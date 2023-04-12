@@ -267,13 +267,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li>
                 <a href="showclients.php" class="active"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
-
             <li>
-                <a href="#"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
+                <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment History</span></a></a>
+            </li>
+            <li>
+                <a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
             </li>
 
             <li>
-                <a href="#"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+                <a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
             </li>
         </ul>
         <div class="logout">
