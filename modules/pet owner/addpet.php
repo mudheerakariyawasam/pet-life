@@ -41,7 +41,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/daycare.css">
+    <link rel="stylesheet" href="css/addpet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <title>Pet Care</title>
@@ -154,7 +154,7 @@
                 </div> -->
                
                 <p>
-                    <button class="btn-login" type="submit">Register</button>
+                    <button class="btn-add" type="submit">Register</button>
                     <!-- <button class="btn-exit" type="submit"><a href="./dashboard.php">Cancel</a></button> -->
                 </p>
             </form>

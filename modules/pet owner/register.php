@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -63,22 +63,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/register.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <title>Pet Care</title>
 </head>
 
 <body>
 
-    <div class="navbar">
-        <div class="normal-link">
-            <div class="nav-item item1 active-home"><a href="./home.php">Home</a></div>
-            <div class="nav-item item2"><a href="./aboutus.php">About us</a></div>
-            <div class="nav-item item3"><a href="./daycare.php">VIP Programs</a></div>
-            <div class="nav-item item2"><a href="./services.php">Services</a></div>
-            <div class="nav-item item4"><a href="./contactus.php">Contact Us</a></div>
-            <div class="nav-item item2"><a href="./appointmentc.php">Book an Appointmnet</a></div>
-        </div>
-    </div>
+<div class="content">
+        <div class="navbar">
+            <div class="navbar__left">
+                <div class="nav-icon">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="hello">Welcome &nbsp <div class="name">User</div>
+                </div>
+            </div>
 
+            <div class="navbar__right">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="fa-solid fa-bell"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span id="designation"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     <div class="container">
 
         <div class="left">
@@ -122,11 +143,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <p>
-                    <button class="btn-login" type="submit">Sign Up</button>
-                    <button class="btn-exit" type="submit"><a href="./home.php">Cancel</a></button>
+                    <button class="btn-add" type="submit">Sign Up</button>
+                   
                 </p>
+                
                 <span class="psw">Already have an account? <a href="./login.php">Login</a></span>
+
             </form>
+
 
             
         </div>
@@ -136,6 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
     </div>
+</div>
 
 </body>
 

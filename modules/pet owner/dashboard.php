@@ -128,6 +128,8 @@ if (mysqli_num_rows($result_total2) > 0) {
 
         <div class="container">
 
+        
+
             <div class="top-container">
                 <div class="box">
                     <div class="top-text">
@@ -137,7 +139,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <p>2</p>
                     </div>
                     <div>
-                        <button class="register-btn"><a href="./makeapp.php">Register New</a></button>
+                        <button class="btn-add"><a href="./makeapp.php">Register New</a></button>
                     </div>
                 </div>
 
@@ -149,7 +151,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <p>5</p>
                     </div>
                     <div>
-                        <button class="register-btn"><a href="./addpet.php">Register New</a></button>
+                        <button class="btn-add"><a href="./addpet.php">Register New</a></button>
                     </div>
                 </div>
 
@@ -161,7 +163,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <p>1</p>
                     </div>
                     <div>
-                        <button class="register-btn"><a href="./treatment.php">View Now</a></button>
+                        <button class="btn-add"><a href="./treatment.php">View Now</a></button>
                     </div>
                 </div>
             </div>
@@ -214,7 +216,7 @@ if (mysqli_num_rows($result_total2) > 0) {
             ?>
                
             <div>
-                        <button class="register-btn2"><a href="./viewpet.php">View Pets</a></button>
+                        <button class="btn-add2"><a href="./viewpet.php">View Pets</a></button>
                     </div>
         </div>
         <script src="script.js">

@@ -1,110 +1,246 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;700&display=swap');
 
-.topic{  
-    background-color: #96CDE1;;
+root {
+    --colour1: #000D2F;
+    --colour2: rgba(215, 226, 255, 0.6);
+    /* --backgroundcolour3: #EEF3FF; */
+    --colour4: black;
+    --colour5: white;
 }
 
-.welcome{
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 55px;
+* {
+    padding: 0;
+    font-family: poppins, sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
 }
 
-.name{
-    font-family: 'Amatic SC';
-    font-style:  normal;
-    font-weight: 400;
-    font-size: 55px;
-    line-height: 88px;
+body {
+    margin: 0;
+    background-image: url(../images/daycare.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-.logout{
-    font-family: 'Alegreya Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    text-align: center;
-    position: absolute;
-    width: 90px;
-    height: 34px;
-    left: 1305px;
-    top: 25px;
-    border-radius: 10px;
-}
-
-.messages{
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    left: 1215px;
-    top: 18px;
-    border-radius: 50%;
-}
-
-.notification{
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    left: 1138px;
-    top: 18px;
-    border-radius: 50%;
+.user-img {
+    color: rgb(0, 0, 0);
 
 }
-button{
-    border: none;
-}
-button:hover{
-    opacity: .70;
-}
 
-.container {
-    width: 100%;
+.sidebar {
+    position: fixed;
+    height: 100%;
+    width: 18%;
+    left: 0;
+    top: 0;
+    background-color: #96CDE1;
+    padding-top: .9rem;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 }
 
-.welcome {
-    text-align: center;
-    font-size: 40px;
-    font-weight: 500;
-    margin-bottom: 20px;
-    margin-top: 0px;
-    font-weight:600;
+.sidebar li {
+    width: 100%;
+    margin-top: 0.4rem;
+    padding-left: 1.8rem;
 }
+
+.sidebar a {
+    display: block;
+    color: rgb(0, 0, 0);
+
+    font-size: 0.8rem;
+    padding: 0.7rem 0 0.7rem 0;
+}
+
+.sidebar span {
+    font-weight: semi-bold;
+}
+
+.sidebar i {
+    font-size: 1.2rem;
+    padding-right: 1.5rem;
+}
+
+.sidebar a.active {
+    background-color: #fff;
+    color: var(--backgroundcolour3);
+    border-radius: 30px 0px 0px 30px;
+    color: #000;
+    padding-left: 1rem;
+}
+
+.sidebar li a:hover {
+    background-color: #fff;
+    color: var(--backgroundcolour3);
+    border-radius: 30px 0px 0px 30px;
+    color: #000;
+    padding-left: 1rem;
+}
+
+.logout {
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.7rem 0 0.7rem 0;
+    padding-left: 1.8rem;
+}
+
+
+
+.logout a i {
+    font-size: 1.2rem;
+    padding-right: 1.5rem;
+}
+
+.logout a:hover {
+    background-color: #fff;
+    color: var(--backgroundcolour3);
+    border-radius: 30px 30px 30px 30px;
+    color: #000;
+    padding-left: 1rem;
+    margin-right: 5rem;
+}
+
+.content {
+    position: fixed;
+    background: var(--backgroundcolour3);
+    width: 82%;
+    margin-left: 18%;
+}
+
+.logout hr {
+    width: 80%;
+    margin-bottom: 2px;
+    background-color: #A0ACBD;
+}
+
+/*Navbar*/
+
 .navbar {
+    position: fixed;
+    display: flex;
+    padding: 10px 20px;
+    align-items: center;
     background-color: #96CDE1;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 50px;
+    justify-content: space-between;
+    width: 82%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.navbar__left {
+    display: flex;
     align-items: center;
+}
+
+
+
+.nav-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.hello {
+    color: black;
+    font-size: 25px;
+    display: flex;
+    flex-direction: row;
+}
+
+.name {}
+
+.top-container{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    margin: 120px;
+}
+
+
+.box{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 296px;
+    height: max-content;
+    left: 63px;
+    top: 164px;
+    background: rgba(133, 205, 202, 0.6);
+    border: 1px solid #FFFFFF;
+    border-radius: 20px;
+    padding: 20PX;
+}
+
+.top-text{
+    margin: 20px 0px 0px 0px;
     font-weight: bold;
 }
 
-.normal-link{
+.count{
+    font-size: 60px;
+    font-weight:bolder;
+}
+
+.register-btn{
+    color: black;
+    border: none;
+    background-color: #C38D9E;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.register-btn2{
+    color: black;
+    border: none;
+    background-color: #C38D9E;
+    padding: 10px;
+    border-radius: 30px;
+    margin-left: 1050px;
+    width: 10%;
+    margin-top: 200px;
+}
+
+.navbar__right ul {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    padding-right: 2rem;
+}
+
+.navbar__right ul li {
+    margin-left: 2rem;
+}
+
+.navbar__right ul li a {
+    color: #000;
+    font-size: 1rem;
+}
+
+#userName {
+    font-weight: bold;
+}
+
+#designation {
+    font-size: 0.8rem;
+}
+
+.navbar__right ul li a i {
+    font-size: 1.5rem;
 }
 
 .container {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.welcome {
-    text-align: center;
-    font-size: 40px;
-    font-weight: 500;
-    margin-bottom: 20px;
-    margin-top: 0px;
-    font-weight:600;
+    background-image: url(../images/admin_panel.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 .form-content {
     display: flex;  
-    justify-content: right;
+    justify-content: left;
 }
 
 .form-content label{
@@ -136,40 +272,38 @@ body {
     margin: 0;
     background-color: #96CDE1;
     min-height: 100vh;
-    font-family: 'Roboto', sans-serif;
     border: none;
 }
 
-* {
-    font-family: roboto;
-    box-sizing: padding-box;
-}
-
 form {
-    padding: 35px;
-    background-color: rgba(255, 255, 255, 0);
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.699);
     margin-right: 90px;
     height: 90%;
-    width: 100%;
+    width: 50%;
     margin-left: 90px;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.486);
+    margin-top: 80px;
+    
 
 }
 
 .form-content {
-    display: flex;
+    display:flex;
     flex-direction: row;
-    padding: 10px;
+    padding: 8px;
+align-content: baseline;
 }
 .container input {
     display: block;
     border: 2px solid #ccc;
     width: 300px;
-    padding: 6px;
+    padding: 8px;
     margin: 0;
     border-radius: 30px;
     background-color: #C38D9E;
+   margin-left: 6px;
+
 
 
 }
@@ -195,20 +329,33 @@ button {
     width: 150px;
 }
 
-.btn-login {
+.btn-add{
     background-color: #C38D9E;
-    padding: 10px;
-    border-radius: 30px;
+    color: black;
+    padding: 10px 10px;
+    border-radius: 20px;
+    /* box-shadow: 0px 0px 2px 2px rgb(0,0,0); */
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
+    border: none;
+    margin: auto;
+    width: 120px;
+    float:right;
+    font-family: poppins, sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    margin-right: 30px;
+    margin-top: 12px;
+    cursor: pointer;
+  
+  }
+.btn-add:hover {
+    background-color:rgba(215,226,255,0.6);
+    transition: 0.7s;
+  }
 
+button:hover {
+    opacity: .60;
 }
-
-.btn-exit {
-    background-color: #C38D9E;
-    border-radius: 30px;
-
-}
-
-
 
 .error {
     background: #F2DEDE;
@@ -219,31 +366,33 @@ button {
     margin: 20px auto;
 }
 
-.psw{
-    font-style: italic;
-    margin-top: 100px;
-    text-align: center;
-    margin-left: 300px;
+a:hover {
+    opacity: .7;
 }
 
 
-a{
+a {
     text-decoration: none;
     color: black;
 }
 
-.nav-link {
-    display: flex;
-    margin-right: 40px;
-}
 
-.nav-item {
-    margin: 10px;
-    margin-right: 30px;
-    display: flex;
-    align-items: center;
-}
 
 .active-btn {
     background-color: #1B7B99;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.welcome {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    font-weight:600;
 }

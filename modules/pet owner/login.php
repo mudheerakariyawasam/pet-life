@@ -60,9 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="password" name="owner_pwd" placeholder="password"><br>
                 </div>
                 <p>
-                    <button class="btn-login" type="submit">Login</button>
+                    <button class="btn-add" type="submit">Login</button>
 
-                    <button class="btn-exit" type="submit" onclick="document.location='home.php'">Cancel</button>
+                    <button class="btn-add" type="submit" onclick="document.location='home.php'">Cancel</button>
                 </p>
                 <div>
                     <span class="psw">Don't have an account? <a href="./register.php">Sign Up</a></span>

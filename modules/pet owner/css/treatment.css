@@ -21,6 +21,7 @@ body {
     background-image: url(../images/dash.png);
     background-size: cover;
     background-repeat: no-repeat;
+   
 }
 
 
@@ -242,6 +243,7 @@ table {
     border-collapse: collapse;
     width:98%;
   margin-left: 70px;
+  
   }
   
   th, td {

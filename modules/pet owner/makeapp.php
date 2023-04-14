@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
     include("../../db/dbconnection.php");
     session_start();
     if(!isset($_SESSION["login_user"])){
@@ -36,7 +36,7 @@ if (mysqli_num_rows($result) > 0) {
 	echo '<option value="">No available appointment slots.</option>';
 }
 
-?>
+?> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -135,27 +135,7 @@ if (mysqli_num_rows($result) > 0) {
     <label class="loging-label1">Pet Name</label>
     <input type="text" name="pet_name" placeholder="name" required>
 </div>
-<!-- <div class="form-content">
-    <label class="loging-label1">Last Name</label>
-    <input type="text" name="pet_gender" placeholder="gender" required>
-    
-</div>
-<div class="form-content">
-    <label class="loging-label1">Email</label>
-    <input type="date" name="pet_dob" placeholder="dob" required>
-</div>
-<div class="form-content">
-    <label class="loging-label1">Phone</label>
-    <input type="text" name="pet_type" placeholder="type of pet" required>
-</div>
-<div class="form-content">
-    <label class="loging-label1">Address</label>
-    <input type="text" name="pet_breed" placeholder="breed" required>
-</div> -->
-<!-- <div class="form-content">
-    <label class="loging-label1">Pet ID</label>
-    <input type="text" name="owner_id" placeholder="owner ID">
-</div> -->
+
 <div class="form-content">
     <label class="loging-label1">Preferred Doctor</label>
     <input type="text" name="owner_id" placeholder="owner ID">
@@ -174,7 +154,7 @@ if (mysqli_num_rows($result) > 0) {
 </div>
 
 <p>
-    <button class="btn-login" type="submit">Confirm</button>
+    <button class="btn-add" type="submit">Confirm</button>
     <!-- <button class="btn-exit" type="submit"><a href="./dashboard.php">Cancel</a></button> -->
 </p>
 </form>

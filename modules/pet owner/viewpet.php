@@ -98,7 +98,7 @@
                     <form>
                         <label><b>Pet ID </b></label><br>
                         <input class="item-id" type="text" name="pet_id" placeholder="Enter Pet ID">
-                        <button type="submit"><img src="images/search.png"></button>
+                        <button button class="btn-add1" type="submit"><img src="images/search.png"></button>
                     </form>
                 </div>
                 <div class="bar-content add-bar">

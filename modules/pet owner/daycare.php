@@ -5,6 +5,34 @@
         header("location:../../Auth/login.php");
         exit;
     }
+
+    
+    $loggedInUser = $_SESSION['login_user'];
+    $sql2 =  "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = mysqli_fetch_assoc($result2);
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+  
+    $pet_id = '';
+    $pet_name = $_POST['pet_name'];
+    $pet_gender=$_POST['pet_gender'];
+    $pet_dob=$_POST['pet_dob'];
+    $pet_type=$_POST['pet_type'];
+    $pet_breed=$_POST['pet_breed'];
+    $owner_id=$row2['owner_id'];
+
+    $sql = "INSERT INTO pet VALUES ('$pet_id','$pet_name','$pet_gender','$pet_dob','$pet_type','$pet_breed','$owner_id')";
+    $result = mysqli_query($conn,$sql);
+    print_r($result);
+    
+    if($result==TRUE) { 
+        header("Location: viewpet.php");
+    }else {
+        echo "There is an error in adding!";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +94,6 @@
                 </div>
             </div>
 
-
             <div class="navbar__right">
                 <ul>
                     <li>
@@ -88,15 +115,12 @@
             </div>
         </div>
 
-
         <div class="container">
       
-
 <!-- <div class="left"> -->
     <form method="POST" action="">
         <p class="welcome">Register Now</p>
 
-        
         <div class="form-content">
             <label class="loging-label1">First Name</label>
             <input type="text" name="owner_fname" placeholder="first name" required>
@@ -128,8 +152,8 @@
         
 
         <p>
-            <button class="btn-login" type="submit">Register</button>
-            <button class="btn-exit" type="submit"><a href="./home.php">Cancel</a></button>
+            <button class="btn-add" type="submit">Register</button>
+            
         </p>
     </form>
 
