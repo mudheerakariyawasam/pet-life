@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
-
 :root {
   --colour1: #000D2F;
   --colour2: rgba(215,226,255,0.6);
@@ -45,7 +43,33 @@ background-color:#96CDE1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    transition: left 0.3s ease-in-out;
+    z-index: 100;
 }
+
+.sidebar.active {
+    left: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
 
 .sidebar li {
   width: 100%;

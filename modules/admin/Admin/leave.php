@@ -80,31 +80,31 @@
         </div>
         <div class="container">
         <br/>
-<div class="leave-title">Leave Management</div><hr>
+<div class="leave-title">Leave Manage</div><hr>
 <br/>
 
-<div class="title-set">
-    <div class="t1">
-        <p>5<br/>Pending Leave Requests</p>
-    </div>
-    <div class="t2">
-    <p>10<br/>Approved Leave Requests</p>
-    </div>
-</div>
-<div class="title-set">
-<div class="t3">
-        <p>3<br/>Rejected Leave Requests</p>
-    </div>
-    <div class="t4">
-    <p><br/>Overall Leave Requests</p>
-    </div>
+<?php
+	// Retrieve all holidays from the database
+	$sql = "SELECT holiday_id, emp_id, approval_stage FROM holiday";
+	$result = mysqli_query($conn, $sql);
 
-
-</div>
-
-
-
-
+	// Display the holidays in a table
+	if (mysqli_num_rows($result) > 0) {
+		echo "<table>";
+		echo "<tr><th>Holiday ID&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Employee ID&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Approval Stage&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Action</th></tr>";
+		while ($row = mysqli_fetch_assoc($result)) {
+			echo "<tr>";
+			echo "<td>" . $row['holiday_id'] . "</td>";
+			echo "<td>" . $row['emp_id'] . "</td>";
+            echo "<td>" . $row['approval_stage'] . "</td>";
+			echo "<td><a href='holiday_details.php?holiday_id=" . $row['holiday_id'] . "'>View</a></td>";
+			echo "</tr>";
+		}
+		echo "</table>";
+	} else {
+		echo "No holidays found.";
+	}
+	?>
     </div>
     <script src="script.js"></script>
 </body>

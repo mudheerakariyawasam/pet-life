@@ -56,15 +56,16 @@
     <!-- //Navigation bar -->
     <div class="content">
         <div class="navbar">
-            <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
-                <div class="hello">
-                <font class="header-font-1">Hello </font> &nbsp
-                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
-            </div>
-            </div>
+        <div class="navbar__left">
+    <div class="nav-icon">
+        <i class="fa-solid fa-bars" id="toggle-sidebar"></i>
+    </div>
+    <div class="hello">
+        <font class="header-font-1">Hello </font> &nbsp
+        <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+    </div>
+</div>
+
 
 
             <div class="navbar__right">
@@ -120,5 +121,13 @@
     </div>
     <script src="script.js"></script>
 </body>
+<script>
+    const toggleBtn = document.getElementById("toggle-sidebar");
+const sidebar = document.querySelector(".sidebar");
 
+toggleBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("active");
+});
+
+    </script>
 </html>

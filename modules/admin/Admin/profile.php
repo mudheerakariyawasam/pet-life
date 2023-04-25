@@ -178,7 +178,7 @@
                         </div>
                     </div>
                     
-                    <button class="btn-add" type="submit">Update </button>
+                    <button class="btn-add" type="submit">Update Profile </button>
                     <button class="btn-add" href="viewallitems.php">Cancel</button>
                 </p>   
                 </form> 
