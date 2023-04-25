@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
+body{
+margin:0;
+ 
+}
+.nav-bar{
+
+display:flex;
+  position: fixed;
+width:100%;
+overflow: hidden;
+ 
+  z-index: 2;
+ background-color: rgb(212, 239, 249); 
+}
+.nav-left{
+width:10%;
+}
+.nav-right{
+width:90%;
+text-align:right;
+}
+
+.logo{
+width:60px;
+}
+.navbar-ul{
+list-style-type:none;
+}
+.navbar-ul li{
+display:inline;
+font-weight:bold;
+margin-right:3%;
+
+}
+.home-section{
+
+  background-image:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)),url(../images/abtus.png);
+  background-size: cover;
+  background-position: center;
+  height:70vh;
+  
+  
+  }
+
+.abt-title{
+  margin-top: 50px;
+  margin-left: 4%;
+}
+.abt-title p{
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+.abt-us hr{
+  border-width: 2px;
+  border-style: dotted;
+  width: 8%;
+  margin-left:0;
+}
+.abt-content{
+margin-left: 4%;
+font-family: 'Poppins', sans-serif;  
+}
+.mission{
+  background-color: rgb(214, 124, 211);
+}
+
+.mission-sec{
+  width: 100%;
+  display: flex;
+}
+.mission-sec-1{
+  width:30%;
+  font-family: 'Poppins', sans-serif; 
+  text-align: center;
+  font-weight: bold;
+
+}
+.mission-sec-2{
+  width:70%;
+  font-family: 'Poppins', sans-serif; 
+  text-align: center;
+
+}
+.value-title{
+  text-align: center;
+  font-family: 'Poppins', sans-serif; 
+}
+.value-row{
+  width: 100%;
+  display: flex;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}
+.value-row h2{
+  font-family: 'Amatic SC', cursive;
+}
+.value-row-1{
+  width: 50%;
+  padding-left: 10%;
+  
+}
+.value-row-2{
+  width: 50%;
+  
+}
+.footer{
+  background-color: rgb(212, 239, 249); 
+}
+.about-us{
+  width:90%;
+  display: flex;
+  font-size:13px;
+font-weight:400;
+font-family: 'Poppins', sans-serif;
+}
+.about-us hr{
+  border-width: 2px;
+  width:30%;
+  margin-left:0;
+  border-color: black;
+}
+.about{
+  width:30%;
+  margin-left:10%;
+}
+.about .title{
+font-weight: bolder;
+}
+.about p{
+  font-family: 'Poppins', sans-serif;
+}
+.ulinks{
+  width:30%;
+   margin-left:5%;
+}
+.ulinks p{
+  font-family: 'Poppins', sans-serif;
+}
+.ulinks .title{
+  font-weight: bolder;
+  
+  }
+
+.gitouch{
+  width:30%;
+  margin-left:5%;
+}
+.gitouch p{
+  font-family: 'Poppins', sans-serif;
+}
+.gitouch .title{
+  font-weight: bolder;
+  
+  }
+  .gitouch ul span{
+    margin-left: 10px;;
+  }
+  ul li{
+    list-style-type: none;
+      font-family: 'Poppins', sans-serif;
+
+
+  }
+  .ulinks ul hr{
+    border-width: 1px;
+    width:30%;
+    margin-left:0;
+    border-color: rgb(0, 0, 0);
+    border-style: dotted;
+  }
+  a{
+    color:black;
+    text-decoration: none;
+  }

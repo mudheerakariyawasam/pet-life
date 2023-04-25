@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;700&display=swap');
+
 root {
     --colour1: #000D2F;
     --colour2: rgba(215, 226, 255, 0.6);
@@ -15,7 +17,6 @@ root {
     list-style-type: none;
 }
 
-
 body {
     margin: 0;
     background-image: url(../images/daycare.jpg);
@@ -23,12 +24,10 @@ body {
     background-repeat: no-repeat;
 }
 
-
 .user-img {
     color: rgb(0, 0, 0);
 
 }
-
 
 .sidebar {
     position: fixed;
@@ -237,4 +236,163 @@ body {
     background-image: url(../images/admin_panel.jpg);
     background-size: cover;
     background-position: center;
+}
+
+.form-content {
+    display: flex;  
+    justify-content: left;
+}
+
+.form-content label{
+    margin: 0px 30px 0px 0px;
+}
+
+.left {
+    width: 40%;
+    height: 100%;
+}
+
+
+.right {
+    width: 50%;
+    height: 80vh;
+
+}
+
+.image{
+    width: 700px;
+    height: 670px;
+    margin-left: 10%;
+}
+
+
+
+
+body {
+    margin: 0;
+    background-color: #96CDE1;
+    min-height: 100vh;
+    border: none;
+}
+
+form {
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.699);
+    margin-right: 90px;
+    height: 85%;
+    width: 50%;
+    margin-left: 90px;
+    border-radius: 50px;
+    margin-top: 80px;
+    
+
+}
+
+.form-content {
+    display:flex;
+    flex-direction: row;
+    padding: 16px;
+align-content: baseline;
+}
+.container input {
+    display: block;
+    border: 2px solid #ccc;
+    width: 300px;
+    padding: 4px;
+    margin: 0;
+    border-radius: 30px;
+    background-color: #C38D9E;
+   margin-left: 6px;
+
+
+
+}
+
+label {
+    color: black;
+    /* font-size: 18px;
+    padding: 10px;
+    margin: 0px 10px 0px 0px; */
+}
+
+label.loging-label1 {
+    margin-left: 25px;
+}
+
+
+button {
+    float: right;
+    padding: 10px 15px;
+    color: black;
+    margin-right: 70px;
+    border: none;
+    width: 150px;
+}
+
+.btn-add{
+    background-color: #C38D9E;
+    color: black;
+    padding: 10px 10px;
+    border-radius: 20px;
+    /* box-shadow: 0px 0px 2px 2px rgb(0,0,0); */
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
+    border: none;
+    margin: auto;
+    width: 120px;
+    float:right;
+    font-family: poppins, sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    margin-right: 30px;
+    margin-top: 12px;
+    cursor: pointer;
+  
+  }
+.btn-add:hover {
+    background-color:rgba(215,226,255,0.6);
+    transition: 0.7s;
+  }
+
+button:hover {
+    opacity: .60;
+}
+
+.error {
+    background: #F2DEDE;
+    color: #0c0101;
+    padding: 10px;
+    width: 95%;
+    border-radius: 5px;
+    margin: 20px auto;
+}
+
+a:hover {
+    opacity: .7;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+
+.active-btn {
+    background-color: #1B7B99;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.welcome {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    font-weight:600;
 }

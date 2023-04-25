@@ -1,12 +1,11 @@
 <?php
-include("dbconnection.php");
-session_start();
-if (!isset($_SESSION['login_user'])) {
-    header("Location:login.php");
-    exit;
-}
+    include("../../db/dbconnection.php");
+    session_start();
+    if(!isset($_SESSION["login_user"])){
+        header("location:../../Auth/login.php");
+        exit;
+    }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +28,7 @@ if (!isset($_SESSION['login_user'])) {
         <ul>
             
         <li>
-                <a href="dashboard1.php" ><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
+                <a href="dashboard.php" ><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
                 <a href="treatment.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatments</span></a>
@@ -41,10 +40,10 @@ if (!isset($_SESSION['login_user'])) {
                 <a href="profile.php"><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
             </li>
             <li>
-                <a href="vip.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
             </li>
             <li>
-                <a href="petshop.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
+                <a href="../admin/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
             </li>
             <li>
                 <a href="inquiry.php"><i class="fa fa-user"></i><span>Inquiries</span></a>

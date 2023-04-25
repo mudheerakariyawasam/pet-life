@@ -39,7 +39,7 @@ form {
     box-shadow: inset 0px 5px 5px 3px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     margin: 25px;
-    height: 90%;
+    height: 85%;
     width: 70%;
     
 }
@@ -97,22 +97,29 @@ button {
     width: 150px;
 }
 
-.btn-login{
+.btn-add{
     background-color: #C38D9E;
-    padding: 10px;
-   border-radius: 30px;
-   
-}
-
-.btn-exit{
-    background-color: #C38D9E;
-    border-radius: 30px;
-   
-}
-
-button:hover{
-    opacity: .60;
-}
+    color: black;
+    padding: 10px 10px;
+    border-radius: 20px;
+    /* box-shadow: 0px 0px 2px 2px rgb(0,0,0); */
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
+    border: none;
+    margin: auto;
+    width: 120px;
+    float:right;
+    font-family: poppins, sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    margin-right: 30px;
+    margin-top: 12px;
+    cursor: pointer;
+  
+  }
+.btn-add:hover {
+    background-color:rgba(215,226,255,0.6);
+    transition: 0.7s;
+  }
 
 .error {
    background: #F2DEDE;
@@ -131,7 +138,7 @@ a:hover{
     font-style: italic;
     margin-top: 100px;
     text-align: center;
-    margin-left: 180px;
+    margin-left: 273px;
 }
 
 

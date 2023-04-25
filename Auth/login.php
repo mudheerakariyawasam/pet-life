@@ -27,20 +27,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($row["emp_designation"] == "Veterinarian") {
             $_SESSION['login_user'] = $myemail;
             $_SESSION['user_name'] = $row["emp_name"];
-            header("location: /pet-life/modules/veterinarian/controllers/dashboard.php");
+            header("location: ../modules/veterinarian/controllers/dashboard.php");
+        }
+ if ($row["emp_designation"] == "Assistant") {
+            $_SESSION['login_user'] = $myemail;
+            $_SESSION['user_name'] = $row["emp_name"];
+            header("location: /pet-life/modules/assistant/controllers/dashboard.php");
         }
 
         if ($row["emp_designation"] == "Admin") {
             $_SESSION['login_user'] = $myemail;
             $_SESSION['user_name'] = $row["emp_name"];
 
-            header("location: ../../admin/Admin/dashboard.php");
+            header("location: ../modules/admin/Admin/dashboard.php");
+        }
+
+        if ($row["emp_designation"] == "Cashier") {
+            $_SESSION['login_user'] = $myemail;
+            $_SESSION['user_name'] = $row["emp_name"];
+
+            header("location: ../modules/cashier/controllers/dashboard.php");
         }
 
 
 
         $_SESSION['is_login'] = true;
-        $_SESSION['email'] = $myemail;
+        $_SESSION['emp_email'] = $myemail;
         $_SESSION['login_user'] = $rEmail;
         $_SESSION['emp_id'] = $row["emp_id"];
     } else {

@@ -2,7 +2,7 @@ body{
     font-family: 'Alegreya Sans';
     font-style: normal;
     font-weight: 400;
-    background: #96CDE1;
+    background: white;
     margin: 0;
 }
 
@@ -22,6 +22,12 @@ body{
     margin: 20px;
 }
 
+font.header-font-2 {
+    font-size: 30px;
+      font-family: 'Amatic SC';
+      font-weight: bold;
+  }
+    
 button{
     border: none;
 }

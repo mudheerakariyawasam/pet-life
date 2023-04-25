@@ -4,8 +4,8 @@ margin:0;
 .home{
 
 background-size: cover;
-//background-position: center;
-height: 100vh;
+
+height:100vh;
 }
 .left{
 width:50%;
@@ -16,19 +16,20 @@ background-size:cover;
 .right{
 width:50%;
 
-//background-color:#2D9ACD;
-//background-image:linear-gradient(#40B3A3, #56C49E, #76D494, #9DE388, #C9EF7B);
+
+background-color: white;
 height:100vh;
 }
 .main{
 display:flex;
 background-image:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(../images/pink.jpg);
+
 }
 
 .fontt{
 font-size:50px;
 font-weight:bold;
-top-margin:100px;
+margin-top:100px;
 }
 
 .caption{
@@ -64,11 +65,11 @@ margin-left:9%;
 
 .form input {
   font-family:sans-serif;
-//background-color:#E0E3E5;
+background-color:#E0E3E5;
   
 
 
-  width: 100%;
+  width: 90%;
   margin: 0 0 15px;
   padding: 15px;
  
@@ -82,21 +83,20 @@ border-color:black;
  
   background: #EB6E53;
   background-color:#C38D9E;
-width:100%;
+width:95%;
   padding: 15px;
   color: #FFFFFF;
   font-size: 14px;
   cursor: pointer;
  border-radius:30px;
 border:none;
-margin-left:15px;
 }
 form input:focus {
   border: 3px solid dodgerblue;
   box-shadow: 0 0 8px 0 dodgerBlue;
 }
 .form button:hover,.form button:active,.form button:focus {
-background: #2C6E99;
+background-color:#000D2F;
 
 }
 label{
@@ -105,5 +105,19 @@ margin-right:460px;
 
 }
 .back{
-margin-left:70px;
+margin-right:100px;
+text-align: right;
+
 }
+.sign-alert{
+  color:white;
+  background-color:rgb(148, 35, 0);
+  margin-top:24px;
+  margin-left: 3%;;
+  
+  padding:8px;
+  border-radius:10px;
+  width:490px;
+  text-align:center;
+ 
+   }

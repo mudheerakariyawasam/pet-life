@@ -1,3 +1,12 @@
+<?php
+   include("../../../db/dbconnection.php");
+   session_start();
+   if (!isset($_SESSION["login_user"])) {
+       header("location:login.php");
+       exit;
+   }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,18 +31,20 @@
             <li>
                 <a href="showclients.php" class="active"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
-          
             <li>
-                <a href="#"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
+                <a href="treatment_history.php" class="active"><i class="fa-solid fa-calendar-plus"></i><span>Treatment History</span></a></a>
+            </li>
+            <li>
+                <a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
             </li>
          
             <li>
-                <a href="#"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+                <a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
             </li>
         </ul>
         <div class="logout">
             <hr>
-            <a href="logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="/pet-life/Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>
     </div>
 
@@ -45,8 +56,8 @@
                     <i class="fa-solid fa-bars"></i>
                 </div>
                 <div class="hello">
-                    <font class="header-font-1">Hello </font> &nbsp
-                    <font class="header-font-2">Senuri </font>
+                    <font class="header-font-1">Welcome </font> &nbsp
+                    <font class="header-font-2"><?php echo $_SESSION['user_name']; ?></font>
                 </div>
             </div>
 
