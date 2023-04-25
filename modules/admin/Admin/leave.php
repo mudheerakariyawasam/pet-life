@@ -80,7 +80,7 @@
         </div>
         <div class="container">
         <br/>
-<div class="leave-title">Leave Manage</div><hr>
+<div class="leave-title">Leave Management</div><hr>
 <br/>
 
 <div class="title-set">

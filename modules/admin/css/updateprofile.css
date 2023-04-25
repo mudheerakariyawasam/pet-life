@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
+
 :root {
     --colour1: #000D2F;
     --colour2: rgba(215,226,255,0.6);
@@ -20,8 +22,10 @@ body{
 }
 
 .topic{
-    font-size: 22px;
-    font-weight: 650;
+    font-size: 35px;
+    font-weight: 700;
+margin-top:50px;
+margin-left: 50px;
 }
 
 .main-container{
@@ -197,11 +201,6 @@ body{
   a:visited {
     color: black;
     text-decoration: none;
-  }
-
-  .topic{
-    font-size: 35px;
-    font-weight: 700;
   }
 
 .sub-topic{
