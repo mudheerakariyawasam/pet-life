@@ -244,5 +244,54 @@ th, td {
 
 tr:hover {background-color: #96CDE1;}
 
+/*Add new client button */
+.save-btn {
+  justify-content: left;
+  display: flex;
+  margin-top: 50px;
+  margin-left: 70px;
+}
+
+.button-01 {
+  appearance: none;
+  background-color: #f9f9f9;
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: #b6ecef 0 -12px 6px inset;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: poppins;
+  font-size: 16px;
+  font-weight: 700;
+  /* margin: 0; */
+  outline: none;
+  padding: 2px 5px;
+  quotes: auto;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-01:hover {
+  background-color: #86b0f7;
+  box-shadow: #4285f4 0 -6px 8px inset;
+  transform: scale(1.125);
+}
+
+.button-01:active {
+  transform: scale(1.025);
+}
+
+@media (min-width: 768px) {
+  .button-01 {
+    /* font-size: 1.5rem; */
+    padding: 0.75rem 2rem;
+  }
+}
 
 
