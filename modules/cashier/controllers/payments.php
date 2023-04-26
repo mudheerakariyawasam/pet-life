@@ -161,9 +161,9 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/cashier/permission.php');
             </div>  
             <br/><br/><br/>
             <div class="bottom">         
- <div class="bottom-heading-left">Employee ID: E015</div>
- <div class="bottom-heading-right">Total Bill<br/>Rs.2000.00<hr/><button>Calculate Bill</button></div>
-</div>
+                <div class="bottom-heading-left">Employee ID: <?php echo $_SESSION['emp_id']; ?></div>
+                <div class="bottom-heading-right">Total Bill<br/>Rs.2000.00<hr/><button>Calculate Bill</button></div>
+            </div>
             <br/>
 
         </div>
