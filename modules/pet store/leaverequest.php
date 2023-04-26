@@ -5,6 +5,68 @@
         header("location:login.php");
         exit;
     }
+
+    $emp_id=$_SESSION['emp_id'];
+
+    //generate next holiday ID
+    
+    $sql_get_id="SELECT holiday_id FROM holiday ORDER BY holiday_id DESC LIMIT 1";
+    $result_get_id=mysqli_query($conn,$sql_get_id);
+    $row=mysqli_fetch_array($result_get_id);
+ 
+    $lastid="";
+                     
+     if(mysqli_num_rows($result_get_id)>0){
+         $lastid=$row['holiday_id'];
+     }
+ 
+     if($lastid==""){
+         $holiday_id="L001";
+     }else {
+         $holiday_id=substr($lastid,3);
+         $holiday_id=intval($holiday_id);
+ 
+         if($holiday_id>=9){
+             $holiday_id="L0".($holiday_id+1);
+         } else if($holiday_id>=99){
+             $holiday_id="L".($holiday_id+1);
+         }else{
+             $holiday_id="L00".($holiday_id+1);
+         }
+     }
+
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+            
+            $from_date=date('Y-m-d', strtotime($_POST['from_date']));
+            $to_date=date('Y-m-d', strtotime($_POST['to_date']));
+            
+            //checkDateValidation
+            if($from_date<$to_date){
+                
+                $holiday_type=$_POST['holiday_type'];
+                $holiday_reason=$_POST['holiday_reason'];
+                
+                //check data null values
+
+                if($holiday_type=="---Select Holiday Type--"){
+                    $sql = "INSERT INTO holiday (holiday_id,from_date,to_date,emp_id,holiday_type,holiday_reason) VALUES ('$holiday_id','$from_date','$to_date','$emp_id','$holiday_type','$holiday_reason')";
+                    //$sql = "INSERT INTO holiday VALUES (holiday_id,from_date,to_date,emp_id,holiday_type,holiday_reason) VALUES ('$holiday_id','$from_date','$to_date','$emp_id','Vaccination','$holiday_reason')";
+                    $result = mysqli_query($conn,$sql);
+                    
+                    if($result==TRUE) { 
+                        echo '<script>alert("Your leave request has been sent to the admin")</script>';
+                        header("location: dashboard.php");
+                    }else {
+                        echo '<script>alert("Could not place the leave request. Please try again.")</script>';
+                    }
+                }else{
+                    echo '<script>alert("Insert Valid Holiday Type")</script>';
+                }
+            }else{
+                echo '<script>alert("Insert Valid Date Range")</script>';
+            } 
+   }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +113,7 @@
             </div>
             <div class="hello">
                 <font class="header-font-1">Welcome </font> &nbsp
-                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+                <font class="header-font-2"><?php echo $_SESSION['user_name']; ?> </font>
             </div>
         </div>
     
@@ -67,6 +129,7 @@
                     <label>Leave Type</label><br>
                     <div class="dropdown-list" style="width:200px;">
                         <select name="holiday_type" class="dropdown-list" >
+                            <option value="">--Select Holiday Type--</option>
                             <option value="Holidays">Holidays</option>
                             <option value="Sick Leave">Sick Leave</option>
                             <option value="Vacation">Vacation</option>
@@ -80,9 +143,9 @@
                     
                     <label>Dates</label><br>
                     <label>From</label><br>
-                    <input type="date" name="from_date" required><br>
+                    <input type="date" name="from_date" min="<?= date('Y-m-d'); ?>" required><br>
                     <label>To</label><br>
-                    <input type="date" name="to_date" required><br><br>
+                    <input type="date" name="to_date" min="<?= date('Y-m-d'); ?>" required><br><br>
                     <button class="btn-add" type="submit">Add </button>
                     <button class="btn-add" type="submit">Clear </button>
                 </form> 
@@ -91,7 +154,7 @@
             <div class="request-type">
                 <div>
                 <p><b>Request Status</b></p>
-                <form method="post">
+                <form method="">
                     <input type="submit" name="pending" class="button" value="Pending" />         
                     <input type="submit" name="accepted" class="button" value="Accepted" />
                     <input type="submit" name="rejected" class="button" value="Rejected" />
