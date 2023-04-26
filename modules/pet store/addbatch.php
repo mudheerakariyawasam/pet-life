@@ -37,10 +37,12 @@
         $medicine_id=$_POST['medicine_id'];    
         $batch_qty=$_POST['batch_qty'];
         $batch_price=$_POST['batch_price'];
-        $batch_expdate=$_POST['batch_expdate'];
-        $batch_mfddate=$_POST['batch_mfddate'];
-        
-        $sql = "INSERT INTO batch VALUES ('$batch_id',' $medicine_id','$batch_qty','$batch_price','$batch_expdate','$batch_mfddate')";
+        $batch_expdate=date('Y-m-d', strtotime($_POST['batch_expdate']));
+        $batch_mfddate=date('Y-m-d', strtotime($_POST['batch_mfddate']));
+    
+
+        //$sql = "INSERT INTO batch VALUES ('$batch_id',' $medicine_id','$batch_qty','$batch_price','$batch_expdate','$batch_mfddate')";
+        $sql = "INSERT INTO batch VALUES ('B002','M002','12','1200','2025-05-05','2022-05-05')";
         $result = mysqli_query($conn,$sql);
         
         if($result==TRUE) { 
@@ -108,27 +110,47 @@
                 <label><b>Batch ID : </label> 
                 <label class="item-id" name="batch_id" ><?php echo $batch_id;?></b><br><br>
                 <label>Medicine ID</label><br>
+                <select id='medicine_id' name='medicine_id' class='dropdown-list'>
                 <?php
                     
                     //get the medicine IDs from the sql table
+                    $sql_mid="SELECT medicine_id FROM medicine order by medicine_id"; 
 
-                    $sql="SELECT medicine_id FROM medicine order by medicine_id"; 
-                    if($r_set = $conn->query($sql)){
-                        echo "<select id='medicine_id' name='medicine_id' class='dropdown-list'>";
-                    while ($row = $r_set->fetch_assoc()) {
-                        echo "<option value=$row[id]>$row[medicine_id]</option>";
-                    }
-                        echo "</select><br>";
-                    }else{
-                    echo $conn->error;
-                    }
-                ?>
+                    // if($r_set = $conn->query($sql)){
+                    //     echo "<select id='medicine_id' name='medicine_id' class='dropdown-list'>";
+                    // while ($row = $r_set->fetch_assoc()) {
+                    //     echo "<option value=$row[id]>$row[medicine_id]</option>";
+                    // }
+                    //     echo "</select><br>";
+                    // }else{
+                    // echo $conn->error;
+                    // }
+
+                    $result_getdata = $conn->query($sql_mid);
+                    if($result_getdata->num_rows> 0){
+                        while($optionData=$result_getdata->fetch_assoc()){
+                        $option =$optionData['medicine_id'];
+                    ?>
+                    <?php
+                        //selected option
+                        if(!empty($medicine_id) && $medicine_id== $option){
+                        // selected option
+                    ?>
+                    <option value="<?php echo $option; ?>" selected><?php echo $option; ?> </option>
+                    <?php 
+                        continue;
+                    }?>
+                    <option value="<?php echo $option; ?>" ><?php echo $option; ?> </option>
+                    <?php
+                        }}
+                    ?>
+                </select><br>
                 <label>Qty</label><br>
                 <input type="text" name="batch_qty" placeholder="Batch Qty"><br>
                 <label>Price</label><br>
                 <input type="text" name="batch_price" placeholder="Batch Price"><br>
                 <label>Batch Exp Date</label><br>
-                <input type="date" name="batch_expdate" placeholder="Batch Exp Date"><br>
+                <input type="date" name="batch_expdate" placeholder="Batch Exp Date" min="<?= date('Y-m-d'); ?>"><br>
                 <label>Batch Mfd Date</label><br>
                 <input type="date" name="batch_mfddate" placeholder="Batch Mfd Date"><br>
 

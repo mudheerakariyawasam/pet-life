@@ -35,10 +35,10 @@
  
          //checking only numbers
  
-         if(!(is_numeric($_POST['item_qty']))){
-             echo '<script>alert("Please enter only numbers as the qty!")</script>';
-         }else if(!(is_numeric($_POST['item_price']))){
-             echo '<script>alert("Please enter only numbers as the price!")</script>';
+         if(!(is_numeric($_POST['item_qty'])) || $_POST['item_qty']<0){
+             echo '<script>alert("Please enter a valid  quantity!")</script>';
+         }else if(!(is_numeric($_POST['item_price'])) || $_POST['item_qty']<0){
+             echo '<script>alert("Please enter a valid price!")</script>';
          }else{
              $item_name=$_POST['item_name'];
              $item_brand=$_POST['item_brand'];
