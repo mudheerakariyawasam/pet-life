@@ -27,7 +27,8 @@
                 <a href="showclients.php" class="active"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
             <li>
-                <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment History</span></a></a>
+                <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment
+                        History</span></a></a>
             </li>
             <li>
                 <a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
@@ -52,7 +53,7 @@
                     <i class="fa-solid fa-bars"></i>
                 </div>
                 <div class="hello">
-                    <font class="header-font-1">Welcome </font> &nbsp 
+                    <font class="header-font-1">Welcome </font> &nbsp
                     <font class="header-font-2"> Senuri</font>
                 </div>
             </div>
@@ -67,7 +68,7 @@
                     </li>
                     <li>
                         <a href="#">
-                        <i class="fa-solid fa-message"></i>
+                            <i class="fa-solid fa-message"></i>
                         </a>
                     </li>
                     <li>
@@ -80,6 +81,10 @@
         </div>
         <div class="container">
             <div class="heading">Clients' Details</div>
+            <div class="save-btn">
+                <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save" type="submit"
+                    role="button">+ Add new Client</button>
+            </div>
             <div class="data-table">
                 <table id="showclients">
                     <tr>
@@ -98,7 +103,7 @@
                         <td>No.24, New York</td>
                         <td>0789414977</td>
                         <td>sachintha@gmail.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a></td>
+                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td>
                     </tr>
                     <tr>
                         <td>C002</td>
@@ -107,7 +112,7 @@
                         <td>No.74, New York</td>
                         <td>0705369977</td>
                         <td>john@gmail.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a></td>
+                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td></td>
                     </tr>
                     <tr>
                         <td>C003</td>
@@ -116,7 +121,7 @@
                         <td>No.38/4, New York</td>
                         <td>0705836977</td>
                         <td>swan@gmail.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a></td>
+                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td></td>
                     </tr>
                     <tr>
                         <td>C004</td>
@@ -125,7 +130,7 @@
                         <td>No.4,London</td>
                         <td>0789814977</td>
                         <td>brown@yahooo.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a></td>
+                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td></td>
                     </tr>
                 </table>
 
