@@ -5,6 +5,39 @@ if (!isset($_SESSION["login_user"])) {
     header("location:../../Auth/login.php");
     exit;
 }
+
+$loggedInUser = $_SESSION['login_user'];
+
+$sql2 = "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";
+$result2 = mysqli_query($conn, $sql2);
+$row2 = mysqli_fetch_assoc($result2);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $owner_fname = $_POST['owner_fname'];
+    $owner_lname = $_POST['owner_lname'];
+    $owner_email = $_POST['owner_email'];
+    $owner_contactno = $_POST['owner_contactno'];
+    $owner_address = $_POST['owner_address'];
+    $owner_nic = $_POST['owner_nic'];
+    $owner_pwd = $_POST['owner_pwd'];
+
+$sql = "SELECT * FROM pet_owner WHERE owner_id = '{$row2['owner_id']}'";
+$result = mysqli_query($conn, $sql);
+
+// Check if the query was successful
+if (mysqli_num_rows($result) > 0) {
+    // Fetch the first row of the result set
+    $row = mysqli_fetch_assoc($result);
+    // Use var_dump() to inspect the $row variable
+} else {
+    // Handle the case when no results are found
+    echo "No results found";
+}
+
+
+}
+
+
 ?>
 
 
@@ -45,7 +78,7 @@ if (!isset($_SESSION["login_user"])) {
                 <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
             </li>
             <li>
-                <a href="../admin/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
+                <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
             </li>
             <li>
                 <a href="inquiry.php"><i class="fa fa-user"></i><span>Inquiries</span></a>
@@ -120,7 +153,7 @@ if (!isset($_SESSION["login_user"])) {
                     <p>
                     <form method="POST">
                         <label><b>Owner ID : </label>
-                        <label class="item-id" name="owner_id"></b><br><br>
+                        <label class="id" name="owner_id"></b><br><br>
 
                             <div class="column-wise">
                                 <label>Full Name :</label><br>
@@ -161,15 +194,15 @@ if (!isset($_SESSION["login_user"])) {
             <p>
             </p><div class="pwd-content">
                 <label>Current Password :</label><br>
-                <input type="password" name="emp_name" placeholder="Enter Current Password" fdprocessedid="w9kcn"><br>
+                <input type="password" name="owner_pwd" placeholder="Enter Current Password" fdprocessedid="w9kcn"><br>
             </div>
             <div class="pwd-content">
                 <label>New Password :</label><br>
-                <input type="password" name="emp_name" placeholder="Enter New Password" fdprocessedid="sq99i"><br>
+                <input type="password" name="owner_pwd" placeholder="Enter New Password" fdprocessedid="sq99i"><br>
             </div>
             <div class="pwd-content">
                 <label>Confirm New Password :</label><br>
-                <input type="password" name="emp_name" placeholder="Re Enter Password" fdprocessedid="rwoku"><br>
+                <input type="password" name="owner_pwd" placeholder="Re Enter Password" fdprocessedid="rwoku"><br>
             </div>
             <div class="pwd-content">
                 <button class="btn-add" fdprocessedid="a0hv6">Confim </button>

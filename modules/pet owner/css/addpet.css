@@ -290,19 +290,20 @@ form {
 
 .form-content {
     display:flex;
-    flex-direction: row;
-    padding: 16px;
+    flex-direction: column;
+    padding: 8px;
 align-content: baseline;
 }
 .container input {
     display: block;
     border: 2px solid #ccc;
-    width: 300px;
-    padding: 8px;
+    width: 430px;
+    padding: 10px;
     margin: 0;
     border-radius: 30px;
     background-color: #C38D9E;
    margin-left: 6px;
+   height: 40px;
 
 
 

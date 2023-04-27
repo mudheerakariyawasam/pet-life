@@ -1,3 +1,12 @@
+<?php
+include("../../db/dbconnection.php");
+session_start();
+if (!isset($_SESSION["login_user"])) {
+    header("location:../../Auth/login.php");
+    exit;
+}
+?>
+
 <<!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +43,7 @@
                 <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
             </li>
             <li>
-                <a href="../admin/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
+                <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
             </li>
             <li>
                 <a href="inquiry.php"><i class="fa fa-user"></i><span>Inquiries</span></a>

@@ -238,10 +238,7 @@ body {
     background-position: center;
 }
 
-.form-content {
-    display: flex;  
-    justify-content: left;
-}
+
 
 .form-content label{
     margin: 0px 30px 0px 0px;
@@ -276,11 +273,11 @@ body {
 }
 
 form {
-    padding: 40px;
+    padding: 30px;
     background-color: rgba(255, 255, 255, 0.699);
     margin-right: 90px;
     height: 85%;
-    width: 50%;
+    width: 480px;
     margin-left: 90px;
     border-radius: 50px;
     margin-top: 80px;
@@ -290,7 +287,7 @@ form {
 
 .form-content {
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 16px;
 align-content: baseline;
 }
@@ -324,9 +321,9 @@ button {
     float: right;
     padding: 10px 15px;
     color: black;
-    margin-right: 70px;
+    margin-right: 0px;
     border: none;
-    width: 150px;
+    width: 47px;
 }
 
 .btn-add{
@@ -395,4 +392,36 @@ a {
     margin-bottom: 20px;
     margin-top: 0px;
     font-weight:600;
+}
+
+table {
+    border: none;
+    border-collapse: collapse;
+    width:90%;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-right: 80px;
+  }
+  
+  th, td {
+    width:120px;
+    text-align:center;
+    padding:7x; 
+    background-color: #000D2F; 
+    height: 50px;
+    color: white;
+    font-size: medium;
+  }
+  
+  td{
+    color: black;
+    background-color:#96CDE1;   
+    border-bottom: 5px solid white;
+    width:60px;
+}
+
+.d-text{
+    margin-top: 100px;
+    font-size: 25px;
+    font-weight: bold;
 }

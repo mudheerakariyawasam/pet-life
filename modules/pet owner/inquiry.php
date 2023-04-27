@@ -43,7 +43,7 @@
                 <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
             </li>
             <li>
-                <a href="../admin/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
+                <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
             </li>
             <li>
                 <a href="inquiry.php" class="active"><i class="fa fa-user"></i><span>Inquiries</span></a>
@@ -133,7 +133,7 @@
 <div class="continfo-right">
 <h3>Keeping your pet well doesn't have to be hard (or expensive)</h3> 
 <h1>SIGN UP FOR OUR VIP PROGRAMS!</h1>
-<center><button>Find Out More ...</button></center>
+<center><button> <a href="daycare.php">Register Now ...</a></button></center>
 </div>
 
 </div>

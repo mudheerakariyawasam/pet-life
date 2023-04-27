@@ -20,13 +20,13 @@ root {
 body {
     margin: 0;
     background-image: url(../images/dash.png);
+    background-color: #fbfbfb;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .user-img {
     color: rgb(0, 0, 0);
-
 }
 
 .sidebar {
@@ -88,8 +88,6 @@ body {
     padding-left: 1.8rem;
 }
 
-
-
 .logout a i {
     font-size: 1.2rem;
     padding-right: 1.5rem;
@@ -137,9 +135,6 @@ body {
     display: flex;
     align-items: center;
 }
-
-
-
 .nav-icon {
     font-size: 1.5rem;
     margin-right: 1rem;
@@ -166,7 +161,6 @@ body {
     justify-content:space-between;
     margin: 120px;
 }
-
 
 .box{
     box-sizing: border-box;
@@ -212,13 +206,12 @@ body {
     margin-right: 5px;
     margin-top: 12px;
     cursor: pointer;
-  
   }
+
 .btn-add:hover {
     background-color:rgba(215,226,255,0.6);
     transition: 0.7s;
   }
-
 
 .btn-add2{
     background-color: #C38D9E;
@@ -329,7 +322,7 @@ table {
     background-color:#96CDE1;   
     border-bottom: 5px solid white;
     width:60px;
-  }
+}
 
 .details{
     text-align:left;

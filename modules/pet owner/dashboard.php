@@ -82,7 +82,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                 <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
             </li>
             <li>
-                <a href="../admin/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
+                <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
             </li>
             <li>
                 <a href="inquiry.php"><i class="fa fa-user"></i><span>Inquiries</span></a>
