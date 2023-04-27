@@ -4,6 +4,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,7 +58,9 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                 </div>
                 <div class="hello">
                     <font class="header-font-1">Welcome </font> &nbsp
-                    <font class="header-font-2"> <?php echo $_SESSION['user_name'];?></font>
+                    <font class="header-font-2">
+                        <?php echo $_SESSION['user_name']; ?>
+                    </font>
                 </div>
             </div>
 
@@ -84,6 +87,10 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
         </div>
         <div class="container">
             <div class="heading">Clients' Details</div>
+            <div class="search-field">
+                <input type="text" name="" id="live-search" class="form-control" autocomplete="off"
+                    placeholder="Search Here..">
+            </div>
             <div class="save-btn">
                 <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save" type="submit"
                     role="button"><a href="user.php"> + Add new Client</a></button>
@@ -126,8 +133,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                             <td>
                             <div class="action all" style="display:flex;">
                             <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye" style="margin:5px;"></i></a>
-                            <a href="update_customer.php? updateid='.$id.'"><i class="fa-sharp fa-solid fa-pen-to-square" style="margin:5px;"></i></a>
-                            <a href="delete_customer.php? deleteid='.$id.'"><i class="fa-sharp fa-solid fa-trash" style="color: #542121; margin:5px;"></i></a>
+                            <a href="update_customer.php? updateid=' . $id . '"><i class="fa-sharp fa-solid fa-pen-to-square" style="margin:5px;"></i></a>
+                            <a href="delete_customer.php? deleteid=' . $id . '"><i class="fa-sharp fa-solid fa-trash" style="color: #542121; margin:5px;"></i></a>
                             </div>
                             </td>
                             </tr>';
@@ -136,52 +143,38 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                     }
 
                     ?>
-                    <!-- <tr>
-                        <td>O001</td>
-                        <td>Senuri</td>
-                        <td>Wickramasinghe</td>
-                        <td>senuridilshara@gmail.com</td>
-                        <td>0734567891</td>
-                        <td>No 38/4, Godagama,Meegoda</td>
-                        <td>996050203V</td>
-                        <td>9999</td>
-                        <td><a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>O002</td>
-                        <td>John</td>
-                        <td>Perera</td>
-                        <td>johnperera@gmail.com</td>
-                        <td>0739667891</td>
-                        <td>No 96/5,Temple Road,Maharagama</td>
-                        <td>966050203V</td>
-                        <td>5555</td>
-                        <td><a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td></td>
-                    </tr>
-                    <tr>
-                        <td>C003</td>
-                        <td>Swanson</td>
-                        <td>02/05/2022</td>
-                        <td>No.38/4, New York</td>
-                        <td>0705836977</td>
-                        <td>swan@gmail.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td></td>
-                    </tr>
-                    <tr>
-                        <td>C004</td>
-                        <td>Brown</td>
-                        <td>02/05/2022</td>
-                        <td>No.4,London</td>
-                        <td>0789814977</td>
-                        <td>brown@yahooo.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td></td>
-                    </tr> -->
+
                 </table>
 
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <div id="searchresult">
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#live-search").keyup(function () {
+                var input = $(this).val();
+                // alert(input);
+                if (input != "") {
+                    $.ajax({
+                        url: "livesearch.php",
+                        method: "POST",
+                        data: {input: input},
+
+                        success: function (data) {
+                            $("#searchresult").html(data);
+                        }
+                    });
+                }else{
+                    $("#searchresult").css("display","none");
+                }
+            });
+        });
+
+    </script>
 </body>
 
 </html>
