@@ -12,14 +12,7 @@ $sql2 = "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_u
 $result2 = mysqli_query($conn, $sql2);
 $row2 = mysqli_fetch_assoc($result2);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $owner_fname = $_POST['owner_fname'];
-    $owner_lname = $_POST['owner_lname'];
-    $owner_email = $_POST['owner_email'];
-    $owner_contactno = $_POST['owner_contactno'];
-    $owner_address = $_POST['owner_address'];
-    $owner_nic = $_POST['owner_nic'];
-    $owner_pwd = $_POST['owner_pwd'];
+
 
 $sql = "SELECT * FROM pet_owner WHERE owner_id = '{$row2['owner_id']}'";
 $result = mysqli_query($conn, $sql);
@@ -34,8 +27,6 @@ if (mysqli_num_rows($result) > 0) {
     echo "No results found";
 }
 
-
-}
 
 
 ?>

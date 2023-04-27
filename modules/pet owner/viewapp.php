@@ -28,16 +28,16 @@
         <ul>
             
         <li>
-                <a href="dashboard.php" ><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
+                <a href="dashboard.php"  ><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
                 <a href="treatment.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatments</span></a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="vaccination.php"><i class="fa-solid fa-file-lines"></i></i><span>Vaccinations</span></a>
-            </li>
+            </li> -->
             <li>
-                <a href="profile.php"><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
+                <a href="profile.php" ><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
             </li>
             <li>
                 <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
@@ -66,7 +66,6 @@
                 </div>
             </div>
 
-
             <div class="navbar__right">
                 <ul>
                     <li>
@@ -89,13 +88,51 @@
         </div>
 
 
+
         <div class="container">
-
-            <div class="top-container">
-
-            <div>
-                        <button class="register-btn2"><a href="./viewpet.php">View Pets</a></button>
+            <div class ="app">
+                <p>BOOKED APPOINTMENT SLOTS </P>
                     </div>
+                <div class="table">  
+                <?php
+            $loggedInUser = $_SESSION['login_user'];
+
+           $sql = "SELECT *  FROM appointment a INNER JOIN pet p 
+                    ON a.pet_id = p.pet_id INNER JOIN pet_owner o 
+                    ON o.owner_id = p.owner_id 
+                    WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')" ;
+                $result_getdetails = mysqli_query($conn, $sql);
+
+
+            if (mysqli_num_rows($result_getdetails) > 0) {
+
+                echo ' 
+                <table>
+                  <tr>
+                      <th>Pet Name</th>
+                      <th>Date</th>
+                      <th>Slot No</th>
+                      <th>Actions</th>
+                  </tr>';
+
+                while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {
+                
+                    echo '<tr > 
+                    <td> ' . $row_getdetails["pet_name"] . '</td>
+                    <td>' . $row_getdetails["appointment_date"] . '</td>
+                    <td>' . $row_getdetails["appointment_slot"] . '</td>
+                    <td class="action"><button type="submit"><img src="images/delete.png"></button></td>
+                </tr>';
+                }
+                echo '</table>';
+            }
+            else {
+                echo "0 results";
+            }
+          
+            ?>
+                </div>
+            </div>
         </div>
         <script src="script.js"></script>
 

@@ -133,25 +133,25 @@ if (mysqli_num_rows($result_total2) > 0) {
             <div class="top-container">
                 <div class="box">
                     <div class="top-text">
-                        <p>Your Upcoming Appointments</p>
+                        <p>Upcoming Appointments</p>
                     </div>
                     <div class="count">
                         <p>2</p>
                     </div>
                     <div>
-                        <button class="btn-add"><a href="./makeapp.php">Register New</a></button>
+                        <button class="btn-add"><a href="./viewapp.php">View Now</a></button>
                     </div>
                 </div>
 
                 <div class="box">
                     <div class="top-text">
-                        <p>Your Registered Pets</p>
+                        <p>Registered Pets</p>
                     </div>
                     <div class="count">
                         <p>5</p>
                     </div>
                     <div>
-                        <button class="btn-add"><a href="./addpet.php">Register New</a></button>
+                        <button class="btn-add"><a href="./viewpet.php">View Now</a></button>
                     </div>
                 </div>
 
@@ -171,7 +171,7 @@ if (mysqli_num_rows($result_total2) > 0) {
             <div class="bottom-container">
                 <div class="left-part">
                     <div class ="app">
-                <p> LATEST APPOINTMNETS </P>
+                <p> YOUR NEXT APPOINTMENT </P>
                     </div>
                     
                 <?php
@@ -191,8 +191,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                   <tr>
                       <th>Pet Name</th>
                       <th>Date</th>
-                      <th>Time</th>
-                      <th>Type</th>
+                      <th>Slot No</th>
                       <th>Actions</th>
                   </tr>';
 
@@ -201,9 +200,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                     echo '<tr > 
                     <td> ' . $row_getdetails["pet_name"] . '</td>
                     <td>' . $row_getdetails["appointment_date"] . '</td>
-                    <td>' . $row_getdetails["appointment_time"] . '</td>
-                    <td>' . $row_getdetails["appointment_type"] . '</td>
-                    <td class="action"><button type="submit"><img src="images/update.png"></button></td>
+                    <td>' . $row_getdetails["appointment_slot"] . '</td>
                     <td class="action"><button type="submit"><img src="images/delete.png"></button></td>
                 </tr>';
                 }
@@ -216,7 +213,7 @@ if (mysqli_num_rows($result_total2) > 0) {
             ?>
                
             <div>
-                        <button class="btn-add2"><a href="./viewpet.php">View Pets</a></button>
+                        <button class="btn-add2"><a href="./add_appointment.php">Make An Appointment</a></button>
                     </div>
         </div>
         <script src="script.js">

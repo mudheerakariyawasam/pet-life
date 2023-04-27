@@ -1,55 +1,93 @@
-<!-- <?php
+<?php
     include("../../db/dbconnection.php");
     session_start();
     if(!isset($_SESSION["login_user"])){
         header("location:../../Auth/login.php");
         exit;
     }
+    
+    $loggedInUser = $_SESSION['login_user'];
+    $sql2 = "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = mysqli_fetch_assoc($result2);
+    $owner_id=$row2["owner_id"];
 
-    if (isset($_POST['submit'])) {
-		// Get the form data
-		$name = htmlspecialchars($_POST['name']);
-		$email = htmlspecialchars($_POST['email']);
-		$phone = htmlspecialchars($_POST['phone']);
-		$appointment_id = htmlspecialchars($_POST['appointment']);
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        
+        //generate next day care ID
+        $sql_get_id="SELECT appointment_id FROM appointment ORDER BY appointment_id DESC LIMIT 1";
+        $result_get_id=mysqli_query($conn,$sql_get_id);
+        $row=mysqli_fetch_array($result_get_id);
+    
+        $lastid="";
+                        
+        if(mysqli_num_rows($result_get_id)>0){
+            $lastid=$row['appointment_id'];
+        }
+    
+        if($lastid==""){
+            $appointment_id="A001";
+        }else {
+            $appointment_id=substr($lastid,3);
+            $appointment_id=intval($appointment_id);
+    
+            if($appointment_id>=9){
+                $appointment_id="A0".($appointment_id+1);
+            } else if($appointment_id>=99){
+                $appointment_id="A".($appointment_id+1);
+            }else{
+                $appointment_id="A00".($appointment_id+1);
+            }
+        }
+
+        // Get the chosen date
+        $date = date('Y-m-d', strtotime($_POST['date']));
+        $pet_name = $_POST['pet_name'];
+        $emp_name=$_POST['emp_name'];
+
+        //get the appointment slot no
+        $sql_getappointmentcount = "SELECT COUNT(*) FROM appointment WHERE appointment_date = ?";
+        $result_getpid=mysqli_query($conn,$sql_getpid);
+        $row_pid=mysqli_fetch_array($result_getpid);
+        $count = $stmt->fetchColumn();
+        $count+=$count;
+
+        //get pet ID
+        $sql_getpid="SELECT pet_id FROM pet WHERE owner_id='$owner_id' AND pet_name='$pet_name'";
+        $result_getpid=mysqli_query($conn,$sql_getpid);
+        $row_pid=mysqli_fetch_array($result_getpid);
+        $pet_id = $row_pid['pet_id'];
+
+        //get vet ID
+        $sql_getvid="SELECT emp_id FROM employee WHERE emp_name='$emp_name' AND emp_designation='Veterinarian'";
+        $result_getvid=mysqli_query($conn,$sql_getvid);
+        $row_vid=mysqli_fetch_array($result_getvid);
+        $emp_id = $row_vid['emp_id'];
+    
+        $sql = "INSERT INTO appointment VALUES ('$appointment_id','$date','$count','$emp_id','$pet_id')";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result == TRUE) {
+            echo '<script>alert("Your appointment slot is booked")</script>';
+            header("Location: dashboard.php");
+        } else {
+            echo '<script>alert("There is an error in booking")</script>';
+        }
     }
-// Get the current date and time
-$current_datetime = date('Y-m-d H:i:s');
-
-// Query the database for available appointment slots
-$sql = "SELECT * FROM appointment WHERE appointment_date > '$current_datetime' AND appointment_status = 'available' ORDER BY appointment_date ASC";
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-	// Loop through the results and create an option element for each available appointment slot
-	while ($row = mysqli_fetch_assoc($result)) {
-		// Format the date and time
-		$appointment_date = strtotime($row['appointment_date']);
-		$date = date('l, F j, Y', $appointment_date);
-		$time = date('g:i a', $appointment_date);
-
-		// Display the available appointment slot
-		echo '<option value="' . $row['appointment_id'] . '">' . $date . ' at ' . $time . '</option>';
-	}
-} else {
-	// Display a message if there are no available appointment slots
-	echo '<option value="">No available appointment slots.</option>';
-}
-
-?> -->
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/makeapp.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/makeapp.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        <title>Pet Care</title>
+    </head>
 
 <body>
     <div class="sidebar">
@@ -123,51 +161,84 @@ if (mysqli_num_rows($result) > 0) {
         <div class="container">
       
 
-<!-- <div class="left"> -->
+    <!-- <div class="left"> -->
     <form method="POST" action="">
     <p class="welcome">Make an Appointment</p>
-<p>Add the information about the appointment</p>
-<div class="form-content">
-    <label class="loging-label1">Pet ID</label>
-    <input type="text" name="pet_id" placeholder="petID">
-</div>
-<div class="form-content">
-    <label class="loging-label1">Pet Name</label>
-    <input type="text" name="pet_name" placeholder="name" required>
-</div>
+    <p>Add the information about the appointment</p>
 
-<div class="form-content">
-    <label class="loging-label1">Preferred Doctor</label>
-    <input type="text" name="owner_id" placeholder="owner ID">
-</div>
-<div class="form-content">
-    <label class="loging-label1">Preferred day of appointment</label>
-    <select id="date" name="date" required>
-			<option value="">Select a date...</option>
-		</select>
-</div>
-<div class="form-content">
-    <label class="loging-label1">Preferred time of appointment</label>
-    <select id="time" name="time" required>
-			<option value="">Select a time...</option>
-		</select>
-</div>
+            <!-- get all pet names -->
 
-<p>
-    <button class="btn-add" type="submit">Confirm</button>
-    <!-- <button class="btn-exit" type="submit"><a href="./dashboard.php">Cancel</a></button> -->
-</p>
+            <div class="form-content">
+                <label class="loging-label1">Pets Name</label>
+                <select id='pet_name' name='pet_name' class='dropdown-list' required>
+                <option value="">--Select Pet Name--</option>
+                <?php
+                    
+                    //get the pet name from the sql table
+                    $sql_mid="SELECT pet_name FROM pet WHERE owner_id='$owner_id' "; 
+                    $result_getdata = $conn->query($sql_mid);
+                    if($result_getdata->num_rows> 0){
+                        while($optionData=$result_getdata->fetch_assoc()){
+                        $option =$optionData['pet_name'];
+                    ?>
+                    <?php
+                        //selected option
+                        if(!empty($pet_name) && $pet_name== $option){
+                        // selected option
+                    ?>
+                    <option value="<?php echo $option; ?>" selected><?php echo $option; ?> </option>
+                    <?php 
+                        continue;
+                    }?>
+                    <option value="<?php echo $option; ?>" ><?php echo $option; ?> </option>
+                    <?php
+                        }}
+                    ?>
+                </select>
+            </div>
+
+            <!-- get all vet names -->
+
+            <div class="form-content">
+                <label class="loging-label1">Preferred Doctor</label>
+                <select id='emp_name' name='emp_name' class='dropdown-list' required>
+                <option value="">--Select Doctor Name--</option>
+                <?php
+                    
+                    //get the vet name from the sql table
+                    $sql_vid="SELECT emp_name FROM employee WHERE emp_designation='Veterinarian' "; 
+                    $result_vdata = $conn->query($sql_vid);
+                    if($result_vdata->num_rows> 0){
+                        while($optionData=$result_vdata->fetch_assoc()){
+                        $option =$optionData['emp_name'];
+                    ?>
+                    <?php
+                        //selected option
+                        if(!empty($emp_name) && $emp_name== $option){
+                        // selected option
+                    ?>
+                    <option value="<?php echo $option; ?>" selected><?php echo $option; ?> </option>
+                    <?php 
+                        continue;
+                    }?>
+                    <option value="<?php echo $option; ?>" ><?php echo $option; ?> </option>
+                    <?php
+                        }}
+                    ?>
+                </select>
+            </div>
+
+            <div class="form-content">
+                <label class="loging-label1">Preferred day of appointment</label>
+                <input type="date" name="date" min="<?= date('Y-m-d') ?>" required>
+            </div>
+
+            <div class="form-content">
+                <button class="btn-add" type="submit">Confirm</button>
+            </div>
 </form>
     
 </div>
-
-            <!-- <div class="top-container">
-
-         <div>
-                        <button class="register-btn2"><a href="./viewpet.php">View Pets</a></button>
-                    </div>
-        </div> -->
-        <script src="script.js"></script>
 
 </body>
 

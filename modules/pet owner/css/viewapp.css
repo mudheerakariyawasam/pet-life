@@ -238,3 +238,43 @@ body {
     background-size: cover;
     background-position: center;
 }
+
+table {
+    border: none;
+    border-collapse: collapse;
+    width:90%;
+  margin-left: 50px;
+  margin-top: 20px;
+  }
+  
+  th, td {
+    width:120px;
+    text-align:center;
+    padding:p7x; 
+    background-color: #000D2F; 
+    height: 50px;
+    color: white;
+    font-size: medium;
+  }
+  
+  td{
+    color: black;
+    background-color:#96CDE1;   
+    border-bottom: 5px solid white;
+    width:60px;
+}
+
+.details{
+    text-align:left;
+}
+
+.action{
+    width: 30px;
+    padding: 4px;
+}
+
+.app{
+    font-size: large;
+    margin-left: 130px;
+    margin-top: 132px;
+}

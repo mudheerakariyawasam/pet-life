@@ -90,48 +90,49 @@ if (!isset($_SESSION["login_user"])) {
                 </ul>
             </div>
         </div>
-
-    </div>
-        
-   
-</body>
-
-</html>
-
-<?php
-$sql = "SELECT *  FROM employee e 
+        <div class="table">
+            <?php
+            $sql = "SELECT *  FROM employee e 
 INNER JOIN treatment a ON e.emp_id = a.vet_id 
 INNER JOIN treatment_type t ON t.treatment_id =  a.treatment_id
 INNER JOIN pet p ON a.pet_id = p.pet_id 
 INNER JOIN pet_owner o ON o.owner_id = p.owner_id 
 WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
 
-$result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) > 0) {
-    echo '<table>
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result) > 0) {
+                echo '<table>
                     <tr>
                         <th>Treatment type</th>
                         <th>Pet Name</th>
                         <th>Vet Name</th>
                         <th>Treatment Bill</th>
                         <th>Follow Up Date</th>
-                        <th colspan="2">Actions</th>
+                        <th>Actions</th>
                     </tr>';
 
-    while ($row = mysqli_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
 
-        echo '<tr > 
+                    echo '<tr > 
                             <td><b>' . $row["treatment_type"] . '</b></td>
                             <td> ' . $row["pet_name"] . '</td>
                             <td>' . $row["emp_name"] . '</td> 
                             <td>' . $row["treatment_bill"] . '</td> 
                             <td>' . $row["followup_date"] . '</td>
-                            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
                             <td class="action-btn"><button type="submit"><img src="images/delete.png"></button></td>
                         </tr>';
-    }
-    echo '</table>';
-} else {
-    echo "0 results";
-}
-?>
+                }
+                echo '</table>';
+            } else {
+                echo "0 results";
+            }
+            ?>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>

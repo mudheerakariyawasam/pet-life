@@ -12,9 +12,32 @@
         $result2 = mysqli_query($conn, $sql2);
         $row2 = mysqli_fetch_assoc($result2);
    
+        $sql_get_id="SELECT pet_id FROM pet ORDER BY pet_id DESC LIMIT 1";
+        $result_get_id=mysqli_query($conn,$sql_get_id);
+        $row=mysqli_fetch_array($result_get_id);
+    
+        $lastid="";
+                        
+        if(mysqli_num_rows($result_get_id)>0){
+            $lastid=$row['pet_id'];
+        }
+    
+        if($lastid==""){
+            $pet_id="O001";
+        }else {
+            $pet_id=substr($lastid,3);
+            $pet_id=intval($pet_id);
+    
+            if($pet_id>=9){
+                $pet_id="P0".($pet_id+1);
+            } else if($pet_id>=99){
+                $pet_id="P".($pet_id+1);
+            }else{
+                $pet_id="P00".($pet_id+1);
+            }
+        }
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       
-        $pet_id = '';
         $pet_name = $_POST['pet_name'];
         $pet_gender=$_POST['pet_gender'];
         $pet_dob=$_POST['pet_dob'];

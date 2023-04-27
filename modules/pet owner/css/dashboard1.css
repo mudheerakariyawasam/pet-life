@@ -222,7 +222,7 @@ body {
     box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
     border: none;
     margin: auto;
-    width: 120px;
+    width: 180px;
     float:right;
     font-family: poppins, sans-serif;
     font-style: normal;
@@ -337,3 +337,4 @@ table {
     font-size: large;
     margin-left: 130px;
 }
+

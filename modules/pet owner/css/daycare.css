@@ -280,7 +280,7 @@ form {
     width: 480px;
     margin-left: 90px;
     border-radius: 50px;
-    margin-top: 80px;
+    margin-top: 140px;
     
 
 }
@@ -300,9 +300,6 @@ align-content: baseline;
     border-radius: 30px;
     background-color: #C38D9E;
    margin-left: 6px;
-
-
-
 }
 
 label {
@@ -316,15 +313,15 @@ label.loging-label1 {
     margin-left: 25px;
 }
 
-
+/* 
 button {
     float: right;
     padding: 10px 15px;
     color: black;
-    margin-right: 0px;
+    margin-right: 40px;
     border: none;
     width: 47px;
-}
+} */
 
 .btn-add{
     background-color: #C38D9E;
@@ -424,4 +421,15 @@ table {
     margin-top: 100px;
     font-size: 25px;
     font-weight: bold;
+}
+select#pet_name {
+display: block;
+    border: 2px solid #ccc;
+    width: 300px;
+    padding: 4px;
+    margin: 0;
+    border-radius: 30px;
+    background-color: #C38D9E;
+   margin-left: 6px;
+
 }

@@ -108,7 +108,6 @@ body {
 
 .content {
     position: fixed;
-    background: white;
     width: 82%;
     margin-left: 18%;
 }
@@ -233,16 +232,17 @@ body {
 .navbar__right ul li a i {
     font-size: 1.5rem;
 }
-
+/* 
 .container {
     padding: 100px;
-}
+} */
 
 table {
     border: none;
     border-collapse: collapse;
     width:98%;
-  margin-left: 70px;
+  margin-left: 20px;
+  margin-top: 152px;
   
   }
   
