@@ -1,183 +1,133 @@
-<?php
-    include("../../../db/dbconnection.php");
-    session_start();
-?>
+<html>
+  <head>
+  <style>
+  table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
 
-<!DOCTYPE html>
-<html lang="en">
+  td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/staff.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  input[type=text] {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+</style>
+
 </head>
-
-<body>
-    <div class="sidebar">
-    <div class="user-img"><center><img src="../images/logo_transparent black.png" width=200px></center></div>
-        <ul>
-            <li>
-                <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
-            </li>
-            <li>
-                <a href="appointment.php"><i class="fa-solid fa-calendar-plus"></i><span>Appointments</span></a>
-            </li>
-            <li>
-                <a href="client.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
-            </li>
-            <li>
-                <a href="#" class="active"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
-            </li>
-            <li>
-                <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
-            </li>
-            <li>
-                <a href="report.php"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
-            </li>
-            <li>
-                <a href="profile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
-            </li>
-        </ul>
-        <div class="logout">
-            <hr>
-            <a href="../../../Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
-        </div>
-    </div>
-
-    <!-- //Navigation bar -->
-    <div class="content">
-        <div class="navbar">
-            <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
-                <div class="hello">
-                <font class="header-font-1">Hello </font> &nbsp
-                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
-            </div>
-            </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                   
-                </ul>
-            </div>
-        </div>
-        <div class="container" >
-            
+    <body>
 <?php
-define('TITLE', 'Staff');
-define('PAGE', 'staff');
 
-?>
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pet_life";
 
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
-<div class="sec-2">
-<div>
-  <!--Table-->
-<br/>
-<div class="staff-title">List of Staff Members<br></div><hr>
-<br/>
-  <?php
-    $sql = "SELECT * FROM employee";
-    $result = $conn->query($sql);
-    if($result->num_rows > 0){
- echo '<table class="table" cellspacing=1 cellpadding=3>
-  <thead>
-   <tr>
-    <th scope="col">Emp ID</th>
-    <th scope="col">Name</th>
-    <th scope="col">Address</th>
-    <th scope="col">Mobile</th>
-    <th scope="col">Designation</th>
-<th scope="col">Email</th>
-<th scope="col">NIC</th>
-<th scope="col">Date Assigned</th>
-    <th scope="col">Action</th>
-   </tr>
-  </thead>
-  <tbody>';
-  while($row = $result->fetch_assoc()){
-   echo '<tr>';
-    echo '<td><b>'.$row["emp_id"].'</b></td>';
-    echo '<td>'. $row["emp_name"].'</td>';
-echo '<td>'. $row["emp_address"].'</td>';
-echo '<td>'. $row["emp_contactno"].'</td>';
-
-    echo '<td>'.$row["emp_designation"].'</td>';
-    echo '<td>'.$row["emp_email"].'</td>';
-    echo '<td>'.$row["emp_nic"].'</td>';
-echo '<td>'.$row["emp_dateassigned"].'</td>';
-
-    echo '<td class="sub">
-    <div class="f">
-    <div class="f1" style="margin-top:10px;"> <form action="editstaff.php" method="POST" class="d-inline"> <input type="hidden" name="id" value='. $row["emp_nic"] .'><button style="border:none;" type="submit" name="view" value="View"><img src="../images/update.png" width=20px height=20px></button></form></div>
-    <div class="f2" style="margin-top:10px;"> <form action="" method="POST" class="d-inline"><input type="hidden" name="id" value='. $row["emp_nic"] .'><button style="border:none;" type="submit" name="delete" value="Delete"><img src="../images/del.png" width=20px height=20px></button></form></div>
-      </div>
-      </td>
-   </tr>';
-  }
-
- echo '</tbody>
- </table>';
-} else {
-  echo "0 Result";
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
 }
-if(isset($_REQUEST['delete'])){
-  $sql = "DELETE FROM employee WHERE emp_nic = {$_REQUEST['id']}";
-  if($conn->query($sql) === TRUE){
-    
-    echo '<meta http-equiv="refresh" content= "0;URL=?deleted" />';
+
+// Search filter
+if(isset($_POST['search'])) {
+  $search = $_POST['search'];
+  $sql = "SELECT * FROM employee WHERE emp_id LIKE '%{$search}%' OR emp_name LIKE '%{$search}%'";
+} else {
+  // Select all employees
+  $sql = "SELECT * FROM employee";
+}
+
+$result = mysqli_query($conn, $sql);
+
+// Display search form
+echo "<form method='post' action=''>";
+echo "<input type='text' name='search' placeholder='Search by ID or Name'>";
+echo "<input type='submit' value='Search'>";
+echo "</form>";
+
+// Display data in a table
+echo "<table>";
+echo "<tr><th>ID</th><th>Name</th><th>Address</th><th>Contact No</th><th>Designation</th><th>Email</th><th>NIC</th><th>Initial Salary</th><th>Current Salary</th><th>Holidays Taken</th><th>Date Assigned</th><th>Delete</th><th>Update</th></tr>";
+while($row = mysqli_fetch_assoc($result)) {
+  echo "<tr>";
+  echo "<td>" . $row['emp_id'] . "</td>";
+  echo "<td>" . $row['emp_name'] . "</td>";
+  echo "<td>" . $row['emp_address'] . "</td>";
+  echo "<td>" . $row['emp_contactno'] . "</td>";
+  echo "<td>" . $row['emp_designation'] . "</td>";
+  echo "<td>" . $row['emp_email'] . "</td>";
+  echo "<td>" . $row['emp_nic'] . "</td>";
+  echo "<td>" . $row['emp_initsalary'] . "</td>";
+  echo "<td>" . $row['emp_currsalary'] . "</td>";
+  echo "<td>" . $row['emp_holtaken'] . "</td>";
+  echo "<td>" . $row['emp_dateassigned'] . "</td>";
+  echo "<td><form method='post' action=''>
+            <input type='hidden' name='emp_id' value='" . $row['emp_id'] . "'>
+            <input type='submit' name='delete' value='Delete'>
+          </form></td>";
+  echo "<td><form method='post' action='update_employee.php'>
+            <input type='hidden' name='emp_id' value='" . $row['emp_id'] . "'>
+            <input type='submit' name='update' value='Update'>
+          </form></td>";
+  echo "</tr>";
+}
+echo "</table>";
+
+if (isset($_POST['delete']) && isset($_POST['emp_id']) && !empty($_POST['emp_id'])) {
+    $emp_id = $_POST['emp_id'];
+
+    // Delete related employee records first
+    $query = "DELETE FROM employee WHERE emp_id = $emp_id";
+    $result = mysqli_query($conn, $query);
+
+    if ($result) {
+        echo "Employee record deleted successfully.";
     } else {
-      echo "Unable to Delete Data";
+        echo "Error deleting employee record: " . mysqli_error($conn);
     }
-  }
+} else {
+    echo "No employee ID specified";
+}
+
+mysqli_close($conn);
 ?>
-<a class="add-button" href="insertstaff.php"><button>Add</button></a>
-</div>
-</div>
-<div>
-</div>
-</div>
-</div>
-<?php
-
-?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-    <script src="script.js"></script>
 </body>
-
 </html>

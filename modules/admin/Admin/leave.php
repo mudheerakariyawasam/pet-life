@@ -90,21 +90,22 @@
 
 	// Display the holidays in a table
 	if (mysqli_num_rows($result) > 0) {
-		echo "<table>";
-		echo "<tr><th>Holiday ID&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Employee ID&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Approval Stage&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Action</th></tr>";
+		echo "<table class='holiday-table'>";
+		echo "<tr><th class='holiday-table-header'>Holiday ID</th><th class='holiday-table-header'>Employee ID</th><th class='holiday-table-header'>Approval Stage</th><th class='holiday-table-header'>Action</th></tr>";
 		while ($row = mysqli_fetch_assoc($result)) {
 			echo "<tr>";
-			echo "<td>" . $row['holiday_id'] . "</td>";
-			echo "<td>" . $row['emp_id'] . "</td>";
-            echo "<td>" . $row['approval_stage'] . "</td>";
-			echo "<td><a href='holiday_details.php?holiday_id=" . $row['holiday_id'] . "'>View</a></td>";
+			echo "<td class='holiday-table-cell'>" . $row['holiday_id'] . "</td>";
+			echo "<td class='holiday-table-cell'>" . $row['emp_id'] . "</td>";
+            echo "<td class='holiday-table-cell'>" . $row['approval_stage'] . "</td>";
+			echo "<td class='holiday-table-cell'><a class='holiday-link' href='holiday_details.php?holiday_id=" . $row['holiday_id'] . "'>View</a></td>";
 			echo "</tr>";
 		}
 		echo "</table>";
 	} else {
 		echo "No holidays found.";
 	}
-	?>
+?>
+
     </div>
     <script src="script.js"></script>
 </body>

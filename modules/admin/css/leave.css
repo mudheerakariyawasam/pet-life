@@ -18,6 +18,32 @@
  body {
    background-color: var(--backgroundcolour3);
  }
+ .holiday-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.holiday-table-header {
+  background-color: #ccc;
+  font-weight: bold;
+  padding: 8px;
+  text-align: left;
+}
+
+.holiday-table-cell {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.holiday-link {
+  color: blue;
+  text-decoration: none;
+}
+
+.holiday-link:hover {
+  text-decoration: underline;
+}
+
 
 .container {
   background-size: cover;
