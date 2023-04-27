@@ -33,25 +33,35 @@
 
     //insert new batch
 
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $medicine_id=$_POST['medicine_id'];    
-        $batch_qty=$_POST['batch_qty'];
-        $batch_price=$_POST['batch_price'];
-        $batch_expdate=date('Y-m-d', strtotime($_POST['batch_expdate']));
-        $batch_mfddate=date('Y-m-d', strtotime($_POST['batch_mfddate']));
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
     
+        //checking only numbers
 
-        //$sql = "INSERT INTO batch VALUES ('$batch_id',' $medicine_id','$batch_qty','$batch_price','$batch_expdate','$batch_mfddate')";
-        $sql = "INSERT INTO batch VALUES ('B002','M002','12','1200','2025-05-05','2022-05-05')";
-        $result = mysqli_query($conn,$sql);
-        
-        if($result==TRUE) { 
-            header("location: viewallmedicine.php");
-        }else {
-            echo "There is an error in adding!";
+        if(!(is_numeric($_POST['batch_qty'])) || $_POST['batch_qty']<0){
+            echo '<script>alert("Please enter a valid  quantity!")</script>';
+        }else if(!(is_numeric($_POST['batch_price'])) || $_POST['batch_price']<0){
+            echo '<script>alert("Please enter a valid price!")</script>';
+        }else{
+            $medicine_id=$_POST['medicine_id'];
+            $batch_qty=$_POST['batch_qty'];
+            $batch_price=$_POST['batch_price'];
+            $batch_expdate=$_POST['batch_expdate'];
+            $batch_mfddate=$_POST['batch_mfddate'];
+
+            $sql = "INSERT INTO batch VALUES ('$batch_id','$medicine_id','$batch_qty','$batch_price','$batch_expdate','$batch_mfddate')";
+            $result = mysqli_query($conn,$sql);
+            
+            if($result==TRUE) { 
+                header("location: viewallmedicine.php");
+            }else {
+                $error = "There is an error in adding!";
+            } 
         }
-   }
+    }
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -115,16 +125,6 @@
                     
                     //get the medicine IDs from the sql table
                     $sql_mid="SELECT medicine_id FROM medicine order by medicine_id"; 
-
-                    // if($r_set = $conn->query($sql)){
-                    //     echo "<select id='medicine_id' name='medicine_id' class='dropdown-list'>";
-                    // while ($row = $r_set->fetch_assoc()) {
-                    //     echo "<option value=$row[id]>$row[medicine_id]</option>";
-                    // }
-                    //     echo "</select><br>";
-                    // }else{
-                    // echo $conn->error;
-                    // }
 
                     $result_getdata = $conn->query($sql_mid);
                     if($result_getdata->num_rows> 0){
