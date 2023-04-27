@@ -1,3 +1,7 @@
+<?php
+include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +21,7 @@
 <body>
     <div class="sidebar">
         <div class="user-img">
-            <center><img src="../images/logo_transparent black.png"></center>
+            <img src="../images/logo_transparent black.png">
         </div>
         <ul>
             <li>
@@ -43,7 +47,7 @@
         </div>
     </div>
 
-    <!-- //Navigation bar ends -->
+    <!-- //Left Navigation bar ends -->
 
 
     <div class="content">
@@ -54,7 +58,7 @@
                 </div>
                 <div class="hello">
                     <font class="header-font-1">Welcome </font> &nbsp
-                    <font class="header-font-2"> Senuri</font>
+                    <font class="header-font-2"> <?php echo $_SESSION['user_name'];?></font>
                 </div>
             </div>
 
@@ -83,36 +87,77 @@
             <div class="heading">Clients' Details</div>
             <div class="save-btn">
                 <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save" type="submit"
-                    role="button">+ Add new Client</button>
+                    role="button"><a href="user.php"> + Add new Client</a></button>
             </div>
             <div class="data-table">
                 <table id="showclients">
                     <tr>
-                        <th> Client ID </th>
-                        <th>Name</th>
-                        <th> Date Registered</th>
-                        <th> Address </th>
-                        <th> Mobile</th>
-                        <th> Email</th>
-                        <th> Action</th>
+                        <th>Pet Owner's ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Contact Number</th>
+                        <th>Address</th>
+                        <th>NIC</th>
+                        <th>Password</th>
+                        <th>Action</th>
+                    </tr>
+                    <?php
+                    $sql = "SELECT * from pet_owner";
+                    $clients = mysqli_query($conn, $sql);
+                    if ($clients) {
+                        while ($row = mysqli_fetch_assoc($clients)) {
+                            $id = $row['owner_id'];
+                            $fname = $row['owner_fname'];
+                            $lname = $row['owner_lname'];
+                            $email = $row['owner_email'];
+                            $tpn = $row['owner_contactno'];
+                            $address = $row['owner_address'];
+                            $nic = $row['owner_nic'];
+                            $pwd = $row['owner_pwd'];
+                            echo '<tr>
+                            <td>' . $id . '</td>
+                            <td>' . $fname . '</td>
+                            <td>' . $lname . '</td>
+                            <td>' . $email . '</td>
+                            <td>' . $tpn . '</td>
+                            <td>' . $address . '</td>
+                            <td>' . $nic . '</td>
+                            <td>' . $pwd . '</td>
+                            <td>
+                            <div class="action all" style="display:flex;">
+                            <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye" style="margin:5px;"></i></a>
+                            <a href="update_customer.php? updateid='.$id.'"><i class="fa-sharp fa-solid fa-pen-to-square" style="margin:5px;"></i></a>
+                            <a href="delete_customer.php? deleteid='.$id.'"><i class="fa-sharp fa-solid fa-trash" style="color: #542121; margin:5px;"></i></a>
+                            </div>
+                            </td>
+                            </tr>';
+                        }
+
+                    }
+
+                    ?>
+                    <!-- <tr>
+                        <td>O001</td>
+                        <td>Senuri</td>
+                        <td>Wickramasinghe</td>
+                        <td>senuridilshara@gmail.com</td>
+                        <td>0734567891</td>
+                        <td>No 38/4, Godagama,Meegoda</td>
+                        <td>996050203V</td>
+                        <td>9999</td>
+                        <td><a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td>
                     </tr>
                     <tr>
-                        <td>C001</td>
-                        <td>Sachintha</td>
-                        <td>02/05/2022</td>
-                        <td>No.24, New York</td>
-                        <td>0789414977</td>
-                        <td>sachintha@gmail.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>C002</td>
+                        <td>O002</td>
                         <td>John</td>
-                        <td>02/05/2022</td>
-                        <td>No.74, New York</td>
-                        <td>0705369977</td>
-                        <td>john@gmail.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td></td>
+                        <td>Perera</td>
+                        <td>johnperera@gmail.com</td>
+                        <td>0739667891</td>
+                        <td>No 96/5,Temple Road,Maharagama</td>
+                        <td>966050203V</td>
+                        <td>5555</td>
+                        <td><a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td></td>
                     </tr>
                     <tr>
                         <td>C003</td>
@@ -131,12 +176,13 @@
                         <td>0789814977</td>
                         <td>brown@yahooo.com</td>
                         <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a>&nbsp&nbsp&nbsp <a><i class="fa-sharp fa-solid fa-pen-to-square"></i>&nbsp&nbsp&nbsp</a><a><i class="fa-sharp fa-solid fa-trash" style="color: #542121;"></i></a></td></td>
-                    </tr>
+                    </tr> -->
                 </table>
 
             </div>
         </div>
-        <script src="script.js"></script>
+    </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
