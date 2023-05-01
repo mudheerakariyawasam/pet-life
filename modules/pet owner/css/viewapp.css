@@ -247,6 +247,11 @@ table {
   margin-top: 20px;
   }
   
+  .tble{
+  max-height: 550px; /* set a maximum height for the table wrapper */
+  overflow-y: auto; /* enable vertical scrolling */
+  }
+
   th, td {
     width:120px;
     text-align:center;
@@ -256,7 +261,10 @@ table {
     color: white;
     font-size: medium;
   }
-  
+  th{
+    position: sticky;
+  }
+
   td{
     color: black;
     background-color:#96CDE1;   

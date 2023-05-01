@@ -246,6 +246,11 @@ table {
   
   }
   
+  .tble{
+    max-height: 500px; /* set a maximum height for the table wrapper */
+    overflow-y: auto; /* enable vertical scrolling */
+    }
+
   th, td {
     width:150px;
     text-align:center;

@@ -173,7 +173,14 @@ if (mysqli_num_rows($result_total2) > 0) {
                     <div class ="app">
                 <p> YOUR NEXT APPOINTMENT </P>
                     </div>
-                    
+                  <div class="tble">  
+                  <table>
+                  <tr>
+                      <th>Pet Name</th>
+                      <th>Date</th>
+                      <th>Slot No</th>
+                      <th>Actions</th>
+                  </tr>
                 <?php
             $loggedInUser = $_SESSION['login_user'];
 
@@ -184,16 +191,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                 $result_getdetails = mysqli_query($conn, $sql);
 
 
-            if (mysqli_num_rows($result_getdetails) > 0) {
-
-                echo ' 
-                <table>
-                  <tr>
-                      <th>Pet Name</th>
-                      <th>Date</th>
-                      <th>Slot No</th>
-                      <th>Actions</th>
-                  </tr>';
+            if (mysqli_num_rows($result_getdetails) > 0){ 
 
                 while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {
                 
@@ -211,7 +209,7 @@ if (mysqli_num_rows($result_total2) > 0) {
             }
           
             ?>
-               
+                  </div>
             <div>
                         <button class="btn-add2"><a href="./add_appointment.php">Make An Appointment</a></button>
                     </div>

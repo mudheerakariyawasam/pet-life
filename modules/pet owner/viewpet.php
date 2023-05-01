@@ -108,7 +108,19 @@
 
             </div>
             <!--View All Items Code-->
+            <div class="tble">
+            <table>
+            <tr>
+                <th>Pet ID</th>
+                <th>Pet Name</th>
+                <th>Gender</th>
+                <th>DOB</th>
+                <th>Type</th>
+                <th>Breed</th>
+                <th>Action</th>
+            </tr>
             <?php
+
             $loggedInUser = $_SESSION['login_user'];
 
 
@@ -122,16 +134,7 @@
 
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
-                echo '<table>
-            <tr>
-                <th>Pet ID</th>
-                <th>Pet Name</th>
-                <th>Gender</th>
-                <th>DOB</th>
-                <th>Type</th>
-                <th>Breed</th>
-                <th>Action</th>
-            </tr>';
+           
 
                 while ($row = mysqli_fetch_assoc($result)) {
 
@@ -151,6 +154,7 @@
                 echo "0 results";
             }
             ?>
+            </div>
         </div>
         <script src="script.js"></script>
     </div>

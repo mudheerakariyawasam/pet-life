@@ -399,6 +399,11 @@ table {
   margin-top: 20px;
   margin-right: 80px;
   }
+
+  .tble{
+    max-height: 500px; /* set a maximum height for the table wrapper */
+    overflow-y: auto; /* enable vertical scrolling */
+    }
   
   th, td {
     width:120px;

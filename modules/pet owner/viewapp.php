@@ -93,7 +93,14 @@
             <div class ="app">
                 <p>BOOKED APPOINTMENT SLOTS </P>
                     </div>
-                <div class="table">  
+                <div class="tble">
+                <table>
+                  <tr>
+                      <th>Pet Name</th>
+                      <th>Date</th>
+                      <th>Slot No</th>
+                      <th>Actions</th>
+                  </tr>  
                 <?php
             $loggedInUser = $_SESSION['login_user'];
 
@@ -106,14 +113,6 @@
 
             if (mysqli_num_rows($result_getdetails) > 0) {
 
-                echo ' 
-                <table>
-                  <tr>
-                      <th>Pet Name</th>
-                      <th>Date</th>
-                      <th>Slot No</th>
-                      <th>Actions</th>
-                  </tr>';
 
                 while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {
                 

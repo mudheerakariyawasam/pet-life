@@ -313,6 +313,11 @@ table {
   margin-top: 40px;
   }
   
+  .tble{
+    max-height: 500px; /* set a maximum height for the table wrapper */
+    overflow-y: auto; /* enable vertical scrolling */
+    }
+
   th, td {
     width:120px;
     text-align:center;

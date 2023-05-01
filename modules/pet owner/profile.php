@@ -8,25 +8,69 @@ if (!isset($_SESSION["login_user"])) {
 
 $loggedInUser = $_SESSION['login_user'];
 
-$sql2 = "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";
-$result2 = mysqli_query($conn, $sql2);
-$row2 = mysqli_fetch_assoc($result2);
+$sql = "SELECT owner_id, CONCAT(owner_fname, ' ', owner_lname) as full_name, owner_email, owner_contactno, owner_address, owner_nic, owner_pwd FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";  
+$result = mysqli_query( $conn,$sql);
+if( $result ){
+while( $row = mysqli_fetch_assoc( $result ) ){
+    $owner_id = $row["owner_id"];
+    $full_name = $row["full_name"];
+    $owner_email = $row["owner_email"];
+    $owner_contactno = $row["owner_contactno"];
+    $owner_address = $row["owner_address"];
+    $owner_nic = $row["owner_nic"];
+    $owner_pwd = $row["owner_pwd"];
 
-
-
-$sql = "SELECT * FROM pet_owner WHERE owner_id = '{$row2['owner_id']}'";
-$result = mysqli_query($conn, $sql);
-
-// Check if the query was successful
-if (mysqli_num_rows($result) > 0) {
-    // Fetch the first row of the result set
-    $row = mysqli_fetch_assoc($result);
-    // Use var_dump() to inspect the $row variable
-} else {
-    // Handle the case when no results are found
-    echo "No results found";
+    $hashedPassword = md5($owner_pwd); 
+}
+}
+else{
+    echo "Please Try Again!";
 }
 
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $new_name = $_POST['full_name'];
+    $new_email = $_POST['owner_email'];
+    $new_contactno = $_POST['owner_contactno'];
+    $new_address = $_POST['owner_address'];
+    $new_nic = $_POST['owner_nic'];
+
+    $sql = "SELECT * FROM pet_owner WHERE owner_id = '$owner_id'";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+
+// Update the specified columns
+if (!empty($new_full_name)) {
+    $update_sql = "UPDATE pet_owner SET  owner_fname=SUBSTRING_INDEX('$new_name', ' ', 1), owner_lname=SUBSTRING_INDEX('$new_name', ' ', -1) WHERE owner_id='$owner_id'";
+    $row['full_name'] = $new_full_name;
+}
+if (!empty($new_email)) {
+    $update_sql = "UPDATE pet_owner SET owner_email='$new_email' WHERE owner_id='$owner_id'";
+    $row['owner_email'] = $new_email;
+}
+if (!empty($new_contactno)) {
+    $update_sql = "UPDATE pet_owner SET owner_contactno='$new_contactno' WHERE owner_id='$owner_id'";
+    $row['owner_contactno'] = $new_contactno;
+}
+if (!empty($new_address)) {
+    $update_sql = "UPDATE pet_owner SET owner_address='$new_address' WHERE owner_id='$owner_id'";
+    $row['owner_address'] = $new_address;
+}
+if (!empty($new_nic)) {
+    $update_sql = "UPDATE pet_owner SET owner_nic='$new_nic' WHERE owner_id='$owner_id'";
+    $row['owner_nic'] = $new_nic;
+}
+
+// Execute the update query
+$update_result = mysqli_query($conn, $update_sql);
+        
+        if($update_result==TRUE) { 
+            header("location: profile.php");
+        }else {
+            $error = "There is an error in updating!";
+        } 
+    
+}
 
 
 ?>
@@ -143,13 +187,17 @@ if (mysqli_num_rows($result) > 0) {
 
                     <p>
                     <form method="POST">
-                        <label><b>Owner ID : </label>
-                        <label class="id" name="owner_id"></b><br><br>
+                       
+                        <div class="column-wise">
+                                <label>Owner ID :</label><br>
+                                <input type="text" name="owner_id" placeholder="owner id"
+                                    value="<?php echo $owner_id; ?>"><br>
+                            </div>
 
                             <div class="column-wise">
                                 <label>Full Name :</label><br>
-                                <input type="text" name="owner_fname" placeholder="Full Name"
-                                    value="<?php echo $owner_fname; ?>"><br>
+                                <input type="text" name="full_name" placeholder="Full Name"
+                                    value="<?php echo $full_name; ?>"><br>
                             </div>
                             <div class="column-wise">
                                 <label>Email :</label><br>
@@ -172,7 +220,7 @@ if (mysqli_num_rows($result) > 0) {
                                     value="<?php echo $owner_nic; ?>"><br>
                             </div>
                             <div class="pwd-content">
-                <button class="btn-add" fdprocessedid="a0hv6"><a href="updatepr.php">Update</a></button>
+                <button class="btn-add" fdprocessedid="a0hv6">Update</button>
             </div>
            
                     </form>

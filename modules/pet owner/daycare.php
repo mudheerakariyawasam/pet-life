@@ -201,7 +201,7 @@ $owner_id=$row2["owner_id"];
             <div class="d-text">
                         Upcoming Registrations
                     </div>
-                <div class="table">
+                <div class="tble">
                     
                     <table>
                         <tr>

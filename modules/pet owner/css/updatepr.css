@@ -129,6 +129,8 @@ body {
     justify-content: space-between;
     width: 82%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    margin-top: -24px;
+    
 }
 
 .navbar__left {

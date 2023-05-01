@@ -90,7 +90,16 @@ if (!isset($_SESSION["login_user"])) {
                 </ul>
             </div>
         </div>
-        <div class="table">
+        <div class="tble">
+        <table>
+                    <tr>
+                        <th>Treatment type</th>
+                        <th>Pet Name</th>
+                        <th>Vet Name</th>
+                        <th>Treatment Bill</th>
+                        <th>Follow Up Date</th>
+                        <th>Actions</th>
+                    </tr>
             <?php
             $sql = "SELECT *  FROM employee e 
 INNER JOIN treatment a ON e.emp_id = a.vet_id 
@@ -101,15 +110,7 @@ WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSI
 
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
-                echo '<table>
-                    <tr>
-                        <th>Treatment type</th>
-                        <th>Pet Name</th>
-                        <th>Vet Name</th>
-                        <th>Treatment Bill</th>
-                        <th>Follow Up Date</th>
-                        <th>Actions</th>
-                    </tr>';
+               
 
                 while ($row = mysqli_fetch_assoc($result)) {
 
