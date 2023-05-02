@@ -3,7 +3,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
 
 $id = $_GET['updateid'];
-$sql = "SELECT * from pet_owner WHERE id=$id";
+$sql = "SELECT * from pet_owner WHERE ";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 $id = $row['id'];

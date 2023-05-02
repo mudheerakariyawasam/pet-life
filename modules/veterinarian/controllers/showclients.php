@@ -87,13 +87,18 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
         </div>
         <div class="container">
             <div class="heading">Clients' Details</div>
-            <div class="search-field">
-                <input type="text" name="" id="live-search" class="form-control" autocomplete="off"
-                    placeholder="Search Here..">
-            </div>
-            <div class="save-btn">
-                <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save" type="submit"
-                    role="button"><a href="user.php"> + Add new Client</a></button>
+            <div class="table-btn">
+                <div class="search-field">
+                    <input type="text" class="search-input" id="live-search" class="form-control" autocomplete="off" placeholder="search on NIC">
+                    <div id="results" class="results"></div>
+                </div>
+                <div class="save-btn">
+                    <div class="tooltip tooltip-ex" onclick="getAll()" id="btn-all-treatments">
+                        <i class="fa-solid fa-reply-all" ></i>
+                        <span class="tooltiptext tooltip-all-t">all treatments</span>
+                    </div>
+                    <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save" type="submit" role="button"><a href="user.php"> + Add new Client</a></button>
+                </div>
             </div>
             <div class="data-table">
                 <table id="showclients">
@@ -109,9 +114,17 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                         <th>Action</th>
                     </tr>
                     <?php
-                    $sql = "SELECT * from pet_owner";
+                    if (isset($_GET['nic']) && $_GET['nic'] != '') {
+                        $nic = $_GET['nic'];
+                        $sql = "SELECT * from pet_owner WHERE owner_nic LIKE '%$nic%'";
+                    } else {
+                        $sql = "SELECT * from pet_owner";
+                    }
+
                     $clients = mysqli_query($conn, $sql);
+                    // die(mysqli_fetch_assoc($clients));
                     if ($clients) {
+                        // die(mysqli_fetch_assoc($clients));
                         while ($row = mysqli_fetch_assoc($clients)) {
                             $id = $row['owner_id'];
                             $fname = $row['owner_fname'];
@@ -139,7 +152,14 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                             </td>
                             </tr>';
                         }
-
+                    } else {
+                        // die('mm');
+                        $noData = "No data to show";
+                        echo '<tr>
+                            <td>' .$noData. '</td>
+                            
+                           
+                            </tr>';
                     }
 
                     ?>
@@ -149,31 +169,40 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
             </div>
         </div>
     </div>
+    <!-- Content ends -->
+
+    
     <div id="searchresult">
 
     </div>
+    <script src="../js/show_clients.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#live-search").keyup(function () {
-                var input = $(this).val();
-                // alert(input);
-                if (input != "") {
+        $(document).ready(function() {
+            $('#live-search').on('input', function() {
+                var query = $(this).val();
+                if (query !== '') {
                     $.ajax({
-                        url: "livesearch.php",
-                        method: "POST",
-                        data: {input: input},
-
-                        success: function (data) {
-                            $("#searchresult").html(data);
+                        url: 'livesearch.php',
+                        type: 'POST',
+                        data: {
+                            query: query
+                        },
+                        success: function(response) {
+                            if (response.includes("<div") || response.includes("No results found")) {
+                                $('#results').css('visibility', 'visible');
+                            } else {
+                                $('#results').css('visibility', 'hidden');
+                            }
+                            $('#results').html(response);
                         }
                     });
-                }else{
-                    $("#searchresult").css("display","none");
+                } else {
+                    $('#results').css('visibility', 'hidden');
+                    $('#results').html('');
                 }
             });
         });
-
     </script>
 </body>
 
