@@ -178,7 +178,7 @@
 <br/>
 <br/>
 <div class="btn-bottom-set">
-    <button>View Previous Treatments</button>
+    <button><a href="treatment_history.php">View Previous Treatments</a></button>
     <br/><br/>
     <a href="add_treatment_.php"><button>Add New Treatment</button></a>
 </div>
