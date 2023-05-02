@@ -26,7 +26,7 @@ if (isset($_POST['save-info'])) {
     $nic = $_POST['nic'];
     $pwd = $_POST['password'];
 
-    $sql = "UPDATE 'pet_owner' SET id='$id',fname='$fname',lname='$lname',email= '$email',tpn=$tpn,address='$address',nic='$nic',password='$pwd' WHERE id='$id'";
+    $sql = "UPDATE pet_owner SET id='$id',fname='$fname',lname='$lname',email= '$email',tpn=$tpn,address='$address',nic='$nic',password='$pwd' WHERE id='$id'";
     $clients = mysqli_query($conn, $sql);
 
     if ($clients) {
