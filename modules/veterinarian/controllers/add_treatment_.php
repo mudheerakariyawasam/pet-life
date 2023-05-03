@@ -148,7 +148,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <h1 class="modal-title"> Treatment ID : <?php echo $next_t_id ?></h1>
+                <h1 class="modal-title"> Treatment ID :
+                    <?php echo $next_t_id ?>
+                </h1>
 
                 <table class="view-data">
                     <tr class="data-record">
@@ -161,18 +163,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         ?>
                     </tr>
                     <tr class="data-record">
-                        <td class="table-subject"><i class="fa-solid fa-house-medical-circle-exclamation"></i>Clinical Signs/Symptoms </td>
-                        <td><?php echo $symptoms ?></td>
+                        <td class="table-subject"><i class="fa-solid fa-house-medical-circle-exclamation"></i>Clinical
+                            Signs/Symptoms </td>
+                        <td>
+                            <?php echo $symptoms ?>
+                        </td>
                     </tr>
                     <tr>
                         <td class="table-subject"><i class="fa-solid fa-stethoscope"></i>Definitive Diagnosis </td>
-                        <td><?php echo $def_diagnosis ?></td>
+                        <td>
+                            <?php echo $def_diagnosis ?>
+                        </td>
                     </tr>
 
                     <?php if (strlen($sp_comment) > 0) { ?>
                         <tr>
                             <td class="table-subject"><i class="fa-solid fa-comment-medical"></i>Special comments </td>
-                            <td><?php echo $sp_comment ?></td>
+                            <td>
+                                <?php echo $sp_comment ?>
+                            </td>
                         </tr>
                     <?php } ?>
 
@@ -221,7 +230,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 </table>
 
-                <div style="color: green;text-align: center;"><?php echo $next_t_id ?> <p style="padding-left: 8px;"> is successfully added.</p></div>
+                <div style="color: green;text-align: center;">
+                    <?php echo $next_t_id ?>
+                    <p style="padding-left: 8px;"> is successfully added.</p>
+                </div>
             </div>
 
         </div>
@@ -239,12 +251,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             modal.style.opacity = 1;
 
             // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
+            span.onclick = function () {
                 modal.style.display = "none";
             }
 
             // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
+            window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
@@ -268,7 +280,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a href="showclients.php" class="active"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
             <li>
-                <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment History</span></a></a>
+                <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment
+                        History</span></a></a>
             </li>
             <li>
                 <a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
@@ -293,7 +306,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="hello">
                     <font class="header-font-1">Welcome </font> &nbsp
-                    <font class="header-font-2"><?php echo $_SESSION['user_name']; ?></font>
+                    <font class="header-font-2">
+                        <?php echo $_SESSION['user_name']; ?>
+                    </font>
                 </div>
             </div>
 
@@ -331,10 +346,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="first-row">
                                 <div class="checkbox-wrapper-43">
                                     <label for="">Treatment</label>
-                                    <input type="checkbox" class="treatment-type-t" name="treatment_type[]" value="treatment" id="cbx-43">
+                                    <input type="checkbox" class="treatment-type-t" name="treatment_type[]"
+                                        value="treatment" id="cbx-43">
                                     <label for="cbx-43" onclick="clickTcheck()" class="check t-check">
                                         <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                            <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
+                                            <path
+                                                d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
                                             </path>
                                             <polyline points="1 9 7 14 15 4"></polyline>
                                         </svg>
@@ -343,10 +360,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <div class="checkbox-wrapper-4">
                                     <label for="">Surgery</label>
-                                    <input type="checkbox" class="treatment-type-s" name="treatment_type[]" value="surgery" id="cbx-4">
+                                    <input type="checkbox" class="treatment-type-s" name="treatment_type[]"
+                                        value="surgery" id="cbx-4">
                                     <label for="cbx-4" class="check s-check" onclick="clickScheck()">
                                         <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                            <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
+                                            <path
+                                                d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
                                             </path>
                                             <polyline points="1 9 7 14 15 4"></polyline>
                                         </svg>
@@ -356,15 +375,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                             <label for="textarea">Clinical Signs/Symptoms</label>
-                            <textarea class="add-symptoms" onclick="symptomClick()" name="symptoms" placeholder="Please enter clinical symptoms"></textarea>
+                            <textarea class="add-symptoms" onclick="symptomClick()" name="symptoms"
+                                placeholder="Please enter clinical symptoms"></textarea>
 
                             <label for="textarea">Definitive Diagnosis</label>
-                            <textarea class="add-diagnosis" onclick="diagnosisClick()" name="def_diagnosis" placeholder="Please enter the definitive diagnosis"></textarea>
+                            <textarea class="add-diagnosis" onclick="diagnosisClick()" name="def_diagnosis"
+                                placeholder="Please enter the definitive diagnosis"></textarea>
 
                             <div class="form__group field">
-                                <input type="input" class="form__field" placeholder="Name" name="sp_comments" id='name' />
-                                <label style="white-space: nowrap;" for="name" class="form__label">Special
-                                    Comments</label>
+                                <input type="input" class="form__field" placeholder="Name" name="sp_comments"
+                                    id='name' />
+                                <label style="white-space: nowrap;" for="name" class="form__label">Additional Medicines
+                                    given</label>
                             </div>
 
 
@@ -450,12 +472,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <label for="date">Follow Up Date</label><br />
                                     </div>
                                     <div>
-                                        <input type="date" placeholder="Date" id="followup_date" name="followup_date" min="<?= date('Y-m-d'); ?>">
+                                        <input type="date" placeholder="Date" id="followup_date" name="followup_date"
+                                            min="<?= date('Y-m-d'); ?>">
                                     </div>
                                 </div>
 
                                 <div class="save-btn">
-                                    <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save" type="submit" role="button">Save</button>
+                                    <button onclick="saveTreatment(event)" class="button-01" name="save-info"
+                                        id="btn-save" type="submit" role="button">Save</button>
                                 </div>
                             </div>
 
@@ -519,12 +543,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             const surgeryBox = document.querySelector('.treatment-type-s');
             const sympotmsTA = document.querySelector('.add-symptoms');
             const diagnosisTA = document.querySelector('.add-diagnosis');
-            
+
 
             const tCheckBox = document.querySelector('.t-check');
             const sCheckBox = document.querySelector('.s-check');
 
-            
+
             function clickTcheck() {
                 tCheckBox.style = 'background-color:unset';
                 sCheckBox.style = 'background-color:unset';
@@ -543,26 +567,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             function saveTreatment(event) {
                 let checkInputs = true;
                 if ((!treatmentBox.checked && !surgeryBox.checked)) {
-                   
+
                     tCheckBox.style = 'background-color:red';
                     sCheckBox.style = 'background-color:red';
                     checkInputs = false;
                 }
 
-                  
-                if(sympotmsTA.value == '') {
-                    sympotmsTA.style = "border-color: red"; 
+
+                if (sympotmsTA.value == '') {
+                    sympotmsTA.style = "border-color: red";
                     checkInputs = false;
-                } 
-                if(diagnosisTA.value == '') {
+                }
+                if (diagnosisTA.value == '') {
                     diagnosisTA.style = "border-color: red";
-                    checkInputs = false; 
+                    checkInputs = false;
                 }
 
-                if(!checkInputs) {
-                    event.preventDefault(); 
+                if (!checkInputs) {
+                    event.preventDefault();
                 }
-  
+
             }
         </script>
 </body>

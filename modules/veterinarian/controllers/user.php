@@ -3,6 +3,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
 
 //generate next owner ID
+
 $sql_get_id="SELECT owner_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
 $result_get_id=mysqli_query($conn,$sql_get_id);
 $row=mysqli_fetch_array($result_get_id);
@@ -135,7 +136,7 @@ r                        <a href="#">
         <!-- //Registration form starts -->
         <div class="sub-container">
         <div class="heading">New Client Registration</div>
-            <form action="#" class="form" method="post"  >
+            <form action="user.php" class="form" method="post"  >
                 <div class="input-box">
                     <label>Pet Owner's ID: </label>
                     <label><?php echo $owner_id;?></label>

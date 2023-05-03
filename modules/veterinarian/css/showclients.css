@@ -205,13 +205,13 @@ body {
 
 .heading {
   margin-top: 94px;
-  /* margin-left: 30px; */
+  margin-left: 30px;
   font-family: poppins, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
 }
 
 .table-btn {

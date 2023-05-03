@@ -2,22 +2,37 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
 
-$id = $_GET['updateid'];
-$sql = "SELECT * from pet_owner WHERE ";
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$id = $row['id'];
-$fname = $row['fname'];
-$lname = $row['lname'];
-$email = $row['email'];
-$tpn = $row['tpn'];
-$address = $row['address'];
-$nic = $row['nic'];
-$pwd = $row['password'];
+$id = isset($_GET['updateid']) ? mysqli_real_escape_string($conn, $_GET['updateid']) : '';
 
 
-if (isset($_POST['save-info'])) {
-    $id = $_POST['id'];
+//generate next owner ID
+
+// $sql_get_id="SELECT owner_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
+// $result_get_id=mysqli_query($conn,$sql_get_id);
+// $row=mysqli_fetch_array($result_get_id);
+ 
+// $lastid="";
+                     
+//      if(mysqli_num_rows($result_get_id)>0){
+//          $lastid=$row['owner_id'];
+//      }
+ 
+//      if($lastid==""){
+//          $owner_id="O001";
+//      }else {
+//          $owner_id=substr($lastid,3);
+//          $owner_id=intval($owner_id);
+ 
+//          if($owner_id>=9){
+//              $owner_id="O0".($owner_id+1);
+//          } else if($owner_id>=99){
+//              $owner_id="O".($owner_id+1);
+//          }else{
+//              $owner_id="O00".($owner_id+1);
+//          }
+//      }
+
+if(isset($_POST['save-info'])){
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $email = $_POST['email'];
@@ -26,13 +41,14 @@ if (isset($_POST['save-info'])) {
     $nic = $_POST['nic'];
     $pwd = $_POST['password'];
 
-    $sql = "UPDATE pet_owner SET id='$id',fname='$fname',lname='$lname',email= '$email',tpn=$tpn,address='$address',nic='$nic',password='$pwd' WHERE id='$id'";
-    $clients = mysqli_query($conn, $sql);
+    $sql = "UPDATE pet_owner SET owner_id= '$id',owner_fname='$fname',owner_lname= '$lname',owner_email='$email', owner_contactno='$tpn',owner_address='$address',
+    owner_nic='$nic',owner_pwd='$pwd' WHERE owner_id= '$id'";
+    $clients = mysqli_query($conn,$sql);
 
-    if ($clients) {
-        echo "Updated successfully!";
-
-    } else {
+    if($clients){
+        echo '<script>alert("Updated Successfully!")</script>';
+        // header('location:showclients.php');
+    }else{
         die("Connection failed: " . mysqli_connect_error());
     }
 }
@@ -92,7 +108,7 @@ if (isset($_POST['save-info'])) {
                 </div>
                 <div class="hello">
                     <font class="header-font-1">Welcome </font> &nbsp
-                    <font class="header-font-2"> Senuri</font>
+                    <font class="header-font-2"> <?php echo $_SESSION['user_name'];?></font>
                 </div>
             </div>
 
@@ -105,7 +121,7 @@ if (isset($_POST['save-info'])) {
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+r                        <a href="#">
                             <i class="fa-solid fa-message"></i>
                         </a>
                     </li>
@@ -118,50 +134,50 @@ if (isset($_POST['save-info'])) {
             </div>
         </div>
 
+<div class="container">
         <!-- //Top Navigation bar ends -->
         <!-- //Registration form starts -->
         <div class="sub-container">
-            <div class="heading">New Client Registration</div>
-            <form action="#" class="form" method="post">
+        <div class="heading">New Client Registration</div>
+            <form action="update_customer.php" class="form" method="post"  >
                 <div class="input-box">
-                    <label>Pet Owner's ID</label>
-                    <input type="text" name="id" value=<?php echo $id;?> placeholder="Enter a new ID" required>
-
+                    <label>Pet Owner's ID: </label>
+                    <label><?php echo $owner_id;?></label>
                 </div>
                 <div class="input-box">
                     <label>First Name</label>
-                    <input type="text" name="fname" value=<?php echo $fname;?> placeholder="Enter First Name" required>
+                    <input type="text" name="fname" placeholder="Enter First Name" required>
 
                 </div>
                 <div class="input-box">
                     <label>Last Name</label>
-                    <input type="text" name="lname" value=<?php echo $lname;?> placeholder="Enter Last Name" required>
+                    <input type="text" name="lname" placeholder="Enter Last Name" required>
 
                 </div>
                 <div class="input-box">
                     <label>Email</label>
-                    <input type="text" name="email" value=<?php echo $email;?> placeholder="Enter Email" required>
+                    <input type="text" name="email" placeholder="Enter Email" required>
 
                 </div>
                 <div class="input-box">
                     <label>Contact Number</label>
-                    <input type="text" name="tpn" value=<?php echo $tpn;?> placeholder="Enter Contact Number" required>
+                    <input type="text" name="tpn" placeholder="Enter Contact Number" required>
 
                 </div>
                 <div class="input-box">
                     <label>Address</label>
-                    <input type="text" name="address" value=<?php echo $address;?> placeholder="Enter Address" required>
+                    <input type="text" name="address" placeholder="Enter Address" required>
 
                 </div>
                 <div class="column">
                     <div class="input-box">
                         <label>NIC</label>
-                        <input type="text" name="nic" value=<?php echo $nic;?> placeholder="Enter NIC" required>
+                        <input type="text" name="nic" placeholder="Enter NIC" required>
 
                     </div>
                     <div class="input-box">
                         <label>Password</label>
-                        <input type="password" name="password" value=<?php echo $pwd ;?> placeholder="Enter Password" required>
+                        <input type="password" name="password" placeholder="Enter Password" required>
 
                     </div>
                 </div>
@@ -171,9 +187,10 @@ if (isset($_POST['save-info'])) {
                         type="submit" role="button">Update</button>
                 </div>
             </form>
-        </div>
+</div>
 
     </div>
+
 </body>
 
 </html>
