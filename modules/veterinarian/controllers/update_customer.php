@@ -4,34 +4,19 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
 
 $id = isset($_GET['updateid']) ? mysqli_real_escape_string($conn, $_GET['updateid']) : '';
 
+$sql = "SELECT * FROM pet_owner WHERE owner_id= '$id'";
+$selected_client = mysqli_query($conn,$sql);
 
-//generate next owner ID
-
-// $sql_get_id="SELECT owner_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
-// $result_get_id=mysqli_query($conn,$sql_get_id);
-// $row=mysqli_fetch_array($result_get_id);
- 
-// $lastid="";
-                     
-//      if(mysqli_num_rows($result_get_id)>0){
-//          $lastid=$row['owner_id'];
-//      }
- 
-//      if($lastid==""){
-//          $owner_id="O001";
-//      }else {
-//          $owner_id=substr($lastid,3);
-//          $owner_id=intval($owner_id);
- 
-//          if($owner_id>=9){
-//              $owner_id="O0".($owner_id+1);
-//          } else if($owner_id>=99){
-//              $owner_id="O".($owner_id+1);
-//          }else{
-//              $owner_id="O00".($owner_id+1);
-//          }
-//      }
-
+if($selected_client && $row = mysqli_fetch_assoc($selected_client)){
+    $id = $row['owner_id'];
+    $fname = $row['owner_fname'];
+    $lname = $row['owner_lname'];
+    $email = $row['owner_email'];
+    $tpn = $row['owner_contactno'];
+    $address = $row['owner_address'];
+    $nic = $row['owner_nic'];
+    $pwd = $row['owner_pwd'];
+}
 if(isset($_POST['save-info'])){
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
@@ -41,13 +26,17 @@ if(isset($_POST['save-info'])){
     $nic = $_POST['nic'];
     $pwd = $_POST['password'];
 
-    $sql = "UPDATE pet_owner SET owner_id= '$id',owner_fname='$fname',owner_lname= '$lname',owner_email='$email', owner_contactno='$tpn',owner_address='$address',
+    
+
+    $sql = "UPDATE pet_owner SET owner_fname='$fname',owner_lname= '$lname',owner_email='$email', owner_contactno='$tpn',owner_address='$address',
     owner_nic='$nic',owner_pwd='$pwd' WHERE owner_id= '$id'";
     $clients = mysqli_query($conn,$sql);
+   
+
 
     if($clients){
-        echo '<script>alert("Updated Successfully!")</script>';
-        // header('location:showclients.php');
+        // echo '<script>alert("Updated Successfully!")</script>';
+        header('location:showclients.php');
     }else{
         die("Connection failed: " . mysqli_connect_error());
     }
@@ -121,7 +110,7 @@ if(isset($_POST['save-info'])){
                         </a>
                     </li>
                     <li>
-r                        <a href="#">
+                        <a href="#">
                             <i class="fa-solid fa-message"></i>
                         </a>
                     </li>
@@ -139,45 +128,45 @@ r                        <a href="#">
         <!-- //Registration form starts -->
         <div class="sub-container">
         <div class="heading">New Client Registration</div>
-            <form action="update_customer.php" class="form" method="post"  >
+            <form action="update_customer.php?updateid=<?php echo $id;?>" class="form" method="post"  >
                 <div class="input-box">
                     <label>Pet Owner's ID: </label>
-                    <label><?php echo $owner_id;?></label>
+                    <label><?php echo $id ;?></label>
                 </div>
                 <div class="input-box">
                     <label>First Name</label>
-                    <input type="text" name="fname" placeholder="Enter First Name" required>
+                    <input type="text" name="fname" placeholder="Enter First Name" value="<?php echo $fname ;?>" required>
 
                 </div>
                 <div class="input-box">
                     <label>Last Name</label>
-                    <input type="text" name="lname" placeholder="Enter Last Name" required>
+                    <input type="text" name="lname" placeholder="Enter Last Name" value="<?php echo $lname ;?>" required>
 
                 </div>
                 <div class="input-box">
                     <label>Email</label>
-                    <input type="text" name="email" placeholder="Enter Email" required>
+                    <input type="text" name="email" placeholder="Enter Email" value="<?php echo $email ;?>" required>
 
                 </div>
                 <div class="input-box">
                     <label>Contact Number</label>
-                    <input type="text" name="tpn" placeholder="Enter Contact Number" required>
+                    <input type="text" name="tpn" placeholder="Enter Contact Number" value="<?php echo $tpn;?>" required>
 
                 </div>
                 <div class="input-box">
                     <label>Address</label>
-                    <input type="text" name="address" placeholder="Enter Address" required>
+                    <input type="text" name="address" placeholder="Enter Address" value="<?php echo $address;?>" required>
 
                 </div>
                 <div class="column">
                     <div class="input-box">
                         <label>NIC</label>
-                        <input type="text" name="nic" placeholder="Enter NIC" required>
+                        <input type="text" name="nic" placeholder="Enter NIC" value="<?php echo $nic;?>" required>
 
                     </div>
                     <div class="input-box">
                         <label>Password</label>
-                        <input type="password" name="password" placeholder="Enter Password" required>
+                        <input type="password" name="password" placeholder="Enter Password" value="<?php echo $pwd;?>" required>
 
                     </div>
                 </div>

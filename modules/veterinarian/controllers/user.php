@@ -30,6 +30,7 @@ $lastid="";
      }
 
 if(isset($_POST['save-info'])){
+    // Retrieve form field values
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $email = $_POST['email'];
@@ -38,12 +39,18 @@ if(isset($_POST['save-info'])){
     $nic = $_POST['nic'];
     $pwd = $_POST['password'];
 
+    //Construct the SQL query to insert the form data into the database table
+
     $sql = "INSERT INTO pet_owner(owner_id,owner_fname,owner_lname,owner_email,owner_contactno,owner_address,owner_nic,owner_pwd)
     values ('$owner_id','$fname','$lname',' $email','$tpn','$address','$nic','$pwd')";
+    // Execute the SQL query
     $clients = mysqli_query($conn,$sql);
 
+    // Check if the query execution was successful
     if($clients){
-        echo '<script>alert("New Owner Added Successfully!")</script>';
+        // echo '<script>alert("New Owner Added Successfully!")</script>';
+
+        // Redirect the user to the page with the data table
         header('location:showclients.php');
     }else{
         die("Connection failed: " . mysqli_connect_error());
