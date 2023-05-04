@@ -292,18 +292,18 @@ cursor: pointer;
   .content{
     width:82%;
     float:right;
-    background-size: cover;
+    /* background-size: cover;
     background-position: center;
     background-image: url(../images/doctor.jpg);
     height: 100vh;
     isolation: isolate;
-    position: relative;
+    position: relative; */
     }
-    .content::after{
+    /* .content::after{
         content: '';
         position: absolute;
         z-index: -1;
         inset: 0;
         background: white;
         opacity: 0.9;
-    }
+    } */
