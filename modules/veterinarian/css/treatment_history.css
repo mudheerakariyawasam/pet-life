@@ -108,14 +108,12 @@ body {
   padding-left: 1rem;
   margin-right: 5rem;
 }
-
 .content {
-  position: relative;
+  /*position: relative;*/
   background: var(--backgroundcolour3);
   width: 82%;
   margin-left: 18%;
 }
-
 .logout hr {
   width: 80%;
   margin-bottom: 2px;
@@ -123,7 +121,6 @@ body {
 }
 
 /*Navbar*/
-
 .navbar {
   position: fixed;
   display: flex;
@@ -191,23 +188,32 @@ body {
 .navbar__right ul li a i {
   font-size: 1.5rem;
 }
+/* navbar ends */
+.container {
+  margin-top: 20px;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+}
 
-.pet-name {
-  font-family: "Poppins";
+.content {
+  width: 82%;
+  float: right;
+  background-size: cover;
+  background-position: center;
+}
+
+.heading {
+  margin-top: 80px;
+  margin-left: 30px;
+  font-family: poppins, sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
-  margin-top: 30px;
-  margin-left: 70px;
+  font-size: 24px;
+  display: flex;
+  justify-content: left;
 }
-
-.pet-img {
-  width: 30%;
-  position: absolute;
-  left: 80px;
-  top: 100px;
-}
-
 .filter-panel {
   position: absolute;
   margin-top: 91px;

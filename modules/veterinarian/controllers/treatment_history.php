@@ -253,15 +253,19 @@ if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
         </div>
     </div>
 
-    <!-- //Navigation bar -->
+    
     <div class="content">
+        <!-- //Top Navigation bar starts-->
         <div class="navbar">
             <div class="navbar__left">
                 <div class="nav-icon">
                     <i class="fa-solid fa-bars"></i>
                 </div>
-                <div class="hello" style="margin-left: 25vw">
-                    <font>Treatment history</font>
+                <div class="hello">
+                    <font class="header-font-1">Welcome </font> &nbsp
+                    <font class="header-font-2">
+                        <?php echo $_SESSION['user_name']; ?>
+                    </font>
                 </div>
             </div>
 
@@ -278,11 +282,12 @@ if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
                             <i class="fa-solid fa-message"></i>
                         </a>
                     </li>
-                    <li>
-                    </li>
                 </ul>
             </div>
         </div>
+ <!-- //Top Navigation bar ends-->
+        <div class="container">
+        <div class="heading">Treatment History</div>
         <div class="toast" style="display: none;">
 
             <div class="toast-content">
@@ -555,7 +560,7 @@ if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
 
         </div>
 
-
+        </div>
     </div>
 
 
