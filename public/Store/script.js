@@ -1,6 +1,6 @@
 function paymentGateWay() {
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = () => {
+    xhttp.onreadystatechange = ()=> {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             alert(xhttp.responseText);
             var obj = JSON.parse(xhttp.responseText);
@@ -36,7 +36,7 @@ function paymentGateWay() {
                 items: obj["items"],
                 amount: obj["amount"],
                 currency: obj["currency"],
-                hash: obj["hash"], // *Replace with generated hash retrieved from backend
+                hash: obj["hash"], 
                 first_name: obj["first_name"],
                 last_name: obj["last_name"],
                 email: obj["email"],

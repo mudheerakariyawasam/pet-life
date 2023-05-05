@@ -32,8 +32,8 @@ $array["amount"] = $amount;
 $array["hash"] = $hash;
 
 
-$jsonObj = json_encode($array);
+$jsonObj = json_encode ($array);
 
 
-echo $hash;
+echo $jsonObj;
 ?>
