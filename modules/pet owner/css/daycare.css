@@ -272,8 +272,8 @@ body {
     border: none;
 }
 
-form {
-    padding: 30px;
+.left form {
+    padding: 60px;
     background-color: rgba(255, 255, 255, 0.699);
     margin-right: 90px;
     height: 85%;
@@ -397,14 +397,9 @@ table {
     width:90%;
   margin-left: 20px;
   margin-top: 20px;
-  margin-right: 80px;
+  margin-right: 90px;
   }
 
-  .tble{
-    max-height: 500px; /* set a maximum height for the table wrapper */
-    overflow-y: auto; /* enable vertical scrolling */
-    }
-  
   th, td {
     width:120px;
     text-align:center;
@@ -422,11 +417,7 @@ table {
     width:60px;
 }
 
-.d-text{
-    margin-top: 100px;
-    font-size: 25px;
-    font-weight: bold;
-}
+
 select#pet_name {
 display: block;
     border: 2px solid #ccc;
@@ -438,3 +429,35 @@ display: block;
    margin-left: 6px;
 
 }
+
+.filter select {
+        border: none;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .filter{
+        margin-top: 150px;
+        margin-left: 20px;
+    }
+
+    .btn-add1 {
+        background-color: #C38D9E;
+        color: black;
+        padding: 10px 10px;
+        border-radius: 20px;
+        box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
+        border: none;
+        margin: auto;
+        width: 50px;
+        float: right;
+        font-family: poppins, sans-serif;
+        font-style: normal;
+        font-weight: 800;
+        margin-right: 373px;
+        cursor: pointer;
+    }
+    .btn-add1:hover {
+        background-color:rgba(215,226,255,0.6);
+        transition: 0.7s;
+      }

@@ -244,7 +244,7 @@ $update_result = mysqli_query($conn, $update_sql);
                 <input type="password" name="owner_pwd" placeholder="Re Enter Password" fdprocessedid="rwoku"><br>
             </div>
             <div class="pwd-content">
-                <button class="btn-add" fdprocessedid="a0hv6">Confim </button>
+                <button class="btn-add" fdprocessedid="a0hv6">Confirm </button>
             </div>
             <p></p>
         </div>

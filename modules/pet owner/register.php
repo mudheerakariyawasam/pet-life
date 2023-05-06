@@ -123,9 +123,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="email" name="owner_email" placeholder="email" required>
                 </div>
                 <div class="form-content">
-                    <label class="loging-label1">Phone</label>
-                    <input type="number" name="owner_contactno" placeholder="phone" required>
-                </div>
+  <label class="loging-label1">Phone</label>
+  <input type="tel" name="owner_contactno"  maxlength="10"  placeholder="contact no" pattern="^\+?\d{2}\s?\d{8}$" required>
+</div>
                 <div class="form-content">
                     <label class="loging-label1">Address</label>
                     <input type="text" name="owner_address" placeholder="address" required>

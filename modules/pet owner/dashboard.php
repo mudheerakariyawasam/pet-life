@@ -6,44 +6,65 @@
         exit;
     }
 
+    $loggedInUser = $_SESSION['login_user'];
+    $currentDate = date('Y-m-d');
+    
+    // Get the owner ID of the logged-in user
+    $sql_owner = "SELECT owner_id FROM pet_owner WHERE owner_email = '$loggedInUser'";
+    $result_owner = mysqli_query($conn, $sql_owner);
+    $row_owner = mysqli_fetch_assoc($result_owner);
+    $owner_id = $row_owner['owner_id'];
+    
+    // Get all the pets owned by the user
+    $sql_pets = "SELECT * FROM pet WHERE owner_id = '$owner_id'";
+    $result_pets = mysqli_query($conn, $sql_pets);
+   
+    
+    // Iterate through the result set and get the total count of appointments for each pet
+    $total = 0;
+    while ($row_pet = mysqli_fetch_assoc($result_pets)) {
+        $pet_id = $row_pet['pet_id'];
+        $sql_total = "SELECT COUNT(*) AS total FROM appointment WHERE pet_id = '$pet_id' AND appointment_date >= '$currentDate'";
+        $result_total = mysqli_query($conn, $sql_total);
+        $row_total = mysqli_fetch_assoc($result_total);
+        $total += $row_total['total'];
+    }
+    
 
-//Get the total no of items in the database
-
-$sql_total = "SELECT COUNT(*) AS total FROM appointment";
-$result_total = mysqli_query($conn, $sql_total);
-$row = mysqli_fetch_array($result_total);
-$total = "";
-
-if (mysqli_num_rows($result_total) > 0) {
-    $total = $row['total'];
-
-} else {
-    $total = "0";
-}
-
-$sql_total1 = "SELECT COUNT(*) AS total FROM pet";
+$sql_total1 = "SELECT COUNT(*) AS total1 FROM pet WHERE  owner_id ='{$row_owner['owner_id']}'";
 $result_total1 = mysqli_query($conn, $sql_total1);
-$row = mysqli_fetch_array($result_total1);
+$row1 = mysqli_fetch_array($result_total1);
 $total1 = "";
 
 if (mysqli_num_rows($result_total1) > 0) {
-    $total1 = $row['total'];
+    $total1 = $row1['total1'];
 
 } else {
     $total1 = "0";
 }
 
-$sql_total2 = "SELECT COUNT(*) AS total FROM treatment";
-$result_total2 = mysqli_query($conn, $sql_total2);
-$row = mysqli_fetch_array($result_total2);
-$total2 = "";
+$loggedInUser = $_SESSION['login_user'];
 
-if (mysqli_num_rows($result_total2) > 0) {
-    $total2 = $row['total'];
+// Get the owner ID of the logged-in user
+$sql_owner = "SELECT owner_id FROM pet_owner WHERE owner_email = '$loggedInUser'";
+$result_owner = mysqli_query($conn, $sql_owner);
+$row_owner = mysqli_fetch_assoc($result_owner);
+$owner_id = $row_owner['owner_id'];
 
-} else {
-    $total2 = "0";
+// Get all the pets owned by the user
+$sql_pets = "SELECT * FROM pet WHERE owner_id = '$owner_id'";
+$result_pets = mysqli_query($conn, $sql_pets);
+
+// Iterate through the result set and get the total count of treatments for each pet
+$total2 = 0;
+while ($row_pet2 = mysqli_fetch_assoc($result_pets)) {
+    $pet_id = $row_pet2['pet_id'];
+    $sql_total2 = "SELECT COUNT(*) AS total2 FROM treatment a INNER JOIN treatment_type t ON t.treatment_id =  a.treatment_id WHERE pet_id = '$pet_id'";
+    $result_total2 = mysqli_query($conn, $sql_total2);
+    $row_total2 = mysqli_fetch_assoc($result_total2);
+    $total2 += $row_total2['total2'];
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -136,7 +157,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <p>Upcoming Appointments</p>
                     </div>
                     <div class="count">
-                        <p>2</p>
+                    <?php echo $total;?>
                     </div>
                     <div>
                         <button class="btn-add"><a href="./viewapp.php">View Now</a></button>
@@ -148,7 +169,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <p>Registered Pets</p>
                     </div>
                     <div class="count">
-                        <p>5</p>
+                    <?php echo $total1;?>
                     </div>
                     <div>
                         <button class="btn-add"><a href="./viewpet.php">View Now</a></button>
@@ -160,7 +181,7 @@ if (mysqli_num_rows($result_total2) > 0) {
                         <p>Pet Treatment Records</p>
                     </div>
                     <div class="count">
-                        <p>1</p>
+                    <?php echo $total2;?>
                     </div>
                     <div>
                         <button class="btn-add"><a href="./treatment.php">View Now</a></button>
@@ -179,36 +200,36 @@ if (mysqli_num_rows($result_total2) > 0) {
                       <th>Pet Name</th>
                       <th>Date</th>
                       <th>Slot No</th>
-                      <th>Actions</th>
+                      <th>Doctor</th>
                   </tr>
-                <?php
-            $loggedInUser = $_SESSION['login_user'];
+                  <?php
+    $loggedInUser = $_SESSION['login_user'];
+    $currentDate = date('Y-m-d');
 
-           $sql = "SELECT *  FROM appointment a INNER JOIN pet p 
-                    ON a.pet_id = p.pet_id INNER JOIN pet_owner o 
-                    ON o.owner_id = p.owner_id 
-                    WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')" ;
-                $result_getdetails = mysqli_query($conn, $sql);
+    $sql = "SELECT * FROM appointment a INNER JOIN pet p 
+            ON a.pet_id = p.pet_id INNER JOIN pet_owner o 
+            ON o.owner_id = p.owner_id 
+            INNER JOIN employee e ON e.emp_id = a.vet_id 
+            WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}') AND a.appointment_date >= '$currentDate'
+            ORDER BY a.appointment_date, a.appointment_slot LIMIT 1";
+    $result_getdetails = mysqli_query($conn, $sql);
 
+    if (mysqli_num_rows($result_getdetails) > 0) {
+        while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {
+            echo '<tr > 
+            <td> ' . $row_getdetails["pet_name"] . '</td>
+            <td>' . $row_getdetails["appointment_date"] . '</td>
+            <td>' . $row_getdetails["appointment_slot"] . '</td>
+            <td>' . $row_getdetails["emp_name"] . '</td>
+            </tr>';
+        }
+        echo '</table>';
+    }
+    else {
+        echo "No upcoming appointments found";
+    }
+?>
 
-            if (mysqli_num_rows($result_getdetails) > 0){ 
-
-                while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {
-                
-                    echo '<tr > 
-                    <td> ' . $row_getdetails["pet_name"] . '</td>
-                    <td>' . $row_getdetails["appointment_date"] . '</td>
-                    <td>' . $row_getdetails["appointment_slot"] . '</td>
-                    <td class="action"><button type="submit"><img src="images/delete.png"></button></td>
-                </tr>';
-                }
-                echo '</table>';
-            }
-            else {
-                echo "0 results";
-            }
-          
-            ?>
                   </div>
             <div>
                         <button class="btn-add2"><a href="./add_appointment.php">Make An Appointment</a></button>

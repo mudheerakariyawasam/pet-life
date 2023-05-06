@@ -295,3 +295,14 @@ a{
 .active-btn {
     background-color: #1B7B99;
 }
+
+  
+  input[type="tel"]::value {
+    content: attr(placeholder); /* show the country code in the placeholder */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50px;
+    text-align: center;
+  }
+  

@@ -149,14 +149,10 @@ $owner_id=$row2["owner_id"];
 
         <div class="container">
 
-            <!-- <div class="left"> -->
+             <div class="left">
             <form method="POST" action="">
                 <p class="welcome">Register Now</p>
-<!-- 
-                <div class="form-content">
-                    <label class="loging-label1">Pet ID</label>
-                    <input type="text" name="pet_id" placeholder="pet id" required>
-                </div> -->
+
                 <div class="form-content">
                     <label class="loging-label1">Pets Name</label>
                     <select id='pet_name' name='pet_name' class='dropdown-list'>
@@ -197,10 +193,29 @@ $owner_id=$row2["owner_id"];
 
                 </p>
             </form>
+             </div>
             <div class="right-side">
-            <div class="d-text">
-                        Upcoming Registrations
-                    </div>
+                <div class="filter">
+            <form method="GET">
+    <label><b>Pet Name</b></label><br>
+    <select name="pet_name">
+        <option value="">Select a pet</option>
+        <?php
+          $loggedInUser = $_SESSION['login_user'];
+        // Get all pets of the logged-in user
+        $sql_pets = "SELECT * FROM pet WHERE owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '$loggedInUser')";
+        $result_pets = mysqli_query($conn, $sql_pets);
+        while ($row_pets = mysqli_fetch_assoc($result_pets)) {
+            // Set the selected attribute if the current pet is selected in the URL
+            $selected = ($row_pets['pet_name'] == $_GET['pet_name']) ? 'selected' : '';
+            echo '<option value="' . $row_pets['pet_name'] . '" ' . $selected . '>' . $row_pets['pet_name'] . '</option>';
+        }
+        ?>
+    </select>
+    <button class="btn-add1" type="submit"><img src="images/search.png"></button>
+</form>
+                </div>
+          
                 <div class="tble">
                     
                     <table>
@@ -213,6 +228,15 @@ $owner_id=$row2["owner_id"];
                         <?php
                         $sql = "SELECT e.pet_id, e.pet_name, e.daycare_date FROM daycare e INNER JOIN pet_owner o ON o.owner_id = e.owner_id 
                     WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
+
+ // Check if pet_name parameter is set in the URL
+ if (isset($_GET['pet_name'])) {
+    // Sanitize input value to prevent SQL injection
+    $pet_name = mysqli_real_escape_string($conn, $_GET['pet_name']);
+    // Include pet_name condition in SQL query
+    $sql .= " AND e.pet_name LIKE '%$pet_name%'";
+}
+
 
                         $result = mysqli_query($conn, $sql);
                         if (mysqli_num_rows($result) > 0) {

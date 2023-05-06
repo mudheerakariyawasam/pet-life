@@ -90,6 +90,34 @@ if (!isset($_SESSION["login_user"])) {
                 </ul>
             </div>
         </div>
+        
+        <div class="container">
+
+            <!-- search items-->
+            <    <div class="bar-content search-bar">
+            <form method="GET">
+    <label><b>Pet Name</b></label><br>
+    <select name="pet_name">
+        <option value="">Select a pet</option>
+        <?php
+          $loggedInUser = $_SESSION['login_user'];
+        // Get all pets of the logged-in user
+        $sql_pets = "SELECT * FROM pet WHERE owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '$loggedInUser')";
+        $result_pets = mysqli_query($conn, $sql_pets);
+        while ($row_pets = mysqli_fetch_assoc($result_pets)) {
+            // Set the selected attribute if the current pet is selected in the URL
+            $selected = ($row_pets['pet_name'] == $_GET['pet_name']) ? 'selected' : '';
+            echo '<option value="' . $row_pets['pet_name'] . '" ' . $selected . '>' . $row_pets['pet_name'] . '</option>';
+        }
+        ?>
+    </select>
+    <button class="btn-add1" type="submit"><img src="images/search.png"></button>
+</form>
+        </div>
+                </div>
+            <div class ="app">
+                <p>TREATMENT RECORDS </P>
+                    </div>
         <div class="tble">
         <table>
                     <tr>
@@ -108,6 +136,14 @@ INNER JOIN pet p ON a.pet_id = p.pet_id
 INNER JOIN pet_owner o ON o.owner_id = p.owner_id 
 WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
 
+  // Check if pet_name parameter is set in the URL
+  if (isset($_GET['pet_name'])) {
+    // Sanitize input value to prevent SQL injection
+    $pet_name = mysqli_real_escape_string($conn, $_GET['pet_name']);
+    // Include pet_name condition in SQL query
+    $sql .= " AND p.pet_name LIKE '%$pet_name%'";
+}
+$sql .= " ORDER BY a.followup_date ASC";
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
                

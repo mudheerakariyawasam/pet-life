@@ -95,11 +95,24 @@
             <!-- search items-->
             <div class="topbar">
                 <div class="bar-content search-bar">
-                    <form>
-                        <label><b>Pet ID </b></label><br>
-                        <input class="item-id" type="text" name="pet_id" placeholder="Enter Pet ID">
-                        <button button class="btn-add1" type="submit"><img src="images/search.png"></button>
-                    </form>
+                <form method="GET">
+    <label><b>Pet Name</b></label><br>
+    <select name="pet_name">
+        <option value="">Select a pet</option>
+        <?php
+          $loggedInUser = $_SESSION['login_user'];
+        // Get all pets of the logged-in user
+        $sql_pets = "SELECT * FROM pet WHERE owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '$loggedInUser')";
+        $result_pets = mysqli_query($conn, $sql_pets);
+        while ($row_pets = mysqli_fetch_assoc($result_pets)) {
+            // Set the selected attribute if the current pet is selected in the URL
+            $selected = ($row_pets['pet_name'] == $_GET['pet_name']) ? 'selected' : '';
+            echo '<option value="' . $row_pets['pet_name'] . '" ' . $selected . '>' . $row_pets['pet_name'] . '</option>';
+        }
+        ?>
+    </select>
+    <button class="btn-add1" type="submit"><img src="images/search.png"></button>
+</form>
                 </div>
                 <div class="bar-content add-bar">
                     <a href="addpet.php"> <button class="btn-add" type="submit"><img class="add"
@@ -131,12 +144,20 @@
             $row2 = mysqli_fetch_assoc($result2);
 
             $sql = "SELECT * FROM pet WHERE owner_id ='{$row2['owner_id']}'";
-
+  // Check if pet_name parameter is set in the URL
+  if (isset($_GET['pet_name'])) {
+    // Sanitize input value to prevent SQL injection
+    $pet_name = mysqli_real_escape_string($conn, $_GET['pet_name']);
+    // Include pet_name condition in SQL query
+    $sql .= " AND pet_name LIKE '%$pet_name%'";
+}
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
            
 
                 while ($row = mysqli_fetch_assoc($result)) {
+                    $pet_id = $row["pet_id"];
+
 
                     echo '<tr > 
                     <td>' . $row["pet_id"] . '</td>
@@ -145,9 +166,19 @@
                     <td>' . $row["pet_dob"] . '</td>
                     <td>' . $row["pet_type"] . '</td>
                     <td>' . $row["pet_breed"] . '</td>
-                    <td class="action"><button type="submit"><img src="images/update.png"></button></td>
-                    <td class="action"><button type="submit"><img src="images/delete.png"></button></td>
+                    <td class="action">
+                    <form action="" method="post">
+                      <button type="submit" name="'.$pet_id.'"><img src="images/delete.png"></button>
+                      </form>
+                  </td
                 </tr>';
+                if(isset($_POST[$pet_id])){
+                    
+                     // Delete the appointment from the database
+                     $sql2 = "DELETE FROM `pet` WHERE `pet_id`=$pet_id";
+                 $re=mysqli_query($conn, $sql2);
+  
+           }
                 }
                 echo '</table>';
             } else {
