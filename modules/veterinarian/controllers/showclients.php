@@ -19,6 +19,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
 </head>
 
 <body>
+    <div class="main" >
     <div class="sidebar">
         <div class="user-img">
             <img src="../images/logo_transparent black.png">
@@ -170,7 +171,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
         </div>
     </div>
     <!-- Content ends -->
-
+    
     
     <div id="searchresult">
 
@@ -204,6 +205,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
             });
         });
     </script>
+    </div>
 </body>
 
 </html>

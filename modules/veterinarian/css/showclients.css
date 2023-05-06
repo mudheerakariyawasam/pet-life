@@ -357,3 +357,16 @@ tr:hover {
   cursor: pointer;
   color: #000d2f;
 }
+/* Responsive */
+@media screen and (max-width:1000px) {
+   .main{
+    width: 100%;
+   }
+   .sidebar{
+  width: 25%;
+   }
+   .content{
+    width: 75%;
+   }
+  
+}
