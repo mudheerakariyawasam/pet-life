@@ -34,7 +34,6 @@
     if($_SERVER["REQUEST_METHOD"] == "POST") {
  
          //checking only numbers
- 
          if(!(is_numeric($_POST['item_qty'])) || $_POST['item_qty']<0){
              echo '<script>alert("Please enter a valid  quantity!")</script>';
          }else if(!(is_numeric($_POST['item_price'])) || $_POST['item_qty']<0){
@@ -68,7 +67,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/add.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <title>Document</title>
+    <title>Add a New Item</title>
 </head>
 <body>
     <div class="main-container">
