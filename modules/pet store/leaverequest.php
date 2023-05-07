@@ -10,7 +10,7 @@
     $current_date = date("Y-m-d");
 
     //get the total holiday count of the employee
-    $sql_getholidaycount="SELECT emp_holtaken FROM employee WHERE emp_id='$emp_id'";
+    $sql_getholidaycount="SELECT COUNT(*) FROM holiday WHERE emp_id='$emp_id' AND from_date<'$current_date' OR approval_stage='Accepted'";
     $result_getholidaycount=mysqli_query($conn,$sql_getholidaycount);
     $row=mysqli_fetch_array($result_getholidaycount);
     $holiday_count=$row[0];
@@ -170,58 +170,90 @@
                     <button class="btn-add" type="submit">Request </button>
                 </form> 
             </div>
-            <center>
-            <div class="request-type">
-    <div>
-        <p><b>Requested Holidays</b></p><br>
-        <?php
-            $sql_getholidays = "SELECT * FROM holiday WHERE emp_id='$emp_id'";
-            $result_getholidays = mysqli_query($conn, $sql_getholidays);
-            if(mysqli_num_rows($result_getholidays) > 0)
-            {
-                echo '<form method="POST" action="deleteholiday.php"><table>
-                    <tr>
-                        <th>Leave Type</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Stage</th>
-                        <th>Cancel</th>
-                    </tr>';
+            
+            <div>
+                <div class="request-type">
+                    <p><b>Remaining No of Leave Requests</b></p><br>
+                    <?php
+                        $sql_tot = "SELECT * FROM holiday_references";
+                        $result_tot = mysqli_query($conn, $sql_tot);
+                        if(mysqli_num_rows($result_tot) > 0)
+                        {
+                            while($row_tot = mysqli_fetch_assoc($result_tot)){
+                                echo '<label><b>'. $row_tot["holiday_type"] .': </b></label>';
+                                
+                                //get the total no of holidays taken from a specific holiday type
+                                $sql_tot_type = "SELECT COUNT(*) FROM holiday WHERE holiday_type='{$row_tot["holiday_type"]}' AND emp_id='$emp_id'";
+                                $result_tot_type = mysqli_query($conn, $sql_tot_type);
+                                $row_tot_type=mysqli_fetch_array($result_tot_type);
+                                
+                                if($row_tot_type[0]> 0){
+                                    //get the remaining no of holidays
+                                    $remaining= $row_tot["no_of_holidays"]-$row_tot_type[0]; 
+                                    echo $remaining .'<br>';
+                                }else{
+                                    echo $row_tot["no_of_holidays"].'<br>';
+                                }
 
-                while($row = mysqli_fetch_assoc($result_getholidays)){
+                                
+                            }
+                        } else {
+                            echo "0 results";
+                        }
+                    ?>
+                </div>
+                <center>
+                <div class="request-type">
+                    <p><b>Requested Leaves</b></p><br>
+                    <?php
+                        $sql_getholidays = "SELECT * FROM holiday WHERE emp_id='$emp_id'";
+                        $result_getholidays = mysqli_query($conn, $sql_getholidays);
+                        if(mysqli_num_rows($result_getholidays) > 0)
+                        {
+                            echo '<form method="POST" action="deleteholiday.php"><table>
+                                <tr>
+                                    <th>Leave Type</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Stage</th>
+                                    <th>Cancel</th>
+                                </tr>';
 
-                    //adding the color according to the approval stage
-                    $stage_color = '';
-                    switch($row["approval_stage"]) {
-                        case 'Pending':
-                            $stage_color = '#f5f56c';
-                            break;
-                        case 'Accepted':
-                            $stage_color = '#67eb69';
-                            break;
-                        case 'Rejected':
-                            $stage_color = '#c74a4a';
-                            break;
-                    }
+                            while($row = mysqli_fetch_assoc($result_getholidays)){
 
-                    if($row["from_date"]>=$current_date){
-                        echo '<tr > 
-                            <td>' . $row["holiday_type"] . '</td>
-                            <td> ' . $row["from_date"] . '</td>
-                            <td>' . $row["to_date"] . '</td> 
-                            <td style="background-color: ' . $stage_color . ';">' . $row["approval_stage"] . '</td>
-                            <td class="action-btn"><button type="submit" name="holiday_id" 
-                                value="' . $row["holiday_id"] . '"><img src="images/delete.png"></button></td>
-                        </tr>';
-                    }
-                }
-                echo '</table></form>';
-            } else {
-                echo "0 results";
-            }
-        ?>
-    </div>
-</div>
+                                //adding the color according to the approval stage
+                                $stage_color = '';
+                                switch($row["approval_stage"]) {
+                                    case 'Pending':
+                                        $stage_color = '#f5f56c';
+                                        break;
+                                    case 'Accepted':
+                                        $stage_color = '#67eb69';
+                                        break;
+                                    case 'Rejected':
+                                        $stage_color = '#c74a4a';
+                                        break;
+                                }
+
+                                if($row["from_date"]>=$current_date){
+                                    echo '<tr > 
+                                        <td>' . $row["holiday_type"] . '</td>
+                                        <td> ' . $row["from_date"] . '</td>
+                                        <td>' . $row["to_date"] . '</td> 
+                                        <td style="background-color: ' . $stage_color . ';">' . $row["approval_stage"] . '</td>
+                                        <td class="action-btn"><button type="submit" name="holiday_id" 
+                                            value="' . $row["holiday_id"] . '"><img src="images/delete.png"></button></td>
+                                    </tr>';
+                                }
+                            }
+                            echo '</table></form>';
+                        } else {
+                            echo "0 results";
+                        }
+                    ?>
+                </div>
+       
+            </div>
             </center>
             </div>
         </div>
