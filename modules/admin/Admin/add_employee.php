@@ -142,6 +142,7 @@ $emp_contactno = '';
 $emp_designation = '';
 $emp_email = '';
 $emp_nic = '';
+$emp_pwd='';
 $emp_initsalary = '';
 $emp_currsalary = '';
 $emp_holtaken = '';
@@ -156,6 +157,7 @@ $emp_contactno_error = '';
 $emp_designation_error = '';
 $emp_email_error = '';
 $emp_nic_error = '';
+$emp_pwd_error='';
 $emp_initsalary_error = '';
 $emp_currsalary_error = '';
 $emp_holtaken_error = '';
@@ -172,6 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $emp_designation = $_POST['emp_designation'];
     $emp_email = $_POST['emp_email'];
     $emp_nic = $_POST['emp_nic'];
+    $emp_pwd = $_POST['emp_pwd'];
     $emp_initsalary = $_POST['emp_initsalary'];
     $emp_currsalary = $_POST['emp_currsalary'];
     $emp_holtaken = $_POST['emp_holtaken'];
@@ -207,6 +210,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $emp_nic_error = "Please enter a valid NIC number.";
     }
 
+    if (empty($emp_pwd)) {
+        $emp_pwd_error = "Your can't keep password field as empty.";
+    }
+
     if (preg_match('/^\d+(\.\d{1,2})?$/', $emp_initsalary) && $emp_initsalary >= 25000 && $emp_initsalary <= 350000 && $emp_initsalary >= 0) {
         $emp_initsalary = $_POST['emp_initsalary'];
     } else{   
@@ -234,9 +241,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }*/
 
     // Check if there are any errors
-    if (empty($emp_id_error) && empty($emp_name_error) && empty($emp_address_error) && empty($emp_contactno_error)) {
+    if (empty($emp_id_error) && empty($emp_name_error) && empty($emp_contactno_error) && empty($emp_nic_error) && empty($emp_email_error) && empty($emp_pwd_error) && empty($emp_currsalary_error) && empty($emp_initsalary_error) && empty($emp_holtaken_error)) {
         // Insert the employee record into the database
-        $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_initsalary, emp_currsalary, emp_holtaken, emp_dateassigned, working_status) VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', '$emp_initsalary', '$emp_currsalary', '$emp_holtaken', '$emp_dateassigned', '$working_status')";
+        $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_pwd, emp_initsalary, emp_currsalary, emp_holtaken, emp_dateassigned, working_status) VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', '$emp_initsalary', '$emp_currsalary', '$emp_holtaken', '$emp_dateassigned', '$working_status')";
         $result = mysqli_query($conn, $sql);
 
         // Check if the insert was successful
@@ -252,6 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $emp_designation = '';
             $emp_email = '';
             $emp_nic = '';
+            $emp_pwd = '';
             $emp_initsalary = '';
             $emp_currsalary = '';
             $emp_holtaken = '';
@@ -308,6 +316,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <input type="text" name="emp_nic" value="<?php echo $emp_nic; ?>">
     <?php if (isset($emp_nic_error)): ?>
         <span style="color: red;"><?php echo $emp_nic_error; ?></span>
+    <?php endif; ?><br/><br/>
+
+    <label>Employee Password:</label>
+    <input type="text" name="emp_pwd" value="<?php echo $emp_pwd; ?>">
+    <?php if (isset($emp_pwd_error)): ?>
+        <span style="color: red;"><?php echo $emp_pwd_error; ?></span>
     <?php endif; ?><br/><br/>
 
     <label>Employee Initial Salary:</label>
