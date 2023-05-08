@@ -76,7 +76,7 @@ if (empty($pwd)) {
     // Check if there are any errors
     if (empty($owner_fname_error) && empty($owner_contactno_error) && empty($owner_nic_error) && empty($owner_pwd_error)) {
         // Insert the employee record into the database
-        $sql = "INSERT INTO pet_owner ( owner_fname, owner_lname, owner_email, owner_contactno, owner_address, owner_nic, owner_pwd, active_status) VALUES ('$fname', '$lname', '$email', '$tpn', '$address', '$nic', '$pwd')";
+        $sql = "INSERT INTO pet_owner  VALUES ('$owner_id','$fname', '$lname', '$email', '$tpn', '$address', '$nic', '$pwd','Current')";
         $result = mysqli_query($conn, $sql);
 
         // Check if the insert was successful

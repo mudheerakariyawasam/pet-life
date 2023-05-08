@@ -174,7 +174,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $emp_designation = $_POST['emp_designation'];
     $emp_email = $_POST['emp_email'];
     $emp_nic = $_POST['emp_nic'];
-    $emp_pwd = $_POST['emp_pwd'];
+    $emp_pwd = $_POST['emp_pwd']; 
+    $hashedPassword = md5($emp_pwd);
     $emp_initsalary = $_POST['emp_initsalary'];
     $emp_currsalary = $_POST['emp_currsalary'];
     $emp_holtaken = $_POST['emp_holtaken'];
@@ -243,8 +244,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if there are any errors
     if (empty($emp_id_error) && empty($emp_name_error) && empty($emp_contactno_error) && empty($emp_nic_error) && empty($emp_email_error) && empty($emp_pwd_error) && empty($emp_currsalary_error) && empty($emp_initsalary_error) && empty($emp_holtaken_error)) {
         // Insert the employee record into the database
-        $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_pwd, emp_initsalary, emp_currsalary, emp_holtaken, emp_dateassigned, working_status) VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', '$emp_initsalary', '$emp_currsalary', '$emp_holtaken', '$emp_dateassigned', '$working_status')";
-        $result = mysqli_query($conn, $sql);
+        $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_pwd, emp_initsalary, emp_currsalary, emp_holtaken, emp_dateassigned, working_status) 
+        VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', '$hashedPassword', '$emp_initsalary', '$emp_currsalary', '$emp_holtaken', '$emp_dateassigned', '$working_status')";
+$result = mysqli_query($conn, $sql);
+
+        
 
         // Check if the insert was successful
         if ($result) {
