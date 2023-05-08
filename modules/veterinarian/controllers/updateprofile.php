@@ -44,6 +44,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 }
+// change password section starts
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $oldPassword = mysqli_real_escape_string($conn, $_POST['oldpass']);
+    $newPassword = mysqli_real_escape_string($conn, $_POST['newpass']);
+    $confirmPassword = mysqli_real_escape_string($conn, $_POST['cnewpass']);
+
+    // Retrieve the employee's current password from the database
+    $empEmail = $_SESSION['emp_email'];
+    $query = "SELECT emp_pwd FROM employee WHERE emp_email='$empEmail'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $currentHashedPassword = $row['emp_pwd'];
+
+    // Verify the current password
+    if (md5($oldPassword) === $currentHashedPassword) {
+        // Check if the new password and confirm password match
+        if ($newPassword === $confirmPassword) {
+            // Generate the hashed password
+            $newHashedPassword = md5($newPassword);
+
+            // Update the employee's password in the database
+            $updateQuery = "UPDATE employee SET emp_pwd='$newHashedPassword' WHERE emp_email='$empEmail'";
+            mysqli_query($conn, $updateQuery);
+
+            // Redirect to a success page or display a success message
+            echo "wade hari bokka!!";
+            header("Location: updateprofile.php?password_changed=true");
+            exit();
+        } else {
+            $errorMsg = "New password and confirm password do not match.";
+        }
+    } else {
+        $errorMsg = "Incorrect current password.";
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,8 +115,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <a href="showclients.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
                 </li>
                 <li>
-                <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment History</span></a></a>
-            </li>
+                    <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment
+                            History</span></a></a>
+                </li>
                 <li>
                     <a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a>
                 </li>
@@ -119,11 +157,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <hr><br>
 
                 <div class="main-content">
+             
                     <div class="left-content">
                         <div class="form-content">
-
+                        <form action="updateprofile.php" method="POST">
+                       
                             <p>
-                            <form method="POST">
+                            
                                 <label><b>Employee ID : </label>
                                 <label class="item-id" name="staff_id">
                                     <?php echo $employee_id; ?></b><br><br>
@@ -190,31 +230,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                     <button class="btn-add" type="submit">Update Profile </button>
                                     <button class="btn-add" href="viewallitems.php">Cancel</button>
+
                                     </p>
-                            </form>
+                                    </form>
                         </div>
                     </div>
 
                     <div class="right-content">
+                    <form action="changepassword.php" method="POST">
                         <span class="sub-topic">Change Password</span><br>
+                        <?php if (isset($errorMsg)) {
+            echo '<p class="error-msg">' . $errorMsg . '</p>';
+        } ?>
                         <p>
                         <div class="pwd-content">
                             <label>Current Password :</label><br>
-                            <input type="password" name="emp_name" placeholder="Enter Current Password"><br>
+                            <input type="password" name="oldpass" placeholder="Enter Current Password"><br>
                         </div>
                         <div class="pwd-content">
                             <label>New Password :</label><br>
-                            <input type="password" name="emp_name" placeholder="Enter New Password"><br>
+                            <input type="password" name="newpass" placeholder="Enter New Password"><br>
                         </div>
                         <div class="pwd-content">
                             <label>Confirm New Password :</label><br>
-                            <input type="password" name="emp_name" placeholder="Re Enter Password"><br>
+                            <input type="password" name="cnewpass" placeholder="Re Enter Password"><br>
                         </div>
                         <div class="pwd-content">
-                            <button class="btn-add">Confirm </button>
+                            <button class="btn-add" type="submit">Confirm </button>
                         </div>
+                       
                         </p>
+                    </form>
                     </div>
+                    
                 </div>
 
             </div>

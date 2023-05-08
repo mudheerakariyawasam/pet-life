@@ -5,6 +5,10 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rEmail = mysqli_real_escape_string($conn, trim($_REQUEST['rEmail']));
     $rPassword = mysqli_real_escape_string($conn, trim($_REQUEST['rPassword']));
+
+    // password hashing
+     // Hash the password using MD5 
+    $hashedPassword = md5($rPassword);
     $sql = "SELECT * FROM employee WHERE emp_email='" . $rEmail . "' AND emp_pwd ='" . $rPassword . "' limit 1";
     // $result = $conn->query($sql);
     $result = mysqli_query($conn, $sql);

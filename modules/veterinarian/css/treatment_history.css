@@ -190,7 +190,7 @@ body {
 }
 /* navbar ends */
 .container {
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -205,7 +205,7 @@ body {
 }
 
 .heading {
-  margin-top: 80px;
+  margin-top: 94px;
   margin-left: 30px;
   font-family: poppins, sans-serif;
   font-style: normal;
@@ -216,18 +216,19 @@ body {
 }
 .filter-panel {
   position: absolute;
-  margin-top: 91px;
+ /* margin-top: 91px;*/
   margin-left: 46px;
 }
 .action-panel {
   position: absolute;
-  margin-top: 106px;
+ /* margin-top: 106px;*/
   display: flex;
   width: 185px;
   justify-content: space-between;
   right: 4.1%;
   font-size: 18px;
   color: #014055;
+  
 }
 
 .action-panel i:hover {
@@ -524,7 +525,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .table-view {
-  margin-top: 120px;
+  margin-top: 60px;
   margin-left: 30px;
   position: absolute;
 }

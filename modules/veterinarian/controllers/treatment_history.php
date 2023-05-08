@@ -557,9 +557,9 @@ if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
 
                 </tbody>
             </table>
-
+            
         </div>
-
+        
         </div>
     </div>
 
