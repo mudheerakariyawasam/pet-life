@@ -402,10 +402,10 @@ border:#fff solid;
   .slider.round:before {
       border-radius: 50%;
   }
-
   .employee-title{
-    font-size: 35px;
-    font-weight: 700;
-  margin-top:50px;
-  margin-left: 50px;
-  }
+        margin-left: 70px;
+ font-size: 35px;
+  font-weight: 700;
+margin-top:50px;
+
+      }
