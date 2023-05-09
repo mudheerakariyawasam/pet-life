@@ -34,7 +34,8 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="number"],
-input[type="date"] {
+input[type="date"],
+input[type="password"] {
   display: block;
   width: 100%;
   padding: 10px;
@@ -181,6 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $emp_dateassigned = $_POST['emp_dateassigned'];
     $working_status = $_POST['working_status'];
 
+
     // Validate the form field values
     if (empty($emp_id)) {
         $emp_id_error = "Your can't keep Emp ID as empty.";
@@ -211,9 +213,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($emp_pwd)) {
-        $emp_pwd_error = "Your can't keep password field as empty.";
-    }
-
+        $emp_pwd_error = "You can't keep password field as empty.";
+    } 
+    
     if (preg_match('/^\d+(\.\d{1,2})?$/', $emp_initsalary) && $emp_initsalary >= 25000 && $emp_initsalary <= 350000 && $emp_initsalary >= 0) {
         $emp_initsalary = $_POST['emp_initsalary'];
     } else{   
@@ -243,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if there are any errors
     if (empty($emp_id_error) && empty($emp_name_error) && empty($emp_contactno_error) && empty($emp_nic_error) && empty($emp_email_error) && empty($emp_pwd_error) && empty($emp_currsalary_error) && empty($emp_initsalary_error) && empty($emp_holtaken_error)) {
         // Insert the employee record into the database
-        $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_pwd, emp_initsalary, emp_currsalary, emp_holtaken, emp_dateassigned, working_status) VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', '$emp_initsalary', '$emp_currsalary', '$emp_holtaken', '$emp_dateassigned', '$working_status')";
+        $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_pwd, emp_initsalary, emp_currsalary, emp_holtaken, emp_dateassigned, working_status) VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', '$emp_pwd', '$emp_initsalary', '$emp_currsalary', '$emp_holtaken', '$emp_dateassigned', '$working_status')";
         $result = mysqli_query($conn, $sql);
 
         // Check if the insert was successful
@@ -319,7 +321,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php endif; ?><br/><br/>
 
     <label>Employee Password:</label>
-    <input type="text" name="emp_pwd" value="<?php echo $emp_pwd; ?>">
+    <input type="password" name="emp_pwd" value="<?php echo $emp_pwd; ?>">
     <?php if (isset($emp_pwd_error)): ?>
         <span style="color: red;"><?php echo $emp_pwd_error; ?></span>
     <?php endif; ?><br/><br/>
