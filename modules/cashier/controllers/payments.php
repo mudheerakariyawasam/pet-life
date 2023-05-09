@@ -1,5 +1,6 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/cashier/permission.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,47 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/cashier/permission.php');
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&display=swap" rel="stylesheet">
-    <title></title>
+    <title>Payment Details</title>
+
+    <script>
+        function addItem() {
+            var itemName = document.getElementById('item_name').value;
+            var quantity = document.getElementById('quantity').value;
+
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // Set up the request
+            xhr.open('POST', 'add_item.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+            // Set up a callback function to handle the response
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Create a new table row
+                    var table = document.getElementById('item-list');
+                    var row = table.insertRow(-1);
+
+                    // Add cell values to the row
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    var cell4 = row.insertCell(3);
+                    cell1.innerHTML = itemName;
+                    cell2.innerHTML = quantity;
+                    cell3.innerHTML = itemPrice;
+                    cell4.innerHTML = quantity*itemPrice;
+
+                    // Clear the form fields
+                    document.getElementById('item_name').value = '';
+                    document.getElementById('quantity').value = '';
+                }
+            };
+
+            // Send the request
+            xhr.send('item_name=' + encodeURIComponent(itemName) + '&quantity=' + encodeURIComponent(quantity));
+        }
+    </script>
 </head>
 
 <body>
@@ -107,37 +148,66 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/cashier/permission.php');
             <br/>
   <div class="p-item">         
  <div class="item-heading-left">Pet Items</div>
- <div class="item-heading-right"><button>Add Item Details</button></div>
+ 
 </div>
 <br/>
 
-     <div class="item-table">
-               <center> <table class="i-table">
+    <div class="item-table">
+        <div class="add-item-details">
+                <label for="item_name">Item Name:</label>
+                <select id='item_name' name='item_name' class='dropdown-list' required>
+                <option value="">--Select--</option>
+                <?php
+                    
+                    //get the pet name from the sql table
+                    $sql_getiname="SELECT item_name FROM pet_item ORDER BY item_name ASC"; 
+                    $result_getidata = $conn->query($sql_getiname);
+                    if($result_getidata->num_rows> 0){
+                        while($optionData=$result_getidata->fetch_assoc()){
+                        $option =$optionData['item_name'];
+                    ?>
+                    <?php
+                        //selected option
+                        if(!empty($item_name) && $item_name== $option){
+                        // selected option
+                    ?>
+                    <option value="<?php echo $option; ?>" selected><?php echo $option; ?> </option>
+                    <?php 
+                        continue;
+                    }?>
+                    <option value="<?php echo $option; ?>" ><?php echo $option; ?> </option>
+                    <?php
+                        }}
+                    ?>
+                </select>
+                <label for="quantity">Quantity:</label>
+                <input type="text" id="quantity" name="quantity" required>
+                <button type="button" onclick="addItem()">Add</button>   
+        </div>
+        <center> 
+        <table class="i-table">
+                <thead>
                     <tr>
-                        <th>Item ID </th>
+                        <th>Item Name </th>
                         <th>Quantity</th>
-                        <th>Discount</th>
-                        <th>Total</th>
-                       
+                        <th>Price</th>
+                        <th>Total</th>   
                     </tr>
-                    <tr>
-                        <td>P001<center></td>
-                        <td>2<center></td>
-                        <td>0%<center></td>
-                        <td>250.00<center></td>
-                    </tr>
-                  
-                
-                </table></center>
+                </thead>
 
-            </div>
+                <tbody id="item-list">
+                </tbody>
+        </table>
+        </center>
+
+    </div>
             <br/>
 
-            <div class="p-medicine">         
- <div class="medicine-heading-left">Pet Medicines</div>
- <div class="medicine-heading-right"><button>Add Medicine Details</button></div>
-</div>
-<br/>
+            <!-- <div class="p-medicine">         
+            <div class="medicine-heading-left">Pet Medicines</div>
+            <div class="medicine-heading-right"><button>Add Medicine Details</button></div>
+            </div>
+            <br/>
 
      <div class="medicine-table">
                <center> <table class="m-table">
@@ -159,7 +229,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/cashier/permission.php');
                 </table></center>
 
             </div>  
-            <br/><br/><br/>
+            <br/><br/><br/> -->
             <div class="bottom">         
                 <div class="bottom-heading-left">Employee ID: <?php echo $_SESSION['emp_id']; ?></div>
                 <div class="bottom-heading-right">Total Bill<br/>Rs.2000.00<hr/><button>Calculate Bill</button></div>
