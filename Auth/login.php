@@ -4,64 +4,78 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rEmail = mysqli_real_escape_string($conn, trim($_REQUEST['rEmail']));
-    $rPassword = mysqli_real_escape_string($conn, trim($_REQUEST['rPassword']));
-
-    // password hashing
-     // Hash the password using MD5 
-    $hashedPassword = md5($rPassword);
-    $sql = "SELECT * FROM employee WHERE emp_email='" . $rEmail . "' AND emp_pwd ='" . $rPassword . "' limit 1";
+    $rPassword = mysqli_real_escape_string($conn, trim($_REQUEST['rPassword'])); //input password given by the user at login
+    
+    $sql = "SELECT * FROM employee WHERE emp_email='" . $rEmail
+    //  . "' AND emp_pwd ='" . md5($rPassword) 
+     . "' limit 1";
     // $result = $conn->query($sql);
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
+    
+    // var_dump($row);
+    // var_dump($rEmail);
+    // var_dump(md5($rPassword));exit;
     // $active = $row['active'];
-
+    
     $count = mysqli_num_rows($result);
-
+    
+    // var_dump('rpass',$rPassword);
+    // var_dump($row["emp_pwd"]);
+    // var_dump('input hashed',md5($rPassword));exit;
     //variables that are need for the future pages
 
     if ($count == 1) {
         $_SESSION['user_role'] = $row["emp_designation"];
-        if ($row["emp_designation"] == "Store manager") {
-            $_SESSION['login_user'] = $myemail;
-            $_SESSION['user_name'] = $row["emp_name"];
-            header("location: ../modules/pet store/dashboard.php");
+
+        if (mysqli_num_rows($result) > 0) {
+            $hashedPassword = md5($rPassword);
+            if ($hashedPassword == $row["emp_pwd"]) {
+                if ($row["emp_designation"] == "Store manager") {
+                    $_SESSION['login_user'] = $myemail;
+                    $_SESSION['user_name'] = $row["emp_name"];
+                    header("location: ../modules/pet store/dashboard.php");
+                }
+        
+                if ($row["emp_designation"] == "Veterinarian") {
+                    $_SESSION['login_user'] = $myemail;
+                    $_SESSION['user_name'] = $row["emp_name"];
+                    header("location: ../modules/veterinarian/controllers/dashboard.php");
+                }
+         if ($row["emp_designation"] == "Assistant") {
+                    $_SESSION['login_user'] = $myemail;
+                    $_SESSION['user_name'] = $row["emp_name"];
+                    header("location: /pet-life/modules/assistant/controllers/dashboard.php");
+                }
+        
+                if ($row["emp_designation"] == "Admin") {
+                    $_SESSION['login_user'] = $myemail;
+                    $_SESSION['user_name'] = $row["emp_name"];
+        
+                    header("location: ../modules/admin/Admin/dashboard.php");
+                }
+        
+                if ($row["emp_designation"] == "Cashier") {
+                    $_SESSION['login_user'] = $myemail;
+                    $_SESSION['user_name'] = $row["emp_name"];
+        
+                    header("location: ../modules/cashier/controllers/dashboard.php");
+                }
+        
+        
+        
+                $_SESSION['is_login'] = true;
+                $_SESSION['emp_email'] = $myemail;
+                $_SESSION['login_user'] = $rEmail;
+                $_SESSION['emp_id'] = $row["emp_id"];
+            } else {
+                $msg = '<div class="log-alert" role="alert"> Enter Valid Email and Password </div>';
+            }
+            } 
         }
 
-        if ($row["emp_designation"] == "Veterinarian") {
-            $_SESSION['login_user'] = $myemail;
-            $_SESSION['user_name'] = $row["emp_name"];
-            header("location: ../modules/veterinarian/controllers/dashboard.php");
-        }
- if ($row["emp_designation"] == "Assistant") {
-            $_SESSION['login_user'] = $myemail;
-            $_SESSION['user_name'] = $row["emp_name"];
-            header("location: /pet-life/modules/assistant/controllers/dashboard.php");
-        }
-
-        if ($row["emp_designation"] == "Admin") {
-            $_SESSION['login_user'] = $myemail;
-            $_SESSION['user_name'] = $row["emp_name"];
-
-            header("location: ../modules/admin/Admin/dashboard.php");
-        }
-
-        if ($row["emp_designation"] == "Cashier") {
-            $_SESSION['login_user'] = $myemail;
-            $_SESSION['user_name'] = $row["emp_name"];
-
-            header("location: ../modules/cashier/controllers/dashboard.php");
-        }
-
-
-
-        $_SESSION['is_login'] = true;
-        $_SESSION['emp_email'] = $myemail;
-        $_SESSION['login_user'] = $rEmail;
-        $_SESSION['emp_id'] = $row["emp_id"];
-    } else {
-        $msg = '<div class="log-alert" role="alert"> Enter Valid Email and Password </div>';
-    }
+        
+        
 } else {
     // echo "<script> location.href='login.php'; </script>";
 }

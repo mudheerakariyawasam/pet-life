@@ -39,28 +39,65 @@ if (isset($_POST['save-info'])) {
     $nic = $_POST['nic'];
     $pwd = $_POST['password'];
 
-    if (preg_match('/^\d{10}$/', $tpn) && $tpn > 0) {
+  
 
-        //Construct the SQL query to insert the form data into the database table
-    $sql = "INSERT INTO pet_owner(owner_id,owner_fname,owner_lname,owner_email,owner_contactno,owner_address,owner_nic,owner_pwd)
-    values ('$owner_id','$fname','$lname',' $email','$tpn','$address','$nic','$pwd')";
-        // Execute the SQL query
-        $clients = mysqli_query($conn, $sql);
+    if (empty($fname)) {
+        $owner_fname_error = "Your can't keep first name as empty.";
+    }
+
+   /* if (empty($emp_address)) {
+        $emp_address_error = "Please enter the employee's address.";
+    }*/
+
+    if (!preg_match('/^(\+\d{2})?\d{9}$/', $tpn)) {
+        $owner_contactno_error = "Please enter a valid contact number.";
+    }
 
 
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $owner_email_error = "Please enter a valid email address.";
+    }
 
-        // Check if the query execution was successful
-        if ($clients) {
-            // echo '<script>alert("New Owner Added Successfully!")</script>';
+    if (!preg_match('/^[0-9]{9}[v]$/', $nic) && !preg_match('/^[0-9]{12}$/', $nic)) {
+        $owner_nic_error = "Please enter a valid NIC number.";
+    }
 
-            // Redirect the user to the page with the data table
-            header('location:showclients.php');
+if (empty($pwd)) {
+        $owner_pwd_error = "Your can't keep owner passsword as empty.";
+    }
+   /* if (empty($emp_dateassigned)) {
+        $emp_dateassigned_error = "Please enter the date the employee was assigned.";
+    }*/
+
+    /*if (empty($working_status)) {
+        $working_status_error = "Please enter the working status of the employee.";
+    }*/
+
+    // Check if there are any errors
+    if (empty($owner_fname_error) && empty($owner_contactno_error) && empty($owner_nic_error) && empty($owner_pwd_error)) {
+        // Insert the employee record into the database
+        $sql = "INSERT INTO pet_owner  VALUES ('$owner_id','$fname', '$lname', '$email', '$tpn', '$address', '$nic', '$pwd','Current')";
+        $result = mysqli_query($conn, $sql);
+
+        // Check if the insert was successful
+        if ($result) {
+            // Set a message to display
+            $message = "Employee record added successfully.";
+            
+            // Clear the form fields
+            
+            $fname = '';
+            $lname = '';
+            $email = '';
+            $tpn = '';
+            $address = '';
+            $nic = '';
+            $pwd = '';
+            
         } else {
-            die("Connection failed: " . mysqli_connect_error());
+            // Set an error message to display
+            $message = "Error adding employee record: " . mysqli_error($conn);
         }
-    } else {
-        // Invalid contact number
-        echo "Invalid contact number. Please enter a 10-digit positive number.";
     }
 }
 ?>
@@ -161,39 +198,52 @@ if (isset($_POST['save-info'])) {
                     </div>
                     <div class="input-box">
                         <label>First Name</label>
-                        <input type="text" name="fname" placeholder="Enter First Name" required>
-
+                        <input type="text" name="fname" placeholder="Enter First Name">
+                        <?php if (isset($owner_fname_error)): ?>
+        <span style="color: red;"><?php echo $owner_fname_error; ?></span>
+    <?php endif; ?>
                     </div>
                     <div class="input-box">
                         <label>Last Name</label>
-                        <input type="text" name="lname" placeholder="Enter Last Name" required>
+                        <input type="text" name="lname" placeholder="Enter Last Name">
 
                     </div>
                     <div class="input-box">
                         <label>Email</label>
-                        <input type="text" name="email" placeholder="Enter Email" required>
+                        <input type="text" name="email" placeholder="Enter Email">
+                        <?php if (isset($owner_email_error)): ?>
+        <span style="color: red;"><?php echo $owner_email_error; ?></span>
+    <?php endif; ?>
 
                     </div>
                     <div class="input-box">
                         <label>Contact Number</label>
-                        <input type="text" name="tpn" placeholder="Enter Contact Number" required>
+                        <input type="text" name="tpn" placeholder="Enter Contact Number">
+                        <?php if (isset($owner_contactno_error)): ?>
+        <span style="color: red;"><?php echo $owner_contactno_error; ?></span>
+    <?php endif; ?>
 
                     </div>
                     <div class="input-box">
                         <label>Address</label>
-                        <input type="text" name="address" placeholder="Enter Address" required>
+                        <input type="text" name="address" placeholder="Enter Address">
 
                     </div>
                     <div class="column">
                         <div class="input-box">
                             <label>NIC</label>
-                            <input type="text" name="nic" placeholder="Enter NIC" required>
+                            <input type="text" name="nic" placeholder="Enter NIC">
+                            <?php if (isset($owner_nic_error)): ?>
+        <span style="color: red;"><?php echo $owner_nic_error; ?></span>
+    <?php endif; ?>
 
                         </div>
                         <div class="input-box">
                             <label>Password</label>
-                            <input type="password" name="password" placeholder="Enter Password" required>
-
+                            <input type="password" name="password" placeholder="Enter Password">
+                            <?php if (isset($owner_pwd_error)): ?>
+        <span style="color: red;"><?php echo $owner_pwd_error; ?></span>
+    <?php endif; ?>
                         </div>
                     </div>
                     <br>

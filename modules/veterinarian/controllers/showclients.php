@@ -111,15 +111,14 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                         <th>Contact Number</th>
                         <th>Address</th>
                         <th>NIC</th>
-                        <th>Password</th>
                         <th>Action</th>
                     </tr>
                     <?php
                     if (isset($_GET['nic']) && $_GET['nic'] != '') {
                         $nic = $_GET['nic'];
-                        $sql = "SELECT * from pet_owner WHERE owner_nic LIKE '%$nic%'";
+                        $sql = "SELECT * from pet_owner WHERE owner_nic LIKE '%$nic%' AND owner_status='Current'";
                     } else {
-                        $sql = "SELECT * from pet_owner";
+                        $sql = "SELECT * from pet_owner WHERE owner_status='Current'";
                     }
 
                     $clients = mysqli_query($conn, $sql);
@@ -134,7 +133,6 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                             $tpn = $row['owner_contactno'];
                             $address = $row['owner_address'];
                             $nic = $row['owner_nic'];
-                            $pwd = $row['owner_pwd'];
                             echo '<tr>
                             <td>' . $id . '</td>
                             <td>' . $fname . '</td>
@@ -143,7 +141,6 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                             <td>' . $tpn . '</td>
                             <td>' . $address . '</td>
                             <td>' . $nic . '</td>
-                            <td>' . $pwd . '</td>
                             <td>
                             <div class="action all" style="display:flex;">
                             <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye" style="margin:5px;"></i></a>
