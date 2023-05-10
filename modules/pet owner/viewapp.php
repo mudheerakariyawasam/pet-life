@@ -2,7 +2,7 @@
 include("../../db/dbconnection.php");
 session_start();
 if (!isset($_SESSION["login_user"])) {
-    header("location:../../Auth/login.php");
+    header("location:../../modules/pet owner/login.php");
     exit;
 }
 ?>
@@ -41,7 +41,7 @@ if (!isset($_SESSION["login_user"])) {
                         Profile</span></a>
             </li>
             <li>
-                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>Pet Daycare</span></a></a>
             </li>
             <li>
                 <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
@@ -94,98 +94,131 @@ if (!isset($_SESSION["login_user"])) {
 
         <div class="container">
             <div class="bar-content search-bar">
-            <form method="GET">
-    <label><b>Pet Name</b></label><br>
-    <select name="pet_name">
-        <option value="">Select a pet</option>
-        <?php
-          $loggedInUser = $_SESSION['login_user'];
-        // Get all pets of the logged-in user
-        $sql_pets = "SELECT * FROM pet WHERE owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '$loggedInUser')";
-        $result_pets = mysqli_query($conn, $sql_pets);
-        while ($row_pets = mysqli_fetch_assoc($result_pets)) {
-            // Set the selected attribute if the current pet is selected in the URL
-            $selected = ($row_pets['pet_name'] == $_GET['pet_name']) ? 'selected' : '';
-            echo '<option value="' . $row_pets['pet_name'] . '" ' . $selected . '>' . $row_pets['pet_name'] . '</option>';
-        }
-        ?>
-    </select>
-    <button class="btn-add1" type="submit"><img src="images/search.png"></button>
-</form>
-</div>
-<div class="app">
-    <p>APPOINTMENTS</p>
-</div>
-<div class="tble">
-    <table>
-        <tr>
-            <th>Pet Name</th>
-            <th>Date</th>
-            <th>Slot No</th>
-            <th>Doctor</th>
-            <th>Action</th>
-            <th>Done</th>
-        </tr>
-        <?php
-        $loggedInUser = $_SESSION['login_user'];
-        $currentDate = date('Y-m-d');
-        $sql = "SELECT * FROM appointment a INNER JOIN pet p ON a.pet_id = p.pet_id INNER JOIN pet_owner o ON o.owner_id = p.owner_id INNER JOIN employee e ON e.emp_id = a.vet_id WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
+                <form method="GET">
+                    <label><b>Pet Name</b></label><br>
+                    <select name="pet_name">
+                        <option value="">Select a pet</option>
+                        <?php
+                        $loggedInUser = $_SESSION['login_user'];
+                        // Get all pets of the logged-in user
+                        $sql_pets = "SELECT * FROM pet WHERE owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '$loggedInUser')";
+                        $result_pets = mysqli_query($conn, $sql_pets);
+                        while ($row_pets = mysqli_fetch_assoc($result_pets)) {
+                            // Set the selected attribute if the current pet is selected in the URL
+                            $selected = ($row_pets['pet_name'] == $_GET['pet_name']) ? 'selected' : '';
+                            echo '<option value="' . $row_pets['pet_name'] . '" ' . $selected . '>' . $row_pets['pet_name'] . '</option>';
+                        }
+                        ?>
+                    </select>
+                    <button class="btn-add1" type="submit"><img src="images/search.png"></button>
+                </form>
+            </div>
+            <div class="app">
+                <p>APPOINTMENTS</p>
+            </div>
+            <div class="tble">
+                <table>
+                    <tr>
+                        <th>Pet Name</th>
+                        <th>Date</th>
+                        <th>Slot No</th>
+                        <th>Doctor</th>
+                        <th>Action</th>
+                        <th>Appointment Status</th>
+                        <!-- <th>completion status</th> -->
+                    </tr>
+                    <?php
+                    $loggedInUser = $_SESSION['login_user'];
+                    $currentDate = date('Y-m-d');
+                    $sql = "SELECT * FROM appointment a INNER JOIN pet p ON a.pet_id = p.pet_id INNER JOIN pet_owner o ON o.owner_id = p.owner_id INNER JOIN employee e ON e.emp_id = a.vet_id WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
 
-        // Check if pet_name parameter is set in the URL
-        if (isset($_GET['pet_name'])) {
-            // Sanitize input value to prevent SQL injection
-            $pet_name = mysqli_real_escape_string($conn, $_GET['pet_name']);
-            // Include pet_name condition in SQL query
-            $sql .= " AND p.pet_name LIKE '%$pet_name%'";
-        }
+                    // Check if pet_name parameter is set in the URL
+                    if (isset($_GET['pet_name'])) {
+                        // Sanitize input value to prevent SQL injection
+                        $pet_name = mysqli_real_escape_string($conn, $_GET['pet_name']);
+                        // Include pet_name condition in SQL query
+                        $sql .= " AND p.pet_name LIKE '%$pet_name%'";
+                    }
 
-        $sql .= " ORDER BY a.appointment_date ASC, a.appointment_slot ASC";
-        $result_getdetails = mysqli_query($conn, $sql);
+                    $sql .= " ORDER BY a.appointment_date ASC, a.appointment_slot ASC";
+                    $result_getdetails = mysqli_query($conn, $sql);
 
-        if (mysqli_num_rows($result_getdetails) > 0) {
-            while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {
-                $appointment_id = $row_getdetails["appointment_id"];
-
-                echo '<tr> 
-                    <td> ' . $row_getdetails["pet_name"] . '</td>
-                    <td>' . $row_getdetails["appointment_date"] . '</td>
-                    <td>' . $row_getdetails["appointment_slot"] . '</td>
-                    <td>' . $row_getdetails["emp_name"] . '</td>
-                    <td class="action">
-                        <form action="" method="post">
-                            <button type="submit" name="' . $appointment_id . '"><img src="images/delete.png"></button>
-                        </form>
-                    </td>';
-
-                if ($row_getdetails['appointment_date'] < $currentDate) {
-                    // Add indicator for expired slots
-                    echo '<td class="action1">
-                        <img src="images/yes.png">
-                    </td>';
-                } else {
-                    echo '<td class="action1"> 
-                        <img src="images/no.png">
-                    </td>
-                    </tr>';
-                }
-
-                if (isset($_POST[$appointment_id])) {
-                    // Delete the appointment from the database
-                    $sql2 = "DELETE FROM `appointment` WHERE `appointment_id`=$appointment_id";
-                    $re = mysqli_query($conn, $sql2);
-                }
-            }
-
-            echo '</table>';
-        } else {
-            echo "<tr><td colspan='6'>No appointments found.</td></tr></table>";
-        }
-        ?>
-    </table>
-</div>
-
-                 
-    
+                    if (mysqli_num_rows($result_getdetails) > 0) {
+                        while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {
+                            $appointment_id = $row_getdetails["appointment_id"];
+                            $appointment_status = $row_getdetails["appointment_status"];
+                            
+                            echo '<tr> 
+                                <td>' . $row_getdetails["pet_name"] . '</td>
+                                <td>' . $row_getdetails["appointment_date"] . '</td>
+                                <td>' . $row_getdetails["appointment_slot"] . '</td>
+                                <td>' . $row_getdetails["emp_name"] . '</td>
+                                <td class="action">';
+                            
+                            // Check if appointment is completed
+                            if ($appointment_status == 'Completed' || $appointment_status == 'Cancelled') {
+                                echo '<button class="btn-add2" type="button">Cannot Delete</button>';
+                            } else {
+                                // Display delete button and handle delete request
+                                if (isset($_POST[$appointment_id])) {
+                                    // Check if appointment date is in the future
+                                    if (strtotime($row_getdetails['appointment_date']) > strtotime($currentDate)) {
+                                        // Delete appointment
+                                        $sql = "UPDATE appointment SET appointment_status = 'Cancelled' WHERE appointment_id = '$appointment_id'";
+                                        if ($conn->query($sql) === TRUE) {
+                                            // Success message
+                                            echo '<script>alert("Appointment deleted successfully.");</script>';
+                                            $appointment_status = 'Cancelled';
+                                            echo '<button class="btn-add2" type="button">Cannot Delete</button>';
+                                        } else {
+                                            // Error message
+                                            echo '<script>alert("Error deleting appointment");</script>';
+                                        }
+                                    } else {
+                                        // Error message
+                                        echo '<script>alert("Cannot delete past appointments.");</script>';
+                                    }
+                                }
+                                // Display delete button
+                                else {
+                                    echo '<form action="" method="post">
+                                            <button class="btn-add3" type="submit" name="' . $appointment_id . '">Delete</button>
+                                          </form>';
+                                }
+                            }
+                            
+                            echo '</td>';
+                            
+                            // Determine appointment status
+                            if ($appointment_status == 'Cancelled') {
+                                $appointment_status_text = 'Cancelled';
+                                $appointment_status_button = 'Cannot Delete';
+                            } elseif ($row_getdetails['appointment_date'] >= $currentDate) {
+                                $appointment_status_text = 'Pending';
+                                $appointment_status_button = 'Delete';
+                            } elseif ($appointment_status != 'Cancelled' && $row_getdetails['appointment_date'] < $currentDate) {
+                                $appointment_status_text = 'Completed';
+                                $appointment_status_button = 'Cannot Delete';
+                            }
+                            
+                            // Update appointment status in database
+                            $sql = "UPDATE appointment SET appointment_status = '$appointment_status_text' WHERE appointment_id = '$appointment_id'";
+                            if ($conn->query($sql) === TRUE) {
+                                // Success message
+                            } else {
+                                // Error message
+                            }
+                            
+                            // Display the availability status for each appointment
+                            echo '<td class="action1"> 
+                                    <p>' . $appointment_status_text . '</p>
+                                  </td>';
+                            
+                            echo '</tr>';
+                        }
+                    }
+                    
+?>
             </div>
         </div>
     </div>

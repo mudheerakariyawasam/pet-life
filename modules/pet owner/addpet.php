@@ -2,7 +2,7 @@
 include("../../db/dbconnection.php");
 session_start();
 if (!isset($_SESSION["login_user"])) {
-    header("location:../../Auth/login.php");
+    header("location:../../modules/pet owner/login.php");
     exit;
 }
 
@@ -31,6 +31,7 @@ if ($max_id === null) {
         $pet_id = "P$num";
     }
 }
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $pet_name = $_POST['pet_name'];
@@ -40,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pet_breed = $_POST['pet_breed'];
     $owner_id = $row2['owner_id'];
 
-    $sql = "INSERT INTO pet VALUES ('$pet_id','$pet_name','$pet_gender','$pet_dob','$pet_type','$pet_breed','$owner_id')";
+    $sql = "INSERT INTO pet VALUES ('$pet_id','$pet_name','$pet_gender','$pet_dob','$pet_type','$pet_breed','$owner_id','Registered')";
     $result = mysqli_query($conn, $sql);
     print_r($result);
 
@@ -86,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Profile</span></a>
             </li>
             <li>
-                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>Pet Daycare</span></a></a>
             </li>
             <li>
                 <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
@@ -161,8 +162,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label class="loging-label1">Pet gender</label>
                     <select name="pet_gender" required>
                         <option value="">Select gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                     </select>
                 </div>
                 <div class="form-content">

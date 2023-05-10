@@ -2,7 +2,7 @@
 include("../../db/dbconnection.php");
 session_start();
 if (!isset($_SESSION["login_user"])) {
-    header("location:../../Auth/login.php");
+    header("location:../../modules/pet owner/login.php");
     exit;
 }
 ?>
@@ -41,7 +41,7 @@ if (!isset($_SESSION["login_user"])) {
                         Profile</span></a>
             </li>
             <li>
-                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>Pet Daycare</span></a></a>
             </li>
             <li>
                 <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
@@ -126,7 +126,7 @@ if (!isset($_SESSION["login_user"])) {
                         <th>Vet Name</th>
                         <th>Treatment Bill</th>
                         <th>Follow Up Date</th>
-                        <th>Actions</th>
+                    
                     </tr>
             <?php
             $sql = "SELECT *  FROM employee e 
@@ -156,12 +156,12 @@ $sql .= " ORDER BY a.followup_date ASC";
                             <td>' . $row["emp_name"] . '</td> 
                             <td>' . $row["treatment_bill"] . '</td> 
                             <td>' . $row["followup_date"] . '</td>
-                            <td class="action-btn"><button type="submit"><img src="images/delete.png"></button></td>
+                        
                         </tr>';
                 }
                 echo '</table>';
             } else {
-                echo "0 results";
+                echo '<td colspan="6">No Treatment Records</td>' ;
             }
             ?>
         </div>

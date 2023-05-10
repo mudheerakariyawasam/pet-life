@@ -2,7 +2,7 @@
     include("../../db/dbconnection.php");
     session_start();
     if(!isset($_SESSION["login_user"])){
-        header("location:../../Auth/login.php");
+        header("location:../../modules/pet owner/login.php");
         exit;
     }
 ?>
@@ -40,7 +40,7 @@
                 <a href="profile.php"><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
             </li>
             <li>
-                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>Pet Daycare</span></a></a>
             </li>
             <li>
                 <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
@@ -131,6 +131,7 @@
                 <th>Type</th>
                 <th>Breed</th>
                 <th>Action</th>
+                <th>Availability</th>
             </tr>
             <?php
 
@@ -157,34 +158,64 @@
 
                 while ($row = mysqli_fetch_assoc($result)) {
                     $pet_id = $row["pet_id"];
-
-
-                    echo '<tr > 
-                    <td>' . $row["pet_id"] . '</td>
-                    <td> ' . $row["pet_name"] . '</td>
-                    <td>' . $row["pet_gender"] . '</td> 
-                    <td>' . $row["pet_dob"] . '</td>
-                    <td>' . $row["pet_type"] . '</td>
-                    <td>' . $row["pet_breed"] . '</td>
-                    <td class="action">
-                    <form action="" method="post">
-                      <button type="submit" name="'.$pet_id.'"><img src="images/delete.png"></button>
-                      </form>
-                  </td
-                </tr>';
-                if(isset($_POST[$pet_id])){
+                    $pet_availability = $row["pet_availability"];
                     
-                     // Delete the appointment from the database
-                     $sql2 = "DELETE FROM `pet` WHERE `pet_id`=$pet_id";
-                 $re=mysqli_query($conn, $sql2);
-  
-           }
+                    echo '<tr > 
+                        <td>' . $row["pet_id"] . '</td>
+                        <td> ' . $row["pet_name"] . '</td>
+                        <td>' . $row["pet_gender"] . '</td> 
+                        <td>' . $row["pet_dob"] . '</td>
+                        <td>' . $row["pet_type"] . '</td>
+                        <td>' . $row["pet_breed"] . '</td>
+                        <td class="action">';
+                    
+                    // Check if pet is deleted
+                    if ($pet_availability == 'Deleted') {
+                        echo '<button class="btn-add2" type="button">Cannot Delete</button>';
+                    } else {
+                        // Display delete button and handle delete request
+                        echo '<form action="" method="post">
+                                <button class="btn-add3" type="submit" name="' . $pet_id . '">Delete</button>
+                              </form>';
+                    }
+                    
+                    echo '</td>';
+                    
+                    if (isset($_POST[$pet_id])) {
+                        // Check if pet is available to delete
+                        if ($pet_availability != 'Deleted') {
+                            // Delete pet
+                            $sql = "UPDATE pet SET pet_availability = 'Deleted' WHERE pet_id = '$pet_id'";
+                            if ($conn->query($sql) === TRUE) {
+                                // Success message
+                                echo '<script>alert("pet deleted successfully.");</script>';
+                                $pet_availability = 'Deleted';
+                            } else {
+                                // Error message
+                                echo '<script>alert("Error deleting pet");</script>';
+                            }
+                        } 
+                    }
+                    
+                    // Display the availability status for each pet
+                    if ($pet_availability == 'Deleted') {
+                        echo '<td class="action1">
+                            <p>Deleted</p>
+                        </td>';
+                    } else {
+                        echo '<td class="action1"> 
+                            <p>Registered</p>
+                        </td>';
+                    }
+                    
                 }
-                echo '</table>';
-            } else {
-                echo "0 results";
-            }
-            ?>
+                
+        }
+        else{
+        echo  '<td colspan="8">No Appointments</td>';
+        }
+?>            
+            </table>    
             </div>
         </div>
         <script src="script.js"></script>

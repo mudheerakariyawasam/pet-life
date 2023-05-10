@@ -2,7 +2,7 @@
     include("../../db/dbconnection.php");
     session_start();
     if(!isset($_SESSION["login_user"])){
-        header("location:../../Auth/login.php");
+        header("location:../../modules/pet owner/login.php");
         exit;
     }
     
@@ -12,33 +12,27 @@
     $row2 = mysqli_fetch_assoc($result2);
     $owner_id=$row2["owner_id"];
 
+    // get the highest pet ID currently in use
+    $sql_get_id = "SELECT MAX(appointment_id) AS max_id FROM appointment";
+    $result_get_id = mysqli_query($conn, $sql_get_id);
+    $row = mysqli_fetch_assoc($result_get_id);
+    $max_id = $row['max_id'];
+
+    // generate the new pet ID
+    if ($max_id === null) {
+        $appointment_id = "P001";
+    } else {
+        $num = intval(substr($max_id, 1)) + 1;
+        if ($num < 10) {
+            $appointment_id = "A00$num";
+        } else if ($num < 100) {
+            $appointment_id = "A0$num";
+        } else {
+            $appointment_id = "A$num";
+        }
+    }
+
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        
-        //generate next day care ID
-        $sql_get_id="SELECT appointment_id FROM appointment ORDER BY appointment_id DESC LIMIT 1";
-        $result_get_id=mysqli_query($conn,$sql_get_id);
-        $row=mysqli_fetch_array($result_get_id);
-    
-        $lastid="";
-                        
-        if(mysqli_num_rows($result_get_id)>0){
-            $lastid=$row['appointment_id'];
-        }
-    
-        if($lastid==""){
-            $appointment_id="A001";
-        }else {
-            $appointment_id=substr($lastid,3);
-            $appointment_id=intval($appointment_id);
-    
-            if($appointment_id>=9){
-                $appointment_id="A0".($appointment_id+1);
-            } else if($appointment_id>=99){
-                $appointment_id="A".($appointment_id+1);
-            }else{
-                $appointment_id="A00".($appointment_id+1);
-            }
-        }
 
         // Get the chosen date
         $date = date('Y-m-d', strtotime($_POST['date']));
@@ -46,11 +40,20 @@
         $emp_name=$_POST['emp_name'];
 
         //get the appointment slot no
-        $sql_getappointmentcount = "SELECT COUNT(*) FROM appointment WHERE appointment_date = ?";
-        $result_getpid=mysqli_query($conn,$sql_getpid);
-        $row_pid=mysqli_fetch_array($result_getpid);
-        $count = $stmt->fetchColumn();
-        $count+=$count;
+        $sql_getappointmentcount = "SELECT COUNT(*) FROM appointment WHERE appointment_date = '$date'";
+        $result_getappointmentcount = mysqli_query($conn, $sql_getappointmentcount);
+        $row_getappointmentcount = mysqli_fetch_array($result_getappointmentcount);
+        $count = $row_getappointmentcount[0] + 1;
+        echo $count;
+
+        // Get the last appointment's slot ID
+$sql_get_slot_id = "SELECT appointment_slot FROM appointment ORDER BY appointment_id DESC LIMIT 1";
+$result_get_slot_id = mysqli_query($conn, $sql_get_slot_id);
+$row_get_slot_id = mysqli_fetch_assoc($result_get_slot_id);
+$last_slot_id = $row_get_slot_id['appointment_slot'];
+
+// Increment the slot ID
+$new_slot_id = ++$last_slot_id;
 
         //get pet ID
         $sql_getpid="SELECT pet_id FROM pet WHERE owner_id='$owner_id' AND pet_name='$pet_name'";
@@ -63,17 +66,59 @@
         $result_getvid=mysqli_query($conn,$sql_getvid);
         $row_vid=mysqli_fetch_array($result_getvid);
         $emp_id = $row_vid['emp_id'];
-    
-        $sql = "INSERT INTO appointment VALUES ('$appointment_id','$date','$count','$emp_id','$pet_id')";
-        $result = mysqli_query($conn, $sql);
 
-        if ($result == TRUE) {
-            echo '<script>alert("Your appointment slot is booked")</script>';
-            header("Location: dashboard.php");
-        } else {
-            echo '<script>alert("There is an error in booking")</script>';
-        }
+        //check availability of the vet
+        // Get the requested appointment date
+$date = $_POST['date'];
+
+// Retrieve the vet IDs from the holiday table for the requested date where the holiday status is approved
+$sql = "SELECT emp_id FROM holiday WHERE holiday_date = '$date' AND holiday_status = 'Approved'";
+$result = $conn->query($sql);
+
+$unavailable_vets = array();
+if ($result->num_rows > 0) {
+    // Store the vet IDs in an array
+    while ($row = $result->fetch_assoc()) {
+        $unavailable_vets[] = $row['vet_id'];
     }
+}
+
+// Exclude the unavailable vet IDs from the list of available vets for the appointment form dropdown
+$sql = "SELECT emp_id FROM holiday WHERE vet_availability = 'Available'";
+if (!empty($unavailable_vets)) {
+    $unavailable_vet_ids = implode(',', $unavailable_vets);
+    $sql .= " AND emp_id NOT IN ($unavailable_vet_ids)";
+}
+$result = $conn->query($sql);
+
+// Generate the dropdown options for available vets
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo '<option value="' . $row['vet_id'] . '">' . $row['vet_name'] . '</option>';
+    }
+} else {
+    echo '<option value="">No available vets</option>';
+}
+
+
+        //check duplicate entry
+
+        
+
+        if($count>10){
+            echo '<script>alert("The date is already filled")</script>'; 
+        }else{
+            $sql = "INSERT INTO appointment VALUES ('$appointment_id','$date','$new_slot_id','$emp_id','$pet_id','Available')";
+            $result = mysqli_query($conn, $sql);
+    
+            if ($result == TRUE) {
+                echo '<script>alert("Your appointment slot is booked")</script>';
+
+            } else {
+                echo '<script>alert("There is an error in booking")</script>';
+            }
+        }        
+    }        
 ?> 
 
 <!DOCTYPE html>
@@ -109,7 +154,7 @@
                 <a href="profile.php" ><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
             </li>
             <li>
-                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>Pet Daycare</span></a></a>
             </li>
             <li>
                 <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
@@ -234,7 +279,7 @@
             </div>
 
             <div class="form-content">
-                <button class="btn-add" type="submit">Confirm</button>
+                <button class="btn-add" type="submit"><a href="viewapp.php">Confirm</a></button>
             </div>
 </form>
     
