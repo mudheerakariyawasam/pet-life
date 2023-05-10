@@ -20,193 +20,44 @@ table {
   font-family: poppins, sans-serif;
 }
 
-.navbar-1 {
-  margin-left: 10px;
-  margin-right: 10px;
-  font-size: 10px;
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
+body{
+margin:0;
+ 
+}
+.nav-bar{
+
+display:flex;
+  position: fixed;
+width:100%;
+overflow: hidden;
+ 
+  z-index: 2;
+ background-color: rgb(212, 239, 249); 
+}
+.nav-left{
+width:10%;
+}
+.nav-right{
+width:90%;
+text-align:right;
 }
 
-.navbar-1 table {
-  width: 100%;
-  border-spacing: 5px;
+.logo{
+width:60px;
 }
+.navbar-ul{
+list-style-type:none;
+}
+.navbar-ul li{
+display:inline;
+font-weight:bold;
+margin-right:3%;
 
-.nav-a a {
-  color: #000000;
+}
+a{
+  color:black;
   text-decoration: none;
-}
-
-.nav-a a:hover {
-  text-decoration: underline;
-}
-
-.nav td a {
-  color: #000000;
-  text-decoration: none;
-  font-family: poppins, sans-serif;
-  font-weight: 500;
-}
-
-/* .nav td {
-  font-size: 15px;
-} */
-/* .nav table{
-  width:75%;
-} */
-
-.ship:hover {
-  color: blue;
-  cursor: pointer;
-}
-
-.drop-wl {
-  color: black;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown-wl {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content-wl {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 410px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 26px 20px;
-  z-index: 1;
-  right: 0;
-  font-size: 16px;
-  font-weight: bold;
-  color: #636363;
-
-}
-
-.dropdown-content-wl a {
-  color: black;
-  padding: 16px 16px;
-  text-decoration: none;
-
-}
-
-.dropdown-wl:hover .dropdown-content-wl {
-  display: block;
-}
-
-
-
-.drop-ebay {
-  color: black;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown-ebay {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content-ebay {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.dropdown-content-ebay a {
-  color: black;
-  padding: 5px 16px;
-  text-decoration: none;
-  display: block;
-  font-size: 14px;
-  font-weight: normal;
-  color: #636363;
-}
-
-.dropdown-content-ebay a:hover {
-  background-color: #f1f1f1;
-  text-decoration: underline;
-
-}
-
-.dropdown-ebay:hover .dropdown-content-ebay {
-  display: block;
-}
-
-
-.drop-notification {
-  color: black;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown-notification {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content-notification {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 410px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 100px 20px;
-  z-index: 1;
-  right: 0;
-
-}
-
-.dropdown-content-notification a {
-  color: black;
-  padding: 0px 0px;
-  text-decoration: none;
-  font-weight: normal;
-  font-size: 16px;
-}
-
-.dropdown-notification:hover .dropdown-content-notification {
-  display: block;
-}
-
-
-.drop-shopping {
-  color: black;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown-shopping {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content-shopping {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 200px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 20px 20px;
-  z-index: 1;
-  right: 0;
-
-}
-
-.dropdown-content-shopping a {
-  color: black;
-  padding: 16px 16px;
-  text-decoration: none;
-
-}
-
-.dropdown-shopping:hover .dropdown-content-shopping {
-  display: block;
 }
 
 .zoom:hover {

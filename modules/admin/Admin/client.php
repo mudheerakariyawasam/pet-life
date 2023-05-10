@@ -163,7 +163,7 @@ $current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'
 $start_from = ($current_page - 1) * $records_per_page;
 
 // Update the SQL query to include the LIMIT clause
-$sql = "SELECT owner_id, owner_fname, owner_lname, active_status FROM pet_owner LIMIT $start_from, $records_per_page";
+$sql = "SELECT owner_id, owner_fname, owner_lname, owner_status FROM pet_owner LIMIT $start_from, $records_per_page";
 
     // Retrieve all employees from the database
     
@@ -179,7 +179,7 @@ $sql = "SELECT owner_id, owner_fname, owner_lname, active_status FROM pet_owner 
             echo "<td class='employee-table-cell emp-name'>" . $row['owner_fname'] . "</td>";
             echo "<td class='employee-table-cell'>" . $row['owner_lname'] . "</td>";
             echo "<td class='employee-table-cell'>";
-            if ($row['active_status'] == 'activated') {
+            if ($row['owner_status'] == 'activated') {
                 echo "<label class='switch'><input type='checkbox' checked='checked' data-ownerid='" . $row['owner_id'] . "'><span class='slider round'></span></label>";
             } else {
                 echo "<label class='switch'><input type='checkbox' data-ownerid='" . $row['owner_id'] . "'><span class='slider round'></span></label>";
@@ -237,7 +237,7 @@ echo '</div>';
                     }
                 }
             };
-            xhr.send('owner_id=' + ownerId + '&active_status=' + isChecked + '&page=' + <?php echo $current_page; ?>);
+            xhr.send('owner_id=' + ownerId + '&owner_status=' + isChecked + '&page=' + <?php echo $current_page; ?>);
 
         });
     }

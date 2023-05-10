@@ -4,194 +4,32 @@
   <title>Pet Life Store</title>
 
   <link rel="stylesheet" type="text/css" href="style.css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 </head>
 
 <body>
 
 
-  <!-- navbar-1 -->
-
-  <div class="navbar-1">
-    <table>
-      <tr>
-        <td>Hi! <a style="color:blue;" href="#">Sign in</a> or <a style="color:blue;" href="#">register</a></td>
-        <td class="nav-a"><a href="#">Daily Deals</a></td>
-        <td class="nav-a"><a href="#">Help & Contact</a></td>
-        <td width=40%></td>
-
-        <td class="nav-a"><a href="#">Buy Now</a></td>
-        <td>
-          <div class="dropdown-wl">
-            <div class="drop-wl">Watchlist&nbsp;<img src="arr.png" width=10></div>
-            <div class="dropdown-content-wl">
-             Please<u><a href="#">sign-in</a></u>to view items you are watching.
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="dropdown-ebay">
-            <div class="drop-ebay">Pet Life Store&nbsp;<img src="arr.png" width=10></div>
-            <div class="dropdown-content-ebay">
-              <a href="#">Summary</a>
-              <a href="#">Recently Viewed</a>
-              <a href="#">Watchlist</a>
-              <a href="#">Purchase History</a>
-              <a href="#">Buy Again</a>
-              <a href="#">Saved Searches</a>
-              <a href="#">Messages</a>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="dropdown-notification">
-            <div class="drop-notification"><img src="notification.png" width=15 height=15></div>
-            <div class="dropdown-content-notification">
-              <center><a href="#">Please<u><a style="color:blue;" href="#"> sign-in</a></u> to view<br />notifications.
-                </a></center>
-            </div>
-          </div>
-        </td>
-        <td width=10px></td>
-        <td>
-          <div class="dropdown-shopping">
-            <div class="drop-shopping"><img src="marketplace.png" width=15 height=15></div>
-            <div class="dropdown-content-shopping">
-              <font style="color:#636363; font-weight:bold; font-size:18px;">Your cart is empty</font><br />
-              <font style="color:#636363; font-weight:normal; font-size:16px;">Time to start shopping!</font>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </table>
-  </div>
+<div class="nav-bar">
+<div class="nav-left"><img class="logo" src="/pet-life/public/img/logo_transparent black.png"></div>
+<div class="nav-right">
+<ul class="navbar-ul">
+<li><a href="../index.php">Home</a></li>
+<li><a href="../aboutUs.php">About Us</a></li>
+<li><a href="#">VIP Programs</a></li>
+<li><a href="../services.php">Services</a></li>
+<li><a href="../Store/store.php">Pet Store</a></li>
+<li><a href="../contactUs.php">Contact Us</a></li>
+<li><a href="#">Make an appointment</a></li>
+<li><a href="#">Sign Up</a></li>
+<li><a href="../../Auth/login.php">Login</a></li>
+</ul>
 
 
-  <hr />
 
-  <!-- Search-bar -->
-
-  <div class="search-bar">
-    <center>
-      <table >
-        <tr>
-          <td><a href="../index.php"><img src="logo.png" width=80></a></td>
-          <td><select style="border-style:none;">
-              <option>Shop by <br />category</option>
-          </td>
-          <td><textarea cols=80 placeholder="Search for anything"></textarea></td>
-          <td><select size="1">
-              <option>All categories</option>
-              <option>Foods</option>
-              <option>Toys</option>
-              <option>Collards, Leads and Harnesses</option>
-              <option>Beds, Crates & Kennels</option>
-              <option>Training & Behaviour</option>
-              <option>Grooming & Shampoo</option>
-              <option>Cleaning & Odours</option>
-              <option>Vitamins & Supplements</option>
-            </select></td>
-          <td><button class="searchbtn">Search</button></td>
-          <td><a href="#"> Advanced </a></td>
-        </tr>
-      </table>
-    </center>
-  </div>
-
-  <hr />
-
-  <!-- navbar-2 -->
-
-  <div class="nav">
-    <center>
-      <table>
-        <tr>
-          <td><a href="#"><u>Home</u></a></td>
-          <td><a href="#">Food</a></td>
-          <td><a href="#">Medicine</a></td>
-          <td><a href="#">Accessories</a></td>
-          <td><a href="#">Pet Care Items</a></td>
-          <td><a href="#">Others</a></td>
-          <td><a href="#">Treats</a></td>
-          <td><a href="#">Reviews</a></td>
-          <td><a href="#">Contact Us</a></td>
-          <td><a href="#">Blog</a></td>
-        </tr>
-      </table>
-    </center>
-  </div>
-
-  <!-- Home image section -->
-
-  <div class="home-section">
-    <div class="home-left">
-      <div class="offer">
-        <font><b><a href="#" style="text-decoration:none; color:#ffe0c3;">You may have a<br />Special
-              offer</a></b><br />
-          <span class="sign">Sign in to your account to find out</span>
-        </font>
-      </div>
-      <button class="btn">Go to PetLife<img width=20></button>
-    </div>
-    <div class="home-right">
-      <a href="#"><img src="home.png" width=100%></a>
-    </div>
-  </div>
-
-  <br />
-
-  <!-- Popular Category-1 -->
-  <div class="popular-category-1">
-    <h2>Featured Categories</h2>
-    <center>
-      <table>
-        <tr>
-          <td>
-            <center><a href="#"><img class="zoom" src="dogfood.png" width=150></a></center>
-          </td>
-          <td>
-            <center><a href="#"><img class="zoom" src="catfood.png" width=150></a></center>
-          </td>
-          <td>
-            <center><a href="#"><img class="zoom" src="dogtoys.png" width=150></a></center>
-          </td>
-          <td>
-            <center><a href="#"><img class="zoom" src="cattoys.png" width=150></a></center>
-          </td>
-          <td>
-            <center><a href="#"><img class="zoom" src="dogacces.png" width=150></a></center>
-          </td>
-          <td>
-            <center><a href="#"><img class="zoom" src="catacces.png" width=150></a></center>
-          </td>
-
-        </tr>
-
-        <tr>
-          <td>
-            <center><b><a href="#">Dog Food</a></b></center>
-          </td>
-          <td>
-            <center><b><a href="#">Cat Food</a></b></center>
-          </td>
-          <td>
-            <center><b><a href="#">Dog Toys</a></b></center>
-          </td>
-          <td>
-            <center><b><a href="#">Cat Toys</a></b></center>
-          </td>
-          <td>
-            <center><b><a href="#">Dog Accessories</a></b></center>
-          </td>
-          <td>
-            <center><b><a href="#">Cat Accessories</a></b></center>
-          </td>
-
-        </tr>
-      </table>
-    </center>
-  </div>
-  <br /><br /><br />
+</div>
+</div>
+<div class="clear"></div>
 
 
   <!-- Daily Deals -->
