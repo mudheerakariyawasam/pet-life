@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $emp_email = $_POST['emp_email'];
     $emp_nic = $_POST['emp_nic'];
     $emp_pwd = $_POST['emp_pwd']; 
-    $hashedPassword = md5($emp_pwd);
+    $hashedPassword = md5($emp_pwd); 
     $emp_initsalary = $_POST['emp_initsalary'];
     $emp_currsalary = $_POST['emp_currsalary'];
     $emp_holtaken = $_POST['emp_holtaken'];

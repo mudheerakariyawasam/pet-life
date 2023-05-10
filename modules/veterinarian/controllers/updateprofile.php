@@ -8,6 +8,7 @@ if (!isset($_SESSION["login_user"])) {
 
 $employee_id = $_SESSION['emp_id'];
 
+
 $sql = "SELECT * FROM employee WHERE emp_id='$employee_id'";
 $result = mysqli_query($conn, $sql);
 if ($result) {
@@ -44,42 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 }
-// change password section starts
-
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//     $oldPassword = mysqli_real_escape_string($conn, $_POST['oldpass']);
-//     $newPassword = mysqli_real_escape_string($conn, $_POST['newpass']);
-//     $confirmPassword = mysqli_real_escape_string($conn, $_POST['cnewpass']);
-
-//     // Retrieve the employee's current password from the database
-//     $empEmail = $_SESSION['emp_email'];
-//     $query = "SELECT emp_pwd FROM employee WHERE emp_email='$empEmail'";
-//     $result = mysqli_query($conn, $query);
-//     $row = mysqli_fetch_assoc($result);
-//     $currentHashedPassword = $row['emp_pwd'];
-
-//     // Verify the current password
-//     if (md5($oldPassword) === $currentHashedPassword) {
-//         // Check if the new password and confirm password match
-//         if ($newPassword === $confirmPassword) {
-//             // Generate the hashed password
-//             $newHashedPassword = md5($newPassword);
-
-//             // Update the employee's password in the database
-//             $updateQuery = "UPDATE employee SET emp_pwd='$newHashedPassword' WHERE emp_email='$empEmail'";
-//             mysqli_query($conn, $updateQuery);
-
-//             // Redirect to a success page or display a success message
-//             echo "wade hari bokka!!";
-//             header("Location: updateprofile.php?password_changed=true");
-//             exit();
-//         } else {
-//             $errorMsg = "New password and confirm password do not match.";
-//         }
-//     } else {
-//         $errorMsg = "Incorrect current password.";
-//     }
-// }
 
 ?>
 <!DOCTYPE html>
@@ -91,7 +56,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/updateprofile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <title>My Profile</title>
+    <title></title>
+    <style>
+        .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+    </style>
+
 </head>
 
 <body>
@@ -223,7 +226,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         </div>
                                         <div class="column-wise">
                                             <label>No of Holidays Left :</label><br>
-                                            <input type="number" name="emp_holleft" placeholder="Mo of Holidays Left"
+                                            <input type="number" name="emp_holleft" placeholder="No of Holidays Left"
                                                 value="<?php echo $emp_name; ?>" readonly><br>
                                         </div>
                                     </div>
@@ -238,11 +241,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="right-content">
                     <form action="changepassword.php" method="POST">
-                        <span class="sub-topic">Change Password</span><br>
-                        <?php if (isset($errorMsg)) {
-            echo '<p class="error-msg">' . $errorMsg . '</p>';
-        } ?>
+                    <span class="sub-topic">Change Password</span><br>
                         <p>
+                        
                         <div class="pwd-content">
                             <label>Current Password :</label><br>
                             <input type="password" name="oldpass" placeholder="Enter Current Password"><br>
@@ -258,9 +259,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="pwd-content">
                             <button class="btn-add" type="submit">Confirm </button>
                         </div>
-                       
+                        <?php if (isset($_SESSION['change_password_error'])&& strlen($_SESSION['change_password_error'])>1): ?>
+    <span style="color: red;"><?php echo $_SESSION['change_password_error']; ?></span>
+<?php endif; ?>
                         </p>
                     </form>
+                    <?php if (isset($_GET['password_changed'])): ?>
+                        <div class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Password changed successfully!</h2>
+        </div>
+    </div>
+    <script>
+        // JavaScript code to handle the modal functionality
+        var modal = document.querySelector('.modal');
+        var closeBtn = document.querySelector('.close');
+
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close the modal after a certain duration (e.g., 3 seconds)
+        setTimeout(function() {
+            modal.style.display = 'none';
+        }, 3000);
+    </script>
+<?php endif; ?>
                     </div>
                     
                 </div>

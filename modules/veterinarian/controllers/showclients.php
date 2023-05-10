@@ -79,9 +79,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                         </a>
                     </li>
                     <li>
-                        <!-- <a href="">
-                            <span id="designation">Admin</span>
-                        </a> -->
+                       
                     </li>
                 </ul>
             </div>
