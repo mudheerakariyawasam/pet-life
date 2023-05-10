@@ -45,7 +45,7 @@
              $item_price=$_POST['item_price'];
              $item_category=$_POST['item_category'];
      
-             $sql = "INSERT INTO pet_item VALUES ('$item_id','$item_name','$item_brand','$item_qty','$item_price','$item_category')";
+             $sql = "INSERT INTO pet_item VALUES ('$item_id','$item_name','$item_brand','$item_qty','$item_price','$item_category','Available')";
              $result = mysqli_query($conn,$sql);
              
              if($result==TRUE) { 
@@ -130,7 +130,7 @@
                         <option value="Sleeping Items">Sleeping Items</option>
                         <option value="Collars">Collars</option>
                         <option value="Toys">Toys</option>
-                        <option value="Combs">Toys</option>
+                        <option value="Combs">Sanitery Items</option>
                         <option value="Food Bowls">Food Bowls</option>
                         <option value="Other">Other</option>
                     </select><br><br>

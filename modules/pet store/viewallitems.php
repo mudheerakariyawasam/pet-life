@@ -87,6 +87,7 @@
                         <th>Brand</th>
                         <th>Price</th>
                         <th>Qty</th>
+                        <th>Status<th>  
                         <th colspan="2">Actions</th>
                     </tr>';
 
@@ -98,8 +99,9 @@
                             <td> ' . $row["item_brand"] . '</td>
                             <td>' . $row["item_price"] . '</td> 
                             <td>' . $row["item_qty"] . '</td>
-                            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
-                            <td class="action-btn"><button type="submit"><img src="images/delete.png"></button></td>
+                            <td>' . $row["item_status"] . '</td>
+                            <td><a href="updateitem.php?item_id=' . $row["item_id"] . '">Update</a></td>
+                            <td><a href="deleteitem.php?item_id=' . $row["item_id"] . '">Delete</a></td>
                         </tr>';
                     }
                     echo '</table>';
