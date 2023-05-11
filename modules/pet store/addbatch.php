@@ -48,10 +48,15 @@
             $batch_expdate=$_POST['batch_expdate'];
             $batch_mfddate=$_POST['batch_mfddate'];
 
-            $sql = "INSERT INTO batch VALUES ('$batch_id','$medicine_id','$batch_qty','$batch_price','$batch_expdate','$batch_mfddate')";
+            $sql = "INSERT INTO batch VALUES ('$batch_id','$medicine_id','$batch_qty','$batch_price','$batch_expdate','$batch_mfddate','Available')";
             $result = mysqli_query($conn,$sql);
             
             if($result==TRUE) { 
+
+                //update medicine status
+                $sql = "UPDATE medicine SET medicine_status='Available' WHERE medicine_id='$medicine_id'";
+                $result = mysqli_query($conn,$sql);
+
                 header("location: viewallmedicine.php");
             }else {
                 $error = "There is an error in adding!";
@@ -85,7 +90,8 @@
         <ul>
                 <li><a  href="dashboard.php"><i class="fa fa-tachometer"></i><span>Home</span></a></li>
                 <li><a href="viewallitems.php"><i class="fa fa-paw"></i><span>Pet Items</span></a></li>
-                <li><a class="active" href="viewallmedicine.php"><i class="fa fa-stethoscope"></i><span>Medicine</span></a></li>
+                <li><a href="viewallmedicine.php"><i class="fa fa-stethoscope"></i><span>Medicine</span></a></li>
+                <li><a class="active" href="viewallbatch.php"><i class="fa fa-stethoscope"></i><span>Batch</span></a></li>
                 <li><a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a></li>
                 <li><a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a></li>
         </ul>

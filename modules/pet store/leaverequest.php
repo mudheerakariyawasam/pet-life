@@ -68,11 +68,11 @@
                         $result_getdaycount=mysqli_query($conn,$sql_getdaycount);
                         $row_getdaycount=mysqli_fetch_array($result_getdaycount);
 
-                        if($row_getdaycount[0]>=1){
+                        if($row_getdaycount[0]>=3){
                             echo '<script>alert("You have already reached the daily limit of requesting leaves. Please contact the admin")</script>';
                         }else{
-                            $sql = "INSERT INTO holiday (holiday_id,from_date,to_date,emp_id,holiday_type,holiday_reason,requested_date) 
-                            VALUES ('$holiday_id','$from_date','$to_date','$emp_id','$holiday_type','$holiday_reason','$current_date')";
+                            $sql = "INSERT INTO holiday (holiday_id,from_date,to_date,approval_stage,emp_id,holiday_type,holiday_reason,requested_date) 
+                            VALUES ('$holiday_id','$from_date','$to_date','Pending','$emp_id','$holiday_type','$holiday_reason','$current_date')";
                             $result = mysqli_query($conn,$sql);
                             
                             if($result==TRUE) { 
@@ -115,6 +115,7 @@
                 <li><a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Home</span></a></li>
                 <li><a href="viewallitems.php"><i class="fa fa-paw"></i><span>Pet Items</span></a></li>
                 <li><a href="viewallmedicine.php"><i class="fa fa-stethoscope"></i><span>Medicine</span></a></li>
+                <li><a href="viewallbatch.php"><i class="fa fa-stethoscope"></i><span>Batch</span></a></li>
                 <li><a class="active" href="#"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a></li>
                 <li><a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a></li>
         </ul>
