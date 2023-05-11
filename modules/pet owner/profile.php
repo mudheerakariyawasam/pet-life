@@ -9,70 +9,39 @@ if (!isset($_SESSION["login_user"])) {
 $loggedInUser = $_SESSION['login_user'];
 
 $sql = "SELECT owner_id, CONCAT(owner_fname, ' ', owner_lname) as full_name, owner_email, owner_contactno, owner_address, owner_nic, owner_pwd FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";  
-$result = mysqli_query( $conn,$sql);
-if( $result ){
-while( $row = mysqli_fetch_assoc( $result ) ){
-    $owner_id = $row["owner_id"];
-    $full_name = $row["full_name"];
-    $owner_email = $row["owner_email"];
-    $owner_contactno = $row["owner_contactno"];
-    $owner_address = $row["owner_address"];
-    $owner_nic = $row["owner_nic"];
-    $owner_pwd = $row["owner_pwd"];
-
-    $hashedPassword = md5($owner_pwd); 
-}
-}
-else{
-    echo "Please Try Again!";
-}
-
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-
-        $new_name = $_POST['full_name'];
-    $new_email = $_POST['owner_email'];
-    $new_contactno = $_POST['owner_contactno'];
-    $new_address = $_POST['owner_address'];
-    $new_nic = $_POST['owner_nic'];
-
-    $sql = "SELECT * FROM pet_owner WHERE owner_id = '$owner_id'";
 $result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
 
-// Update the specified columns
-if (!empty($new_name)) {
-    $update_sql = "UPDATE pet_owner SET  owner_fname=SUBSTRING_INDEX('$new_name', ' ', 1), owner_lname=SUBSTRING_INDEX('$new_name', ' ', -1) WHERE owner_id='$owner_id'";
-    $row['full_name'] = $new_name;
-}
-if (!empty($new_email)) {
-    $update_sql = "UPDATE pet_owner SET owner_email='$new_email' WHERE owner_id='$owner_id'";
-    $row['owner_email'] = $new_email;
-}
-if (!empty($new_contactno)) {
-    $update_sql = "UPDATE pet_owner SET owner_contactno='$new_contactno' WHERE owner_id='$owner_id'";
-    $row['owner_contactno'] = $new_contactno;
-}
-if (!empty($new_address)) {
-    $update_sql = "UPDATE pet_owner SET owner_address='$new_address' WHERE owner_id='$owner_id'";
-    $row['owner_address'] = $new_address;
-}
-if (!empty($new_nic)) {
-    $update_sql = "UPDATE pet_owner SET owner_nic='$new_nic' WHERE owner_id='$owner_id'";
-    $row['owner_nic'] = $new_nic;
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $owner_id = $row["owner_id"];
+        $full_name = $row["full_name"];
+        $owner_email = $row["owner_email"];
+        $owner_contactno = $row["owner_contactno"];
+        $owner_address = $row["owner_address"];
+        $owner_nic = $row["owner_nic"];
+    }
+} else {
+    echo "Please try again!";
 }
 
-// Execute the update query
-$update_result = mysqli_query($conn, $update_sql);
-        
-        if($update_result==TRUE) { 
-            header("location: profile.php");
-        }else {
-            $error = "There is an error in updating!";
-        } 
-    
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $new_full_name = $_POST["full_name"];
+    $new_email = $_POST["owner_email"];
+    $new_contactno = $_POST["owner_contactno"];
+    $new_address = $_POST["owner_address"];
+    $new_nic = $_POST["owner_nic"];
+
+    $update_sql = "UPDATE pet_owner SET owner_fname = SUBSTRING_INDEX('$new_full_name', ' ', 1), owner_lname = SUBSTRING_INDEX('$new_full_name', ' ', -1), owner_email='$new_email', owner_contactno='$new_contactno', owner_address='$new_address', owner_nic='$new_nic' WHERE owner_id='$owner_id'";
+    $update_result = mysqli_query($conn, $update_sql);
+
+    if ($update_result == TRUE) {
+        header("location: profile.php");
+    } else {
+        $error = "There is an error in updating!";
+    }
+
 }
-
-
 ?>
 
 
@@ -191,7 +160,7 @@ $update_result = mysqli_query($conn, $update_sql);
                         <div class="column-wise">
                                 <label>Owner ID :</label><br>
                                 <input type="text" name="owner_id" placeholder="owner id"
-                                    value="<?php echo $owner_id; ?>"><br>
+                                    value="<?php echo $owner_id; ?> " readonly><br>
                             </div>
 
                             <div class="column-wise">

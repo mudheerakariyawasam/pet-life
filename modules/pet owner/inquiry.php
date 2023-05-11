@@ -122,9 +122,9 @@
     <li><div class="dateandtime"><div class="date">Tuesday</div><div class="time">8.00am - 5.00pm</div></div></li>
     <li><div class="dateandtime"><div class="date">Wednesday</div><div class="time">8.00am - 5.00pm</div></div></li>
     <li><div class="dateandtime"><div class="date">Thursday</div><div class="time">8.00am - 5.00pm</div></div></li>
-    <li><div class="dateandtime"><div class="date">Friday</div><div class="time">8.00am - 4.00pm</div></div></li>
-    <li><div class="dateandtime"><div class="date">Saturday</div><div class="time">8.00am - 12.00pm</div></div></li>
-    <li><div class="dateandtime"><div class="date">Monday</div><div class="time">Closed</div></div></li>
+    <li><div class="dateandtime"><div class="date">Friday</div><div class="time">8.00am - 5.00pm</div></div></li>
+    <li><div class="dateandtime"><div class="date">Saturday</div><div class="time">8.00am - 5.00pm</div></div></li>
+    <li><div class="dateandtime"><div class="date">Sunday</div><div class="time">8.00am - 5.00pm</div></div></li>
     
 </ul>
 
