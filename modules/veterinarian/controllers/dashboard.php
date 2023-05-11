@@ -179,14 +179,14 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
             $owner_id = $row_pet["owner_id"];
 
             //get owner name
-            $sql_name = "SELECT owner_fname FROM pet_owner WHERE owner_id = '$owner_id'";
+            $sql_name = "SELECT CONCAT(owner_fname, ' ', owner_lname) as full_name FROM pet_owner WHERE owner_id = '$owner_id'";
             $result_name = mysqli_query($conn, $sql_name);
             $row_name = mysqli_fetch_assoc($result_name);
 
             echo "<tr><td>" . $row["appointment_date"] . "</td>
                 <td>" . $row["appointment_slot"] . "</td>
                 <td><a href='viewcustomer.php?pet_id=" . $row["pet_id"] . "&owner_id=" . $owner_id . "'>" . $row ["pet_id"] . "</a></td>
-                <td>".$row_name["owner_fname"]."</td>
+                <td>".$row_name["full_name"]."</td>
             </tr>";
         }
         echo "</tbody>";

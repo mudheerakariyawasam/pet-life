@@ -1,4 +1,4 @@
-<?php
+    <?php
     include("../../../db/dbconnection.php");
     session_start();
 ?>
@@ -146,9 +146,6 @@ $emp_nic = '';
 $emp_pwd='';
 $emp_initsalary = '';
 $emp_currsalary = '';
-$emp_holtaken = '';
-$emp_dateassigned = '';
-$working_status = '';
 
 // Initialize error variables for the form fields
 $emp_id_error = '';
@@ -161,9 +158,7 @@ $emp_nic_error = '';
 $emp_pwd_error='';
 $emp_initsalary_error = '';
 $emp_currsalary_error = '';
-$emp_holtaken_error = '';
-$emp_dateassigned_error = '';
-$working_status_error = '';
+
 
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -179,9 +174,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hashedPassword = md5($emp_pwd); 
     $emp_initsalary = $_POST['emp_initsalary'];
     $emp_currsalary = $_POST['emp_currsalary'];
-    $emp_holtaken = $_POST['emp_holtaken'];
-    $emp_dateassigned = $_POST['emp_dateassigned'];
-    $working_status = $_POST['working_status'];
 
 
     // Validate the form field values
@@ -229,12 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $emp_currsalary_error = "Note: Minimum salary should be 26000 and Maximum salary should be 550000.";
     }
 
-    if (preg_match('/^\d+$/', $emp_holtaken) && $emp_holtaken >= 0 && $emp_holtaken <= 999) {
-        $emp_holtaken = $_POST['emp_holtaken'];
-    } else {
-        $emp_holtaken_error = "Invalid number of holidays";
-    }
-
+    
    /* if (empty($emp_dateassigned)) {
         $emp_dateassigned_error = "Please enter the date the employee was assigned.";
     }*/
@@ -244,10 +231,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }*/
 
     // Check if there are any errors
-    if (empty($emp_id_error) && empty($emp_name_error) && empty($emp_contactno_error) && empty($emp_nic_error) && empty($emp_email_error) && empty($emp_pwd_error) && empty($emp_currsalary_error) && empty($emp_initsalary_error) && empty($emp_holtaken_error)) {
+    if (empty($emp_id_error) && empty($emp_name_error) && empty($emp_contactno_error) && empty($emp_nic_error) && empty($emp_email_error) && empty($emp_pwd_error) && empty($emp_currsalary_error) && empty($emp_initsalary_error) ) {
         // Insert the employee record into the database
-        $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_pwd, emp_initsalary, emp_currsalary, emp_holtaken, emp_dateassigned, working_status) 
-        VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', '$hashedPassword', '$emp_initsalary', '$emp_currsalary', '$emp_holtaken', '$emp_dateassigned', '$working_status')";
+        $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_pwd, emp_initsalary, emp_currsalary, working_status) 
+        VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', '$hashedPassword', '$emp_initsalary', '$emp_currsalary', 'enable')";
 $result = mysqli_query($conn, $sql);
 
         
@@ -256,6 +243,7 @@ $result = mysqli_query($conn, $sql);
         if ($result) {
             // Set a message to display
             $message = "Employee record added successfully.";
+            header("Location: staff.php");
             
             // Clear the form fields
             $emp_id = '';
@@ -340,24 +328,6 @@ $result = mysqli_query($conn, $sql);
     <input type="number" name="emp_currsalary" value="<?php echo $emp_currsalary; ?>">
     <?php if (isset($emp_currsalary_error)): ?>
         <span style="color: red;"><?php echo $emp_currsalary_error; ?></span>
-    <?php endif; ?><br/><br/>
-
-    <label>Employee Leave Taken:</label>
-    <input type="number" name="emp_holtaken" value="<?php echo $emp_holtaken; ?>">
-    <?php if (isset($emp_holtaken_error)): ?>
-        <span style="color: red;"><?php echo $emp_holtaken_error; ?></span>
-    <?php endif; ?><br/><br/>
-
-    <label>Employee Date Assigned:</label>
-    <input type="date" name="emp_dateassigned" value="<?php echo $emp_dateassigned; ?>">
-    <?php if (isset($emp_dateassigned_error)): ?>
-        <span style="color: red;"><?php echo $emp_dateassigned_error; ?></span>
-    <?php endif; ?><br/><br/>
-
-    <label>Working Status:</label>
-    <input type="text" name="working_status" value="<?php echo $working_status; ?>">
-    <?php if (isset($working_status_error)): ?>
-        <span style="color: red;"><?php echo $working_status_error; ?></span>
     <?php endif; ?><br/><br/>
 
     <input type="submit" name="submit" value="Add Employee">
