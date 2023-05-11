@@ -24,13 +24,13 @@
     $total = 0;
     while ($row_pet = mysqli_fetch_assoc($result_pets)) {
         $pet_id = $row_pet['pet_id'];
-        $sql_total = "SELECT COUNT(*) AS total FROM appointment WHERE pet_id = '$pet_id' ";
+        $sql_total = "SELECT COUNT(*) AS total FROM appointment WHERE pet_id = '$pet_id' AND appointment_status = 'Pending'";
         $result_total = mysqli_query($conn, $sql_total);
         $row_total = mysqli_fetch_assoc($result_total);
         $total += $row_total['total'];
     }
 
-    $sql_total1 = "SELECT COUNT(*) AS total1 FROM pet WHERE  owner_id ='{$row_owner['owner_id']}'";
+    $sql_total1 = "SELECT COUNT(*) AS total1 FROM pet WHERE  owner_id ='{$row_owner['owner_id']}' AND pet_availability = 'Registered'";
     $result_total1 = mysqli_query($conn, $sql_total1);
     $row1 = mysqli_fetch_array($result_total1);
     $total1 = "";
@@ -198,6 +198,7 @@
                   <tr>
                       <th>Pet Name</th>
                       <th>Date</th>
+                      <th>Time</th>
                       <th>Slot No</th>
                       <th>Doctor</th>
                   </tr>
@@ -209,7 +210,7 @@
             ON a.pet_id = p.pet_id INNER JOIN pet_owner o 
             ON o.owner_id = p.owner_id 
             INNER JOIN employee e ON e.emp_id = a.vet_id 
-            WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}') AND a.appointment_date >= '$currentDate'
+            WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}') AND a.appointment_date >= '$currentDate' AND appointment_status = 'Pending'
             ORDER BY a.appointment_date, a.appointment_slot LIMIT 1";
     $result_getdetails = mysqli_query($conn, $sql);
 
@@ -218,6 +219,7 @@
             echo '<tr > 
             <td> ' . $row_getdetails["pet_name"] . '</td>
             <td>' . $row_getdetails["appointment_date"] . '</td>
+            <td>' . $row_getdetails["appointment_time"] . '</td>
             <td>' . $row_getdetails["appointment_slot"] . '</td>
             <td>' . $row_getdetails["emp_name"] . '</td>
             </tr>';

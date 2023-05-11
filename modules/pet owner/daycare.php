@@ -51,15 +51,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $row_availability = mysqli_fetch_array($result_availability);
     if ($row_availability[0] > 5) {
         echo '<script>alert("There are no available slots for the selected date")</script>';
+
     } else {
+
         //get pet ID from database
         $sql_getpid = "SELECT pet_id FROM pet WHERE owner_id='$owner_id' AND pet_name='$pet_name'";
         $result_getpid = mysqli_query($conn, $sql_getpid);
         $row = mysqli_fetch_array($result_getpid);
         $pet_id = $row['pet_id'];
 
+        //duplicate entry
+        $sql_duplicate="SELECT * FROM `daycare` WHERE `daycare_date`='$daycare_date' AND `pet_id` = '$pet_id' AND daycare_status != 'Cancelled'";
+        $r2=mysqli_query($conn,$sql_duplicate);
+        $r_2=mysqli_num_rows($r2); 
+        if($r_2>0) {
+            echo"<script>alert('Datcare Date already Booked')</script>";
+        } else {
+
         //insert data into the daycare table
-        $sql = "INSERT INTO daycare (daycare_id,pet_id, pet_name, daycare_date,owner_id) VALUES ('$daycare_id','$pet_id','$pet_name','$daycare_date','$owner_id','Pending')";
+        $sql = "INSERT INTO daycare (daycare_id,pet_id, pet_name, daycare_date,owner_id) VALUES ('$daycare_id','$pet_id','$pet_name','$daycare_date','$owner_id')";
         $result = mysqli_query($conn, $sql);
 
         if ($result == TRUE) {
@@ -69,6 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<script>alert("There is an error in booking")</script>';
         }
     }
+}
 }
 
 ?>
@@ -176,6 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $option = $optionData['pet_name'];
                                     ?>
                                     <?php
+                                    
                                     //selected option
                                     if (!empty($pet_name) && $pet_name == $option) {
                                         // selected option
@@ -194,8 +206,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="form-content">
                         <label class="loging-label1">DayCare Date</label>
-                        <input type="date" name="daycare_date" placeholder="daycare date" min="<?= date('Y-m-d') ?>"
-                            required>
+                        <?php
+        $currentDate = date('Y-m-d');
+        $nextfiveDays = date('Y-m-d', strtotime($currentDate . ' +4 days'));
+    ?>
+    <input type="date" name="daycare_date" min="<?= $currentDate ?>" max="<?= $nextfiveDays ?>" required>
                     </div>
 
 
@@ -250,37 +265,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
 
 
+                    
+                        $sql = "SELECT e.pet_id, e.pet_name, e.daycare_date, e.daycare_id, e.daycare_status FROM daycare e INNER JOIN pet_owner o ON o.owner_id = e.owner_id WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
+                    
+                        // Check if pet_name parameter is set in the URL
+                        if (isset($_GET['pet_name'])) {
+                            // Sanitize input value to prevent SQL injection
+                            $pet_name = mysqli_real_escape_string($conn, $_GET['pet_name']);
+                            // Include pet_name condition in SQL query
+                            $sql .= " AND e.pet_name LIKE '%$pet_name%'";
+                        }
+                    
                         $result = mysqli_query($conn, $sql);
                         if (mysqli_num_rows($result) > 0) {
                             $currentDate = date('Y-m-d');
-                            $status = $row['status'];
-                        
+                    
                             while ($row = mysqli_fetch_assoc($result)) {
-                        
+                                $daycare_id = $row['daycare_id'];
+                                $daycare_status = $row['daycare_status'];
+                    
                                 echo '<tr > 
-                                    <td>' . $row["pet_id"] . '</td>
-                                    <td> ' . $row["pet_name"] . '</td> 
-                                    <td>' . $row["daycare_date"] . '</td>
-                                    <td class="action">';
-                        
+                                        <td>' . $row["pet_id"] . '</td>
+                                        <td> ' . $row["pet_name"] . '</td> 
+                                        <td>' . $row["daycare_date"] . '</td>
+                                        <td class="action">';
+                    
                                 // Check if appointment is completed
-                                if ($status == 'Cancelled' || $status == 'Completed') {
+                                if ($daycare_status == 'Cancelled' || $daycare_status == 'Completed') {
                                     echo '<button class="btn-add2" type="submit">Cannot Delete</button>';
                                 } elseif (strtotime($row['daycare_date']) >= strtotime($currentDate)) {
                                     // Display delete button and handle delete request
                                     echo '<form action="" method="POST">
-                                        <button class="btn-add3" type="submit" name="' . $daycare_id . '">Cancel</button>
-                                    </form>';
-                        
+                                            <button class="btn-add3" type="submit" name="' . $daycare_id . '">Cancel</button>
+                                        </form>';
+                    
                                     if (isset($_POST[$daycare_id])) {
                                         // Check if appointment date is in the future
                                         if (strtotime($row['daycare_date']) > strtotime($currentDate)) {
                                             // Delete appointment
-                                            $sql = "UPDATE daycare SET status = 'Cancelled' WHERE daycare_id = '$daycare_id'";
+                                            $sql = "UPDATE daycare SET daycare_status = 'Cancelled' WHERE daycare_id = '$daycare_id'";
                                             if ($conn->query($sql) === TRUE) {
                                                 // Success message
                                                 echo '<script>alert("Slot deleted successfully.");</script>';
-                                                $status = 'Cancelled';
+                                                $daycare_status = 'Cancelled';
                                             } else {
                                                 // Error message
                                                 echo '<script>alert("Error deleting Slot");</script>';
@@ -291,28 +318,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     // Display cannot delete button
                                     echo '<button class="btn-add2" type="submit">Cannot Delete</button>';
                                 }
-                        
+                    
                                 echo '</td>';
-                        
-                                if ($status == 'Cancelled') {
+                    
+                                if ($daycare_status == 'Cancelled') {
                                     $status_text = 'Cancelled';
                                 } elseif ($row['daycare_date'] >= $currentDate) {
                                     $status_text = 'Pending';
-                                } elseif ($status != 'Cancelled' && $row['daycare_date'] < $currentDate) {
+                                } elseif ($daycare_status != 'Cancelled' && $row['daycare_date'] < $currentDate) {
                                     $status_text = 'Completed';
                                 }
-                        
                                 // Update appointment status in database
-                                $sql = "UPDATE daycare SET status = '$status_text' WHERE daycare_id = '$daycare_id'";
+                                $sql = "UPDATE daycare SET daycare_status = '$status_text' WHERE daycare_id = '$daycare_id'";
                                 if ($conn->query($sql) === TRUE) {
                                     // Success message
                                 }
-                        
                                 // Display the availability status for each appointment
                                 echo '<td class="action1"> 
                                         <p>' . $status_text . '</p>
                                     </td>';
-                        
                                 echo '</tr>';
                             }
                         } else {

@@ -20,7 +20,7 @@
 
     // generate the new pet ID
     if ($max_id === null) {
-        $appointment_id = "P001";
+        $appointment_id = "A001";
     } else {
         $num = intval(substr($max_id, 1)) + 1;
         if ($num < 10) {
@@ -38,22 +38,27 @@
         $date = date('Y-m-d', strtotime($_POST['date']));
         $pet_name = $_POST['pet_name'];
         $emp_name=$_POST['emp_name'];
+        $time_slot=$_POST['time_slot'];
+        // var_dump($date) or die();
 
-        //get the appointment slot no
-        $sql_getappointmentcount = "SELECT COUNT(*) FROM appointment WHERE appointment_date = '$date'";
-        $result_getappointmentcount = mysqli_query($conn, $sql_getappointmentcount);
-        $row_getappointmentcount = mysqli_fetch_array($result_getappointmentcount);
-        $count = $row_getappointmentcount[0] + 1;
-        echo $count;
+      //get the appointment slot no
+    $sql_getappointmentcount = "SELECT COUNT(*) FROM appointment WHERE appointment_date = '$date'";
+    $result_getappointmentcount = mysqli_query($conn, $sql_getappointmentcount);
+    $row_getappointmentcount = mysqli_fetch_array($result_getappointmentcount);
+    $count = $row_getappointmentcount[0] + 1;
 
-        // Get the last appointment's slot ID
-$sql_get_slot_id = "SELECT appointment_slot FROM appointment ORDER BY appointment_id DESC LIMIT 1";
-$result_get_slot_id = mysqli_query($conn, $sql_get_slot_id);
-$row_get_slot_id = mysqli_fetch_assoc($result_get_slot_id);
-$last_slot_id = $row_get_slot_id['appointment_slot'];
+    // Get the last appointment's slot ID for the chosen date
+    $sql_get_slot_id = "SELECT appointment_slot FROM appointment WHERE appointment_date = '$date' ORDER BY appointment_id DESC LIMIT 1";
+    $result_get_slot_id = mysqli_query($conn, $sql_get_slot_id);
+    $row_get_slot_id = mysqli_fetch_assoc($result_get_slot_id);
+    $last_slot_id = $row_get_slot_id['appointment_slot'];
 
-// Increment the slot ID
-$new_slot_id = ++$last_slot_id;
+    // Increment the slot ID or reset it for a new day
+    if ($count <= 5 && $last_slot_id !== null) {
+        $new_slot_id = ++$last_slot_id;
+    } else {
+        $new_slot_id = 1;
+    }
 
         //get pet ID
         $sql_getpid="SELECT pet_id FROM pet WHERE owner_id='$owner_id' AND pet_name='$pet_name'";
@@ -68,57 +73,45 @@ $new_slot_id = ++$last_slot_id;
         $emp_id = $row_vid['emp_id'];
 
         //check availability of the vet
-        // Get the requested appointment date
-$date = $_POST['date'];
+       $sqlc="SELECT * FROM `holiday` WHERE `emp_id`= '$emp_id' AND `approval_stage`= 'Approved'  AND `from_date` <= '$date' AND `to_date`>= '$date'";
+     $r=mysqli_query($conn,$sqlc);
+     $r1=mysqli_num_rows($r);
+    //   var_dump($r1) or die();
+    if($r1>0) {
+        echo"<script>alert('Doctor on leave')</script>";
+    } else {
 
-// Retrieve the vet IDs from the holiday table for the requested date where the holiday status is approved
-$sql = "SELECT emp_id FROM holiday WHERE holiday_date = '$date' AND holiday_status = 'Approved'";
-$result = $conn->query($sql);
-
-$unavailable_vets = array();
-if ($result->num_rows > 0) {
-    // Store the vet IDs in an array
-    while ($row = $result->fetch_assoc()) {
-        $unavailable_vets[] = $row['vet_id'];
-    }
-}
-
-// Exclude the unavailable vet IDs from the list of available vets for the appointment form dropdown
-$sql = "SELECT emp_id FROM holiday WHERE vet_availability = 'Available'";
-if (!empty($unavailable_vets)) {
-    $unavailable_vet_ids = implode(',', $unavailable_vets);
-    $sql .= " AND emp_id NOT IN ($unavailable_vet_ids)";
-}
-$result = $conn->query($sql);
-
-// Generate the dropdown options for available vets
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo '<option value="' . $row['vet_id'] . '">' . $row['vet_name'] . '</option>';
-    }
-} else {
-    echo '<option value="">No available vets</option>';
-}
-
+        $sql_time="SELECT * FROM appointment WHERE appointment_date = '$date' AND appointment_time = '$time_slot' AND appointment_status != 'Cancelled'
+        ";
+        $r3=mysqli_query($conn,$sql_time);
+        $r_3=mysqli_num_rows($r3); 
+        if($r_3>0) {
+            echo"<script>alert('Time Slot Already taken')</script>";
+        } else {
 
         //check duplicate entry
+        $sql_duplicate="SELECT * FROM `appointment` WHERE `appointment_date`='$date' AND `pet_id` = '$pet_id' AND appointment_status != 'Cancelled'";
+        $r2=mysqli_query($conn,$sql_duplicate);
+        $r_2=mysqli_num_rows($r2); 
+        if($r_2>0) {
+            echo"<script>alert('Pet already Booked')</script>";
+        } else {
 
-        
-
-        if($count>10){
-            echo '<script>alert("The date is already filled")</script>'; 
-        }else{
-            $sql = "INSERT INTO appointment VALUES ('$appointment_id','$date','$new_slot_id','$emp_id','$pet_id','Available')";
+            $sql = "INSERT INTO appointment VALUES ('$appointment_id','$date','$time_slot','$new_slot_id','$emp_id','$pet_id','Available')";
             $result = mysqli_query($conn, $sql);
     
             if ($result == TRUE) {
                 echo '<script>alert("Your appointment slot is booked")</script>';
+                header("location:viewapp.php");
 
             } else {
                 echo '<script>alert("There is an error in booking")</script>';
             }
-        }        
-    }        
+              
+    } 
+} 
+    }   
+}
 ?> 
 
 <!DOCTYPE html>
@@ -220,7 +213,7 @@ if ($result->num_rows > 0) {
                 <?php
                     
                     //get the pet name from the sql table
-                    $sql_mid="SELECT pet_name FROM pet WHERE owner_id='$owner_id' "; 
+                    $sql_mid="SELECT pet_name FROM pet WHERE owner_id='$owner_id' AND pet_availability != 'Deleted' "; 
                     $result_getdata = $conn->query($sql_mid);
                     if($result_getdata->num_rows> 0){
                         while($optionData=$result_getdata->fetch_assoc()){
@@ -274,12 +267,29 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="form-content">
-                <label class="loging-label1">Preferred day of appointment</label>
-                <input type="date" name="date" min="<?= date('Y-m-d') ?>" required>
-            </div>
+    <label class="loging-label1">Preferred day of appointment</label>
+    <?php
+        $currentDate = date('Y-m-d');
+        $nextnineDays = date('Y-m-d', strtotime($currentDate . ' +4 days'));
+    ?>
+    <input type="date" name="date" min="<?= $currentDate ?>" max="<?= $nextnineDays ?>" required>
+</div>
+
+<div class="form-content">
+                    <label class="loging-label1">Available Time Slots</label>
+                    <select name="time_slot" type="text" required>
+                        <option value="">--Select time slot--</option>
+                        <option value="8.00am">8.00am</option>
+                        <option value="10.00am">10.00am</option>
+                        <option value="12.00am">12.00am</option>
+                        <option value="2.00am">2.00am</option>
+                        <option value="4.00am">4.00am</option>
+
+                    </select>
+                </div>
 
             <div class="form-content">
-                <button class="btn-add" type="submit"><a href="viewapp.php">Confirm</a></button>
+                <button class="btn-add" type="submit">Confirm</button>
             </div>
 </form>
     

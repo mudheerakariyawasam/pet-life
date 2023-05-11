@@ -159,8 +159,13 @@
                 while ($row = mysqli_fetch_assoc($result)) {
                     $pet_id = $row["pet_id"];
                     $pet_availability = $row["pet_availability"];
-                    
-                    echo '<tr > 
+                
+                    // Skip displaying the row if the pet is deleted
+                    if ($pet_availability == 'Deleted') {
+                        continue;
+                    }
+                
+                    echo '<tr> 
                         <td>' . $row["pet_id"] . '</td>
                         <td> ' . $row["pet_name"] . '</td>
                         <td>' . $row["pet_gender"] . '</td> 
@@ -168,19 +173,18 @@
                         <td>' . $row["pet_type"] . '</td>
                         <td>' . $row["pet_breed"] . '</td>
                         <td class="action">';
-                    
+                
                     // Check if pet is deleted
-                    if ($pet_availability == 'Deleted') {
-                        echo '<button class="btn-add2" type="button">Cannot Delete</button>';
-                    } else {
+                    if ($pet_availability != 'Deleted')
+                     {
                         // Display delete button and handle delete request
                         echo '<form action="" method="post">
                                 <button class="btn-add3" type="submit" name="' . $pet_id . '">Delete</button>
                               </form>';
                     }
-                    
+                
                     echo '</td>';
-                    
+                
                     if (isset($_POST[$pet_id])) {
                         // Check if pet is available to delete
                         if ($pet_availability != 'Deleted') {
@@ -196,7 +200,7 @@
                             }
                         } 
                     }
-                    
+                
                     // Display the availability status for each pet
                     if ($pet_availability == 'Deleted') {
                         echo '<td class="action1">
@@ -207,10 +211,10 @@
                             <p>Registered</p>
                         </td>';
                     }
-                    
                 }
-                
-        }
+                            
+                    
+            }
         else{
         echo  '<td colspan="8">No Appointments</td>';
         }

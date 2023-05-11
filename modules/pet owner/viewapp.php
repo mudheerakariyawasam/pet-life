@@ -121,6 +121,7 @@ if (!isset($_SESSION["login_user"])) {
                     <tr>
                         <th>Pet Name</th>
                         <th>Date</th>
+                        <th>Time</th>
                         <th>Slot No</th>
                         <th>Doctor</th>
                         <th>Action</th>
@@ -130,7 +131,11 @@ if (!isset($_SESSION["login_user"])) {
                     <?php
                     $loggedInUser = $_SESSION['login_user'];
                     $currentDate = date('Y-m-d');
-                    $sql = "SELECT * FROM appointment a INNER JOIN pet p ON a.pet_id = p.pet_id INNER JOIN pet_owner o ON o.owner_id = p.owner_id INNER JOIN employee e ON e.emp_id = a.vet_id WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
+                    $sql = "SELECT * FROM appointment a
+                     INNER JOIN pet p ON a.pet_id = p.pet_id 
+                     INNER JOIN pet_owner o ON o.owner_id = p.owner_id
+                      INNER JOIN employee e ON e.emp_id = a.vet_id
+                       WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}') AND a.appointment_status != 'Cancelled'";
 
                     // Check if pet_name parameter is set in the URL
                     if (isset($_GET['pet_name'])) {
@@ -140,36 +145,41 @@ if (!isset($_SESSION["login_user"])) {
                         $sql .= " AND p.pet_name LIKE '%$pet_name%'";
                     }
 
-                    $sql .= " ORDER BY a.appointment_date ASC, a.appointment_slot ASC";
+                    $sql .= " ORDER BY a.appointment_date DESC";
                     $result_getdetails = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result_getdetails) > 0) {
                         while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {
                             $appointment_id = $row_getdetails["appointment_id"];
                             $appointment_status = $row_getdetails["appointment_status"];
+                            $pet_availability = $row_getdetails["pet_availability"];
+
                             
                             echo '<tr> 
                                 <td>' . $row_getdetails["pet_name"] . '</td>
                                 <td>' . $row_getdetails["appointment_date"] . '</td>
+                                <td>' . $row_getdetails["appointment_time"] . '</td>
                                 <td>' . $row_getdetails["appointment_slot"] . '</td>
                                 <td>' . $row_getdetails["emp_name"] . '</td>
                                 <td class="action">';
                             
                             // Check if appointment is completed
-                            if ($appointment_status == 'Completed' || $appointment_status == 'Cancelled') {
+                            if ($appointment_status == 'Completed') {
                                 echo '<button class="btn-add2" type="button">Cannot Delete</button>';
                             } else {
                                 // Display delete button and handle delete request
                                 if (isset($_POST[$appointment_id])) {
                                     // Check if appointment date is in the future
-                                    if (strtotime($row_getdetails['appointment_date']) > strtotime($currentDate)) {
+                                    if (strtotime($row_getdetails['appointment_date']) >= strtotime($currentDate)) {
                                         // Delete appointment
                                         $sql = "UPDATE appointment SET appointment_status = 'Cancelled' WHERE appointment_id = '$appointment_id'";
                                         if ($conn->query($sql) === TRUE) {
                                             // Success message
                                             echo '<script>alert("Appointment deleted successfully.");</script>';
+                                           
                                             $appointment_status = 'Cancelled';
-                                            echo '<button class="btn-add2" type="button">Cannot Delete</button>';
+                                            echo "<script>window.location ='viewapp.php'</script>";
+                                            // echo '<button class="btn-add2" type="button">Cannot Delete</button>';
                                         } else {
                                             // Error message
                                             echo '<script>alert("Error deleting appointment");</script>';
@@ -190,9 +200,8 @@ if (!isset($_SESSION["login_user"])) {
                             echo '</td>';
                             
                             // Determine appointment status
-                            if ($appointment_status == 'Cancelled') {
+                            if ($appointment_status == 'Cancelled' || $pet_availability == 'Deleted') {
                                 $appointment_status_text = 'Cancelled';
-                                $appointment_status_button = 'Cannot Delete';
                             } elseif ($row_getdetails['appointment_date'] >= $currentDate) {
                                 $appointment_status_text = 'Pending';
                                 $appointment_status_button = 'Delete';

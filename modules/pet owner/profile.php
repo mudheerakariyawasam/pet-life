@@ -40,9 +40,9 @@ $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
 // Update the specified columns
-if (!empty($new_full_name)) {
+if (!empty($new_name)) {
     $update_sql = "UPDATE pet_owner SET  owner_fname=SUBSTRING_INDEX('$new_name', ' ', 1), owner_lname=SUBSTRING_INDEX('$new_name', ' ', -1) WHERE owner_id='$owner_id'";
-    $row['full_name'] = $new_full_name;
+    $row['full_name'] = $new_name;
 }
 if (!empty($new_email)) {
     $update_sql = "UPDATE pet_owner SET owner_email='$new_email' WHERE owner_id='$owner_id'";
@@ -221,6 +221,9 @@ $update_result = mysqli_query($conn, $update_sql);
                             </div>
                             <div class="pwd-content">
                 <button class="btn-add" fdprocessedid="a0hv6">Update</button>
+            </div>
+            <div class="pwd-content">
+                <button class="btn-add" fdprocessedid="a0hv6">Delete</button>
             </div>
            
                     </form>

@@ -379,6 +379,22 @@ button:hover {
         border-radius: 10px;
         }
         
+        .btn-add2{
+            background-color: #b11414;
+            color: rgb(255, 255, 255);
+             padding: 5px 5px;
+            border-radius: 20px;
+            /* box-shadow: 0px 0px 2px 2px rgb(0,0,0); */
+            box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
+            border: none;
+            /* margin: auto; */
+            width: 120px;
+            float:right;
+            font-family: poppins, sans-serif;
+            font-style: normal;
+            font-weight: 800;
+            cursor: pointer;
+            }
     
 .error {
     background: #F2DEDE;
@@ -419,15 +435,14 @@ a {
     margin-top: 0px;
     font-weight:600;
 }
-
 table {
     border: none;
     border-collapse: collapse;
-    width:90%;
-  margin-left: 20px;
-  margin-top: 20px;
-  margin-right: 90px;
-  }
+    width: 80%;
+    margin-left: 117px;
+    margin-top: 23px;
+    margin-right: 37px;
+}
 
   th, td {
     width:120px;
@@ -465,9 +480,9 @@ display: block;
         border-radius: 10px;
     }
 
-    .filter{
+    .filter {
         margin-top: 150px;
-        margin-left: 20px;
+        margin-left: 190px;
     }
 
     .btn-add1 {
