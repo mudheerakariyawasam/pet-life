@@ -1,10 +1,11 @@
 <?php
+include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
-include("../dbconnection.php");
     if(!isset($_SESSION["login_user"])){
         header("location:login.php");
         exit;
     }
+    $vet_id = $_SESSION["emp_id"];
 
 //Get the total no of clients in the database
 
@@ -156,64 +157,51 @@ include("../dbconnection.php");
                 <div class="heading">Today's Appointments</div>
             </center>
             <br /><br /><br />
+            
             <div class="table">
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>ID</th>
-                        <th>Pet ID</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display:flex;">
-                                <div><img src="../images/client.png"></div>
-                                <div><br />
-                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tushan Janith</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>C001</td>
-                        <td>P012</td>
-                        <td>12/12/2022</td>
-                        <td>9.30 a.m.</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display:flex;">
-                                <div><a href="viewcustomer.php"><img src="../images/client.png"></a></div>
-                                <div><br />
-                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="viewcustomer.php">Sachintha
-                                            Perera</a></p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>C002</td>
-                        <td>P002</td>
-                        <td>12/12/2022</td>
-                        <td>9.30 a.m.</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div style="display:flex;">
-                                <div><img src="../images/client.png"></div>
-                                <div><br />
-                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Navindu Usliyanage</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>C005</td>
-                        <td>P043</td>
-                        <td>12/12/2022</td>
-                        <td>9.30 a.m.</td>
-                    </tr>
-                </table>
-            </div>
+            
+    <?php
+    $today = date("Y-m-d");
+    $sql_appointments="SELECT appointment_id, appointment_date, appointment_slot, pet_id FROM appointment WHERE vet_id = '$vet_id' AND appointment_date = '$today'";
+    $result_appointments = mysqli_query($conn, $sql_appointments);
+    if(mysqli_num_rows($result_appointments)>0){
+    
+        echo "<table class='appointment-table'>";
+        echo "<thead><tr><th>Date</th><th>Time Slot</th><th>Pet ID</th><th>Owner Name</th></tr></thead>";
+        echo "<tbody>";
+        while($row = mysqli_fetch_assoc($result_appointments)) {
+            $pet_id = $row["pet_id"];
+            
+            //get owner ID
+            $sql_pet = "SELECT owner_id FROM pet WHERE pet_id = '$pet_id'";
+            $result_pet = mysqli_query($conn, $sql_pet);
+            $row_pet = mysqli_fetch_assoc($result_pet);
+            $owner_id = $row_pet["owner_id"];
+
+            //get owner name
+            $sql_name = "SELECT owner_fname FROM pet_owner WHERE owner_id = '$owner_id'";
+            $result_name = mysqli_query($conn, $sql_name);
+            $row_name = mysqli_fetch_assoc($result_name);
+
+            echo "<tr><td>" . $row["appointment_date"] . "</td>
+                <td>" . $row["appointment_slot"] . "</td>
+                <td><a href='viewcustomer.php?pet_id=" . $row["pet_id"] . "&owner_id=" . $owner_id . "'>" . $row ["pet_id"] . "</a></td>
+                <td>".$row_name["owner_fname"]."</td>
+            </tr>";
+        }
+        echo "</tbody>";
+        echo "</table>";
+    } else {
+        echo "<p>No appointments for today.</p>";
+    }
+    ?>
+            
+</div>
+          
 
         </div>
     </div>
-    <script src="script.js"></script>
+  
 </body>
 
 </html>

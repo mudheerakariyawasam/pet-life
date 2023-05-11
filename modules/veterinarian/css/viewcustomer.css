@@ -129,7 +129,7 @@ body {
 }
 
 .content {
-  position: relative;
+  position: relative; 
   background: var(--backgroundcolour3);
   width: 82%;
   margin-left: 18%;

@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($row["emp_designation"] == "Veterinarian") {
                     $_SESSION['login_user'] = $myemail;
                     $_SESSION['user_name'] = $row["emp_name"];
+                    // $_SESSION["vet_id"] = $row["vet_id"];
                     header("location: ../modules/veterinarian/controllers/dashboard.php");
                 }
          if ($row["emp_designation"] == "Assistant") {

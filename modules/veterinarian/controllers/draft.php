@@ -21,28 +21,8 @@ if ($view_selected_client->num_rows > 0) {
     $tpn = $row['owner_contactno'];
     $address = $row['owner_address'];
     $nic = $row['owner_nic'];
+    
 
-
-    // Retrieve pet details based on owner ID
-    $sqlPet = "SELECT * FROM pet WHERE owner_id = '$id'";
-    $resultPet = mysqli_query($conn, $sqlPet);
-
-
-    // Process the retrieved pet data
-    if ($resultPet->num_rows > 0) {
-        // Loop through each row of pet data
-        while ($rowPet = mysqli_fetch_assoc($resultPet)) {
-            // Retrieve the specific column values
-            $petID = $rowPet['pet_id'];
-            $petName = $rowPet['pet_name'];
-            $petGender = $rowPet['pet_gender'];
-            $petAge = $rowPet['pet_dob'];
-            $petType = $rowPet['pet_type'];
-            $petBreed = $rowPet['pet_breed'];
-        }
-    } else {
-        echo "No pets found for this owner.";
-    }
 } else {
     echo "No data found.";
     $conn->close();
@@ -133,12 +113,10 @@ if ($view_selected_client->num_rows > 0) {
                 <div class="cont1">
                     <!-- <center><img src="../images/buttler.png"><br /> -->
                     <div class="pet-name">
-                        <p>Owner Name :
-                            <?php echo $fullName; ?>
-                        </p>
+                        <p>Owner Name : <?php echo $fullName; ?></p>
                     </div>
-
-                    <?php echo $email; ?>
+                       
+                        <?php echo $email; ?>
                     </center>
                     <div class="appoint">
                         <center>Appointments</center>
@@ -204,9 +182,55 @@ if ($view_selected_client->num_rows > 0) {
 <br/> -->
 
                     <div class="pet-name">
-                        <p>Pet Name :
-                            <?php echo $petName; ?>
-                        </p>
+                        <p>Pet Name : 
+                        <select id='pet_name' name='pet_name' class='dropdown-list'>
+                        <?php
+                            
+                            //get the medicine IDs from the sql table
+                            $sqlPet = "SELECT * FROM pet WHERE owner_id = '$id'";
+                            $resultPet = mysqli_query($conn, $sqlPet);
+
+                            if($resultPet->num_rows> 0){
+                                while($optionData=$resultPet->fetch_assoc()){
+                                $option =$optionData['pet_name'];
+                            ?>
+                            <?php
+                                //selected option
+                                if(!empty($pet_name) && $pet_name== $option){
+                                // selected option
+                            ?>
+                            <option value="<?php echo $option; ?>" selected><?php echo $option; ?> </option>
+                            <?php 
+                                continue;
+                            }?>
+                            <option value="<?php echo $option; ?>" ><?php echo $option; ?> </option>
+                            <?php
+                                }}
+                            ?>
+                        </select>
+
+                        <?php  
+                            // Retrieve pet details based on owner ID
+                            $sql_getdetails = "SELECT * FROM pet WHERE owner_id = '$id' AND pet_name='$option'";
+                            $result_getdetails = mysqli_query($conn, $sql_getdetails);
+
+                            // Process the retrieved pet data
+                            if ($result_getdetails->num_rows > 0) {
+                               
+                                // Loop through each row of pet data
+                                while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {                                    
+                                    // Retrieve the specific column values
+                                    $petID = $row_getdetails['pet_id'];
+                                    $petName = $row_getdetails['pet_name'];
+                                    $petGender = $row_getdetails['pet_gender'];
+                                    $petAge = $row_getdetails['pet_dob'];
+                                    $petType = $row_getdetails['pet_type'];
+                                    $petBreed = $row_getdetails['pet_breed'];
+                                }
+                            } else {
+                                echo "No pets found for this owner.";
+                            }   
+                        ?></p>
                     </div>
 
                     <div class="dog-img"><img src="../images/dog.png" width=40%></div>
@@ -215,9 +239,7 @@ if ($view_selected_client->num_rows > 0) {
                     <div class="pet-details">
                         <div class="pet-details-list-1">
                             <p>Pet ID</p>
-                            <p>
-                                <?php echo $petID; ?>
-                            </p>
+                            <p><?php echo $petID; ?></p>
                             <hr />
                             <br />
 
@@ -227,9 +249,7 @@ if ($view_selected_client->num_rows > 0) {
                             <br /> -->
 
                             <p>Date of Birth</p>
-                            <p>
-                                <?php echo $petAge; ?>
-                            </p>
+                            <p><?php echo $petAge; ?></p>
                             <hr />
                             <br />
 
@@ -239,25 +259,19 @@ if ($view_selected_client->num_rows > 0) {
                             <br /> -->
 
                             <p>Gender</p>
-                            <p>
-                                <?php echo $petGender; ?>
-                            </p>
+                            <p><?php echo $petGender; ?></p>
                             <hr />
                             <br />
 
                         </div>
                         <div class="pet-details-list-2">
                             <p>Pet Type</p>
-                            <p>
-                                <?php echo $petType; ?>
-                            </p>
+                            <p><?php echo $petType; ?></p>
                             <hr />
                             <br />
 
                             <p>Breed</p>
-                            <p>
-                                <?php echo $petBreed; ?>
-                            </p>
+                            <p><?php echo $petBreed; ?></p>
                             <hr />
                             <br />
                             <br />
@@ -275,7 +289,11 @@ if ($view_selected_client->num_rows > 0) {
                 </div>
             </div>
 
+
+
+
         </div>
+        <script src="script.js"></script>
 </body>
 
 </html>
