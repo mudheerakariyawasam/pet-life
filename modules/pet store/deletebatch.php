@@ -4,18 +4,21 @@
     if(!isset($_SESSION["login_user"])){
         header("location:login.php");
         exit;
+    } 
+    
+    if (isset($_POST['batch_id']) && isset($_POST['batch_status'])) {
+        // Sanitize the inputs to prevent SQL injection attacks
+        $batch_id = mysqli_real_escape_string($conn, $_POST['batch_id']);
+        $batch_status = mysqli_real_escape_string($conn, $_POST['batch_status']);
+
+        // Construct the update query with a CASE statement to update the column with the string "enable" or "disable" instead of the integer 1 or 0
+        $sql = "UPDATE batch SET batch_status = CASE WHEN '$batch_status' = '1' THEN 'Available' WHEN '$batch_status' = '0' THEN 'Deleted' ELSE batch_status END WHERE batch_id='$batch_id'";
+        if (mysqli_query($conn, $sql)) {
+            echo "Batch deleted successfully.";
+        } else {
+            echo "Error Deleting: " . mysqli_error($conn);
+        }
+    } else {
+        echo "Invalid request.";
     }
-    if (isset($_GET['batch_id'])) {
-        
-        $batch_id = $_GET['batch_id'];
-        $sql = "UPDATE batch SET batch_status='Deleted' WHERE batch_id='$batch_id'";
-        $result = mysqli_query($conn,$sql);
-             
-        if($result) { 
-            echo "<script>Swal.fire(\"Deleted Successfully\");</script>";
-            header("location: viewallbatch.php");
-        }else {
-            echo "There is an error in deleting!";
-        } 
-    }    
  ?>

@@ -24,8 +24,8 @@
                 <li><a href="/pet-life/public/services.php">Services</a></li>
                 <li><a href="/pet-life/public/Store/store.php">Pet Store</a></li>
                 <li><a href="/pet-life/public/contactUs.php">Contact Us</a></li>
-                <li>Make an appointment</li>
-                <li><a href="#">Sign Up</a></li>
+                <li><a href="/pet-life/Auth/login.php">Make an appointment</li>
+                <li><a href="/pet-life/modules/pet owner/register.php">Sign Up</a></li>
                 <li><a href="/pet-life/Auth/login.php">Login</a></li>
             </ul>
 

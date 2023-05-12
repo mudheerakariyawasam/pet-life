@@ -2,6 +2,9 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
 
+$id = isset($_GET['updateid']) ? mysqli_real_escape_string($conn, $_GET['updateid']) : '';
+
+
 //Execute a query to retrieve data from the database
 $sql = "SELECT owner_id,owner_fname,owner_lname,owner_email,owner_contactno,owner_address,owner_nic FROM pet_owner";
 
@@ -169,121 +172,58 @@ if ($view_selected_client->num_rows > 0) {
 
 
                 <div class="cont2">
-
-                    <!-- <div class="top-btn-set" style="display:flex; width:96%; margin-left:2%">
-                        <div class="active-pet"><button style="background-color: #C38D9E;color: black;">Chester</button>
-                        </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <div class="inactive-pet" style="width:33.33%;"><button>Dora</button></div>
-
-                    </div> -->
-                    <br />
-                    <!-- <hr/>
-
-<br/> -->
-
-                    <div class="pet-name">
-                        <p>Pet Name : 
-                        <select id='pet_name' name='pet_name' class='dropdown-list'>
-                        <?php
-                            
-                            //get the medicine IDs from the sql table
-                            $sqlPet = "SELECT * FROM pet WHERE owner_id = '$id'";
-                            $resultPet = mysqli_query($conn, $sqlPet);
-
-                            if($resultPet->num_rows> 0){
-                                while($optionData=$resultPet->fetch_assoc()){
-                                $option =$optionData['pet_name'];
-                            ?>
-                            <?php
-                                //selected option
-                                if(!empty($pet_name) && $pet_name== $option){
-                                // selected option
-                            ?>
-                            <option value="<?php echo $option; ?>" selected><?php echo $option; ?> </option>
-                            <?php 
-                                continue;
-                            }?>
-                            <option value="<?php echo $option; ?>" ><?php echo $option; ?> </option>
-                            <?php
-                                }}
-                            ?>
-                        </select>
-
-                        <?php  
-                            // Retrieve pet details based on owner ID
-                            $sql_getdetails = "SELECT * FROM pet WHERE owner_id = '$id' AND pet_name='$option'";
-                            $result_getdetails = mysqli_query($conn, $sql_getdetails);
-
-                            // Process the retrieved pet data
-                            if ($result_getdetails->num_rows > 0) {
-                               
-                                // Loop through each row of pet data
-                                while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {                                    
-                                    // Retrieve the specific column values
-                                    $petID = $row_getdetails['pet_id'];
-                                    $petName = $row_getdetails['pet_name'];
-                                    $petGender = $row_getdetails['pet_gender'];
-                                    $petAge = $row_getdetails['pet_dob'];
-                                    $petType = $row_getdetails['pet_type'];
-                                    $petBreed = $row_getdetails['pet_breed'];
-                                }
-                            } else {
-                                echo "No pets found for this owner.";
-                            }   
-                        ?></p>
-                    </div>
-
-                    <div class="dog-img"><img src="../images/dog.png" width=40%></div>
-
-
-                    <div class="pet-details">
-                        <div class="pet-details-list-1">
-                            <p>Pet ID</p>
-                            <p><?php echo $petID; ?></p>
-                            <hr />
-                            <br />
-
-                            <!-- <p>Requested Date</p>
-                            <p>23/12/2022</p>
-                            <hr />
-                            <br /> -->
-
-                            <p>Date of Birth</p>
-                            <p><?php echo $petAge; ?></p>
-                            <hr />
-                            <br />
-
-                            <!-- <p>Weight</p>
-                            <p></p>
-                            <hr />
-                            <br /> -->
-
-                            <p>Gender</p>
-                            <p><?php echo $petGender; ?></p>
-                            <hr />
-                            <br />
-
-                        </div>
-                        <div class="pet-details-list-2">
-                            <p>Pet Type</p>
-                            <p><?php echo $petType; ?></p>
-                            <hr />
-                            <br />
-
-                            <p>Breed</p>
-                            <p><?php echo $petBreed; ?></p>
-                            <hr />
-                            <br />
-                            <br />
-                            <div class="btn-bottom-set">
-                                <button><a href="treatment_history.php">View Previous Treatments</a></button>
-                                <br /><br />
-                                <a href="add_treatment_.php"><button>Add New Treatment</button></a>
+                   
+                <div class="data-table">
+                <table id="showpets">
+                    <tr>
+                        <th>pet_id</th>
+                        <th>pet_name</th>
+                        <th>pet_gender</th>
+                        <th>pet_dob</th>
+                        <th>pet_type</th>
+                        <th>pet_breed</th>
+                        <th>Action</th>
+                    </tr>
+                    <?php
+                    
+                    $sql = "SELECT * FROM pet WHERE owner_id = '$id' AND pet_availability = 'Current'";
+                    
+                    $pets = mysqli_query($conn, $sql);
+                    // die(mysqli_fetch_assoc($clients));
+                    if (mysqli_num_rows($pets) > 0) {
+                        // die(mysqli_fetch_assoc($clients));
+                        while ($row = mysqli_fetch_assoc($pets)) {
+                            $id = $row['pet_id'];
+                            $pet_name = $row['pet_name'];
+                            $pet_gender = $row['pet_gender'];
+                            $pet_dob = $row['pet_dob'];
+                            $pet_type = $row['pet_type'];
+                            $pet_breed = $row['pet_breed'];
+                            echo '<tr>
+                            <td>' . $id . '</td>
+                            <td>' . $pet_name . '</td>
+                            <td>' . $pet_gender . '</td>
+                            <td>' . $pet_dob . '</td>
+                            <td>' . $pet_type . '</td>
+                            <td>' . $pet_breed . '</td>
+                            <td>
+                            <div class="action all" style="display:flex;">
+                            <a href="treatment_history.php? updateid=' . $id . '"><i class="fas fa-eye" style="color:blue;"></i></a>&nbsp;&nbsp;&nbsp;
+                            <a href="add_treatment_.php? updateid=' . $id . '"><i class="fas fa-plus-square" style="color:blue;"></i></a>
                             </div>
+                            </td>
+                            </tr>';
+                        }
+                    } else {
+                        // If there are no pets, display a message
+                        echo "No pets found.";
+                    }
 
-                        </div>
+                    ?>
 
-                    </div>
+                </table>
+
+            </div>
 
 
                 </div>

@@ -74,9 +74,9 @@
     <div class="user-img"><center><img src="images/logo_transparent black.png" width=200px></center></div>
         <ul>
         <li><a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Home</span></a></li>
-                <li><a href="viewallitems.php"><i class="fa fa-paw"></i><span>Pet medicines</span></a></li>
+                <li><a href="viewallitems.php"><i class="fa fa-paw"></i><span>Pet Items</span></a></li>
                 <li><a class="active"  href="viewallmedicine.php"><i class="fa fa-stethoscope"></i><span>Medicine</span></a></li>
-                <li><a href="viewallbatch.php"><i class="fa fa-stethoscope"></i><span>Batch</span></a></li>
+                <li><a href="viewallbatch.php"><i class="fa fa-stethoscope"></i><span>Batches</span></a></li>
                 <li><a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a></li>
                 <li><a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a></li>
         </ul>
@@ -94,9 +94,9 @@
                     <i class="fa-solid fa-bars"></i>
                 </div>
                 <div class="hello">
-                <font class="header-font-1">Welcome </font> &nbsp
-                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
-            </div>
+                    <font class="header-font-1">Welcome </font> &nbsp
+                    <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+                </div>
             </div>
 
 
@@ -128,7 +128,7 @@
 
 <?php
 // Define the number of records per page
-$records_per_page = 5;
+$records_per_page = 7;
 
 // Get the current page from the URL, or set it to 1 if not provided
 $current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;

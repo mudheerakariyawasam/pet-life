@@ -96,7 +96,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                         <i class="fa-solid fa-reply-all" ></i>
                         <span class="tooltiptext tooltip-all-t">all treatments</span>
                     </div>
-                    <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save" type="submit" role="button"><a href="user.php"> + Add new Client</a></button>
+                    <br>
+                    <button onclick="saveTreatment(event)" class="btn-add" name="" type="submit" role="button"><a style="color:black;"href="user.php" > + Add new Client</a></button>
                 </div>
             </div>
             <div class="data-table">
@@ -141,9 +142,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                             <td>' . $nic . '</td>
                             <td>
                             <div class="action all" style="display:flex;">
-                            <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye" style="margin:5px;"></i></a>
+                            <a href="draft.php? updateid=' . $id . '"><i class="fa-sharp fa-solid fa-eye" style="margin:5px;"></i></a>
                             <a href="update_customer.php? updateid=' . $id . '"><i class="fa-sharp fa-solid fa-pen-to-square" style="margin:5px;"></i></a>
-                            <a href="delete_customer.php? deleteid=' . $id . '"><i class="fa-sharp fa-solid fa-trash" style="color: #542121; margin:5px;"></i></a>
                             </div>
                             </td>
                             </tr>';

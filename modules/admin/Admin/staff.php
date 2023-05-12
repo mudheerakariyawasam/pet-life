@@ -135,12 +135,6 @@ padding: 5px 10px;
 <div class="employee-title">Employee List</div><hr>
 <br/>
 
-
-
-
-
-
-
 <div class="search-box">
     <label for="search-input">Search:</label>
     <input type="text" id="search-input" placeholder="Search by ID or Name...">

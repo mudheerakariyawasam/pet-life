@@ -55,11 +55,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/updateprofile.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <title></title>
     <style>
-        .modal {
-    display: none;
+.modal {
+    /* display: none; */
     position: fixed;
     z-index: 1;
     left: 0;
@@ -265,13 +266,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </p>
                     </form>
                     <?php if (isset($_GET['password_changed'])): ?>
-                        <div class="modal">
+    <div class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Password changed successfully!</h2>
+            
         </div>
     </div>
-    <script>
+   <script>
         // JavaScript code to handle the modal functionality
         var modal = document.querySelector('.modal');
         var closeBtn = document.querySelector('.close');
@@ -283,8 +285,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Close the modal after a certain duration (e.g., 3 seconds)
         setTimeout(function() {
             modal.style.display = 'none';
-        }, 3000);
-    </script>
+        }, 1000);
+    </script> 
 <?php endif; ?>
                     </div>
                     

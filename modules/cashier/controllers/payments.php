@@ -1,6 +1,12 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/cashier/permission.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
+
+$sql_tot = "SELECT SUM(total) AS total_bill FROM draft";
+$result_tot = mysqli_query($conn, $sql_tot);
+$row_tot = mysqli_fetch_assoc($result_tot);
+
+$total_bill = $row_tot["total_bill"];
 ?>
 
 <!DOCTYPE html>
@@ -17,45 +23,55 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&display=swap" rel="stylesheet">
     <title>Payment Details</title>
-
     <script>
         function addItem() {
-            var itemName = document.getElementById('item_name').value;
-            var quantity = document.getElementById('quantity').value;
+    var itemName = document.getElementById('item_name').value;
+    var quantity = document.getElementById('quantity').value;
 
-            // Create a new XMLHttpRequest object
-            var xhr = new XMLHttpRequest();
+    // Create a new XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
 
-            // Set up the request
-            xhr.open('POST', 'add_item.php', true);
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    // Set up the request
+    xhr.open('POST', 'add_item.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-            // Set up a callback function to handle the response
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    // Create a new table row
-                    var table = document.getElementById('item-list');
-                    var row = table.insertRow(-1);
+    // Set up a callback function to handle the response
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Parse the response as HTML
+            var parser = new DOMParser();
+            var responseDoc = parser.parseFromString(xhr.responseText, 'text/html');
 
-                    // Add cell values to the row
-                    var cell1 = row.insertCell(0);
-                    var cell2 = row.insertCell(1);
-                    var cell3 = row.insertCell(2);
-                    var cell4 = row.insertCell(3);
-                    cell1.innerHTML = itemName;
-                    cell2.innerHTML = quantity;
-                    cell3.innerHTML = itemPrice;
-                    cell4.innerHTML = quantity*itemPrice;
+            // Get the item price from the response
+            var itemPrice = responseDoc.getElementById('item_price').value;
 
-                    // Clear the form fields
-                    document.getElementById('item_name').value = '';
-                    document.getElementById('quantity').value = '';
-                }
-            };
+            // Create a new table row
+            var table = document.getElementById('item-list');
+            var row = table.insertRow(-1);
 
-            // Send the request
-            xhr.send('item_name=' + encodeURIComponent(itemName) + '&quantity=' + encodeURIComponent(quantity));
+            // Add cell values to the row
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            cell1.innerHTML = itemName;
+            cell2.innerHTML = quantity;
+            cell3.innerHTML = itemPrice;
+            cell4.innerHTML = quantity*itemPrice;
+
+            // Clear the form fields
+            document.getElementById('item_name').value = '';
+            document.getElementById('quantity').value = '';
         }
+    };
+
+    // Send the request
+    xhr.send('item_name=' + encodeURIComponent(itemName) + '&quantity=' + encodeURIComponent(quantity));
+}
+
+function calculateBill(){
+    
+}
     </script>
 </head>
 
@@ -232,7 +248,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
             <br/><br/><br/> -->
             <div class="bottom">         
                 <div class="bottom-heading-left">Employee ID: <?php echo $_SESSION['emp_id']; ?></div>
-                <div class="bottom-heading-right">Total Bill<br/>Rs.2000.00<hr/><button>Calculate Bill</button></div>
+                <div class="bottom-heading-right">Total Bill<br/><?php echo $total_bill?><hr/>
+                <button onclick="calculateBill()">Calculate Bill</button></div>
             </div>
             <br/>
 
