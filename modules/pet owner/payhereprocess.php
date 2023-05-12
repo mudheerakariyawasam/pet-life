@@ -16,6 +16,7 @@ $hash = strtoupper(
         strtoupper(md5($merchant_secret)) 
     ) 
 );
+
 $array = [];
 $array["items"] = "Door bell wireles";
 $array["first_name"] = "Saman";
@@ -33,7 +34,12 @@ $array["hash"] = $hash;
 
 
 $jsonObj = json_encode ($array);
-
-
-echo $jsonObj;
+echo "Note that you will be directed to the payment";
+//echo $jsonObj;
 ?>
+
+<html>
+    <head></head>
+    <body><script src="script.js"></script></body>
+    
+</html>

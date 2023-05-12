@@ -23,7 +23,7 @@ if ($result) {
 } else {
     echo "Please try again!";
 }
-
+//update profile
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $new_full_name = $_POST["full_name"];
@@ -42,7 +42,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 }
+
+// Initialize error message variable
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $oldPassword = mysqli_real_escape_string($conn, $_POST['oldpass']);
+    $newPassword = mysqli_real_escape_string($conn, $_POST['newpass']);
+    $confirmPassword = mysqli_real_escape_string($conn, $_POST['cnewpass']);
+
+    // Retrieve the employee's current password from the database
+    $owner_email = $_SESSION['login_user'];
+    $query = "SELECT owner_pwd FROM pet_owner WHERE owner_email='$owner_email'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_row($result);
+    print_r($row[0]);
+    $currentHashedPassword = $row[0];
+
+    // Verify the current password
+    if (md5($oldPassword) === $currentHashedPassword) {
+        // Check if the new password and confirm password match
+        if ($newPassword === $confirmPassword) {
+            // Generate the hashed password
+            $newHashedPassword = md5($newPassword);
+
+            // Update the employee's password in the database
+            $updateQuery = "UPDATE pet_owner SET owner_pwd='$newHashedPassword' WHERE owner_email='$owner_email'";
+            mysqli_query($conn, $updateQuery);
+
+            // Redirect to a success page or display a success message
+            // echo "wade hari bokka!!";
+            // Redirect to the updateprofile.php file with the error message as a query parameter
+            header("Location: profile.php?password_changed=true&error=" . urlencode($errorMsg));
+            exit();
+
+        } else {
+            echo "New password and confirm password do not match.";
+            header("Location: profile.php");
+        }
+    } else {
+        echo "Incorrect current password.";
+        header("Location: profile.php");
+    }
+}
+
+if(isset($_POST['delete'])) {
+  // Code to delete the user's account
+  
+  // Update the user table with the deleted status
+  $query = "UPDATE pet_owner SET owner_status='Deleted' WHERE owner_id='$owner_id'";
+  mysqli_query($conn, $query);
+  
+  // Redirect to the login page
+  header("Location: login.php");
+}
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -192,7 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button class="btn-add" fdprocessedid="a0hv6">Update</button>
             </div>
             <div class="pwd-content">
-                <button class="btn-add" fdprocessedid="a0hv6">Delete</button>
+                <button class="btn-add"  name="delete" fdprocessedid="a0hv6">Delete</button>
             </div>
            
                     </form>
@@ -205,20 +259,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>
             </p><div class="pwd-content">
                 <label>Current Password :</label><br>
-                <input type="password" name="owner_pwd" placeholder="Enter Current Password" fdprocessedid="w9kcn"><br>
+                <input type="password" name="oldpwd" placeholder="Enter Current Password" fdprocessedid="w9kcn"><br>
             </div>
             <div class="pwd-content">
                 <label>New Password :</label><br>
-                <input type="password" name="owner_pwd" placeholder="Enter New Password" fdprocessedid="sq99i"><br>
+                <input type="password" name="newpwd" placeholder="Enter New Password" fdprocessedid="sq99i"><br>
             </div>
             <div class="pwd-content">
                 <label>Confirm New Password :</label><br>
-                <input type="password" name="owner_pwd" placeholder="Re Enter Password" fdprocessedid="rwoku"><br>
+                <input type="password" name="cnewpwd" placeholder="Re Enter Password" fdprocessedid="rwoku"><br>
             </div>
             <div class="pwd-content">
                 <button class="btn-add" fdprocessedid="a0hv6">Confirm </button>
-            </div>
-            <p></p>
+            </div>   
+                    <?php if (isset($_GET['password_changed'])): ?>
+                        echo <script>alert("Password chsnged Successfully")</script> ;
+<?php endif; ?>
         </div>
         
             </div>

@@ -65,11 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $r2=mysqli_query($conn,$sql_duplicate);
         $r_2=mysqli_num_rows($r2); 
         if($r_2>0) {
-            echo"<script>alert('Datcare Date already Booked')</script>";
+            echo"<script>alert('Daycare Date already Booked')</script>";
         } else {
 
         //insert data into the daycare table
-        $sql = "INSERT INTO daycare (daycare_id,pet_id, pet_name, daycare_date,owner_id) VALUES ('$daycare_id','$pet_id','$pet_name','$daycare_date','$owner_id')";
+        $sql = "INSERT INTO daycare (daycare_id, pet_id, pet_name, daycare_date, owner_id) VALUES ('$daycare_id','$pet_id','$pet_name','$daycare_date','$owner_id')";
         $result = mysqli_query($conn, $sql);
 
         if ($result == TRUE) {
@@ -253,20 +253,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <th>status</th>
                         </tr>
                         <?php
-                        $sql = "SELECT e.pet_id, e.pet_name, e.daycare_date FROM daycare e INNER JOIN pet_owner o ON o.owner_id = e.owner_id 
-                    WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
-
-                        // Check if pet_name parameter is set in the URL
-                        if (isset($_GET['pet_name'])) {
-                            // Sanitize input value to prevent SQL injection
-                            $pet_name = mysqli_real_escape_string($conn, $_GET['pet_name']);
-                            // Include pet_name condition in SQL query
-                            $sql .= " AND e.pet_name LIKE '%$pet_name%'";
-                        }
+                     
 
 
                     
-                        $sql = "SELECT e.pet_id, e.pet_name, e.daycare_date, e.daycare_id, e.daycare_status FROM daycare e INNER JOIN pet_owner o ON o.owner_id = e.owner_id WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
+                        $sql = "SELECT e.pet_id, e.pet_name, e.daycare_date, e.daycare_id, e.daycare_status FROM daycare e
+                         INNER JOIN pet_owner o ON o.owner_id = e.owner_id WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
                     
                         // Check if pet_name parameter is set in the URL
                         if (isset($_GET['pet_name'])) {
@@ -284,6 +276,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 $daycare_id = $row['daycare_id'];
                                 $daycare_status = $row['daycare_status'];
                     
+                    
                                 echo '<tr > 
                                         <td>' . $row["pet_id"] . '</td>
                                         <td> ' . $row["pet_name"] . '</td> 
@@ -292,11 +285,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                                 // Check if appointment is completed
                                 if ($daycare_status == 'Cancelled' || $daycare_status == 'Completed') {
-                                    echo '<button class="btn-add2" type="submit">Cannot Delete</button>';
+                                    echo '<button class="btn-add2" type="reset">Cannot Delete</button>';
                                 } elseif (strtotime($row['daycare_date']) >= strtotime($currentDate)) {
                                     // Display delete button and handle delete request
                                     echo '<form action="" method="POST">
-                                            <button class="btn-add3" type="submit" name="' . $daycare_id . '">Cancel</button>
+                                            <button class="btn-add3" type="reset" name="' . $daycare_id . '">Cancel</button>
                                         </form>';
                     
                                     if (isset($_POST[$daycare_id])) {
@@ -316,7 +309,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     }
                                 } else {
                                     // Display cannot delete button
-                                    echo '<button class="btn-add2" type="submit">Cannot Delete</button>';
+                                    echo '<button class="btn-add2" type="reset">Cannot Delete</button>';
                                 }
                     
                                 echo '</td>';
