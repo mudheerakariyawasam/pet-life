@@ -20,8 +20,8 @@ while ($row = mysqli_fetch_assoc($all_medicines)) {
     $check_with_batch = "SELECT batch_id, batch_qty, batch_expdate FROM batch WHERE medicine_id = '$med_id'";
     $med = mysqli_query($conn, $check_with_batch);
     $med_data = mysqli_fetch_assoc($med);
-    print_r($med_data);
-    die();
+    // print_r($med_data);
+    // die();
     if ($med_data == null) {
         $row['availability'] = false;
         $row['batch_id'] = null;
@@ -135,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../css/add_treatment_.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Life</title>
+    <title></title>
 </head>
 
 <body>

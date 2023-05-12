@@ -2,7 +2,7 @@
 include("../../db/dbconnection.php");
 session_start();
 if (!isset($_SESSION["login_user"])) {
-    header("location:../../modules/pet owner/login.php");
+    header("location:../../Auth/login.php");
     exit;
 }
 ?>
@@ -133,9 +133,8 @@ if (!isset($_SESSION["login_user"])) {
                     $currentDate = date('Y-m-d');
                     $sql = "SELECT * FROM appointment a
                      INNER JOIN pet p ON a.pet_id = p.pet_id 
-                     INNER JOIN pet_owner o ON o.owner_id = p.owner_id
-                      INNER JOIN employee e ON e.emp_id = a.vet_id
-                       WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}') AND a.appointment_status != 'Cancelled'";
+                    INNER JOIN employee e ON e.emp_id = a.vet_id
+                    WHERE a.appointment_status != 'Cancelled'";
 
                     // Check if pet_name parameter is set in the URL
                     if (isset($_GET['pet_name'])) {
@@ -225,9 +224,19 @@ if (!isset($_SESSION["login_user"])) {
                             
                             echo '</tr>';
                         }
+                    
                     }
+                    else {
+                           
+                     
+                           echo '<td colspan="7"><center><img style="width:35%;" src="noresult.png"></center></td>';
+                       
+                        }
+
+                    
                     
 ?>
+</table>
             </div>
         </div>
     </div>

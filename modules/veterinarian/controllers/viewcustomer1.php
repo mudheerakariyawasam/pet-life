@@ -2,9 +2,8 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
 
-$id = isset($_GET['updateid']) ? mysqli_real_escape_string($conn, $_GET['updateid']) : '';
 //Execute a query to retrieve data from the database
-$sql = "SELECT owner_id,owner_fname,owner_lname,owner_email,owner_contactno,owner_address,owner_nic FROM pet_owner WHERE owner_id= '$id'";
+$sql = "SELECT owner_id,owner_fname,owner_lname,owner_email,owner_contactno,owner_address,owner_nic FROM pet_owner";
 
 $view_selected_client = mysqli_query($conn, $sql);
 
@@ -22,7 +21,28 @@ if ($view_selected_client->num_rows > 0) {
     $tpn = $row['owner_contactno'];
     $address = $row['owner_address'];
     $nic = $row['owner_nic'];
- 
+
+
+    // Retrieve pet details based on owner ID
+    $sqlPet = "SELECT * FROM pet WHERE owner_id = '$id'";
+    $resultPet = mysqli_query($conn, $sqlPet);
+
+
+    // Process the retrieved pet data
+    if ($resultPet->num_rows > 0) {
+        // Loop through each row of pet data
+        while ($rowPet = mysqli_fetch_assoc($resultPet)) {
+            // Retrieve the specific column values
+            $petID = $rowPet['pet_id'];
+            $petName = $rowPet['pet_name'];
+            $petGender = $rowPet['pet_gender'];
+            $petAge = $rowPet['pet_dob'];
+            $petType = $rowPet['pet_type'];
+            $petBreed = $rowPet['pet_breed'];
+        }
+    } else {
+        echo "No pets found for this owner.";
+    }
 } else {
     echo "No data found.";
     $conn->close();
@@ -120,7 +140,7 @@ if ($view_selected_client->num_rows > 0) {
 
                     <?php echo $email; ?>
                     </center>
-                    <!-- <div class="appoint">
+                    <div class="appoint">
                         <center>Appointments</center>
                         <div class="appointment">
 
@@ -131,8 +151,9 @@ if ($view_selected_client->num_rows > 0) {
                                 <p>2<br />Upcoming</p>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div>
+
                         <p>Pet Owner's ID</p>
                         <p>
                             <?php echo $id; ?>
@@ -168,43 +189,76 @@ if ($view_selected_client->num_rows > 0) {
                 </div>
 
 
-            <?php
-                // Retrieve pet details based on owner ID
-                $sqlPet = "SELECT * FROM pet WHERE owner_id = '$id'";
-                $resultPet = mysqli_query($conn, $sqlPet);
 
-                echo'<div class="cont2">';
+                <div class="cont2">
 
-                    // Process the retrieved pet data
-                if ($resultPet->num_rows > 0) {
-                    // Loop through each row of pet data
-                    while ($rowPet = mysqli_fetch_assoc($resultPet)) {
-                        // Retrieve the specific column values
-                        echo'<div class="pet-name"><p>Pet ID : '.$rowPet['pet_id'].'</p></div><br>';
-                        echo'<div class="pet-name"><p>Pet Name : '.$rowPet['pet_name'].'</p></div><br>';
-                        echo'<div class="pet-name"><p>Pet Gender : '.$rowPet['pet_gender'].'</p></div><br>';
-                    }
-                    } else {
-                        echo "No pets found for this owner.";
-                    }
-                    echo"<br />";
                     
 
-                    //echo'<div class="dog-img"><img src="../images/dog.png" width=40%></div>';
+                    <div class="pet-name">
+                        <p>Pet Name :
+                            <?php echo $petName; ?>
+                        </p>
+                    </div>
+
+                    <div class="dog-img"><img src="../images/dog.png" width=40%></div>
 
 
-                    //<div class="pet-details"></div>
+                    <div class="pet-details">
+                        <div class="pet-details-list-1">
+                            <p>Pet ID</p>
+                            <p>
+                                <?php echo $petID; ?>
+                            </p>
+                            <hr />
+                            <br />
 
+                           
+                            <p>Date of Birth</p>
+                            <p>
+                                <?php echo $petAge; ?>
+                            </p>
+                            <hr />
+                            <br />
 
-                echo'</div>';
-             ?>
-              <div class="btn-bottom-set">
+                           
+
+                            <p>Gender</p>
+                            <p>
+                                <?php echo $petGender; ?>
+                            </p>
+                            <hr />
+                            <br />
+
+                        </div>
+                        <div class="pet-details-list-2">
+                            <p>Pet Type</p>
+                            <p>
+                                <?php echo $petType; ?>
+                            </p>
+                            <hr />
+                            <br />
+
+                            <p>Breed</p>
+                            <p>
+                                <?php echo $petBreed; ?>
+                            </p>
+                            <hr />
+                            <br />
+                            <br />
+                            <div class="btn-bottom-set">
                                 <button><a href="treatment_history.php">View Previous Treatments</a></button>
                                 <br /><br />
                                 <a href="add_treatment_.php"><button>Add New Treatment</button></a>
                             </div>
 
-        </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
         </div>
 </body>
 

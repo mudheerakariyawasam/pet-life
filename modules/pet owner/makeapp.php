@@ -1,10 +1,13 @@
-<?php
+<!-- <?php
+
     include("../../db/dbconnection.php");
     session_start();
     if(!isset($_SESSION["login_user"])){
-        header("location:../../modules/pet owner/login.php");
+        header("location:../../Auth/login.php");
         exit;
     }
+
+    $merchant_secret = "MzU2NDY5NTEwMzE2MDY5NjcwMDg2NzM2NzQ1MjA2OTUyMDY0NQ==";
     
     $loggedInUser = $_SESSION['login_user'];
     $sql2 = "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";
@@ -39,19 +42,18 @@
         $pet_name = $_POST['pet_name'];
         $emp_name=$_POST['emp_name'];
         $time_slot=$_POST['time_slot'];
-        // var_dump($date) or die();
 
-      //get the appointment slot no
-    $sql_getappointmentcount = "SELECT COUNT(*) FROM appointment WHERE appointment_date = '$date'";
-    $result_getappointmentcount = mysqli_query($conn, $sql_getappointmentcount);
-    $row_getappointmentcount = mysqli_fetch_array($result_getappointmentcount);
-    $count = $row_getappointmentcount[0] + 1;
+        //get the appointment slot no
+        $sql_getappointmentcount = "SELECT COUNT(*) FROM appointment WHERE appointment_date = '$date'";
+        $result_getappointmentcount = mysqli_query($conn, $sql_getappointmentcount);
+        $row_getappointmentcount = mysqli_fetch_array($result_getappointmentcount);
+        $count = $row_getappointmentcount[0] + 1;
 
-    // Get the last appointment's slot ID for the chosen date
-    $sql_get_slot_id = "SELECT appointment_slot FROM appointment WHERE appointment_date = '$date' ORDER BY appointment_id DESC LIMIT 1";
-    $result_get_slot_id = mysqli_query($conn, $sql_get_slot_id);
-    $row_get_slot_id = mysqli_fetch_assoc($result_get_slot_id);
-    $last_slot_id = $row_get_slot_id['appointment_slot'];
+        // Get the last appointment's slot ID for the chosen date
+        $sql_get_slot_id = "SELECT appointment_slot FROM appointment WHERE appointment_date = '$date' ORDER BY appointment_id DESC LIMIT 1";
+        $result_get_slot_id = mysqli_query($conn, $sql_get_slot_id);
+        $row_get_slot_id = mysqli_fetch_assoc($result_get_slot_id);
+        $last_slot_id = $row_get_slot_id['appointment_slot'];
 
     // Increment the slot ID or reset it for a new day
     if ($count <= 5 && $last_slot_id !== null) {
@@ -73,10 +75,10 @@
         $emp_id = $row_vid['emp_id'];
 
         //check availability of the vet
-       $sqlc="SELECT * FROM `holiday` WHERE `emp_id`= '$emp_id' AND `approval_stage`= 'Approved'  AND `from_date` <= '$date' AND `to_date`>= '$date'";
-     $r=mysqli_query($conn,$sqlc);
-     $r1=mysqli_num_rows($r);
-    //   var_dump($r1) or die();
+        $sqlc="SELECT * FROM `holiday` WHERE `emp_id`= '$emp_id' AND `approval_stage`= 'Approved'  AND `from_date` <= '$date' AND `to_date`>= '$date'";
+        $r=mysqli_query($conn,$sqlc);
+        $r1=mysqli_num_rows($r);
+         //var_dump($r1) or die();
     if($r1>0) {
         echo"<script>alert('Doctor on leave')</script>";
     } else {
@@ -95,8 +97,8 @@
         $r_2=mysqli_num_rows($r2); 
         if($r_2>0) {
             echo"<script>alert('Pet already Booked')</script>";
-        } else {
-
+        } else {         
+            //create a new appointment
             $sql = "INSERT INTO appointment VALUES ('$appointment_id','$date','$time_slot','$new_slot_id','$emp_id','$pet_id','Available')";
             $result = mysqli_query($conn, $sql);
     
@@ -112,7 +114,7 @@
 } 
     }   
 }
-?> 
+?>  -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -124,7 +126,7 @@
         <link rel="stylesheet" href="css/makeapp.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-        <title>Pet Care</title>
+        <title></title>
     </head>
 
 <body>
@@ -200,7 +202,7 @@
       
 
     <!-- <div class="left"> -->
-    <form method="POST" action="">
+    <form method="POST" action="app_validate.php">
     <p class="welcome">Make an Appointment</p>
     <p>Add the information about the appointment</p>
 
@@ -285,13 +287,18 @@
                         <option value="2.00am">2.00pm</option>
                         <option value="4.00am">4.00pm</option>
 
-                    </select>
-                </div>
+                        </select>
+                    </div>
 
-            <div class="form-content">
-                <button class="btn-add" type="submit">Confirm</button>
-            </div>
-</form>
+                <div class="form-content">
+
+                <input type="hidden" name="hash" value="<?php echo $merchant_secret; ?>">
+                <button class="btn-add" name="save-info" id="btn-save" type="submit" role="button">Pay Here</button>
+                <!-- <button class="btn-add" name="save-info" id="btn-save" type="submit" role="button" onclick="paymentGateWay(); return false;">Pay Here</button> -->
+                </div>
+        <!-- <script src="script.js"></script> -->
+        <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+    </form>
     
 </div>
 
