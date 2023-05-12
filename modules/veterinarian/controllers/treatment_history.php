@@ -287,7 +287,8 @@ if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
         </div>
  <!-- //Top Navigation bar ends-->
         <div class="container">
-        <div class="heading">Treatment History</div>
+        <!-- <div class="heading">Treatment History</div> -->
+        <p class="topic">Treatment History </p><hr><br>
         <div class="toast" style="display: none;">
 
             <div class="toast-content">

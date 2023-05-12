@@ -85,7 +85,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
             </div>
         </div>
         <div class="container">
-            <div class="heading">Clients' Details</div>
+            <br/><br/><br/>
+            <p class="topic">Clients</p><hr><br>
             <div class="table-btn">
                 <div class="search-field">
                     <input type="text" class="search-input" id="live-search" class="form-control" autocomplete="off" placeholder="search on NIC">

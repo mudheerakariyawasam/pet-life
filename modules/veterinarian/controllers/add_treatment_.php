@@ -7,6 +7,13 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
 
+$pet_id = isset($_GET['updateid']) ? mysqli_real_escape_string($conn, $_GET['updateid']) : '';
+
+//get pet name
+$sql_name = "SELECT pet_name FROM pet WHERE pet_id = '$pet_id'";
+$result_name=mysqli_query($conn,$sql_name);
+$row_name = mysqli_fetch_assoc($result_name);
+
 $_SESSION['treatment_added'] = false;
 $sql = "SELECT medicine_id , medicine_name, medicine_category FROM medicine";
 $all_medicines = mysqli_query($conn, $sql);
@@ -42,12 +49,8 @@ while ($row = mysqli_fetch_assoc($all_medicines)) {
     } else {
         array_push($medicine, $row);
     }
-    // die(print_r($medicine));
+    
 }
-// die(print_r($medicine));
-// echo json_encode($medicine);
-// die();
-
 $sql = "SELECT lab_id , lab_name FROM lab_investigations";
 $lab_inv = mysqli_query($conn, $sql);
 
@@ -335,8 +338,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="treatment-content">
                     <div class="treatment-header">
 
-                        <h2>New Treatment For Chester
-                            <? echo $id[0] ?>
+                        <h2>New Treatment For 
+                        <?php echo $row_name["pet_name"]; ?>
                         </h2>
 
                     </div>

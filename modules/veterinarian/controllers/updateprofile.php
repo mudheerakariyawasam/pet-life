@@ -239,7 +239,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </form>
                         </div>
                     </div>
-
                     <div class="right-content">
                     <form action="changepassword.php" method="POST">
                     <span class="sub-topic">Change Password</span><br>
@@ -260,34 +259,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="pwd-content">
                             <button class="btn-add" type="submit">Confirm </button>
                         </div>
-                        <?php if (isset($_SESSION['change_password_error'])&& strlen($_SESSION['change_password_error'])>1): ?>
-    <span style="color: red;"><?php echo $_SESSION['change_password_error']; ?></span>
-<?php endif; ?>
-                        </p>
-                    </form>
-                    <?php if (isset($_GET['password_changed'])): ?>
-    <div class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Password changed successfully!</h2>
-            
-        </div>
-    </div>
-   <script>
-        // JavaScript code to handle the modal functionality
-        var modal = document.querySelector('.modal');
-        var closeBtn = document.querySelector('.close');
+                        
+<?php
+// Check for success message
+if (isset($_GET['password_changed']) && $_GET['password_changed'] == 'true') {
+    echo '<span style="color: green;">Password changed successfully.</span>';
+}
 
-        closeBtn.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-
-        // Close the modal after a certain duration (e.g., 3 seconds)
-        setTimeout(function() {
-            modal.style.display = 'none';
-        }, 1000);
-    </script> 
-<?php endif; ?>
+// Check for error message
+if (isset($_SESSION['change_password_error']) && strlen($_SESSION['change_password_error']) > 1) {
+    echo '<span style="color: red;">' . $_SESSION['change_password_error'] . '</span>';
+    unset($_SESSION['change_password_error']);
+}
+?>
                     </div>
                     
                 </div>
