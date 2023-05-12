@@ -1,3 +1,12 @@
+<?php
+$$appointment_id=$_GET['appointment_id'];
+$date=$_GET['date'];
+$time_slot=$_GET['time_slot'];
+$new_slot_id=$_GET['new_slot_id'];
+$emp_id=$_GET['emp_id'];
+$pet_id=$_GET['pet_id'];
+?>
+
 <html lang="en">
 
 <head>
@@ -12,7 +21,7 @@
     <div class="body">
         <!-- button  -->
         <div class="save-btn">
-            <button onclick="paymentGateWay();" class="button-01" name="save-info" id="btn-save" type="submit"
+            <button onclick="paymentGateWay($appointment_id,$date,$time_slot,$new_slot_id,$emp_id,$pet_id);" class="button-01" name="save-info" id="btn-save" type="submit"
                 role="button">Pay Here</button>
         </div>
     </div>

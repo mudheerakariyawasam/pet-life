@@ -2,7 +2,7 @@
 include("../../db/dbconnection.php");
 session_start();
 if (!isset($_SESSION["login_user"])) {
-    header("location:../../modules/pet owner/login.php");
+    header("location:../../Auth/login.php");
     exit;
 }
 ?>
@@ -224,9 +224,19 @@ if (!isset($_SESSION["login_user"])) {
                             
                             echo '</tr>';
                         }
+                    
                     }
+                    else {
+                           
+                     
+                           echo '<td colspan="7"><center><img style="width:35%;" src="noresult.png"></center></td>';
+                       
+                        }
+
+                    
                     
 ?>
+</table>
             </div>
         </div>
     </div>

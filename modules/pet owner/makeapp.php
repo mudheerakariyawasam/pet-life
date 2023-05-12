@@ -3,7 +3,7 @@
     include("../../db/dbconnection.php");
     session_start();
     if(!isset($_SESSION["login_user"])){
-        header("location:../../modules/pet owner/login.php");
+        header("location:../../Auth/login.php");
         exit;
     }
 
@@ -97,9 +97,7 @@
         $r_2=mysqli_num_rows($r2); 
         if($r_2>0) {
             echo"<script>alert('Pet already Booked')</script>";
-        } else {
-
-            
+        } else {         
             //create a new appointment
             $sql = "INSERT INTO appointment VALUES ('$appointment_id','$date','$time_slot','$new_slot_id','$emp_id','$pet_id','Available')";
             $result = mysqli_query($conn, $sql);

@@ -2,7 +2,7 @@
     include("../../db/dbconnection.php");
     session_start();
     if(!isset($_SESSION["login_user"])){
-        header("location:../../modules/pet owner/login.php");
+        header("location:../../Auth/login.php");
         exit;
     }
     
@@ -75,7 +75,7 @@
         $sqlc="SELECT * FROM `holiday` WHERE `emp_id`= '$emp_id' AND `approval_stage`= 'Approved'  AND `from_date` <= '$date' AND `to_date`>= '$date'";
         $r=mysqli_query($conn,$sqlc);
         $r1=mysqli_num_rows($r);
-         //var_dump($r1) or die();
+        
     if($r1>0) {
         echo"<script>alert('Doctor on leave')</script>";
         echo "<script>window.location.href = 'makeapp.php';</script>";
@@ -113,8 +113,9 @@
             // } else {
             //     echo '<script>alert("There is an error in booking")</script>';
             // }
-            echo "<script>window.location.href = 'payhereprocess.php';</script>";
-            exit();
+
+            echo "<script>window.location.href = 'payhere_homepage.php?appointment_id=$appointment_id&date=$date&time_slot=$time_slot&new_slot_id=$new_slot_id&emp_id=$emp_id&pet_id=$pet_id';</script>";
+
         } 
 } 
     }   

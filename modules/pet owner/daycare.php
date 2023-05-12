@@ -2,7 +2,7 @@
 include("../../db/dbconnection.php");
 session_start();
 if (!isset($_SESSION["login_user"])) {
-    header("location:../../modules/pet owner/login.php");
+    header("location:../../Auth/login.php");
     exit;
 }
 
@@ -333,7 +333,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 echo '</tr>';
                             }
                         } else {
-                            echo '<td colspan="7">No Appointments</td>';
+                            echo '<td colspan="7"><center><img style="width:40%;" src="noresult.png"></center></td>';
                         }
                         ?>
                     </table>

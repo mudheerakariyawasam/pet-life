@@ -2,7 +2,7 @@
 include("../../db/dbconnection.php");
 session_start();
 if (!isset($_SESSION["login_user"])) {
-    header("location:../../modules/pet owner/login.php");
+    header("location:../../Auth/login.php");
     exit;
 }
 ?>
@@ -163,7 +163,7 @@ $sql .= " ORDER BY a.followup_date ASC";
                 }
                 echo '</table>';
             } else {
-                echo '<td colspan="6">No Treatment Records</td>' ;
+                echo '<td colspan="7"><center><img style="width:25%;" src="noresult.png"></center></td>';
             }
             ?>
         </div>
