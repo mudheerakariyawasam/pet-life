@@ -253,48 +253,29 @@ tr:hover {
 }
 
 /*Add new client button */
-.save-btn {
-  /* justify-content: left;
-  display: flex;
-  margin-top: 50px;
-  margin-left: 30px; */
-  display: inline-flex;
-  align-items: center;
-}
 
-.button-01 {
-  appearance: none;
-  background-color: #f9f9f9;
-  border-radius: 40em;
-  border-style: none;
-  box-shadow: #b6ecef 0 -12px 6px inset;
-  box-sizing: border-box;
-  color: #000000;
+button.btn-add{
+  background-color: #C38D9E;
+  color: black;
+  
+  padding: 10px 10px;
+  border-radius: 20px;
+  /* box-shadow: 0px 0px 2px 2px rgb(0,0,0); */
+  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
+  border: none;
+  margin: auto;
+  width: 200px;
+  float:right;
+  font-family: poppins, sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  margin-right: 50px;
   cursor: pointer;
-  display: inline-block;
-  font-family: poppins;
-  font-size: 16px;
-  font-weight: 700;
-  /* margin: 0; */
-  outline: none;
-  padding: 2px 5px;
-  quotes: auto;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.15s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
 
-.button-01:hover {
-  background-color: #86b0f7;
-  box-shadow: #4285f4 0 -6px 8px inset;
-  transform: scale(1.125);
 }
-
-.button-01:active {
-  transform: scale(1.025);
+button.btn-add:hover {
+  background-color:rgba(215,226,255,0.6);
+  transition: 0.7s;
 }
 
 @media (min-width: 768px) {
