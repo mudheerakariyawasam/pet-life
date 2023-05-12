@@ -16,19 +16,24 @@
     <title>Pet Care</title>
     
 <style>
-    form {
-  max-width: 600px;
+        form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f7f7f7;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
 }
 
 label {
   display: block;
-  font-weight: bold;
+  width: 100%;
   margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 input[type="text"],
@@ -56,10 +61,7 @@ input[type="submit"]:hover {
   background-color: #3e8e41;
 }
 
-span {
-  display: block;
-  margin-top: 5px;
-}
+
 </style>
 
 </head>

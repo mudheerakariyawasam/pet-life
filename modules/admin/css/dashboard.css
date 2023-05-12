@@ -224,7 +224,76 @@ font-size:25px;
   border: solid white;
   cursor: pointer;
 }
+.dashboard-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
 
+.dash-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  background-color: #96CDE1;
+  width:  25%;
+  border-radius: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  cursor: pointer;
+
+}
+.dash-item:hover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  background-color: #40db93;
+  width:  25%;
+  border-radius: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #fff;
+
+}
+
+.icon {
+  font-size: 36px;
+ color: #333; 
+ color: #000;
+  margin-bottom: 10px;
+  
+}
+.icon:hover{ 
+color:  white;
+
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
+.title:hover{
+  color: white;
+}
+
+.count {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
+.count:hover{
+  color: white;
+}
 /* .dashboard-title p {
   font-size: 24px;
   line-height: 1.5;
@@ -245,21 +314,21 @@ font-size:25px;
 
 
 
-.dashboard-title {
+/* .dashboard-title {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin-top: 50px; */
+   margin-top: 50px; 
   margin-bottom: 50px;
   
-}
+} */
 
-.dashboard-title p {
+/* .dashboard-title p {
   font-size: 24px;
   margin: 0;
   color: #fff;
-}
+} */
 
 .dashboard-title i {
   font-size: 48px;
@@ -267,7 +336,7 @@ font-size:25px;
   vertical-align: middle;
 } 
 
-.dash-item {
+/* .dash-item {
  position: relative;  
   width: 200px;
   height: 200px;
@@ -277,9 +346,9 @@ font-size:25px;
   cursor: pointer;
   transition: all 0.5s ease;
   transform-style: preserve-3d;
-}
+} */
 
-.dash-item:hover {
+/* .dash-item:hover {
   transform: rotateY(180deg);
 }
 
@@ -337,7 +406,7 @@ font-size:25px;
   font-weight: bold;
   color: #04721c;
   text-shadow: 0 2px 3px rgba(0,0,0,0.5);
-}
+} */
 .dashboard-container {
   display: flex;
   justify-content: center;
@@ -356,7 +425,7 @@ font-size:25px;
 }
 
 .dashboard-available-staff-title {
-  font-size: 24px;
+  font-size: 18px;
   margin-bottom: 20px;
   color: #000D2F;
   text-align: center;
@@ -412,9 +481,10 @@ th, td {
   border-bottom: 1px solid #ddd;
 }
 tr:hover {
-  background-color: #f5f5f5;
+  background-color: #d4f6ff;
 }
 th {
   background-color:#000D2F;
+  background-color: #96CDE1;
   color: white;
 }

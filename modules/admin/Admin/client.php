@@ -146,7 +146,7 @@ padding: 5px 10px;
   <!--Table-->
 <br/>
 <div class="client-title">List of Clients</div><hr><br>
-<br/>
+
 <div class="search-box">
     <label for="search-input">Search:</label>
     <input type="text" id="search-input" placeholder="Search by ID or Name...">
@@ -179,13 +179,13 @@ $sql = "SELECT owner_id, owner_fname, owner_lname, owner_status FROM pet_owner L
             echo "<td class='employee-table-cell emp-name'>" . $row['owner_fname'] . "</td>";
             echo "<td class='employee-table-cell'>" . $row['owner_lname'] . "</td>";
             echo "<td class='employee-table-cell'>";
-            if ($row['owner_status'] == 'activated') {
+            if ($row['owner_status'] == 'Registered') {
                 echo "<label class='switch'><input type='checkbox' checked='checked' data-ownerid='" . $row['owner_id'] . "'><span class='slider round'></span></label>";
             } else {
                 echo "<label class='switch'><input type='checkbox' data-ownerid='" . $row['owner_id'] . "'><span class='slider round'></span></label>";
             }
             echo "</td>";
-            echo "<td class='employee-table-cell'><a class='employee-link' href='client_details.php?owner_id=" . $row['owner_id'] . "'>View</a> | <a class='employee-link' href='update_client.php?owner_id=" . $row['owner_id'] . "'>Update</a></td>";
+            echo "<td class='employee-table-cell'><center><a class='employee-link' href='client_details.php?owner_id=" . $row['owner_id'] . "'><i class='fas fa-eye'></i></a> | <a class='employee-link' href='update_client.php?owner_id=" . $row['owner_id'] . "'><i class='fas fa-edit'></i></a></center></td>";
             echo "</tr>";
         }
         echo "</table>";
@@ -252,17 +252,17 @@ searchInput.addEventListener('input', function() {
     for (var i = 0; i < rows.length; i++) {
         var idCell = rows[i].querySelector('.emp-id');
         var firstNameCell = rows[i].querySelector('.emp-name');
-        var lastNameCell = rows[i].querySelector('.employee-table-cell:nth-child(3)');
-        var activeStatusCell = rows[i].querySelector('.employee-table-cell:nth-child(4)');
+       // var lastNameCell = rows[i].querySelector('.employee-table-cell:nth-child(3)');
+        var ownerStatusCell = rows[i].querySelector('.employee-table-cell:nth-child(4)');
         var idValue = idCell.textContent || idCell.innerText;
         var firstNameValue = firstNameCell.textContent || firstNameCell.innerText;
-        var lastNameValue = lastNameCell.textContent || lastNameCell.innerText;
-        var activeStatusValue = activeStatusCell.textContent || activeStatusCell.innerText;
+      ///  var lastNameValue = lastNameCell.textContent || lastNameCell.innerText;
+        var ownerStatusValue = ownerStatusCell.textContent || ownerStatusCell.innerText;
 
         if (idValue.toUpperCase().indexOf(filterValue) > -1 ||
             firstNameValue.toUpperCase().indexOf(filterValue) > -1 ||
-            lastNameValue.toUpperCase().indexOf(filterValue) > -1 ||
-            activeStatusValue.toUpperCase().indexOf(filterValue) > -1) {
+          //  lastNameValue.toUpperCase().indexOf(filterValue) > -1 ||
+            ownerStatusValue.toUpperCase().indexOf(filterValue) > -1) {
             rows[i].style.display = '';
         } else {
             rows[i].style.display = 'none';

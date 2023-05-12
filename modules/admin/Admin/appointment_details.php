@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/holiday_details.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <title>Pet Care</title>
 </head>
@@ -24,7 +25,7 @@
                 <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
-                <a href="appointment.php"><i class="fa-solid fa-calendar-plus"></i><span>Appointments</span></a>
+                <a href="#" class="active"><i class="fa-solid fa-calendar-plus"></i><span>Appointments</span></a>
             </li>
             <li>
                 <a href="client.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
@@ -33,7 +34,7 @@
                 <a href="staff.php"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
             </li>
             <li>
-                <a href="#" class="active"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
+                <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
             </li>
             <li>
                 <a href="report.php"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
@@ -81,65 +82,100 @@
 
         <div class="container">
 
-<?php
 
-// Check if the holiday ID is set in the URL
-if (!isset($_GET['holiday_id'])) {
-    die("Error: Holiday ID not specified.");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+function connect_mysql(){
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "pet_life";
+
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $database);
+
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    return $conn;
 }
 
-$holiday_id=$_GET['holiday_id'] ;
+// Call the connect_mysql() function to establish the database connection
+$conn = connect_mysql();
+
+// Check if the holiday ID is set in the URL
+if (!isset($_GET['appointment_id'])) {
+    die("Error: Appointment ID not specified.");
+}
 
 // Retrieve the holiday details from the database based on the holiday ID in the URL
-$sql = "SELECT * FROM holiday WHERE holiday_id = '$holiday_id'";
+$sql = "SELECT * FROM appointment WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
 $result = mysqli_query($conn, $sql);
 
 // Check if the query failed
 if (!$result) {
-    die("Error retrieving holiday details: " . mysqli_error($conn));
+    die("Error retrieving appointment details: " . mysqli_error($conn));
 }
 
 // Check if the holiday with the specified ID exists
 if (mysqli_num_rows($result) == 0) {
-    die("Error: Holiday with ID " . $_GET['holiday_id'] . " not found.");
+    die("Error: Appointment with ID " . $_GET['appointment_id'] . " not found.");
 }
 
 // Fetch the holiday details from the query result
-$holiday = mysqli_fetch_assoc($result);
+$appointment = mysqli_fetch_assoc($result);
 
 // If the user clicks the "Approve" button
 if (isset($_POST['approve'])) {
-    //check whether there are any appointments to the employee on the particular day
-    $sql_getapp="SELECT COUNT(*) AS total_app FROM appointment WHERE vet_id='".$holiday["emp_id"]."' AND appointment_date='".$holiday["from_date"]."'";
-    $result_getapp=mysqli_query($conn,$sql_getapp);
-    $row_getapp=mysqli_fetch_array($result_getapp);
-    //var_dump($row_getapp);
-
-    if ($row_getapp["total_app"] > 0) {
-        echo "<script>
-            if (confirm('There are appointments booked on the day. Are you sure you want to accept this request?')) {
-                // If user clicks yes, redirect to holiday_accept.php
-                window.location.href = 'holiday_accept.php?holiday_id=" . $holiday_id . "';
-            } else {
-                // If user clicks no, redirect to leave.php
-                window.location.href = 'leave.php';
-            }
-        </script>";
+    // Update the approval_stage to "Approved"
+    $sql = "UPDATE appointment SET appointment_status = 'Approved' WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
+    if (mysqli_query($conn, $sql)) {
+        // Refresh the page to see the updated appointment details
+        header("Refresh:0");
     } else {
-        // If no appointments are booked, redirect to holiday_accept.php
-        header("location: holiday_accept.php?holiday_id=$holiday_id");
+        die("Error updating appointment details: " . mysqli_error($conn));
     }
 }
 
 // If the user clicks the "Reject" button
 if (isset($_POST['reject'])) {
     // Update the approval_stage to "Rejected"
-    $sql = "UPDATE holiday SET approval_stage = 'Rejected' WHERE holiday_id = '" . $_GET['holiday_id'] . "'";
+    $sql = "UPDATE appointment SET appointment_status = 'Rejected' WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
     if (mysqli_query($conn, $sql)) {
         // Refresh the page to see the updated holiday details
         header("Refresh:0");
     } else {
-        die("Error updating holiday details: " . mysqli_error($conn));
+        die("Error updating appointment details: " . mysqli_error($conn));
     }
 }
 
@@ -150,7 +186,7 @@ mysqli_close($conn);
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Holiday Details</title>
+	<title>Appointment Details</title>
 	<style>
 		.approved {
 			background-color: green;
@@ -161,15 +197,19 @@ mysqli_close($conn);
 	</style>
 </head>
 <body>
-	<h1 class="holy-title">Holiday Details</h1><hr/><br/>
+    <br/><br/>
+    
+<button><a href="appointment.php"><i class="fas fa-arrow-left"></i></a></button> 
+	<h1 class="holy-title">Appointment Details</h1><hr/><br/>
 	<table>
-		<tr><td><strong>Holiday ID:</strong></td><td><?php echo $holiday['holiday_id']; ?></td></tr>
-		<tr><td><strong>From Date:</strong></td> <td><?php echo $holiday['from_date']; ?></td></tr>
-		<tr><td><strong>To Date:</strong></td><td><?php echo $holiday['to_date']; ?></td></tr>
-		<tr><td><strong>Approval Stage:</strong></td><td class="<?php echo $holiday['approval_stage']; ?>"><?php echo $holiday['approval_stage']; ?></td></tr>
-		<tr><td><strong>Employee ID:</strong></td><td><?php echo $holiday['emp_id']; ?></td></tr>
-		<tr><td><strong>Holiday Type:</strong></td><td><?php echo $holiday['holiday_type']; ?></td></tr>
-		<tr><td><strong>Holiday Reason:</strong></td><td><?php echo $holiday['holiday_reason']; ?></td></tr>
+		<tr><td><strong>Appointment ID:</strong></td><td><?php echo $appointment['appointment_id']; ?></td></tr>
+		<tr><td><strong>Appointment Date:</strong></td> <td><?php echo $appointment['appointment_date']; ?></td></tr>
+		<tr><td><strong>Appointment Time:</strong></td><td><?php echo $appointment['appointment_time']; ?></td></tr>
+                <tr><td><strong>Appointment Slot:</strong></td><td><?php echo $appointment['appointment_slot']; ?></td></tr>
+<tr><td><strong>Vet Id:</strong></td><td><?php echo $appointment['vet_id']; ?></td></tr>
+                <tr><td><strong>Pet Id:</strong></td><td><?php echo $appointment['pet_id']; ?></td></tr>
+		<tr><td><strong>Appointment Status:</strong></td><td class="<?php echo $appointment['appointment_status']; ?>"><?php echo $appointment['appointment_status']; ?></td></tr>
+	
 	</table>
 	<form method="post">
 		<input type="submit" name="approve" value="Approve">
@@ -177,17 +217,17 @@ mysqli_close($conn);
 	</form>
 	<?php
 	if (isset($_POST['approve'])) {
-		$holiday['approval_stage'] = 'approved';
+		$appointment['appointment_status'] = 'approved';
 	} else if (isset($_POST['reject'])) {
-		$holiday['approval_stage'] = 'rejected';
+		$appointment['appointment_status'] = 'rejected';
 	}
 ?>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
-		let approvalStageTd = document.querySelector(".<?php echo $holiday['approval_stage']; ?>");
-		if (approvalStageTd) {
-			approvalStageTd.classList.remove("<?php echo $holiday['approval_stage'] === 'approved' ? 'rejected' : 'approved'; ?>");
-			approvalStageTd.classList.add("<?php echo $holiday['approval_stage']; ?>");
+		let appointmentStatusTd = document.querySelector(".<?php echo $appointment['appointment_status']; ?>");
+		if (appointmentStatusTd) {
+			appointmentStatus.classList.remove("<?php echo $appointment['appointment_status'] === 'approved' ? 'rejected' : 'approved'; ?>");
+			appointmentStatus.classList.add("<?php echo $appointment['appointment_status']; ?>");
 		}
 	});
 </script>

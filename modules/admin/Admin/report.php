@@ -1,11 +1,6 @@
 <?php
     include("../../../db/dbconnection.php");
     session_start();
-    if(!isset($_SESSION["login_user"])){
-        header("location:../../../../../Auth/login.php");
-        exit;
-    }
-
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +14,66 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <title>Pet Care</title>
+    
+    <style>
+    .search-box {
+        float: right;
+        margin-bottom: 10px;
+    }
+    .search-box input[type="text"] {
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        margin-left: 5px;
+    }
+    .pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.pagination a:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.pagination a:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+button{
+float:right;
+padding: 5px 10px;
+
+
+}
+
+
+
+		/* Define a CSS class for coloring dates green */
+		.green {
+			background-color: green;
+		}
+	
+</style>
+
 </head>
 
 <body>
@@ -56,16 +111,15 @@
     <!-- //Navigation bar -->
     <div class="content">
         <div class="navbar">
-        <div class="navbar__left">
-    <div class="nav-icon">
-        <i class="fa-solid fa-bars" id="toggle-sidebar"></i>
-    </div>
-    <div class="hello">
-        <font class="header-font-1">Hello </font> &nbsp
-        <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
-    </div>
-</div>
-
+            <div class="navbar__left">
+                <div class="nav-icon">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="hello">
+                <font class="header-font-1">Hello </font> &nbsp
+                <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
+            </div>
+            </div>
 
 
             <div class="navbar__right">
@@ -80,13 +134,11 @@
                         <i class="fa-solid fa-message"></i>
                         </a>
                     </li>
-                  
+                   
                 </ul>
             </div>
         </div>
         <div class="container">
-
-
         <br/>
         <div class="report-title">Reports<br></div><hr>
 <br/>
@@ -130,4 +182,5 @@ toggleBtn.addEventListener("click", () => {
 });
 
     </script>
+    </body>
 </html>

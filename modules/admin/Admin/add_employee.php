@@ -1,4 +1,4 @@
-    <?php
+<?php
     include("../../../db/dbconnection.php");
     session_start();
 ?>
@@ -14,23 +14,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <title>Pet Care</title>
-    
-<style>
-    form {
-  max-width: 600px;
+    <style>
+                form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f7f7f7;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
 }
 
 label {
   display: block;
-  font-weight: bold;
+  width: 100%;
   margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
 }
-
 input[type="text"],
 input[type="email"],
 input[type="number"],
@@ -57,12 +60,7 @@ input[type="submit"]:hover {
   background-color: #3e8e41;
 }
 
-span {
-  display: block;
-  margin-top: 5px;
-}
-</style>
-
+        </style>
 </head>
 
 <body>
@@ -129,7 +127,7 @@ span {
         </div>
         <div class="container">
         <br/>
-<div class="employee-title">Employee List</div><hr>
+        <div class="employee-title">Add Employee</div><hr>
 <br/>
 
 <?php
@@ -336,6 +334,8 @@ $result = mysqli_query($conn, $sql);
 <?php if (isset($message)): ?>
     <p><?php echo $message; ?></p>
 <?php endif; ?>
+
+
     </div>
     <script src="script.js"></script>
 </body>

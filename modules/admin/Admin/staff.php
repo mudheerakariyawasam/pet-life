@@ -166,7 +166,7 @@ $sql = "SELECT emp_id, emp_name, emp_designation, working_status FROM employee L
     // Display the employees in a table
     if (mysqli_num_rows($result) > 0) {
         echo "<table class='employee-table'>";
-        echo "<tr><th class='employee-table-header'>Employee ID</th><th class='employee-table-header'>Employee Name</th><th class='employee-table-header'>Employee Designation</th><th class='employee-table-header'>Working Status</th><th class='employee-table-header'>Action</th></tr>";
+        echo "<tr><th class='employee-table-header'>Employee ID</th><th class='employee-table-header'>Employee Name</th><th class='employee-table-header'>Employee Designation</th><th class='employee-table-header'>Working Status</th><th class='employee-table-header'><center>Action</center></th></tr>";
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr class='employee-row'>";
             echo "<td class='employee-table-cell emp-id'>" . $row['emp_id'] . "</td>";
@@ -179,7 +179,7 @@ $sql = "SELECT emp_id, emp_name, emp_designation, working_status FROM employee L
                 echo "<label class='switch'><input type='checkbox' data-empid='" . $row['emp_id'] . "'><span class='slider round'></span></label>";
             }
             echo "</td>";
-            echo "<td class='employee-table-cell'><a class='employee-link' href='employee_details.php?emp_id=" . $row['emp_id'] . "'>View</a> | <a class='employee-link' href='update_employee.php?emp_id=" . $row['emp_id'] . "'>Update</a></td>";
+            echo "<td class='employee-table-cell'><center><a class='employee-link' href='employee_details.php?emp_id=" . $row['emp_id'] . "'><i class='fas fa-eye'></i></a> | <a class='employee-link' href='update_employee.php?emp_id=" . $row['emp_id'] . "'><i class='fas fa-edit'></i></a></center></td>";
             echo "</tr>";
         }
         echo "</table>";

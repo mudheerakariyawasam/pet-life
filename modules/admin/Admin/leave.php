@@ -97,7 +97,7 @@
 			echo "<td class='holiday-table-cell'>" . $row['holiday_id'] . "</td>";
 			echo "<td class='holiday-table-cell'>" . $row['emp_id'] . "</td>";
             echo "<td class='holiday-table-cell'>" . $row['approval_stage'] . "</td>";
-			echo "<td class='holiday-table-cell'><a class='holiday-link' href='holiday_details.php?holiday_id=" . $row['holiday_id'] . "'>View</a></td>";
+			echo "<td class='holiday-table-cell'><center><a class='holiday-link' href='holiday_details.php?holiday_id=" . $row['holiday_id'] . "'><i class='fas fa-eye'></i></a></center></td>";
 			echo "</tr>";
 		}
 		echo "</table>";

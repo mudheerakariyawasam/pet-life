@@ -148,7 +148,7 @@
 <div class="dashboard-container">
   <div class="dashboard-available-container">
     <div class="dashboard-available">
-      <div class="dashboard-available-staff-title">Today's Available Staff Members</div>
+      <div class="dashboard-available-staff-title" style="font-size:15px;">Today's Available Staff Members</div>
       <ul class="employee-list">
         <?php
           $current_date = date('Y-m-d');
@@ -176,7 +176,7 @@
 // Connect to database and retrieve today's appointments
 $db = new mysqli('localhost', 'root', '', 'pet_life');
 $today = date('Y-m-d');
-$sql = "SELECT appointment_id, appointment_slot, vet_id, appointment_type FROM appointment WHERE appointment_date = '$today'";
+$sql = "SELECT appointment_id, appointment_date, appointment_time, appointment_slot FROM appointment WHERE appointment_date = '$today'";
 $result = $db->query($sql);
 ?>
 	<center><h2 style="margin-top:0px;">Today's Appointments</h2>
@@ -185,18 +185,19 @@ $result = $db->query($sql);
 		<thead>
 			<tr>
 				<th>Appointment ID</th>
-				<th>Appointment Slot</th>
-				<th>Veterinary ID</th>
-				<th>Appointment Type</th>
+				<th>Appointment Date</th>
+        <th>Appointment Time</th>
+        <th>Appointment Slot</th>
+				
 			</tr>
 		</thead>
 		<tbody>
 			<?php while ($row = $result->fetch_assoc()) { ?>
 					<tr>
 						<td><?php echo $row['appointment_id']; ?></td>
+            <td><?php echo $row['appointment_date']; ?></td>
+						<td><?php echo $row['appointment_time']; ?></td>
 						<td><?php echo $row['appointment_slot']; ?></td>
-						<td><?php echo $row['vet_id']; ?></td>
-						<td><?php echo $row['appointment_type']; ?></td>
 					</tr>
 			<?php } ?>
 		</tbody>
