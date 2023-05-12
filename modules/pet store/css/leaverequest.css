@@ -63,11 +63,11 @@ body{
 }
 
 .left-container a{
-    display: block;
-   color: black;
+  display: block;
+  color: black;
 
-   font-size: 0.8rem;
-   padding: 0.7rem 0 0.7rem 0;
+  font-size: 0.8rem;
+  padding: 0.7rem 0 0.7rem 0;
 }
 
 .left-container span{
@@ -166,6 +166,7 @@ body{
   .top-bar__right ul li a i {
     font-size: 1.5rem;
   }
+  
 .hello{
    color:black;
    font-size:24px;

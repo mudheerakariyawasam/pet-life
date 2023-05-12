@@ -221,7 +221,7 @@ body {
 }
 
 .cont1 {
-  width: 30%;
+  width: 40%;
   margin-left: 1%;
   border-right: #000 solid;
   padding: 5px;
@@ -229,7 +229,7 @@ body {
 }
 
 .cont2 {
-  width: 70%;
+  width: 60%;
   margin-left: 1%;
 }
 
@@ -315,19 +315,34 @@ button {
 .content {
   width: 82%;
   float: right;
-  /* background-size: cover;
-    background-position: center;
-    background-image: url(../images/doctor.jpg);
-    height: 100vh;
-    isolation: isolate;
-    position: relative; */
+}
+.table-btn {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 10px 20px 10px;
 }
 
-/* .content::after{
-        content: '';
-        position: absolute;
-        z-index: -1;
-        inset: 0;
-        background: white;
-        opacity: 0.9;
-    } */
+/* pet table starts */
+#showpets th {
+  background-color: #96cde1;
+  color: black;
+}
+
+table {
+  /*border-collapse: collapse;*/
+  width: auto;
+}
+
+th {
+  padding: 2px;
+}
+td {
+  padding: 6px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: #a7dbee;
+}

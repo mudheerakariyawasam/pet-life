@@ -6,80 +6,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rEmail = mysqli_real_escape_string($conn, trim($_REQUEST['rEmail']));
     $rPassword = mysqli_real_escape_string($conn, trim($_REQUEST['rPassword'])); //input password given by the user at login
     
-    $sql = "SELECT * FROM employee WHERE emp_email='" . $rEmail
-    //  . "' AND emp_pwd ='" . md5($rPassword) 
-     . "' limit 1";
-    // $result = $conn->query($sql);
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    
-    // var_dump($row);
-    // var_dump($rEmail);
-    // var_dump(md5($rPassword));exit;
-    // $active = $row['active'];
-    
-    $count = mysqli_num_rows($result);
-    
-    // var_dump('rpass',$rPassword);
-    // var_dump($row["emp_pwd"]);
-    // var_dump('input hashed',md5($rPassword));exit;
-    //variables that are need for the future pages
+    //authorization checked with the pet owner table
+    $sql_owner = "SELECT * FROM pet_owner WHERE owner_email = '$rEmail'";
+    $result_owner = mysqli_query($conn, $sql_owner);
+    $row_owner = mysqli_fetch_array($result_owner, MYSQLI_ASSOC);
+    $count_owner = mysqli_num_rows($result_owner);
 
-    if ($count == 1) {
-        $_SESSION['user_role'] = $row["emp_designation"];
-
-        if (mysqli_num_rows($result) > 0) {
+    //var_dump($row_owner);
+    if ($count_owner == 1) {
+        
+        if (mysqli_num_rows($result_owner) > 0) {
             $hashedPassword = md5($rPassword);
-            if ($hashedPassword == $row["emp_pwd"]) {
-                if ($row["emp_designation"] == "Store manager") {
-                    $_SESSION['login_user'] = $myemail;
-                    $_SESSION['user_name'] = $row["emp_name"];
-                    header("location: ../modules/pet store/dashboard.php");
-                }
-        
-                if ($row["emp_designation"] == "Veterinarian") {
-                    $_SESSION['login_user'] = $myemail;
-                    $_SESSION['user_name'] = $row["emp_name"];
-                    // $_SESSION["vet_id"] = $row["vet_id"];
-                    header("location: ../modules/veterinarian/controllers/dashboard.php");
-                }
-         if ($row["emp_designation"] == "Assistant") {
-                    $_SESSION['login_user'] = $myemail;
-                    $_SESSION['user_name'] = $row["emp_name"];
-                    header("location: /pet-life/modules/assistant/controllers/dashboard.php");
-                }
-        
-                if ($row["emp_designation"] == "Admin") {
-                    $_SESSION['login_user'] = $myemail;
-                    $_SESSION['user_name'] = $row["emp_name"];
-        
-                    header("location: ../modules/admin/Admin/dashboard.php");
-                }
-        
-                if ($row["emp_designation"] == "Cashier") {
-                    $_SESSION['login_user'] = $myemail;
-                    $_SESSION['user_name'] = $row["emp_name"];
-        
-                    header("location: ../modules/cashier/controllers/dashboard.php");
-                }
-        
-        
-        
-                $_SESSION['is_login'] = true;
-                $_SESSION['emp_email'] = $myemail;
+            if ($hashedPassword == $row_owner["owner_pwd"]) {                
                 $_SESSION['login_user'] = $rEmail;
-                $_SESSION['emp_id'] = $row["emp_id"];
-            } else {
-                $msg = '<div class="log-alert" role="alert"> Enter Valid Email and Password </div>';
+                $_SESSION['user_name'] = $row_owner["owner_fname"];
+                header("location: ../modules/pet owner/dashboard.php");
+
+            }else{
+                //echo "Wrong";
             }
-            } 
         }
 
-        
-        
-} else {
-    // echo "<script> location.href='login.php'; </script>";
-}
+    }else {
+
+        //authorization checked with the employee table
+        $sql = "SELECT * FROM employee WHERE emp_email='" . $rEmail . "' limit 1";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        $count = mysqli_num_rows($result);
+    
+        if ($count == 1) {
+            $_SESSION['user_role'] = $row["emp_designation"];
+            if (mysqli_num_rows($result) > 0) {
+                $hashedPassword = md5($rPassword);
+                if ($hashedPassword == $row["emp_pwd"]) {
+                    if ($row["emp_designation"] == "Store manager") {
+                        $_SESSION['login_user'] = $myemail;
+                        $_SESSION['user_name'] = $row["emp_name"];
+                        header("location: ../modules/pet store/dashboard.php");
+                    }
+            
+                    if ($row["emp_designation"] == "Veterinarian") {
+                        $_SESSION['login_user'] = $myemail;
+                        $_SESSION['user_name'] = $row["emp_name"];
+                        header("location: ../modules/veterinarian/controllers/dashboard.php");
+                    }
+    
+                    if ($row["emp_designation"] == "Admin") {
+                        $_SESSION['login_user'] = $myemail;
+                        $_SESSION['user_name'] = $row["emp_name"];
+                        header("location: ../modules/admin/Admin/dashboard.php");
+                    }
+            
+                    if ($row["emp_designation"] == "Cashier") {
+                        $_SESSION['login_user'] = $myemail;
+                        $_SESSION['user_name'] = $row["emp_name"];
+                        header("location: ../modules/cashier/controllers/dashboard.php");
+                    }
+           
+                    $_SESSION['is_login'] = true;
+                    $_SESSION['emp_email'] = $myemail;
+                    $_SESSION['login_user'] = $rEmail;
+                    $_SESSION['emp_id'] = $row["emp_id"];
+    
+                } else {
+                    //wrong password
+                    $msg = '<div class="log-alert" role="alert"> Enter Valid Email and Password </div>';
+                }
+            } 
+        }else{
+            echo "Wrong Credentials";
+        }        
+    }
+}   
 ?>
 
 <!DOCTYPE html>
@@ -122,19 +121,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     </div>
                     <div class="options">
-                        <div class="remember">
-                            <div class="flex">
-                                <input type="checkbox" name="remember" style="margin-right: 5px;">
-                                <label for="remember">Remember Me</label>
-                            </div>
-                        </div>
                         <div class="inputbox">
                             <P>Forgot Your Password?</P>
                         </div>
                     </div>
 
                     <div class="inputbox signup" style="display:flex; justify-content:center; margin-top:15px;">
-                        <P>Don’t have an account? <a href="vetsignup.php">Sign Up!</a></P>
+                        <P>Don’t have an account? <a href="../Auth/register.php">Sign Up!</a></P>
+
                     </div>
 
 

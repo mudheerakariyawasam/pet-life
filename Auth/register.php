@@ -1,5 +1,5 @@
 <?php
-include("../../db/dbconnection.php");
+include("../db/dbconnection.php");
 
 $sql_get_id = "SELECT owner_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
 $result_get_id = mysqli_query($conn, $sql_get_id);
@@ -51,57 +51,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
 
-<<!DOCTYPE html>
-    <html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/pet-life/Auth/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Login </title>
+</head>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/register.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-        <title>Pet Care</title>
-    </head>
+<body>
 
-    <body>
-
-        <div class="content">
-            <div class="navbar">
-                <div class="navbar__left">
-                    <div class="nav-icon">
-                        <i class="fa-solid fa-bars"></i>
-                    </div>
-                    <div class="hello">Welcome &nbsp <div class="name">User</div>
-                    </div>
-                </div>
-
-                <div class="navbar__right">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                <i class="fa-solid fa-bell"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa-solid fa-circle-user"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span id="designation"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="container">
-
-                <div class="left">
-                    <form method="POST" action="">
-                        <p class="welcome">Sign Up Free</p>
+    <section>
+        <div class="imgbox">
+            <img src="/pet-life/Auth/img/pngwing.png" alt="login image">
+        </div>
+        <div class="contentbox">
+            <div class="formbox">
+                <form method="POST" action="">
+                        <h2 class="welcome">Sign Up Free</h2>
 
                         <div class="form-content">
                             <label class="loging-label1">First Name</label>
@@ -144,18 +114,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <span class="psw">Already have an account? <a href="./login.php">Login</a></span>
 
                     </form>
+                <div><a href="/pet-life">Back to Home</a></div>
+                <div class="toast">
+
+                    <div class="toast-content">
+                        <i class="fa-regular fa-circle-check" style="color: #2dc02d;font-size: 35px;"></i>
+
+                        <div class="message">
+                            <span class="text text-1">Congratulations!</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-xmark close"></i>
 
 
-
+                    <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
+                    <div class="progress"></div>
                 </div>
-
-                <div class="right">
-                    <img class="image" src="./images/register.png" alt="image">
-                </div>
-
             </div>
         </div>
+    </section>
+</body>
 
-    </body>
+</html>
 
-    </html>
