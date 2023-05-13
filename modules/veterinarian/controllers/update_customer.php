@@ -172,8 +172,9 @@ if(isset($_POST['save-info'])){
                 </div>
                 <br>
                 <div class="save-btn">
-                    <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save"
-                        type="submit" role="button">Update</button>
+                <button class="btn-add" type="submit" role="button">
+                    <a style="color:black;"href="user.php" >Update</a>
+                    </button>
                 </div>
             </form>
 </div>

@@ -71,7 +71,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     
-    <title>Pet Life</title>
+    <title></title>
 </head>
 
 <body>
@@ -198,6 +198,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                 <td>' . $row["appointment_slot"] . '</td>
                 <td><a href="viewcustomer.php?owner_id=' . $row_pet["owner_id"] . '">' . $row ["pet_id"] . '</a></td>
                 <td>' . $row_name["full_name"] . '</td>
+                <td><a href="viewcustomer.php? owner_id=' . $row_pet["owner_id"] . '"><i class="fa-sharp fa-solid fa-eye" style="margin:5px;"></i></a></td>
+
                 </tr>';
         }
         echo "</tbody>";

@@ -221,7 +221,7 @@ body {
 }
 .action-panel {
   position: absolute;
- /* margin-top: 106px;*/
+ margin-top: 18px;
   display: flex;
   width: 185px;
   justify-content: space-between;
@@ -525,7 +525,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .table-view {
-  margin-top: 60px;
+  margin-top: 40px;
   margin-left: 30px;
   position: absolute;
 }
@@ -595,26 +595,28 @@ td {
 }
 
 table {
-  background: #012b39;
+  /* background: #012b39; */
+  background: #96CDE1;
   border-radius: 0.25em;
   border-collapse: collapse;
   margin: 1em;
 }
 tfoot td {
   text-align: center;
-  color: #e2b842;
+  color: black;
 }
 th {
   border-bottom: 1px solid #364043;
-  color: #e2b842;
+  color: black;
   font-size: 0.85em;
   font-weight: 600;
   padding: 0.5em 1em;
   text-align: center;
 }
 td {
-  color: #fff;
-  font-weight: 400;
+  /* color: #fff; */
+  color: black;
+  font-weight: 600;
   padding: 0.65em 1em;
   text-align: center;
 }
@@ -625,7 +627,8 @@ tbody tr {
   transition: background 0.25s ease;
 }
 tbody tr:hover {
-  background: #014055;
+  /* background: #014055; */
+  background: #fff;
 }
 
 tr {
@@ -633,7 +636,7 @@ tr {
 }
 tbody {
   display: block;
-  height: 465px;
+  height:280px;
   overflow: auto;
   overflow-x: hidden;
   font-size: 13px;
@@ -688,7 +691,8 @@ tr.action td {
 
 .expand-data {
   font-size: 20px;
-  color: darkgray;
+  /* color: darkgray; */
+  color: black;
 }
 
 .expand-data:hover {
@@ -701,13 +705,17 @@ tr.action td {
 }
 .expand-label-right {
   margin-right: 19px;
-  color: blanchedalmond;
+  /* color: blanchedalmond; */
+  color: black;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 .expand-item {
   display: inline-flex;
+}
+#expand-icon{
+  color: #07181d;
 }
 .expand-row {
   display: flex;
@@ -726,15 +734,16 @@ tr.action td {
   padding: 4px;
   display: inline-flex;
   align-items: center;
+  color: #000;
 }
 
 .ex-icon {
   padding: 4px;
-  color: chartreuse;
+  color: black;
 }
 .ex-icon-no {
   padding: 4px;
-  color: #d46a6a;
+  color: red;
 }
 
 ::-webkit-scrollbar {

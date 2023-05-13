@@ -98,7 +98,9 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                         <span class="tooltiptext tooltip-all-t">all treatments</span>
                     </div>
                     <br>
-                    <button onclick="saveTreatment(event)" class="btn-add" name="" type="submit" role="button"><a style="color:black;"href="user.php" > + Add new Client</a></button>
+                    <button onclick="saveTreatment(event)" class="btn-add" name="" type="submit" role="button">
+                    <a style="color:black;"href="user.php" > + Add new Client</a>
+                    </button>
                 </div>
             </div>
             <div class="data-table">

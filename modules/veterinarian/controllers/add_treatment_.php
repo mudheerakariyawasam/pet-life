@@ -24,11 +24,11 @@ while ($row = mysqli_fetch_assoc($all_medicines)) {
     // check availablity
     $current_med = [];
     $med_id = $row['medicine_id'];
+    // check against batch table
     $check_with_batch = "SELECT batch_id, batch_qty, batch_expdate FROM batch WHERE medicine_id = '$med_id'";
     $med = mysqli_query($conn, $check_with_batch);
     $med_data = mysqli_fetch_assoc($med);
-    // print_r($med_data);
-    // die();
+    
     if ($med_data == null) {
         $row['availability'] = false;
         $row['batch_id'] = null;
@@ -44,7 +44,10 @@ while ($row = mysqli_fetch_assoc($all_medicines)) {
             $row['availability'] = false;
         }
     }
+
+    // check whether it is a medicine or a vaccine
     if ($row['medicine_category'] == 'vaccine') {
+       // push to vaccine array if category is vaccine
         array_push($vaccine, $row);
     } else {
         array_push($medicine, $row);

@@ -47,7 +47,7 @@ if ($view_selected_client->num_rows > 0) {
     <link rel="stylesheet" href="../css/viewcustomer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <title></title>
 </head>
 
 <body>
@@ -123,21 +123,6 @@ if ($view_selected_client->num_rows > 0) {
                     </div>
                        
                         <br>
-
-                    
-                    <!-- <div class="appoint">
-                        <center>Appointments</center>
-                        <div class="appointment">
-
-                            <div class="appoint1">
-                                <p>5<br />Past</p>
-                            </div>
-                            <div class="appoint2">
-                                <p>2<br />Upcoming</p>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div>
                         <p>Email</p>
                         <p>
                             <?php echo $email; ?>
@@ -168,16 +153,9 @@ if ($view_selected_client->num_rows > 0) {
                         </p>
                         <hr />
                         <br />
-                        <!-- <p>City</p>
-<p>Horana</p>
-<hr/>
-<br/>
-<p>Number Of Pets</p>
-<p>2</p>
-<hr/> -->
+                        
                     </div>
-                </div>
-
+              
 
 
                 <div class="cont2">
@@ -217,7 +195,7 @@ if ($view_selected_client->num_rows > 0) {
                             <td>' . $pet_breed . '</td>
                             <td>
                             <div class="action all" style="display:flex;">
-                            <a href="treatment_history.php? updateid=' . $pet_id . '"><i class="fas fa-eye" style="color:blue;"></i></a>&nbsp;&nbsp;&nbsp;
+                            <a href="treatment_history.php? updateid=' . $pet_id . '&searchQuery=' . $pet_id . '"><i class="fas fa-eye" style="color:blue;"></i></a>&nbsp;&nbsp;&nbsp;
                             <a href="add_treatment_.php? updateid=' . $pet_id . '"><i class="fas fa-plus-square" style="color:blue;"></i></a>
                             </div>
                             </td>
@@ -236,6 +214,7 @@ if ($view_selected_client->num_rows > 0) {
 
 
                 </div>
+        </div>
             </div>
 
 

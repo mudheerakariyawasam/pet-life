@@ -215,19 +215,26 @@ body {
   display: flex;
   justify-content: left;
 } */
-.topic{
+.topic {
   font-size: 40px;
   font-weight: 950;
-  margin-left:50px;
+  margin-left: 50px;
   margin-top: 30px;
 }
-hr{
+
+.save-btn {
+  display: inline-flex;
+}
+
+hr {
   width: 90%;
   margin-left: 4%;
 }
-p{
+
+p {
   font-size: 20px;
-  }
+}
+
 .table-btn {
   display: flex;
   justify-content: space-between;
@@ -253,6 +260,7 @@ table {
 th {
   padding: 2px;
 }
+
 td {
   padding: 6px;
   text-align: left;
@@ -266,27 +274,26 @@ tr:hover {
 
 /*Add new client button */
 
-button.btn-add{
+button.btn-add {
   background-color: #C38D9E;
   color: black;
-  
   padding: 10px 10px;
   border-radius: 20px;
   /* box-shadow: 0px 0px 2px 2px rgb(0,0,0); */
-  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.0), 0 2px 2px 0 rgba(0, 0, 0, 1);
   border: none;
   margin: auto;
   width: 200px;
-  float:right;
+  float: right;
   font-family: poppins, sans-serif;
   font-style: normal;
   font-weight: 900;
   margin-right: 50px;
   cursor: pointer;
-
 }
+
 button.btn-add:hover {
-  background-color:rgba(215,226,255,0.6);
+  background-color: rgba(215, 226, 255, 0.6);
   transition: 0.7s;
 }
 
@@ -345,21 +352,30 @@ button.btn-add:hover {
 
 #btn-all-treatments {
   margin-right: 24px;
+  align-items: center;
+  display: flex;
 }
+#btn-all-treatments span{
+  margin-left: 10px;
+}
+
 #btn-all-treatments:hover {
   cursor: pointer;
   color: #000d2f;
 }
+
 /* Responsive */
 @media screen and (max-width:1000px) {
-   .main{
+  .main {
     width: 100%;
-   }
-   .sidebar{
-  width: 25%;
-   }
-   .content{
+  }
+
+  .sidebar {
+    width: 25%;
+  }
+
+  .content {
     width: 75%;
-   }
-  
+  }
+
 }
