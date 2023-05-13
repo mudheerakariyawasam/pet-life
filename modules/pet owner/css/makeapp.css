@@ -128,6 +128,7 @@ body {
     display: flex;
     justify-content: space-between;
     width: 82%;
+    margin-top: -25px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -157,6 +158,16 @@ body {
     flex-direction: row;
     justify-content:space-between;
     margin: 120px;
+}
+
+.header-font-1{
+    font-size:30px;
+    font-family: poppins, sans-serif;
+}
+.header-font-2{
+    font-size:30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
 }
 
 
@@ -291,18 +302,20 @@ form {
 .form-content {
     display:flex;
     flex-direction: column;
-    padding: 16px;
+    padding: 14px;
 align-content: baseline;
+font-weight: bolder;
 }
 .container input {
     display: block;
     border: 2px solid #ccc;
-    width: 300px;
-    padding: 8px;
+    width: 400px;
+    padding: 7px;
     margin: 0;
     border-radius: 30px;
     background-color: #C38D9E;
    margin-left: 6px;
+   
 
 
 
@@ -312,7 +325,7 @@ align-content: baseline;
     display: block;
     border: 2px solid #ccc;
     width: 400px;
-    padding: 3px;
+    padding: 7px;
     margin: 0;
     border-radius: 30px;
     background-color: #C38D9E;

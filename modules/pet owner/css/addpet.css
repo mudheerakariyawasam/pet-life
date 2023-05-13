@@ -293,6 +293,7 @@ form {
     flex-direction: column;
     padding: 8px;
 align-content: baseline;
+font-weight: bolder;
 }
 .container input {
     display: block;
