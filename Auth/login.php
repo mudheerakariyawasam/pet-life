@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_num_rows($result) > 0) {
                 $hashedPassword = md5($rPassword);
                 if ($hashedPassword == $row["emp_pwd"]) {
-                    if ($row["emp_designation"] == "Store manager") {
+                    if ($row["emp_designation"] == "Store Manager") {
                         $_SESSION['login_user'] = $myemail;
                         $_SESSION['user_name'] = $row["emp_name"];
                         header("location: ../modules/pet store/dashboard.php");
