@@ -2,13 +2,13 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
 
-$id = isset($_GET['updateid']) ? mysqli_real_escape_string($conn, $_GET['updateid']) : '';
+$owner_id = isset($_GET['owner_id']) ? mysqli_real_escape_string($conn, $_GET['owner_id']) : '';
 
-$sql = "SELECT * FROM pet_owner WHERE owner_id= '$id'";
+$sql = "SELECT * FROM pet_owner WHERE owner_id= '$owner_id'";
 $selected_client = mysqli_query($conn,$sql);
 
 if($selected_client && $row = mysqli_fetch_assoc($selected_client)){
-    $id = $row['owner_id'];
+    $owner_id = $row['owner_id'];
     $fname = $row['owner_fname'];
     $lname = $row['owner_lname'];
     $email = $row['owner_email'];
@@ -29,7 +29,7 @@ if(isset($_POST['save-info'])){
     
 
     $sql = "UPDATE pet_owner SET owner_fname='$fname',owner_lname= '$lname',owner_email='$email', owner_contactno='$tpn',owner_address='$address',
-    owner_nic='$nic',owner_pwd='$pwd' WHERE owner_id= '$id'";
+    owner_nic='$nic',owner_pwd='$pwd' WHERE owner_id= '$owner_id'";
     $clients = mysqli_query($conn,$sql);
    
 
@@ -128,10 +128,10 @@ if(isset($_POST['save-info'])){
         <!-- //Registration form starts -->
         <div class="sub-container">
         <div class="heading">New Client Registration</div>
-            <form action="update_customer.php?updateid=<?php echo $id;?>" class="form" method="post"  >
+            <form action="update_customer.php?owner_id=<?php echo $owner_id;?>" class="form" method="post"  >
                 <div class="input-box">
                     <label>Pet Owner's ID: </label>
-                    <label><?php echo $id ;?></label>
+                    <label><?php echo $owner_id ;?></label>
                 </div>
                 <div class="input-box">
                     <label>First Name</label>

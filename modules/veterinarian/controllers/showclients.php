@@ -116,9 +116,9 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                     <?php
                     if (isset($_GET['nic']) && $_GET['nic'] != '') {
                         $nic = $_GET['nic'];
-                        $sql = "SELECT * from pet_owner WHERE owner_nic LIKE '%$nic%' AND owner_status='Current'";
+                        $sql = "SELECT * from pet_owner WHERE owner_nic LIKE '%$nic%' AND owner_status='Registered'";
                     } else {
-                        $sql = "SELECT * from pet_owner WHERE owner_status='Current'";
+                        $sql = "SELECT * from pet_owner WHERE owner_status='Registered'";
                     }
 
                     $clients = mysqli_query($conn, $sql);
@@ -126,7 +126,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                     if ($clients) {
                         // die(mysqli_fetch_assoc($clients));
                         while ($row = mysqli_fetch_assoc($clients)) {
-                            $id = $row['owner_id'];
+                            $owner_id = $row['owner_id'];
                             $fname = $row['owner_fname'];
                             $lname = $row['owner_lname'];
                             $email = $row['owner_email'];
@@ -134,7 +134,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                             $address = $row['owner_address'];
                             $nic = $row['owner_nic'];
                             echo '<tr>
-                            <td>' . $id . '</td>
+                            <td>' . $owner_id . '</td>
                             <td>' . $fname . '</td>
                             <td>' . $lname . '</td>
                             <td>' . $email . '</td>
@@ -143,8 +143,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                             <td>' . $nic . '</td>
                             <td>
                             <div class="action all" style="display:flex;">
-                            <a href="viewcustomer.php? updateid=' . $id . '"><i class="fa-sharp fa-solid fa-eye" style="margin:5px;"></i></a>
-                            <a href="update_customer.php? updateid=' . $id . '"><i class="fa-sharp fa-solid fa-pen-to-square" style="margin:5px;"></i></a>
+                            <a href="viewcustomer.php? owner_id=' . $owner_id . '"><i class="fa-sharp fa-solid fa-eye" style="margin:5px;"></i></a>
+                            <a href="update_customer.php? owner_id=' . $owner_id . '"><i class="fa-sharp fa-solid fa-pen-to-square" style="margin:5px;"></i></a>
                             </div>
                             </td>
                             </tr>';

@@ -194,10 +194,10 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
             $row_name = mysqli_fetch_assoc($result_name);
 
             echo '<tr>
-                <td>" . $row["appointment_date"] . "</td>
-                <td>" . $row["appointment_slot"] . "</td>
-                <td><a href='viewcustomer.php?pet_id=" . $row["pet_id"] . "&owner_id=" . $owner_id . "'>" . $row ["pet_id"] . "</a></td>
-                <td>".$row_name["full_name"]."</td>
+                <td>' . $row["appointment_date"] . '</td>
+                <td>' . $row["appointment_slot"] . '</td>
+                <td><a href="viewcustomer.php?owner_id=' . $row_pet["owner_id"] . '">' . $row ["pet_id"] . '</a></td>
+                <td>' . $row_name["full_name"] . '</td>
                 </tr>';
         }
         echo "</tbody>";

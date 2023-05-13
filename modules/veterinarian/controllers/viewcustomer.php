@@ -2,14 +2,14 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
 
-$id = isset($_GET['updateid']) ? mysqli_real_escape_string($conn, $_GET['updateid']) : '';
+$owner_id = isset($_GET['owner_id']) ? mysqli_real_escape_string($conn, $_GET['owner_id']) : '';
 // newly added
 $pet_id = isset($_GET['pet_id']) ? $_GET['pet_id'] : '';
 $owner_id = isset($_GET['owner_id']) ? $_GET['owner_id'] : '';
 
 
 //Execute a query to retrieve data from the database
-$sql = "SELECT owner_id,owner_fname,owner_lname,owner_email,owner_contactno,owner_address,owner_nic FROM pet_owner WHERE owner_id='$id'";
+$sql = "SELECT owner_id,owner_fname,owner_lname,owner_email,owner_contactno,owner_address,owner_nic FROM pet_owner WHERE owner_id='$owner_id'";
 
 $view_selected_client = mysqli_query($conn, $sql);
 
@@ -146,7 +146,7 @@ if ($view_selected_client->num_rows > 0) {
                         <br>
                         <p>Pet Owner's ID</p>
                         <p>
-                            <?php echo $id; ?>
+                            <?php echo $owner_id; ?>
                         </p>
                         <hr />
                         <br />
@@ -195,7 +195,7 @@ if ($view_selected_client->num_rows > 0) {
                     </tr>
                     <?php
                     
-                    $sql = "SELECT * FROM pet WHERE owner_id = '$id' AND pet_availability = 'Current'";
+                    $sql = "SELECT * FROM pet WHERE owner_id = '$owner_id' AND pet_availability = 'Registered'";
                     
                     $pets = mysqli_query($conn, $sql);
                     // die(mysqli_fetch_assoc($clients));
