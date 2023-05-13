@@ -410,11 +410,11 @@
     margin-left: 50px;
     }
 
-    .search-box {
+.search-box {
       float: right;
       margin-bottom: 10px;
-  }
-  .search-box input[type="text"] {
+}
+.search-box input[type="text"] {
       padding: 5px;
       border: none;
       border-radius: 5px;

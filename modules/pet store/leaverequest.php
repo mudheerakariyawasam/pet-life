@@ -10,7 +10,7 @@
     $current_date = date("Y-m-d");
 
     //get the total holiday count of the employee
-    $sql_getholidaycount="SELECT COUNT(*) AS hol_count FROM holiday WHERE emp_id='$emp_id' AND from_date<'$current_date' OR approval_stage='Accepted'";
+    $sql_getholidaycount="SELECT COUNT(*) AS hol_count FROM holiday WHERE emp_id='$emp_id' AND from_date<'$current_date' OR approval_stage='Approved'";
     $result_getholidaycount=mysqli_query($conn,$sql_getholidaycount);
     $row=mysqli_fetch_array($result_getholidaycount);
     $holiday_count=$row["hol_count"];
@@ -48,11 +48,6 @@
         
                 //check data null values
                 if($holiday_type!="---Select Holiday Type--"){
-
-                    //check whether the date is free
-                    $sql_getcount="SELECT COUNT(*) FROM holiday WHERE from_date='$from_date'";
-                    $result_getcount=mysqli_query($conn,$sql_getcount);
-                    $row=mysqli_fetch_array($result_getcount);
 
                     if($row[0]>=1){
                         echo '<script>alert("Could not place the leave request. Please contact the admin")</script>';
@@ -221,7 +216,7 @@
                                     case 'Pending':
                                         $stage_color = '#f5f56c';
                                         break;
-                                    case 'Accepted':
+                                    case 'Approved':
                                         $stage_color = '#67eb69';
                                         break;
                                     case 'Rejected':

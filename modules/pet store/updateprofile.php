@@ -160,25 +160,37 @@
         </div>
     
         <div class="right-content">
-            <span class="sub-topic">Change Password</span><br>
-            <p>
-            <div class="pwd-content">
-                <label>Current Password :</label><br>
-                <input type="password" name="emp_name" placeholder="Enter Current Password"><br>
-            </div>
-            <div class="pwd-content">
-                <label>New Password :</label><br>
-                <input type="password" name="emp_name" placeholder="Enter New Password"><br>
-            </div>
-            <div class="pwd-content">
-                <label>Confirm New Password :</label><br>
-                <input type="password" name="emp_name" placeholder="Re Enter Password"><br>
-            </div>
+                    <form action="changepassword.php" method="POST">
+                        <span class="sub-topic">Change Password</span><br><br>
+                        <div class="pwd-content">
+                            <label>Current Password :</label><br>
+                            <input type="password" name="oldpass" placeholder="Enter Current Password"><br>
+                        </div>
+                        <div class="pwd-content">
+                            <label>New Password :</label><br>
+                            <input type="password" name="newpass" placeholder="Enter New Password"><br>
+                        </div>
+                        <div class="pwd-content">
+                            <label>Confirm New Password :</label><br>
+                            <input type="password" name="cnewpass" placeholder="Re Enter Password"><br>
+                        </div>
+                        <div class="pwd-content">
+                            <button class="btn-add" type="submit">Confirm </button>
+                        </div>
+                </form>    
+                <?php
+                // Check for success message
+                if (isset($_GET['password_changed']) && $_GET['password_changed'] == 'true') {
+                    echo '<span style="color: green;">Password changed successfully.</span>';
+                }
+
+                // Check for error message
+                if (isset($_SESSION['change_password_error']) && strlen($_SESSION['change_password_error']) > 1) {
+                    echo '<span style="color: red;">' . $_SESSION['change_password_error'] . '</span>';
+                    unset($_SESSION['change_password_error']);
+                }
+                ?>
             
-            <div class="pwd-content">
-                <button class="btn-add">Confim </button>
-            </div>
-            </p>
         </div>
     </div>
 
