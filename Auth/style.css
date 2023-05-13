@@ -46,7 +46,7 @@ section .contentbox {
   align-items: center;
   width: 50%;
   height: 100%;
-  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+  background-color:#96CDE1;
 }
 
 form {

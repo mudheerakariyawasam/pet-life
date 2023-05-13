@@ -3,11 +3,19 @@ include('../db/dbconnection.php');
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+//  if (empty($_POST["remail"])) {
+//         echo '<script>alert("Email is required")</script>';
+
+//     } else if (empty($_POST["rPassword"])) {
+//         echo '<script>alert("Password is required")</script>';
+//     } else {
+
     $rEmail = mysqli_real_escape_string($conn, trim($_REQUEST['rEmail']));
     $rPassword = mysqli_real_escape_string($conn, trim($_REQUEST['rPassword'])); //input password given by the user at login
     
     //authorization checked with the pet owner table
-    $sql_owner = "SELECT * FROM pet_owner WHERE owner_email = '$rEmail'";
+    $sql_owner = "SELECT * FROM pet_owner WHERE owner_email = '$rEmail' AND owner_status != 'Deleted'";
     $result_owner = mysqli_query($conn, $sql_owner);
     $row_owner = mysqli_fetch_array($result_owner, MYSQLI_ASSOC);
     $count_owner = mysqli_num_rows($result_owner);
@@ -30,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }else {
 
         //authorization checked with the employee table
-        $sql = "SELECT * FROM employee WHERE emp_email='" . $rEmail . "' limit 1";
+        $sql = "SELECT * FROM employee WHERE working_status != 'disable' AND emp_email='" . $rEmail . "'limit 1";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $count = mysqli_num_rows($result);
@@ -75,10 +83,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             } 
         }else{
-            echo "Wrong Credentials";
-        }        
+            $msg = '<div class="log-alert" role="alert"> Wrong User Details </div>';
+        }
     }
 }   
+
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="options">
                         <div class="inputbox">
-                            <P>Forgot Your Password?</P>
+                            <P><a href=" ../Auth/forgetpassword.php" >Forgot Your Password?</a></P>
                         </div>
                     </div>
 
