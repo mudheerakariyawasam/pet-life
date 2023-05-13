@@ -171,16 +171,16 @@ mysqli_close($conn);
 	</form>
 	<?php
 	if (isset($_POST['approve'])) {
-		$holiday['approval_stage'] = 'approved';
+		$holiday['approval_stage'] = 'Approved';
 	} else if (isset($_POST['reject'])) {
-		$holiday['approval_stage'] = 'rejected';
+		$holiday['approval_stage'] = 'Rejected';
 	}
 ?>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		let approvalStageTd = document.querySelector(".<?php echo $holiday['approval_stage']; ?>");
 		if (approvalStageTd) {
-			approvalStageTd.classList.remove("<?php echo $holiday['approval_stage'] === 'approved' ? 'rejected' : 'approved'; ?>");
+			approvalStageTd.classList.remove("<?php echo $holiday['approval_stage'] === 'Approved' ? 'Rejected' : 'Approved'; ?>");
 			approvalStageTd.classList.add("<?php echo $holiday['approval_stage']; ?>");
 		}
 	});
