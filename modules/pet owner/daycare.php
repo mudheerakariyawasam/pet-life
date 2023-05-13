@@ -289,7 +289,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 } elseif (strtotime($row['daycare_date']) >= strtotime($currentDate)) {
                                     // Display delete button and handle delete request
                                     echo '<form action="" method="POST">
-                                            <button class="btn-add3" type="reset" name="' . $daycare_id . '">Cancel</button>
+                                            <button class="btn-add3" type="submit" name="' . $daycare_id . '">Cancel</button>
                                         </form>';
                     
                                     if (isset($_POST[$daycare_id])) {
@@ -333,7 +333,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 echo '</tr>';
                             }
                         } else {
-                            echo '<td colspan="7"><center><img style="width:40%;" src="noresult.png"></center></td>';
+                            echo '<td colspan="7"><center><img style="width:40%;" src="images/no-results.png"></center></td>';
                         }
                         ?>
                     </table>

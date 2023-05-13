@@ -216,7 +216,7 @@
                     
             }
         else{
-        echo  '<td colspan="8">No Appointments</td>';
+            echo '<td colspan="8"><center><img style="width:50%;" src="images/no-results.png"></center></td>';
         }
 ?>            
             </table>    

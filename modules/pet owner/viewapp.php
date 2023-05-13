@@ -133,8 +133,9 @@ if (!isset($_SESSION["login_user"])) {
                     $currentDate = date('Y-m-d');
                     $sql = "SELECT * FROM appointment a
                      INNER JOIN pet p ON a.pet_id = p.pet_id 
+                     INNER JOIN pet_owner o ON o.owner_id = p.owner_id
                     INNER JOIN employee e ON e.emp_id = a.vet_id
-                    WHERE a.appointment_status != 'Cancelled'";
+                    WHERE a.appointment_status != 'Cancelled' AND owner_email = '{$_SESSION['login_user']}'";
 
                     // Check if pet_name parameter is set in the URL
                     if (isset($_GET['pet_name'])) {
@@ -229,7 +230,7 @@ if (!isset($_SESSION["login_user"])) {
                     else {
                            
                      
-                           echo '<td colspan="7"><center><img style="width:35%;" src="noresult.png"></center></td>';
+                           echo '<td colspan="7"><center><img style="width:35%;" src="images/no-results.png"></center></td>';
                        
                         }
 

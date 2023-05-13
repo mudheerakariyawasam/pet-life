@@ -163,7 +163,7 @@ $sql .= " ORDER BY a.followup_date ASC";
                 }
                 echo '</table>';
             } else {
-                echo '<td colspan="7"><center><img style="width:25%;" src="noresult.png"></center></td>';
+                echo '<td colspan="7"><center><img style="width:25%;" src="images/no-results.png"></center></td>';
             }
             ?>
         </div>

@@ -92,7 +92,7 @@ if(isset($_POST['delete'])) {
   mysqli_query($conn, $query);
   
   // Redirect to the login page
-  header("Location: login.php");
+  header("Location: ../../Auth/login.php");
 }
 ?>
 

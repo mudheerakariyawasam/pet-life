@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;700&display=swap');
 
-root {
-    --colour1: #000D2F;
-    --colour2: rgba(215, 226, 255, 0.6);
-    /* --backgroundcolour3: #EEF3FF; */
-    --colour4: black;
-    --colour5: white;
-}
 
 * {
     padding: 0;
@@ -16,13 +9,7 @@ root {
     text-decoration: none;
     list-style-type: none;
 }
-/* 
-body {
-    margin: 0;
-   
-    background-color: #fbfbfb;
-   
-} */
+
 
 .user-img {
     color: rgb(0, 0, 0);
@@ -154,7 +141,7 @@ body {
     display:flex;
     flex-direction: row;
 }
-.name {}
+
 
 .top-container{
     display: flex;

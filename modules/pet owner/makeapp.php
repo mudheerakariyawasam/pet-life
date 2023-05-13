@@ -1,5 +1,4 @@
-<!-- <?php
-
+<?php
     include("../../db/dbconnection.php");
     session_start();
     if(!isset($_SESSION["login_user"])){
@@ -293,7 +292,7 @@
                 <div class="form-content">
 
                 <input type="hidden" name="hash" value="<?php echo $merchant_secret; ?>">
-                <button class="btn-add" name="save-info" id="btn-save" type="submit" role="button">Pay Here</button>
+                <button class="btn-add" name="save-info" id="btn-save" type="submit" role="button">Confirm</button>
                 <!-- <button class="btn-add" name="save-info" id="btn-save" type="submit" role="button" onclick="paymentGateWay(); return false;">Pay Here</button> -->
                 </div>
         <!-- <script src="script.js"></script> -->
