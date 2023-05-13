@@ -250,10 +250,11 @@ body {
 }
 
 form{
-    background-color: #e6e6e6d2;
+    background-color: #e6e6e6fa;
     width: 420px;
     border-radius: 10%;
     padding: 30px;
+    height: 540px;
 }
 
 input{
@@ -263,11 +264,11 @@ input{
     border: none;
     padding: 3px;
     margin-bottom: 20px;
-    background-color: #C38D9E;
+    background-color: #ffffff;
     margin-left: 30px;
 }
 
-.right-content2 input{
+.right-content input{
     background-color: white;
 }
 
@@ -308,8 +309,13 @@ label{
     width: 30%;
     display: flex;
     flex-direction: column;
-    margin-right: 100px; 
+    margin-right: 170px; 
+    height: 50px;
       
+}
+
+.form-content2 {
+    margin-left: 60px;
 }
 
 
