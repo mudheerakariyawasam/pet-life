@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pet_id = $row['pet_id'];
 
         //duplicate entry
-        $sql_duplicate="SELECT * FROM `daycare` WHERE `daycare_date`='$daycare_date' AND `pet_id` = '$pet_id' AND daycare_status != 'Cancelled'";
+        $sql_duplicate="SELECT * FROM `daycare` WHERE `daycare_date`='$daycare_date' AND `pet_id` = '$pet_id' AND daycare_status != 'Canceled'";
         $r2=mysqli_query($conn,$sql_duplicate);
         $r_2=mysqli_num_rows($r2); 
         if($r_2>0) {

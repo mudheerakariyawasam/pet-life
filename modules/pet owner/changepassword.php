@@ -1,6 +1,5 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
 
 
 
@@ -28,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $newHashedPassword = md5($newPassword);
 
             // Update the owner's password in the database
-            $updateQuery = "UPDATE pey_owner SET owner_pwd='$newHashedPassword' WHERE owner_email='$owner_email'";
+            $updateQuery = "UPDATE pet_owner SET owner_pwd='$newHashedPassword' WHERE owner_email='$owner_email'";
             mysqli_query($conn, $updateQuery);
 
             // Redirect to the updateprofile.php file with the error message as a query parameter
