@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="../css/client.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
     <title>Pet Care</title>
 
 
@@ -222,6 +224,24 @@ echo '</div>';
     for (var i = 0; i < switchButtons.length; i++) {
         switchButtons[i].addEventListener('change', function() {
             var isChecked = this.checked ? '1' : '0';
+if (isChecked === '0') {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You are going to block this owner.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            disableOwner(ownerId, isChecked);
+        } else {
+            this.checked = true;
+        }
+    });
+} else {
+    disableOwner(ownerId, isChecked);
+}
             var ownerId = this.getAttribute('data-ownerid');
 
             // Send an AJAX request to update the database
@@ -241,7 +261,22 @@ echo '</div>';
 
         });
     }
-
+    function disableOwner(ownerId, isChecked) {
+    // Send an AJAX request to update the database
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'update_client_status.php');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log(xhr.responseText);
+            } else {
+                console.error(xhr.statusText);
+            }
+        }
+    };
+    xhr.send('owner_id=' + ownerId + '&wowner_status=' + isChecked + '&page=' + <?php echo $current_page; ?>);
+}
     // Add event listener to search input
    // Add event listener to search input
 var searchInput = document.getElementById('search-input');
