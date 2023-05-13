@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
         //insert data into the daycare table
-        $sql = "INSERT INTO daycare (daycare_id, pet_id, pet_name, daycare_date, owner_id) VALUES ('$daycare_id','$pet_id','$pet_name','$daycare_date','$owner_id')";
+        $sql = "INSERT INTO daycare (daycare_id, pet_id, pet_name, daycare_date, owner_id,daycare_status) VALUES ('$daycare_id','$pet_id','$pet_name','$daycare_date','$owner_id','Available')";
         $result = mysqli_query($conn, $sql);
 
         if ($result == TRUE) {
@@ -231,8 +231,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <th>Pet ID</th>
                             <th>Pet Name</th>
                             <th>DayCare Date</th>
-                            <th>Actions</th>
-                            <th>status</th>
+                            <th>Status</th>
+                            <th>Cancel</th>
                         </tr>
                         <?php
                      
@@ -258,61 +258,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 $daycare_id = $row['daycare_id'];
                                 $daycare_status = $row['daycare_status'];
                     
+                                //adding the color according to the approval stage
+                                $stage_color = '';
+                                switch($row["daycare_status"]) {
+                                    case 'Available':
+                                        $stage_color = '#f5f56c';
+                                        break;
+                                    case 'Canceled':
+                                        $stage_color = '#c74a4a';
+                                        break;
+                                }
+
                     
                                 echo '<tr > 
                                         <td>' . $row["pet_id"] . '</td>
                                         <td> ' . $row["pet_name"] . '</td> 
                                         <td>' . $row["daycare_date"] . '</td>
-                                        <td class="action">';
+                                        <td>' . $row["daycare_status"] . '</td>
+                                        <td class="action" style="background-color: ' . $stage_color . ';">';
                     
                                 // Check if appointment is completed
-                                if ($daycare_status == 'Cancelled' || $daycare_status == 'Completed') {
-                                    echo '<button class="btn-add2" type="reset">Cannot Delete</button>';
+                                if ($daycare_status == 'Canceled' || $daycare_status == 'Completed') {
+                                    //echo '<button class="btn-add2" type="reset">Cannot Delete</button>';
+                                    echo"<a class='medicine-link' href='#'>Cannot Delete</a></td>";
                                 } elseif (strtotime($row['daycare_date']) >= strtotime($currentDate)) {
                                     // Display delete button and handle delete request
-                                    echo '<form action="delete_daycare.php" method="POST">
-                                            <button class="btn-add3" type="submit" name="' . $daycare_id . '">Cancel</button>
-                                        </form>';
-                    
-                                    if (isset($_POST[$daycare_id])) {
-                                        // Check if appointment date is in the future
-                                        if (strtotime($row['daycare_date']) > strtotime($currentDate)) {
-                                            // Delete appointment
-                                            $sql = "UPDATE daycare SET daycare_status = 'Cancelled' WHERE daycare_id = '$daycare_id'";
-                                            if ($conn->query($sql) === TRUE) {
-                                                // Success message
-                                                echo '<script>alert("Slot deleted successfully.");</script>';
-                                                $daycare_status = 'Cancelled';
-                                            } else {
-                                                // Error message
-                                                echo '<script>alert("Error deleting Slot");</script>';
-                                            }
-                                        }
-                                    }
+                                    //echo '<button class="btn-add3" type="submit" name="daycare_id" value="' . $row["daycare_id"] . '">Cancel</button>';
+                                    echo"<a class='medicine-link' href='delete_daycare.php?daycare_id=" . $row['daycare_id'] . "'>Cancel</a></td>";                     
                                 } else {
                                     // Display cannot delete button
-                                    echo '<button class="btn-add2" type="reset">Cannot Delete</button>';
+                                    //echo"<td><a class='medicine-link' href='#'>Cannot Delete</a></td>";
                                 }
-                    
-                                echo '</td>';
-                    
-                                if ($daycare_status == 'Cancelled') {
-                                    $status_text = 'Cancelled';
-                                } elseif ($row['daycare_date'] >= $currentDate) {
-                                    $status_text = 'Pending';
-                                } elseif ($daycare_status != 'Cancelled' && $row['daycare_date'] < $currentDate) {
-                                    $status_text = 'Completed';
-                                }
-                                // Update appointment status in database
-                                $sql = "UPDATE daycare SET daycare_status = '$status_text' WHERE daycare_id = '$daycare_id'";
-                                if ($conn->query($sql) === TRUE) {
-                                    // Success message
-                                }
-                                // Display the availability status for each appointment
-                                echo '<td class="action1"> 
-                                        <p>' . $status_text . '</p>
-                                    </td>';
-                                echo '</tr>';
                             }
                         } else {
                             echo '<td colspan="7"><center><img style="width:40%;" src="images/no-results.png"></center></td>';

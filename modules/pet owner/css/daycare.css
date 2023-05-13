@@ -150,8 +150,6 @@ body {
     flex-direction: row;
 }
 
-.name {}
-
 .top-container{
     display: flex;
     flex-direction: row;
@@ -311,17 +309,11 @@ label {
 
 label.loging-label1 {
     margin-left: 25px;
+    width: 250px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight:500;
 }
-
-/* 
-button {
-    float: right;
-    padding: 10px 15px;
-    color: black;
-    margin-right: 40px;
-    border: none;
-    width: 47px;
-} */
 
 .btn-add{
     background-color: #C38D9E;
@@ -352,50 +344,7 @@ button:hover {
 }
 
 
-.btn-add3{
-    background-color: #1d752f;
-    color: rgb(246, 246, 246);
-    padding: 5px 5px;
-    border-radius: 20px;
-    /* box-shadow: 0px 0px 2px 2px rgb(0,0,0); */
-    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
-    border: none;
-    /* margin: auto; */
-    width: 120px;
-    float:right;
-    font-family: poppins, sans-serif;
-    font-style: normal;
-    font-weight: 800;
-    cursor: pointer;
-    }
-    .btn-add3:hover {
-        background-color:rgba(215,226,255,0.6);
-        transition: 0.7s;
-        }
-        
-        select {
-        border: none;
-        /* padding: 15px; */
-        border-radius: 10px;
-        }
-        
-        .btn-add2{
-            background-color: #b11414;
-            color: rgb(255, 255, 255);
-             padding: 5px 5px;
-            border-radius: 20px;
-            /* box-shadow: 0px 0px 2px 2px rgb(0,0,0); */
-            box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
-            border: none;
-            /* margin: auto; */
-            width: 120px;
-            float:right;
-            font-family: poppins, sans-serif;
-            font-style: normal;
-            font-weight: 800;
-            cursor: pointer;
-            }
-    
+
 .error {
     background: #F2DEDE;
     color: #0c0101;
@@ -463,22 +412,37 @@ table {
 
 
 select#pet_name {
-display: block;
+    display: block;
     border: 2px solid #ccc;
-    width: 300px;
-    padding: 4px;
+    width: 220px;
+    padding: 10px;
     margin: 0;
     border-radius: 30px;
     background-color: #C38D9E;
    margin-left: 6px;
+   font-size: 14px;
 
+}
+
+input[type="date"] {
+    display: block;
+    border: 2px solid #ccc;
+    width: 220px;
+    padding: 10px;
+    margin: 0;
+    border-radius: 30px;
+    background-color: #C38D9E;
+   margin-left: 6px;
+   font-size: 14px;
 }
 
 .filter select {
         border: none;
-        padding: 15px;
+        padding: 10px;
+        width: 150px;
+        height: 40px;
         border-radius: 10px;
-    }
+}
 
     .filter {
         margin-top: 150px;
