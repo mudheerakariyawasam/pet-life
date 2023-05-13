@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = "SELECT owner_pwd FROM pet_owner WHERE owner_email='$owner_email'";
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_row($result);
-    print_r($row[0]);
+
     $currentHashedPassword = $row[0];
 
     // Verify the current password
@@ -162,25 +162,7 @@ if(isset($_POST['delete'])) {
             </div>
 
 
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span id="designation"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+           
         </div>
 
 

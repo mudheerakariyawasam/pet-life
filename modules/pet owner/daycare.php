@@ -146,25 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
 
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span id="designation"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+           
         </div>
 
         <div class="container">
@@ -207,10 +189,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-content">
                         <label class="loging-label1">DayCare Date</label>
                         <?php
-        $currentDate = date('Y-m-d');
-        $nextfiveDays = date('Y-m-d', strtotime($currentDate . ' +4 days'));
-    ?>
-    <input type="date" name="daycare_date" min="<?= $currentDate ?>" max="<?= $nextfiveDays ?>" required>
+                            $currentDate = date('Y-m-d');
+                            $nextfiveDays = date('Y-m-d', strtotime($currentDate . ' +4 days'));
+                        ?>
+            <input type="date" name="daycare_date" min="<?= $currentDate ?>" max="<?= $nextfiveDays ?>" required>
                     </div>
 
 
@@ -288,7 +270,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     echo '<button class="btn-add2" type="reset">Cannot Delete</button>';
                                 } elseif (strtotime($row['daycare_date']) >= strtotime($currentDate)) {
                                     // Display delete button and handle delete request
-                                    echo '<form action="" method="POST">
+                                    echo '<form action="delete_daycare.php" method="POST">
                                             <button class="btn-add3" type="submit" name="' . $daycare_id . '">Cancel</button>
                                         </form>';
                     

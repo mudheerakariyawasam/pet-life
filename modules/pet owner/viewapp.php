@@ -69,25 +69,7 @@ if (!isset($_SESSION["login_user"])) {
                 </div>
             </div>
 
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span id="designation"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+           
         </div>
 
 
@@ -191,6 +173,7 @@ if (!isset($_SESSION["login_user"])) {
                                 }
                                 // Display delete button
                                 else {
+                                    
                                     echo '<form action="" method="post">
                                             <button class="btn-add3" type="submit" name="' . $appointment_id . '">Delete</button>
                                           </form>';

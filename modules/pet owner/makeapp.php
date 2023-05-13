@@ -173,29 +173,7 @@
                 <div class="hello">Welcome &nbsp <div class="name"><?php echo $_SESSION['user_name'];?></div>
                 </div>
             </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span id="designation"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
+       </div>
 
         <div class="container">
       

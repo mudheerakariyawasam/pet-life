@@ -128,25 +128,7 @@ while ($row_pet2 = mysqli_fetch_assoc($result_pets)) {
                 </div>
             </div>
 
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span id="designation"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+           
         </div>
 
         <div class="container">
