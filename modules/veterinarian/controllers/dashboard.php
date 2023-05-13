@@ -153,9 +153,11 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                     <p>Appointments&nbsp;&nbsp;&nbsp;<span style="color:green;"><?php echo $total_appointments;?></span></p><img style="padding-left:100px;" src="../images/d4.png">
                 </div>
             </div>
-            <center>
-                <div class="heading">Today's Appointments</div>
-            </center>
+            
+                <!-- <div class="heading">Today's Appointments</div> -->
+                <p class="topic">Today's Appointments</p>
+                <hr>
+           
             <br /><br /><br />
             
             <div class="table">
@@ -173,6 +175,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
         <th>Time Slot</th>
         <th>Pet ID</th>
         <th>Owner Name</th>
+        <th>Action</th>
         </tr>
         </thead>";
         echo "<tbody>";
@@ -190,12 +193,12 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
             $result_name = mysqli_query($conn, $sql_name);
             $row_name = mysqli_fetch_assoc($result_name);
 
-            echo "<tr>
+            echo '<tr>
                 <td>" . $row["appointment_date"] . "</td>
                 <td>" . $row["appointment_slot"] . "</td>
                 <td><a href='viewcustomer.php?pet_id=" . $row["pet_id"] . "&owner_id=" . $owner_id . "'>" . $row ["pet_id"] . "</a></td>
                 <td>".$row_name["full_name"]."</td>
-                </tr>";
+                </tr>';
         }
         echo "</tbody>";
         echo "</table>";

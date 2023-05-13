@@ -143,7 +143,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
                             <td>' . $nic . '</td>
                             <td>
                             <div class="action all" style="display:flex;">
-                            <a href="draft.php? updateid=' . $id . '"><i class="fa-sharp fa-solid fa-eye" style="margin:5px;"></i></a>
+                            <a href="viewcustomer.php? updateid=' . $id . '"><i class="fa-sharp fa-solid fa-eye" style="margin:5px;"></i></a>
                             <a href="update_customer.php? updateid=' . $id . '"><i class="fa-sharp fa-solid fa-pen-to-square" style="margin:5px;"></i></a>
                             </div>
                             </td>
