@@ -256,6 +256,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // When the user clicks on <span> (x), close the modal
             span.onclick = function () {
                 modal.style.display = "none";
+                window.location.href="treatment_history.php";
             }
 
             // When the user clicks anywhere outside of the modal, close it

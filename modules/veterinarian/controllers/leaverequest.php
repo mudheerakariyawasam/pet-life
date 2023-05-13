@@ -1,7 +1,7 @@
 <?php
    include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
    include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
-    // session_start();
+
     if(!isset($_SESSION["login_user"])){
         header("location:login.php");
         exit;
@@ -11,36 +11,30 @@
     $current_date = date("Y-m-d");
 
     //get the total holiday count of the employee
-    $sql_getholidaycount="SELECT COUNT(*) FROM holiday WHERE emp_id='$emp_id' AND from_date<'$current_date' OR approval_stage='Accepted'";
+    $sql_getholidaycount="SELECT COUNT(*) AS hol_count FROM holiday WHERE emp_id='$emp_id' AND from_date<'$current_date' OR approval_stage='Approved'";
     $result_getholidaycount=mysqli_query($conn,$sql_getholidaycount);
     $row=mysqli_fetch_array($result_getholidaycount);
-    $holiday_count=$row[0];
+    $holiday_count=$row["hol_count"];
 
     //generate next holiday ID
-    $sql_get_id="SELECT holiday_id FROM holiday ORDER BY holiday_id DESC LIMIT 1";
+    $sql_get_id="SELECT MAX(holiday_id) AS max_id FROM holiday";
     $result_get_id=mysqli_query($conn,$sql_get_id);
     $row=mysqli_fetch_array($result_get_id);
- 
-    $lastid="";
-                     
-     if(mysqli_num_rows($result_get_id)>0){
-         $lastid=$row['holiday_id'];
-     }
- 
-     if($lastid==""){
-         $holiday_id="L001";
-     }else {
-         $holiday_id=substr($lastid,3);
-         $holiday_id=intval($holiday_id);
- 
-         if($holiday_id>=9){
-             $holiday_id="L0".($holiday_id+1);
-         } else if($holiday_id>=99){
-             $holiday_id="L".($holiday_id+1);
-         }else{
-             $holiday_id="L00".($holiday_id+1);
-         }
-     }
+    $max_id = $row['max_id'];
+
+    // generate the new pet ID
+    if ($max_id === null) {
+        $holiday_id = "H001";
+    } else {
+        $num = intval(substr($max_id, 1)) + 1;
+        if ($num < 10) {
+            $holiday_id = "H00$num";
+        } else if ($num < 100) {
+            $holiday_id = "H0$num";
+        } else {
+            $holiday_id = "H$num";
+        }
+    }
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
             
@@ -56,7 +50,7 @@
                 //check data null values
                 if($holiday_type!="---Select Holiday Type--"){
 
-                    //check whether the date is free
+                    //check whether the date is free - only for vets
                     $sql_getcount="SELECT COUNT(*) FROM holiday WHERE from_date='$from_date'";
                     $result_getcount=mysqli_query($conn,$sql_getcount);
                     $row=mysqli_fetch_array($result_getcount);
@@ -69,11 +63,11 @@
                         $result_getdaycount=mysqli_query($conn,$sql_getdaycount);
                         $row_getdaycount=mysqli_fetch_array($result_getdaycount);
 
-                        if($row_getdaycount[0]>=1){
+                        if($row_getdaycount[0]>=3){
                             echo '<script>alert("You have already reached the daily limit of requesting leaves. Please contact the admin")</script>';
                         }else{
-                            $sql = "INSERT INTO holiday (holiday_id,from_date,to_date,emp_id,holiday_type,holiday_reason,requested_date) 
-                            VALUES ('$holiday_id','$from_date','$to_date','$emp_id','$holiday_type','$holiday_reason','$current_date')";
+                            $sql = "INSERT INTO holiday (holiday_id,from_date,to_date,approval_stage,emp_id,holiday_type,holiday_reason,requested_date) 
+                            VALUES ('$holiday_id','$from_date','$to_date','Pending','$emp_id','$holiday_type','$holiday_reason','$current_date')";
                             $result = mysqli_query($conn,$sql);
                             
                             if($result==TRUE) { 
@@ -133,7 +127,7 @@
             </ul>
         <div class="logout">
             <hr>
-            <a href="../../Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
+            <a href="../../../Auth/logout.php"><i class="fa-solid fa-sign-out"></i><span>Logout</span></a>
         </div>        
     </div>
   
@@ -186,7 +180,7 @@
             
             <div>
                 <div class="request-type">
-                    <p><b>Remaining No of Leave Requests</b></p><br>
+                    <center><p><b>Remaining No of Leave Requests</b></p><br></center>
                     <?php
                         $sql_tot = "SELECT * FROM holiday_references";
                         $result_tot = mysqli_query($conn, $sql_tot);
@@ -211,7 +205,8 @@
                                 
                             }
                         } else {
-                            echo "0 results";
+                            $image_url = "images/no-results.png";
+                            echo '<img src="' . $image_url . '" alt="No results" width="200" height="200">';
                         }
                     ?>
                 </div>
@@ -240,7 +235,7 @@
                                     case 'Pending':
                                         $stage_color = '#f5f56c';
                                         break;
-                                    case 'Accepted':
+                                    case 'Approved':
                                         $stage_color = '#67eb69';
                                         break;
                                     case 'Rejected':
@@ -255,13 +250,14 @@
                                         <td>' . $row["to_date"] . '</td> 
                                         <td style="background-color: ' . $stage_color . ';">' . $row["approval_stage"] . '</td>
                                         <td class="action-btn"><button type="submit" name="holiday_id" 
-                                            value="' . $row["holiday_id"] . '"><img src="images/delete.png"></button></td>
+                                            value="' . $row["holiday_id"] . '"><img src="../images/delete.png"></button></td>
                                     </tr>';
                                 }
                             }
                             echo '</table></form>';
                         } else {
-                            echo "0 results";
+                            $image_url = "../images/no-results.png";
+                            echo '<img src="' . $image_url . '" alt="No results" width="200" height="200">';
                         }
                     ?>
                 </div>

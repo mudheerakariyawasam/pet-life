@@ -275,13 +275,7 @@ button.btn-add:hover {
   width: 50%;
 }
 
-.request-type{
-width: 100%;
-margin: 20px;
-padding: 20px;
-background-color:   #D9D9D9;
-border-radius: 20px;
-}
+
 
 select.dropdown-list{
   width: 300px;
@@ -325,28 +319,51 @@ transition: 0.7s;
 }
 
 table {
-border: none;
-border-collapse: collapse;
-font-size: 15px;
+  border: none;
+  border-collapse: collapse;
+  font-size: 15px;
 
 }
 
 th, td {
-width:150px;
-text-align:center;
-padding:8px; 
-background-color: #000D2F; 
-border-bottom: 5px solid  #D9D9D9;;
-color: white;
-height: 30px;
+  width:150px;
+  text-align:center;
+  padding:8px; 
+  background-color: #96CDE1; 
+  border-bottom: 5px solid  #D9D9D9;
+  height: 30px;
 }
 
 td{
-background-color:#FAF2F2;  
-color: black;
-border-bottom: 5px solid  #D9D9D9;;
+  background-color:#FAF2F2;  
+  color: black;
+  border-bottom: 5px solid  #D9D9D9;;
 }
 
 p{
-font-size: 20px;
+  font-size: 20px;
+}
+
+.request-type {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.request-type p {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.request-type label {
+  display: inline-block;
+  width: 150px;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.request-type span {
+  font-size: 16px;
 }

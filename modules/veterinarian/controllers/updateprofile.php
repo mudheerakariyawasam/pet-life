@@ -99,9 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <!-- <div class="full">
-    
-</div> -->
+
 
     <div class="main-container">
 
@@ -241,9 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="right-content">
                     <form action="changepassword.php" method="POST">
-                    <span class="sub-topic">Change Password</span><br>
-                        <p>
-                        
+                        <span class="sub-topic">Change Password</span><br><br>
                         <div class="pwd-content">
                             <label>Current Password :</label><br>
                             <input type="password" name="oldpass" placeholder="Enter Current Password"><br>
@@ -259,24 +255,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="pwd-content">
                             <button class="btn-add" type="submit">Confirm </button>
                         </div>
-                        
-<?php
-// Check for success message
-if (isset($_GET['password_changed']) && $_GET['password_changed'] == 'true') {
-    echo '<span style="color: green;">Password changed successfully.</span>';
-}
+                </form>    
+                <?php
+                // Check for success message
+                if (isset($_GET['password_changed']) && $_GET['password_changed'] == 'true') {
+                    echo '<span style="color: green;">Password changed successfully.</span>';
+                }
 
-// Check for error message
-if (isset($_SESSION['change_password_error']) && strlen($_SESSION['change_password_error']) > 1) {
-    echo '<span style="color: red;">' . $_SESSION['change_password_error'] . '</span>';
-    unset($_SESSION['change_password_error']);
-}
-?>
-                    </div>
-                    
-                </div>
-
-            </div>
+                // Check for error message
+                if (isset($_SESSION['change_password_error']) && strlen($_SESSION['change_password_error']) > 1) {
+                    echo '<span style="color: red;">' . $_SESSION['change_password_error'] . '</span>';
+                    unset($_SESSION['change_password_error']);
+                }
+                ?>
+            
         </div>
     </div>
 </body>
