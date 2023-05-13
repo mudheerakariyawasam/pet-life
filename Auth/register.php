@@ -38,8 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $hashedPassword = md5($owner_pwd);
 
-
-
     $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$hashedPassword','Registered')";
     $result = mysqli_query($conn, $sql);
 
@@ -115,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     </form>
                 <div><a href="/pet-life">Back to Home</a></div>
-                <div class="toast">
+                <!-- <div class="toast">
 
                     <div class="toast-content">
                         <i class="fa-regular fa-circle-check" style="color: #2dc02d;font-size: 35px;"></i>
@@ -129,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
                     <div class="progress"></div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
