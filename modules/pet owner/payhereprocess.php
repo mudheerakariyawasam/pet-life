@@ -1,17 +1,11 @@
 <?php
-
-$$appointment_id=$_GET['appointment_id'];
-$date=$_GET['date'];
-$time_slot=$_GET['time_slot'];
-$new_slot_id=$_GET['new_slot_id'];
-$emp_id=$_GET['emp_id'];
-$pet_id=$_GET['pet_id'];
-
 $amount = 3000;
 $merchant_id = "1223098";
 $order_id = uniqid();
 $merchant_secret = "MzU2NDY5NTEwMzE2MDY5NjcwMDg2NzM2NzQ1MjA2OTUyMDY0NQ==";
 $currency = "LKR";
+
+
 
 $hash = strtoupper(
     md5(
@@ -22,21 +16,24 @@ $hash = strtoupper(
         strtoupper(md5($merchant_secret)) 
     ) 
 );
-
 $array = [];
-$array["appointment_id"] = $appointment_id;
-$array["date"] = $date;
-$array["time_slot"] = $time_slot;
-$array["new_slot_id"] = $new_slot_id;
-$array["emp_id"] = $emp_id;
-$array["pet_id"] = $pet_id;
+$array["items"] = "Door bell wireles";
+$array["first_name"] = "Saman";
+$array["last_name"] = "Perera";
+$array["email"] = "samanp@gmail.com";
+$array["phone"] = "0771234567";
+$array["address"] = "No.1, Galle Road";
+$array["city"] = "Colombo";
 $array["amount"] = $amount;
 $array["merchant_id"] = $merchant_id;
 $array["order_id"] = $order_id;
 $array["currency"] = $currency;
+$array["amount"] = $amount;
 $array["hash"] = $hash;
 
-$jsonObj = json_encode ($array);
-echo $jsonObj;
 
+$jsonObj = json_encode ($array);
+
+
+echo $jsonObj;
 ?>
