@@ -20,12 +20,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="payment.css">
+    <link rel="stylesheet" href="css/payhere.css">
     <title></title>
 </head>
 
 <body>
-    <div class="body">
+<section>
+    
+        <div class="imgbox">
+            <img src="images/pay.jpg" id="reset">
+            </div>
+            <div class="body">
+            <form>
+            <div class="title"><h1 class="welcome">Treatment For Your Pet</h1>
+            <div class="title"><h2 class="welcome">For Bookings : Rs. 500/= only</h2>
+    
+            <div class="title"><h1 class="welcome">Get Your Slot Booked</h1>
+    
         <!-- button  -->
         <div class="save-btn">
             <button onclick="paymentGateWay('<?php echo $appointment_id; ?>','<?php echo $date; ?>','<?php echo $time_slot; ?>','<?php echo $new_slot_id; ?>','<?php echo $emp_id; ?>','<?php echo $pet_id; ?>');" class="button-01" name="save-info" id="btn-save" type="submit"

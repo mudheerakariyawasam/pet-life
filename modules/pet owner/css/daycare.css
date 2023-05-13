@@ -288,6 +288,7 @@ body {
     flex-direction: column;
     padding: 16px;
 align-content: baseline;
+font-weight: bolder;
 }
 .container input {
     display: block;
@@ -312,7 +313,7 @@ label.loging-label1 {
     width: 250px;
     padding: 10px;
     font-size: 18px;
-    font-weight:500;
+    font-weight: bold;
 }
 
 .btn-add{
@@ -452,17 +453,17 @@ input[type="date"] {
     .btn-add1 {
         background-color: #C38D9E;
         color: black;
-        padding: 10px 10px;
-        border-radius: 20px;
+        padding: 7px 7px;
+        border-radius: 26px;
         box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
         border: none;
-        margin: auto;
-        width: 50px;
+        /* margin: auto; */
+        width: 48px;
         float: right;
         font-family: poppins, sans-serif;
         font-style: normal;
         font-weight: 800;
-        margin-right: 373px;
+        margin-right: 357px;
         cursor: pointer;
     }
     .btn-add1:hover {

@@ -61,7 +61,6 @@ if (!isset($_SESSION["login_user"])) {
         <div class="navbar">
             <div class="navbar__left">
                 <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
                 </div>
                 <div class="hello">Welcome &nbsp <div class="name">
                         <?php echo $_SESSION['user_name']; ?>

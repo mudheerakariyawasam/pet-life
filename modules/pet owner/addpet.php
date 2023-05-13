@@ -63,7 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/addpet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
+    <title>Pet Life</title>
 </head>
 
 <body>
@@ -107,7 +109,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="navbar">
             <div class="navbar__left">
                 <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
                 </div>
                 <div class="hello">Welcome &nbsp <div class="name">
                         <?php echo $_SESSION['user_name']; ?>
