@@ -277,7 +277,6 @@ tr:hover {
 button.btn-add {
   background-color: #C38D9E;
   color: black;
-
   padding: 10px 10px;
   border-radius: 20px;
   /* box-shadow: 0px 0px 2px 2px rgb(0,0,0); */
@@ -291,7 +290,6 @@ button.btn-add {
   font-weight: 900;
   margin-right: 50px;
   cursor: pointer;
-
 }
 
 button.btn-add:hover {

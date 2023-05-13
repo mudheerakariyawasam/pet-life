@@ -249,7 +249,8 @@ if (empty($pwd)) {
                     <br>
                     <div class="save-btn">
                         <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save"
-                            type="submit" role="button">Submit</button>
+                            type="submit" role="button">Submit
+                        </button>
                     </div>
                 </form>
             </div>
