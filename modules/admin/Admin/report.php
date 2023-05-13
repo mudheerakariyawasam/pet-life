@@ -96,6 +96,9 @@ padding: 5px 10px;
                 <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
             </li>
             <li>
+                <a href="daycare.php"><i class="fa-solid fa-calendar-plus"></i><span>Day Care</span></a>
+            </li>
+            <li>
                 <a href="#" class="active"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
             </li>
             <li>

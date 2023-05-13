@@ -16,65 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-J5uS+gU3qlKVuQZ1mxE5P4fNB8fM8kNzzJ7vR2S2JczbLcF0OqAovuoW+boFTYdDZd/dChGWcb7HdqbK9JF13Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Pet Life</title>
     
-    <style>
-    /* .search-box {
-        float: right;
-        margin-bottom: 10px;
-    }
-    .search-box input[type="text"] {
-        padding: 5px;
-        border: none;
-        border-radius: 5px;
-        margin-left: 5px;
-    }
-    .pagination {
-  display: inline-block;
-}
-
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-}
-
-.pagination a.active {
-  background-color: #4CAF50;
-  color: white;
-  border: 1px solid #4CAF50;
-}
-
-.pagination a:hover:not(.active) {
-  background-color: #ddd;
-}
-
-.pagination a:first-child {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-
-.pagination a:last-child {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-button{
-float:right;
-padding: 5px 10px;
-
-
-}
-
-
-
-		.green {
-			background-color: green;
-		} */
-
-
-
-</style>
+    <style></style>
 
 </head>
 
@@ -86,7 +28,7 @@ padding: 5px 10px;
                 <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
-                <a href="appointment.php" class="active"><i class="fa-solid fa-calendar-plus"></i><span>Appointments</span></a>
+                <a href="appointment.php"><i class="fa-solid fa-calendar-plus"></i><span>Appointments</span></a>
             </li>
             <li>
                 <a href="client.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
@@ -98,7 +40,7 @@ padding: 5px 10px;
                 <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
             </li>
             <li>
-                <a href="daycare.php"><i class="fa-solid fa-calendar-plus"></i><span>Day Care</span></a>
+                <a href="daycare.php"  class="active"><i class="fa-solid fa-calendar-plus"></i><span>Day Care</span></a>
             </li>
             <li>
                 <a href="report.php"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
@@ -126,10 +68,11 @@ padding: 5px 10px;
         <div class="container">
         <br/><br/><br/>
        
-<div class="appointment-title">Appointment Management</div><hr>
+<div class="appointment-title">DayCare Management</div><hr>
 <br/><br/>
 <center>
 <?php
+
 
 //Define the number of records per page
 $records_per_page = 10;
@@ -141,30 +84,30 @@ $current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'
 $start_from = ($current_page - 1) * $records_per_page;
 
 	// Retrieve all holidays from the database
-	$sql = "SELECT appointment_id, appointment_date, appointment_time, appointment_slot, appointment_status FROM appointment LIMIT $start_from, $records_per_page";
+	$sql = "SELECT * FROM daycare LIMIT $start_from, $records_per_page";
 	$result = mysqli_query($conn, $sql);
 
 	// Display the holidays in a table
 	if (mysqli_num_rows($result) > 0) {
 		echo "<table class='appointment-table'>";
-		echo "<tr><th class='appointment-table-header'>Appointment ID</th><th class='appointment-table-header'>Appointment Date</th><th class='appointment-table-header'>Appointment Time</th><th class='appointment-table-header'>Appointment Slot</th><th class='appointment-table-header'>Appointment Status</th><th class='appointment-table-header'>Action</th></tr>";
+		echo "<tr><th class='appointment-table-header'>DayCare ID</th><th class='appointment-table-header'>Date</th><th class='appointment-table-header'>Owner ID</th><th class='appointment-table-header'>Pet Name</th><th class='appointment-table-header'>Status</th><th class='appointment-table-header'>Action</th></tr>";
 		while ($row = mysqli_fetch_assoc($result)) {
 			echo "<tr>";
-			echo "<td class='appointment-table-cell'>" . $row['appointment_id'] . "</td>";
-			echo "<td class='appointment-table-cell'>" . $row['appointment_date'] . "</td>";
-            echo "<td class='appointment-table-cell'>" . $row['appointment_time'] . "</td>";
-            echo "<td class='appointment-table-cell'>" . $row['appointment_slot'] . "</td>";
-            echo "<td class='appointment-table-cell'>" . $row['appointment_status'] . "</td>";
-			echo "<td class='appointment-table-cell'><a class='appointment-link' href='appointment_details.php?appointment_id=" . $row['appointment_id'] . "'><center><i class='fas fa-eye'></i></center></a></td>";
+			echo "<td class='appointment-table-cell'>" . $row['daycare_id'] . "</td>";
+			echo "<td class='appointment-table-cell'>" . $row['daycare_date'] . "</td>";
+            echo "<td class='appointment-table-cell'>" . $row['owner_id'] . "</td>";
+            echo "<td class='appointment-table-cell'>" . $row['pet_name'] . "</td>";
+            echo "<td class='appointment-table-cell'>" . $row['daycare_status'] . "</td>";
+			echo "<td class='appointment-table-cell'><a class='appointment-link' href='daycare_details.php?daycare_id=" . $row['daycare_id'] . "'><center><i class='fas fa-eye'></i></center></a></td>";
 			echo "</tr>";
 		}
 		echo "</table>";
 	} else {
-		echo "No appointments found.";
+		echo "No dayacare found.";
 	}
 
     // Count the total number of records in the employee table
-    $sql_count = "SELECT COUNT(*) as total_records FROM appointment";
+    $sql_count = "SELECT COUNT(*) as total_records FROM daycare";
     $result_count = mysqli_query($conn, $sql_count);
     $row_count = mysqli_fetch_assoc($result_count);
     $total_records = $row_count['total_records'];
@@ -183,12 +126,12 @@ $start_from = ($current_page - 1) * $records_per_page;
     }
 
 echo '</div>';
+
 ?>
 
 </center>
 
     </div>
-    <script src="script.js"></script>
 </body>
 
 </html>
