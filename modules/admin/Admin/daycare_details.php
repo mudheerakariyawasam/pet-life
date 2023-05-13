@@ -113,12 +113,12 @@ button:active {
 <?php
 
 // Check if the holiday ID is set in the URL
-if (!isset($_GET['appointment_id'])) {
-    die("Error: Appointment ID not specified.");
+if (!isset($_GET['daycare_id'])) {
+    die("Error: DayCare ID not specified.");
 }
 
 // Retrieve the holiday details from the database based on the holiday ID in the URL
-$sql = "SELECT * FROM appointment WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
+$sql = "SELECT * FROM daycare WHERE daycare_id = '" . $_GET['daycare_id'] . "'";
 $result = mysqli_query($conn, $sql);
 
 // Check if the query failed
@@ -128,7 +128,7 @@ if (!$result) {
 
 // Check if the holiday with the specified ID exists
 if (mysqli_num_rows($result) == 0) {
-    die("Error: Appointment with ID " . $_GET['appointment_id'] . " not found.");
+    die("Error: DayCare with ID " . $_GET['daycare_id'] . " not found.");
 }
 
 // Fetch the holiday details from the query result
@@ -137,24 +137,24 @@ $appointment = mysqli_fetch_assoc($result);
 // If the user clicks the "Approve" button
 if (isset($_POST['approve'])) {
     // Update the approval_stage to "Approved"
-    $sql = "UPDATE appointment SET appointment_status = 'Approved' WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
+    $sql = "UPDATE daycare SET daycare_status = 'Available' WHERE daycare_id = '" . $_GET['daycare_id'] . "'";
     if (mysqli_query($conn, $sql)) {
         // Refresh the page to see the updated appointment details
         header("Refresh:0");
     } else {
-        die("Error updating appointment details: " . mysqli_error($conn));
+        die("Error updating daycare details: " . mysqli_error($conn));
     }
 }
 
 // If the user clicks the "Reject" button
 if (isset($_POST['reject'])) {
     // Update the approval_stage to "Rejected"
-    $sql = "UPDATE appointment SET appointment_status = 'Rejected' WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
+    $sql = "UPDATE daycare SET daycare_status = 'Canceled' WHERE daycare_id = '" . $_GET['daycare_id'] . "'";
     if (mysqli_query($conn, $sql)) {
         // Refresh the page to see the updated holiday details
         header("Refresh:0");
     } else {
-        die("Error updating appointment details: " . mysqli_error($conn));
+        die("Error updating daycare details: " . mysqli_error($conn));
     }
 }
 
@@ -176,16 +176,15 @@ if (isset($_POST['reject'])) {
 <body> -->
     <br/><br/>
     
-    <button style="margin-left:10px;"><a href="appointment.php"><i class="fas fa-arrow-left"></i><span>Back</span></a></button>
-	<h1 class="holy-title">Appointment Details</h1><hr/><br/>
+    <button style="margin-left:10px;"><a href="daycare.php"><i class="fas fa-arrow-left"></i><span>Back</span></a></button>
+	<h1 class="holy-title">DayCare Details</h1><hr/><br/>
 	<table>
-		<tr><td><strong>Appointment ID:</strong></td><td><?php echo $appointment['appointment_id']; ?></td></tr>
-		<tr><td><strong>Appointment Date:</strong></td> <td><?php echo $appointment['appointment_date']; ?></td></tr>
-		<tr><td><strong>Appointment Time:</strong></td><td><?php echo $appointment['appointment_time']; ?></td></tr>
-                <tr><td><strong>Appointment Slot:</strong></td><td><?php echo $appointment['appointment_slot']; ?></td></tr>
-<tr><td><strong>Vet Id:</strong></td><td><?php echo $appointment['vet_id']; ?></td></tr>
-                <tr><td><strong>Pet Id:</strong></td><td><?php echo $appointment['pet_id']; ?></td></tr>
-		<tr><td><strong>Appointment Status:</strong></td><td class="<?php echo $appointment['appointment_status']; ?>"><?php echo $appointment['appointment_status']; ?></td></tr>
+		<tr><td><strong>DayCare ID:</strong></td><td><?php echo $appointment['daycare_id']; ?></td></tr>
+		<tr><td><strong>DayCare Date:</strong></td> <td><?php echo $appointment['daycare_date']; ?></td></tr>
+		<tr><td><strong>Pet Name:</strong></td><td><?php echo $appointment['pet_name']; ?></td></tr>
+                <tr><td><strong>Pet ID:</strong></td><td><?php echo $appointment['pet_id']; ?></td></tr>
+<tr><td><strong>Owner Id:</strong></td><td><?php echo $appointment['owner_id']; ?></td></tr>
+		<tr><td><strong>DayCare Status:</strong></td><td class="<?php echo $appointment['daycare_status']; ?>"><?php echo $appointment['daycare_status']; ?></td></tr>
 	
 	</table>
 	<form method="post">
@@ -194,17 +193,17 @@ if (isset($_POST['reject'])) {
 	</form>
 	<?php
 	if (isset($_POST['approve'])) {
-		$appointment['appointment_status'] = 'approved';
+		$appointment['daycare_status'] = 'Available';
 	} else if (isset($_POST['reject'])) {
-		$appointment['appointment_status'] = 'rejected';
+		$appointment['daycare_status'] = 'Canceled';
 	}
 ?>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		let appointmentStatusTd = document.querySelector(".<?php echo $appointment['appointment_status']; ?>");
 		if (appointmentStatusTd) {
-			appointmentStatus.classList.remove("<?php echo $appointment['appointment_status'] === 'approved' ? 'rejected' : 'approved'; ?>");
-			appointmentStatus.classList.add("<?php echo $appointment['appointment_status']; ?>");
+			appointmentStatus.classList.remove("<?php echo $appointment['daycare_status'] === 'Available' ? 'Canceled' : 'Available'; ?>");
+			appointmentStatus.classList.add("<?php echo $appointment['daycare_status']; ?>");
 		}
 	});
 </script>

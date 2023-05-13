@@ -41,8 +41,12 @@
             <li>
                 <a href="staff.php"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
             </li>
+            
             <li>
                 <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
+            </li>
+            <li>
+                <a href="daycare.php"><i class="fa-solid fa-calendar-plus"></i><span>Day Care</span></a>
             </li>
             <li>
                 <a href="#"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
@@ -127,7 +131,7 @@ $sql = "SELECT owner_id, owner_fname, owner_lname, owner_status FROM pet_owner L
         echo "No Clinets found.";
     }
 
-    // Count the total number of records in the employee table
+// Count the total number of records in the employee table
 $sql_count = "SELECT COUNT(*) as total_records FROM pet_owner";
 $result_count = mysqli_query($conn, $sql_count);
 $row_count = mysqli_fetch_assoc($result_count);
