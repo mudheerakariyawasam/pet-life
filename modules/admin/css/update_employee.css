@@ -382,11 +382,11 @@ border:#fff solid;
   }
   
   input:checked + .slider {
-      background-color: #2196F3;
+      background-color: #96CDE1;
   }
   
   input:focus + .slider {
-      box-shadow: 0 0 1px #2196F3;
+      box-shadow: 0 0 1px #96CDE1;
   }
   
   input:checked + .slider:before {
@@ -409,3 +409,111 @@ border:#fff solid;
 margin-top:50px;
 
       }
+
+        form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+
+label {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="date"],
+input[type="checkbox"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    background-color: #C38D9E;
+    color: black;
+    padding: 10px 10px;
+    border-radius: 20px;
+    /* box-shadow: 0px 0px 2px 2px rgb(0,0,0); */
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
+    border: none;
+    margin: auto;
+    width: 200px;
+    font-family: poppins, sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    /* margin-right: 50px; */
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: rgba(215,226,255,0.6);
+  transition: 0.7s;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+
+label {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="date"],
+input[type="checkbox"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+input[type="submit"] {
+  background-color: #C38D9E;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+
+        

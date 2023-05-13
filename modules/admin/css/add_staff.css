@@ -409,3 +409,51 @@ border:#fff solid;
   margin-top:50px;
   margin-left: 50px;
   }
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+  }
+  
+  label {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="date"],
+  input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  input[type="submit"] {
+    background-color: #C38D9E;
+    font-style: normal;
+    font-weight: 800;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: rgba(215,226,255,0.6);
+    transition: 0.7s;
+  }

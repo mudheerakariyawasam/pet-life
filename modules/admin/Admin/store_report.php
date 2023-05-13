@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <title>Pet Care</title>
+    <title>Pet Life</title>
     
     <style>
 /* Reset styles */
@@ -125,13 +125,13 @@ tr:hover td {
                 <a href="client.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
             <li>
-                <a href="#" class="active"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
+                <a href="staff.php" ><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
             </li>
             <li>
                 <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
             </li>
             <li>
-                <a href="report.php"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
+                <a href="report.php" class="active"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
             </li>
             <li>
                 <a href="profile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
@@ -147,30 +147,10 @@ tr:hover td {
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
-            </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                   
-                </ul>
             </div>
         </div>
         <div class="container">

@@ -1,6 +1,25 @@
 <?php
     include("../../../db/dbconnection.php");
     session_start();
+
+    $sql_get_id="SELECT MAX(emp_id) as max_id FROM employee";
+    $result_get_id=mysqli_query($conn,$sql_get_id);
+    $row=mysqli_fetch_array($result_get_id);
+    $max_id = $row['max_id'];
+
+    // generate the new pet ID
+    if ($max_id === null) {
+        $emp_id = "E001";
+    } else {
+        $num = intval(substr($max_id, 1)) + 1;
+        if ($num < 10) {
+            $emp_id = "E00$num";
+        } else if ($num < 100) {
+            $emp_id = "E0$num";
+        } else {
+            $emp_id = "E$num";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -15,53 +34,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
-    <title>Pet Care</title>
+    <title>Pet Life</title>
 
     <style>
-                form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  font-family: Arial, sans-serif;
-}
 
-label {
-  display: block;
-  width: 100%;
-  margin-bottom: 5px;
-  font-size: 16px;
-  font-weight: bold;
-}
-input[type="text"],
-input[type="email"],
-input[type="number"],
-input[type="date"],
-input[type="password"] {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-input[type="submit"] {
-  background-color: #4CAF50;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-input[type="submit"]:hover {
-  background-color: #3e8e41;
-}
 
         </style>
 </head>
@@ -80,7 +56,7 @@ input[type="submit"]:hover {
                 <a href="client.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
             <li>
-                <a href="#" class="active"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
+                <a href="staff.php" class="active"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
             </li>
             <li>
                 <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
@@ -102,42 +78,22 @@ input[type="submit"]:hover {
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
+                
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
             </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                   
-                </ul>
-            </div>
         </div>
         <div class="container">
         <br/>
-        <div class="employee-title">Add Employee</div><hr>
+        <div class="employee-title">Add New Employee</div><hr>
 <br/>
 
 <?php
 // Include the database connection file
 
 // Initialize variables for the form fields
-$emp_id = '';
 $emp_name = '';
 $emp_address = '';
 $emp_contactno = '';
@@ -146,10 +102,8 @@ $emp_email = '';
 $emp_nic = '';
 $emp_pwd='';
 $emp_initsalary = '';
-$emp_currsalary = '';
 
 // Initialize error variables for the form fields
-$emp_id_error = '';
 $emp_name_error = '';
 $emp_address_error = '';
 $emp_contactno_error = '';
@@ -158,13 +112,11 @@ $emp_email_error = '';
 $emp_nic_error = '';
 $emp_pwd_error='';
 $emp_initsalary_error = '';
-$emp_currsalary_error = '';
 
 
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the form field values
-    $emp_id = $_POST['emp_id'];
     $emp_name = $_POST['emp_name'];
     $emp_address = $_POST['emp_address'];
     $emp_contactno = $_POST['emp_contactno'];
@@ -174,13 +126,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $emp_pwd = $_POST['emp_pwd']; 
     $hashedPassword = md5($emp_pwd); 
     $emp_initsalary = $_POST['emp_initsalary'];
-    $emp_currsalary = $_POST['emp_currsalary'];
 
 
     // Validate the form field values
-    if (empty($emp_id)) {
-        $emp_id_error = "Your can't keep Emp ID as empty.";
-    }
+
 
     if (empty($emp_name)) {
         $emp_name_error = "Your can't keep name as empty.";
@@ -216,12 +165,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $emp_initsalary_error = "Note: Minimum salary should be 25000 and Maximum salary should be 350000.";
     }
 
-    if (preg_match('/^\d+(\.\d{1,2})?$/', $emp_currsalary) && $emp_currsalary >= 26000 && $emp_currsalary <= 550000 && $emp_currsalary >= 0) {
-        $emp_currsalary = $_POST['emp_currsalary'];
-    } else{   
-        $emp_currsalary_error = "Note: Minimum salary should be 26000 and Maximum salary should be 550000.";
-    }
-
     
    /* if (empty($emp_dateassigned)) {
         $emp_dateassigned_error = "Please enter the date the employee was assigned.";
@@ -232,10 +175,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }*/
 
     // Check if there are any errors
-    if (empty($emp_id_error) && empty($emp_name_error) && empty($emp_contactno_error) && empty($emp_nic_error) && empty($emp_email_error) && empty($emp_pwd_error) && empty($emp_currsalary_error) && empty($emp_initsalary_error) ) {
+    if (empty($emp_name_error) && empty($emp_contactno_error) && empty($emp_nic_error) && empty($emp_email_error) && empty($emp_pwd_error) && empty($emp_initsalary_error) ) {
         // Insert the employee record into the database
         $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_pwd, emp_initsalary, emp_currsalary, working_status) 
-        VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', '$hashedPassword', '$emp_initsalary', '$emp_currsalary', 'enable')";
+        VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', '$hashedPassword', '$emp_initsalary', '$emp_initsalary', 'enable')";
 $result = mysqli_query($conn, $sql);
 
         
@@ -272,12 +215,6 @@ $result = mysqli_query($conn, $sql);
 
 <!-- Display the form -->
 <form method="post" action="">
-
-<label>Employee Id:</label>
-    <input type="text" name="emp_id" value="<?php echo $emp_id; ?>">
-    <?php if (isset($emp_id_error)): ?>
-        <span style="color: red;"><?php echo $emp_id_error; ?></span>
-    <?php endif; ?><br/><br/>
 
     <label>Employee Name:</label>
     <input type="text" name="emp_name" value="<?php echo $emp_name; ?>">
@@ -325,12 +262,6 @@ $result = mysqli_query($conn, $sql);
     <input type="number" name="emp_initsalary" value="<?php echo $emp_initsalary; ?>">
     <?php if (isset($emp_initsalary_error)): ?>
         <span style="color: red;"><?php echo $emp_initsalary_error; ?></span>
-    <?php endif; ?><br/><br/>
-
-    <label>Employee Current Salary:</label>
-    <input type="number" name="emp_currsalary" value="<?php echo $emp_currsalary; ?>">
-    <?php if (isset($emp_currsalary_error)): ?>
-        <span style="color: red;"><?php echo $emp_currsalary_error; ?></span>
     <?php endif; ?><br/><br/>
 
     <input type="submit" name="submit" value="Add Employee">

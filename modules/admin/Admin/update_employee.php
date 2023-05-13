@@ -13,62 +13,8 @@
     <link rel="stylesheet" href="../css/update_employee.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <title>Pet Life</title>
     <style>
-        form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  font-family: Arial, sans-serif;
-}
-
-label {
-  display: block;
-  width: 100%;
-  margin-bottom: 5px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="date"],
-input[type="checkbox"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-input[type="submit"] {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-input[type="submit"]:hover {
-  background-color: #3e8e41;
-}
-
-input[type="checkbox"] {
-  margin-right: 10px;
-}
 
         </style>
 </head>
@@ -87,7 +33,7 @@ input[type="checkbox"] {
                 <a href="client.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
             <li>
-                <a href="#" class="active"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
+                <a href="staff.php" class="active"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
             </li>
             <li>
                 <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
@@ -109,30 +55,10 @@ input[type="checkbox"] {
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
-            </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                   
-                </ul>
             </div>
         </div>
         <div class="container">

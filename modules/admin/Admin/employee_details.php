@@ -30,10 +30,10 @@
                 <a href="client.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
             <li>
-                <a href="staff.php"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
+                <a href="staff.php" class="active"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
             </li>
             <li>
-                <a href="#" class="active"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
+                <a href="leave.php" ><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
             </li>
             <li>
                 <a href="report.php"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
@@ -52,31 +52,13 @@
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
+                
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
             </div>
 
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                   
-                </ul>
-            </div>
         </div>
 
         <div class="container">

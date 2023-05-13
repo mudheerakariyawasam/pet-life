@@ -16,82 +16,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-J5uS+gU3qlKVuQZ1mxE5P4fNB8fM8kNzzJ7vR2S2JczbLcF0OqAovuoW+boFTYdDZd/dChGWcb7HdqbK9JF13Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
-    <title>Pet Care</title>
+    <title>Pet Life</title>
     
     <style>
- .search-box {
-    max-width: 30%;
-    float: right;
-  display: flex;
-  align-items: center;
-  background-color: #f7f7f7;
-  border-radius: 10px;
-  
-  padding: 10px;
-}
-
-label {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  margin-right: 10px;
-}
-
-#search-input {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  border: none;
-  flex: 1;
-  outline: none;
-}
-
-#search-input::placeholder {
-  color: #bbb;
-}
-
-.fa-search {
-  font-size: 20px;
-  color: #bbb;
-  margin-right: 10px;
-}
-
-    .pagination {
-  display: inline-block;
-}
-
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-}
-
-.pagination a.active {
-  background-color: #4CAF50;
-  color: white;
-  border: 1px solid #4CAF50;
-}
-
-.pagination a:hover:not(.active) {
-  background-color: #ddd;
-}
-
-.pagination a:first-child {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-
-.pagination a:last-child {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-button{
-float:right;
-padding: 5px 10px;
-
-
-}
 </style>
 
 </head>
@@ -132,35 +59,15 @@ padding: 5px 10px;
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
             </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                   
-                </ul>
-            </div>
         </div>
         <div class="container">
         <br/>
-<div class="employee-title">Employee List</div><hr>
+<div class="employee-title">Employee Management</div><hr>
 <br/>
 
 <div class="search-box">
@@ -232,7 +139,7 @@ for ($i = 1; $i <= $total_pages; $i++) {
 echo '</div>';
 
 ?>
-<a href="add_employee.php"><button>Add</button></a>
+<a href="add_employee.php"><button class="btn-add">Add</button></a>
 <script>
     // Add event listener to all switch buttons
     var switchButtons = document.querySelectorAll('.switch input[type="checkbox"]');

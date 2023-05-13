@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <title>Pet Life</title>
 
 <style>
-            button {
+button {
   border: none;
   background-color: #000D2F;
   cursor: pointer;
@@ -32,7 +32,7 @@
 }
 
 button:hover {
-  background-color: blueviolet;
+  background-color: #C38D9E;
 }
 
 button:focus {
@@ -69,7 +69,7 @@ button:active {
                 <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
-                <a href="#" class="active"><i class="fa-solid fa-calendar-plus"></i><span>Appointments</span></a>
+                <a href="appointment.php" class="active"><i class="fa-solid fa-calendar-plus"></i><span>Appointments</span></a>
             </li>
             <li>
                 <a href="client.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
@@ -97,85 +97,17 @@ button:active {
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
+                
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
             </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                   
-                </ul>
-            </div>
         </div>
 
         <div class="container">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php
-function connect_mysql(){
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "pet_life";
-
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $database);
-
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-    return $conn;
-}
-
-// Call the connect_mysql() function to establish the database connection
-$conn = connect_mysql();
 
 // Check if the holiday ID is set in the URL
 if (!isset($_GET['appointment_id'])) {
@@ -223,8 +155,6 @@ if (isset($_POST['reject'])) {
     }
 }
 
-// Close the database connection
-mysqli_close($conn);
 ?>
 
 <!-- <!DOCTYPE html>

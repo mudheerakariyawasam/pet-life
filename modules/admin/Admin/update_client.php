@@ -13,64 +13,8 @@
     <link rel="stylesheet" href="../css/update_employee.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
-    <style>
-        form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  font-family: Arial, sans-serif;
-}
-
-label {
-  display: block;
-  width: 100%;
-  margin-bottom: 5px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="date"],
-input[type="checkbox"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-input[type="submit"] {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-input[type="submit"]:hover {
-  background-color: #3e8e41;
-}
-
-input[type="checkbox"] {
-  margin-right: 10px;
-}
-
-        </style>
+    <title>Pet Life</title>
+    <style></style>
 </head>
 
 <body>
@@ -84,10 +28,10 @@ input[type="checkbox"] {
                 <a href="appointment.php"><i class="fa-solid fa-calendar-plus"></i><span>Appointments</span></a>
             </li>
             <li>
-                <a href="client.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
+                <a href="client.php" class="active"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
             <li>
-                <a href="#" class="active"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
+                <a href="staff.php" ><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
             </li>
             <li>
                 <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
@@ -109,41 +53,18 @@ input[type="checkbox"] {
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
             </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                   
-                </ul>
-            </div>
         </div>
         <div class="container">
         <br/>
-<div class="employee-title">Client Manage</div><hr>
+<div class="employee-title">Client Management</div><hr>
 <br/>
 
 <?php
-    // Establish a database connection
-    $conn = mysqli_connect("localhost", "root", "", "pet_life");
-
     // Check if the form has been submitted
     if (isset($_POST['submit'])) {
         // Retrieve the form data
@@ -205,7 +126,7 @@ if (!filter_var($owner_email, FILTER_VALIDATE_EMAIL)) {
     // Retrieve the employee record from the database
     if (isset($_GET['owner_id'])) {
         $owner_id = $_GET['owner_id'];
-        $sql = "SELECT owner_id, owner_fname, owner_lname, owner_email, owner_contactno, owner_address, owner_nic, active_status FROM pet_owner WHERE owner_id = '$owner_id'";
+        $sql = "SELECT owner_id, owner_fname, owner_lname, owner_email, owner_contactno, owner_address, owner_nic, owner_status FROM pet_owner WHERE owner_id = '$owner_id'";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
     } else {
@@ -258,7 +179,7 @@ if (!filter_var($owner_email, FILTER_VALIDATE_EMAIL)) {
 
 
 <label>Active Status:</label>
-<input type="checkbox" name="active_status" value="activated"<?php if ($row['active_status'] == 'activated') echo ' checked'; ?> style="transform: scale(1.5);"><br><br>
+<input type="checkbox" name="owner_status" value="activated"<?php if ($row['owner_status'] == 'Registered') echo ' checked'; ?> style="transform: scale(1.5);"><br><br>
     
     
     <input type="submit" name="submit" value="Update Client">

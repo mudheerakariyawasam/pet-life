@@ -1,6 +1,25 @@
 <?php
     include("../../../db/dbconnection.php");
     session_start();
+
+    $sql_get_id="SELECT MAX(owner_id) as max_id FROM pet_owner";
+    $result_get_id=mysqli_query($conn,$sql_get_id);
+    $row=mysqli_fetch_array($result_get_id);
+    $max_id = $row['max_id'];
+
+    // generate the new pet ID
+    if ($max_id === null) {
+        $owner_id = "O001";
+    } else {
+        $num = intval(substr($max_id, 1)) + 1;
+        if ($num < 10) {
+            $owner_id = "O00$num";
+        } else if ($num < 100) {
+            $owner_id = "O0$num";
+        } else {
+            $owner_id = "O$num";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +32,7 @@
     <link rel="stylesheet" href="../css/add_staff.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <title>Pet Life</title>
     
 <style>
         form {
@@ -49,16 +68,17 @@ input[type="date"] {
 }
 
 input[type="submit"] {
-  background-color: #4CAF50;
-  color: #fff;
+  background-color: #C38D9E;
+  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
   padding: 10px 20px;
   border: none;
-  border-radius: 3px;
+  border-radius: 20px;
   cursor: pointer;
 }
 
 input[type="submit"]:hover {
-  background-color: #3e8e41;
+    background-color:rgba(215,226,255,0.6);
+transition: 0.7s;
 }
 
 
@@ -77,10 +97,10 @@ input[type="submit"]:hover {
                 <a href="appointment.php"><i class="fa-solid fa-calendar-plus"></i><span>Appointments</span></a>
             </li>
             <li>
-                <a href="client.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
+                <a href="client.php" class="active"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
             <li>
-                <a href="#" class="active"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
+                <a href="staff.php"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
             </li>
             <li>
                 <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
@@ -102,30 +122,10 @@ input[type="submit"]:hover {
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
-            </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                   
-                </ul>
             </div>
         </div>
         <div class="container">
@@ -137,7 +137,7 @@ input[type="submit"]:hover {
 // Include the database connection file
 
 // Initialize variables for the form fields
-$owner_id = '';
+
 $owner_fname = '';
 $owner_lname = '';
 $owner_email = '';
@@ -148,7 +148,7 @@ $owner_pwd = '';
 $active_status = '';
 
 // Initialize error variables for the form fields
-$owner_id_error = '';
+
 $owner_fname_error = '';
 $owner_lname_error = '';
 $owner_email_error = '';
@@ -160,8 +160,6 @@ $active_status_error = '';
 
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the form field values
-    $owner_id = $_POST['owner_id'];
     $owner_fname = $_POST['owner_fname'];
     $owner_lname = $_POST['owner_lname'];
     $owner_email = $_POST['owner_email'];
@@ -172,10 +170,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $active_status = $_POST['active_status'];
 
     // Validate the form field values
-    if (empty($owner_id)) {
-        $owner_id_error = "Your can't keep owner ID as empty.";
-    }
-
     if (empty($owner_name)) {
         $owner_name_error = "Your can't keep first name as empty.";
     }
@@ -209,7 +203,7 @@ if (empty($owner_pwd)) {
     }*/
 
     // Check if there are any errors
-    if (empty($owner_id_error) && empty($owner_fname_error) && empty($owner_contactno_error) && empty($owner_contactno_error) && empty($owner_nic_error) && empty($owner_pwd_error)) {
+    if (empty($owner_fname_error) && empty($owner_contactno_error) && empty($owner_contactno_error) && empty($owner_nic_error) && empty($owner_pwd_error)) {
         // Insert the employee record into the database
         $sql = "INSERT INTO pet_owner (owner_id, owner_fname, owner_lname, owner_email, owner_contactno, owner_address, owner_nic, owner_pwd, active_status) VALUES ('$owner_id', '$owner_fname', '$owner_lname', '$owner_email', '$owner_contactno', '$owner_address', '$owner_nic', '$owner_pwd', '$active_status')";
         $result = mysqli_query($conn, $sql);
@@ -220,7 +214,6 @@ if (empty($owner_pwd)) {
             $message = "Employee record added successfully.";
             
             // Clear the form fields
-            $owner_id = '';
             $owner_fname = '';
             $owner_lname = '';
             $owner_email = '';
@@ -239,13 +232,6 @@ if (empty($owner_pwd)) {
 
 <!-- Display the form -->
 <form method="post" action="">
-
-<label>Owner Id:</label>
-    <input type="text" name="owner_id" value="<?php echo $owner_id; ?>">
-    <?php if (isset($owner_id_error)): ?>
-        <span style="color: red;"><?php echo $owner_id_error; ?></span>
-    <?php endif; ?><br/><br/>
-
     <label>Owner First Name:</label>
     <input type="text" name="owner_fname" value="<?php echo $owner_fname; ?>">
     <?php if (isset($owner_fname_error)): ?>

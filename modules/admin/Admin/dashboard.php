@@ -15,13 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iTQ6J+suQ1U1Fhtx2nW4G/4QfB+Oq+1j7Rk0ZGn2V2B8o9z7QrJNpGy7Z3N7tWlIYzMMsV5KJdJu6G8yTQJ3Uw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <title>Pet Care</title>
-
-
-
-
-
-
+    <title>Pet Life</title>
 </head>
 
 <body>
@@ -60,30 +54,10 @@
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
-            </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                
-                </ul>
             </div>
         </div>
         <div class="container">
@@ -181,6 +155,7 @@ $result = $db->query($sql);
 ?>
 	<center><h2 style="margin-top:0px;">Today's Appointments</h2>
   </center>	
+  <br>
   <center><table>
 		<thead>
 			<tr>

@@ -9,7 +9,7 @@ $sql = "UPDATE holiday SET approval_stage = 'Approved' WHERE holiday_id = '$holi
 if (mysqli_query($conn, $sql)) {
 
     //get vet ID and requested dates
-    // $sql_getv="SELECT * FROM holiday WHERE holiday_id='$holilday_id'";
+    $sql_getv="SELECT * FROM holiday WHERE holiday_id='$holilday_id'";
     // $result_getv=mysqli_query($conn,$sql_getv);
     // $row_getv=mysqli_fetch_array($result_getv);
 

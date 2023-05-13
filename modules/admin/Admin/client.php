@@ -15,58 +15,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
-    <title>Pet Care</title>
+    <title>Pet Life</title>
 
 
     <style>
-    .search-box {
-        float: right;
-        margin-bottom: 10px;
-    }
-    .search-box input[type="text"] {
-        padding: 5px;
-        border: none;
-        border-radius: 5px;
-        margin-left: 5px;
-    }
-    .pagination {
-  display: inline-block;
-}
-
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-}
-
-.pagination a.active {
-  background-color: #4CAF50;
-  color: white;
-  border: 1px solid #4CAF50;
-}
-
-.pagination a:hover:not(.active) {
-  background-color: #ddd;
-}
-
-.pagination a:first-child {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-
-.pagination a:last-child {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-button{
-float:right;
-padding: 5px 10px;
-
-
-}
 </style>
 
 
@@ -84,7 +36,7 @@ padding: 5px 10px;
                 <a href="appointment.php"><i class="fa-solid fa-calendar-plus"></i><span>Appointments</span></a>
             </li>
             <li>
-                <a href="#" class="active"><i class="fa fa-user"></i></i><span>Clients</span></a>
+                <a href="client.php" class="active"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
             <li>
                 <a href="staff.php"><i class="fa fa-users" aria-hidden="true"></i><span>Staff</span></a>
@@ -109,30 +61,10 @@ padding: 5px 10px;
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
-            </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                    
-                </ul>
             </div>
         </div>
         <div class="container">
@@ -147,7 +79,7 @@ padding: 5px 10px;
 <div>
   <!--Table-->
 <br/>
-<div class="client-title">List of Clients</div><hr><br>
+<div class="client-title">Client Management</div><hr><br>
 
 <div class="search-box">
     <label for="search-input">Search:</label>
@@ -217,7 +149,7 @@ for ($i = 1; $i <= $total_pages; $i++) {
 echo '</div>';
 
 ?>
-<a href="add_client.php"><button>Add</button></a>
+<a href="add_client.php"><button class="btn-add">Add</button></a>
 <script>
     // Add event listener to all switch buttons
     var switchButtons = document.querySelectorAll('.switch input[type="checkbox"]');

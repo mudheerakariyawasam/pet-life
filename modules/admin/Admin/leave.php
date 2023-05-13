@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../css/leave.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <title>Pet Life</title>
 </head>
 
 <body>
@@ -52,35 +52,15 @@
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
             </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                   
-                </ul>
-            </div>
         </div>
         <div class="container">
         <br/>
-<div class="leave-title">Leave Manage</div><hr>
+<div class="leave-title">Leave Management</div><hr>
 <br/>
 
 <?php
@@ -102,7 +82,8 @@
 		}
 		echo "</table>";
 	} else {
-		echo "No holidays found.";
+		$image_url = "../images/no-results.png";
+        echo '<center><img src="' . $image_url . '" alt="No results" width="440" height="400"></center>';
 	}
 ?>
 
