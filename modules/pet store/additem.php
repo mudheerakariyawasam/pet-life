@@ -1,5 +1,5 @@
 <?php
-    include("data/dbconnection.php");
+include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
     session_start();
     if(!isset($_SESSION["login_user"])){
         header("location:login.php");
