@@ -1,6 +1,14 @@
 <?php
 include("../db/dbconnection.php");
 
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 $sql_get_id = "SELECT owner_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
 $result_get_id = mysqli_query($conn, $sql_get_id);
 $row = mysqli_fetch_array($result_get_id);
@@ -42,10 +50,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($conn, $sql);
 
     if ($result == TRUE) {
-        echo '<script>alert("Registration Successful!"); window.location = "login.php";</script>';
-    } else {
-        echo "There is an error in adding!";
-    }
+       
+        
+        
+        // Initialize the $error1 and $error2 variables to empty strings
+        $error1 = '';
+        $error2 = '';
+        
+        // Check if the Reset button was clicked
+        if (isset($_POST['Reset'])) {
+          // Get the email address entered in the form
+          $email = mysqli_real_escape_string($conn, $_POST['owner_email']);
+        
+          // If the email address is valid, generate an OTP and store it in the database
+            $otp = rand(100000, 999999); // Generate a 6-digit OTP
+            $query = "INSERT INTO email_otps (email, otp) VALUES ('$email', '$otp')";
+            mysqli_query($conn, $query);
+        
+            // Send email using PHPMailer
+            $mail = new PHPMailer();
+            $mail->isSMTP();
+            $mail->Host = "smtp.gmail.com";
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = "tls";
+            $mail->Port = "25";
+            $mail->Username = "petlife1023@gmail.com";
+            $mail->Password = "mqumfstsythnyndi";
+            $mail->Subject = "Your verify code";
+        
+            $mail->setFrom('petlife1023@gmail.com');
+            $mail->addAddress($email);
+        
+            $mail->isHTML(true);
+            $mail->Body = "<p>Hello,</p>
+                           <p>Dear user, </p> <p>Your OTP verify code is <b>$otp </b><br></p>
+                          <p>Regards,</p>
+                          <p>The Petlife Team</p>";
+        
+            if ($mail->send()) {
+              // Redirect to OTP verification page passing the email as a parameter
+              header('Location:  otp-verification - Copy.php?email=' . $email);
+            } else {
+              // Display an error message if email was not sent successfully
+              echo '<script>alert("Invalid OTP please try again.");</script>' . $mail->ErrorInfo;
+            }
+        
+        
+            $mail->smtpClose();
+          }
+        }
 }
 ?>
 
@@ -105,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
 
                         <p>
-                            <button class="btn-add" type="submit">Sign Up</button>
+                            <button class="btn-add" type="submit" name = "Reset" >Sign Up</button>
 
                         </p>
 
@@ -113,21 +166,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     </form>
                 <div><a href="/pet-life">Back to Home</a></div>
-                <!-- <div class="toast">
-
-                    <div class="toast-content">
-                        <i class="fa-regular fa-circle-check" style="color: #2dc02d;font-size: 35px;"></i>
-
-                        <div class="message">
-                            <span class="text text-1">Congratulations!</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-xmark close"></i>
-
-
-                    <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
-                    <div class="progress"></div>
-                </div> -->
+            
+                </div> 
             </div>
         </div>
     </section>
