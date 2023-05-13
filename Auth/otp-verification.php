@@ -49,7 +49,7 @@
 // Include the database connection code
 include('../db/dbconnection.php');
 
-
+$email=$_GET["email"];
 // Check if the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Check if the OTP is valid
   if ($result->num_rows > 0) {
     // OTP is valid, redirect to the resetpassword.php page
-    header("Location: resetpassword.php");
+    header("Location: resetpassword.php?email=$email");
     exit();
   } else {
     // OTP is invalid, show an alert
