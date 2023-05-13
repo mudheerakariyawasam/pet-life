@@ -69,7 +69,7 @@ if (!isset($_SESSION["login_user"])) {
                 </div>
             </div>
 
-           
+
         </div>
 
 
@@ -136,7 +136,7 @@ if (!isset($_SESSION["login_user"])) {
                             $appointment_status = $row_getdetails["appointment_status"];
                             $pet_availability = $row_getdetails["pet_availability"];
 
-                            
+
                             echo '<tr> 
                                 <td>' . $row_getdetails["pet_name"] . '</td>
                                 <td>' . $row_getdetails["appointment_date"] . '</td>
@@ -144,7 +144,7 @@ if (!isset($_SESSION["login_user"])) {
                                 <td>' . $row_getdetails["appointment_slot"] . '</td>
                                 <td>' . $row_getdetails["emp_name"] . '</td>
                                 <td class="action">';
-                            
+
                             // Check if appointment is completed
                             if ($appointment_status == 'Completed') {
                                 echo '<button class="btn-add2" type="button">Cannot Delete</button>';
@@ -153,35 +153,41 @@ if (!isset($_SESSION["login_user"])) {
                                 if (isset($_POST[$appointment_id])) {
                                     // Check if appointment date is in the future
                                     if (strtotime($row_getdetails['appointment_date']) >= strtotime($currentDate)) {
-                                        // Delete appointment
-                                        $sql = "UPDATE appointment SET appointment_status = 'Cancelled' WHERE appointment_id = '$appointment_id'";
-                                        if ($conn->query($sql) === TRUE) {
-                                            // Success message
-                                            echo '<script>alert("Appointment deleted successfully.");</script>';
-                                           
-                                            $appointment_status = 'Cancelled';
-                                            echo "<script>window.location ='viewapp.php'</script>";
-                                            // echo '<button class="btn-add2" type="button">Cannot Delete</button>';
+                                        // Process refund
+                                        require_once 'refund.php';
+                                        $refund_id = refundRequest($payment_id, $amount);
+                                        if ($refund_id !== false) {
+                                            // Update appointment status in database
+                                            $sql = "UPDATE appointment SET appointment_status = 'Cancelled' WHERE appointment_id = '$appointment_id'";
+                                            if ($conn->query($sql) === TRUE) {
+                                                // Success message
+                                                echo '<script>alert("Appointment cancelled and refund processed successfully.");</script>';
+                                                echo "<script>window.location ='viewapp.php'</script>";
+                                            } else {
+                                                // Error message
+                                                echo '<script>alert("Error cancelling appointment.");</script>';
+                                            }
                                         } else {
                                             // Error message
-                                            echo '<script>alert("Error deleting appointment");</script>';
+                                            echo '<script>alert("Error processing refund.");</script>';
                                         }
                                     } else {
                                         // Error message
-                                        echo '<script>alert("Cannot delete past appointments.");</script>';
+                                        echo '<script>alert("Cannot cancel past appointments.");</script>';
                                     }
+
                                 }
                                 // Display delete button
                                 else {
-                                    
+
                                     echo '<form action="" method="post">
                                             <button class="btn-add3" type="submit" name="' . $appointment_id . '">Delete</button>
                                           </form>';
                                 }
                             }
-                            
+
                             echo '</td>';
-                            
+
                             // Determine appointment status
                             if ($appointment_status == 'Cancelled' || $pet_availability == 'Deleted') {
                                 $appointment_status_text = 'Cancelled';
@@ -192,7 +198,7 @@ if (!isset($_SESSION["login_user"])) {
                                 $appointment_status_text = 'Completed';
                                 $appointment_status_button = 'Cannot Delete';
                             }
-                            
+
                             // Update appointment status in database
                             $sql = "UPDATE appointment SET appointment_status = '$appointment_status_text' WHERE appointment_id = '$appointment_id'";
                             if ($conn->query($sql) === TRUE) {
@@ -200,27 +206,26 @@ if (!isset($_SESSION["login_user"])) {
                             } else {
                                 // Error message
                             }
-                            
+
                             // Display the availability status for each appointment
                             echo '<td class="action1"> 
                                     <p>' . $appointment_status_text . '</p>
                                   </td>';
-                            
+
                             echo '</tr>';
                         }
-                    
-                    }
-                    else {
-                           
-                     
-                           echo '<td colspan="7"><center><img style="width:35%;" src="images/no-results.png"></center></td>';
-                       
-                        }
 
-                    
-                    
-?>
-</table>
+                    } else {
+
+
+                        echo '<td colspan="7"><center><img style="width:35%;" src="images/no-results.png"></center></td>';
+
+                    }
+
+
+
+                    ?>
+                </table>
             </div>
         </div>
     </div>
