@@ -18,7 +18,7 @@
 
 <section>
         <div class="imgbox">
-        <img src="img/forgot.jpg" id="reset">
+        <img src="img/forgot.png" id="reset">
         </div>
     <div class="forms">
       <div class="form-content">
