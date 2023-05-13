@@ -13,17 +13,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve the employee's current password from the database
     $empEmail = $_SESSION['login_user'];
 
-    // die($empEmail);
     $query = "SELECT emp_pwd FROM employee WHERE emp_email='$empEmail'";
-    // $query = "SELECT * FROM employee WHERE emp_email='$empEmail'";
-
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_row($result);
-    // print_r($result);
     print_r($row[0]);
 
-
-    // die();
     $currentHashedPassword = $row[0];
 
     // Verify the current password
@@ -37,8 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $updateQuery = "UPDATE employee SET emp_pwd='$newHashedPassword' WHERE emp_email='$empEmail'";
             mysqli_query($conn, $updateQuery);
 
-            // Redirect to a success page or display a success message
-            // echo "wade hari bokka!!";
             // Redirect to the updateprofile.php file with the error message as a query parameter
             header("Location: updateprofile.php?password_changed=true&error=" . urlencode($errorMsg));
             exit();

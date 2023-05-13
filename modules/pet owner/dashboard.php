@@ -2,7 +2,7 @@
     include("../../db/dbconnection.php");
     session_start();
     if(!isset($_SESSION["login_user"])){
-        header("location:../../modules/pet owner/login.php");
+        header("location:../../Auth/login.php");
         exit;
     }
 
@@ -224,11 +224,16 @@
             <td>' . $row_getdetails["emp_name"] . '</td>
             </tr>';
         }
-        echo '</table>';
+        
     }
-    /*else {
-       echo "No upcoming appointments found";
-    }*/
+    else {
+    //    echo "No upcoming appointments found";
+ 
+    echo "<center><img style='width:10%;' src='noresult.png'></center>";
+   
+    }
+    echo '</table>';
+  
 ?>
 
                   </div>

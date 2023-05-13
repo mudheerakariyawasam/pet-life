@@ -219,7 +219,7 @@ if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
     <link rel="stylesheet" href="../css/treatment_history.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <title></title>
 </head>
 
 <body onload="onLoad()">
@@ -287,7 +287,8 @@ if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
         </div>
  <!-- //Top Navigation bar ends-->
         <div class="container">
-        <div class="heading">Treatment History</div>
+        <!-- <div class="heading">Treatment History</div> -->
+        <p class="topic">Treatment History </p><hr><br>
         <div class="toast" style="display: none;">
 
             <div class="toast-content">

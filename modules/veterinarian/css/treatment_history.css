@@ -851,6 +851,14 @@ tr.action td {
 .progress.active:before {
   animation: progress 3s linear forwards;
 }
+.topic{
+  font-size: 40px;
+  font-weight: 950;
+  margin-left:50px;
+  margin-top: 100px;
+}
+
+
 
 @keyframes progress {
   100% {

@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $owner_email = mysqli_real_escape_string($conn, $_POST['owner_email']);
         $owner_pwd = mysqli_real_escape_string($conn, $_POST['owner_pwd']);
 
-        $sql = "SELECT * FROM pet_owner WHERE owner_email = '$owner_email'";
+        $sql = "SELECT * FROM pet_owner WHERE owner_email = '$owner_email' AND owner_status != 'Deleted'";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
@@ -27,6 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo '<script>alert("Wrong User Details")</script>';
             }
+           
+        }
+        else {
+            echo '<script>alert("Wrong User Details")</script>';
         }
     }
 }
