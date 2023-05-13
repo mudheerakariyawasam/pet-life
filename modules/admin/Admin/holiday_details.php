@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="../css/holiday_details.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
     <title>Pet Care</title>
 </head>
 
@@ -81,14 +83,14 @@
 
         <div class="container">
 
-<?php
+        <?php
 
 // Check if the holiday ID is set in the URL
 if (!isset($_GET['holiday_id'])) {
     die("Error: Holiday ID not specified.");
 }
 
-$holiday_id=$_GET['holiday_id'] ;
+$holiday_id = $_GET['holiday_id'];
 
 // Retrieve the holiday details from the database based on the holiday ID in the URL
 $sql = "SELECT * FROM holiday WHERE holiday_id = '$holiday_id'";
@@ -110,34 +112,42 @@ $holiday = mysqli_fetch_assoc($result);
 // If the user clicks the "Approve" button
 if (isset($_POST['approve'])) {
     //check whether there are any appointments to the employee on the particular day
-    $sql_getapp="SELECT COUNT(*) AS total_app FROM appointment WHERE vet_id='".$holiday["emp_id"]."' AND appointment_date='".$holiday["from_date"]."'";
-    $result_getapp=mysqli_query($conn,$sql_getapp);
-    $row_getapp=mysqli_fetch_array($result_getapp);
-    //var_dump($row_getapp);
+    $sql_getapp = "SELECT COUNT(*) AS total_app FROM appointment WHERE vet_id='".$holiday["emp_id"]."' AND appointment_date='".$holiday["from_date"]."'";
+    $result_getapp = mysqli_query($conn, $sql_getapp);
+    $row_getapp = mysqli_fetch_array($result_getapp);
 
     if ($row_getapp["total_app"] > 0) {
         echo "<script>
-            if (confirm('There are appointments booked on the day. Are you sure you want to accept this request?')) {
-                // If user clicks yes, redirect to holiday_accept.php
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'There are appointments booked on the day. Are you sure you want to accept this request?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
                 window.location.href = 'holiday_accept.php?holiday_id=" . $holiday_id . "';
             } else {
-                // If user clicks no, redirect to leave.php
                 window.location.href = 'leave.php';
             }
-        </script>";
+        });
+    </script>";
     } else {
         // If no appointments are booked, redirect to holiday_accept.php
         header("location: holiday_accept.php?holiday_id=$holiday_id");
+        exit;
     }
 }
 
 // If the user clicks the "Reject" button
 if (isset($_POST['reject'])) {
     // Update the approval_stage to "Rejected"
-    $sql = "UPDATE holiday SET approval_stage = 'Rejected' WHERE holiday_id = '" . $_GET['holiday_id'] . "'";
+    $sql = "UPDATE holiday SET approval_stage = 'Rejected' WHERE holiday_id = '$holiday_id'";
     if (mysqli_query($conn, $sql)) {
         // Refresh the page to see the updated holiday details
         header("Refresh:0");
+        exit;
     } else {
         die("Error updating holiday details: " . mysqli_error($conn));
     }
@@ -146,11 +156,13 @@ if (isset($_POST['reject'])) {
 // Close the database connection
 mysqli_close($conn);
 ?>
+<!-- <script src="https://unpkg.com/sweetalert@2.1.2/dist/sweetalert.min.js"></script> -->
 
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Holiday Details</title>
+ 
 	<style>
 		.approved {
 			background-color: green;

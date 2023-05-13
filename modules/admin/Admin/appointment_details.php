@@ -10,11 +10,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/holiday_details.css">
+    <link rel="stylesheet" href="../css/appointment_details.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <title>Pet Care</title>
+
+<style>
+            button {
+  border: none;
+  background-color: #000D2F;
+  cursor: pointer;
+  padding: 10px;
+  margin: 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  color:white;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: blueviolet;
+}
+
+button:focus {
+  outline: none;
+}
+
+button i {
+  font-size: 18px;
+  color: white;
+  margin-right: 5px;
+}
+
+button span {
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+    </style>
+
+
+
+
+
 </head>
 
 <body>
@@ -183,7 +227,7 @@ if (isset($_POST['reject'])) {
 mysqli_close($conn);
 ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<title>Appointment Details</title>
@@ -196,10 +240,10 @@ mysqli_close($conn);
 		}
 	</style>
 </head>
-<body>
+<body> -->
     <br/><br/>
     
-<button><a href="appointment.php"><i class="fas fa-arrow-left"></i></a></button> 
+    <button style="margin-left:10px;"><a href="appointment.php"><i class="fas fa-arrow-left"></i><span>Back</span></a></button>
 	<h1 class="holy-title">Appointment Details</h1><hr/><br/>
 	<table>
 		<tr><td><strong>Appointment ID:</strong></td><td><?php echo $appointment['appointment_id']; ?></td></tr>

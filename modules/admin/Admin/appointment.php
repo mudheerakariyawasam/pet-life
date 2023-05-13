@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="../css/appointment.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-J5uS+gU3qlKVuQZ1mxE5P4fNB8fM8kNzzJ7vR2S2JczbLcF0OqAovuoW+boFTYdDZd/dChGWcb7HdqbK9JF13Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Pet Care</title>
     
     <style>
-    .search-box {
+    /* .search-box {
         float: right;
         margin-bottom: 10px;
     }
@@ -67,11 +68,12 @@ padding: 5px 10px;
 
 
 
-		/* Define a CSS class for coloring dates green */
 		.green {
 			background-color: green;
-		}
-	
+		} */
+
+
+
 </style>
 
 </head>
@@ -139,9 +141,10 @@ padding: 5px 10px;
             </div>
         </div>
         <div class="container">
-        <br/>
-<div class="employee-title">Appointment List</div><hr>
-<br/>
+        <br/><br/><br/>
+       
+<div class="appointment-title">Appointment List</div><hr>
+<br/><br/>
 <center>
 <?php
 	// Retrieve all holidays from the database

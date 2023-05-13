@@ -241,7 +241,7 @@ font-size:25px;
   justify-content: center;
   margin-right: 20px;
   background-color: #96CDE1;
-  width:  25%;
+  width:  22%;
   border-radius: 10px;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -255,7 +255,7 @@ font-size:25px;
   justify-content: center;
   margin-right: 20px;
   background-color: #40db93;
-  width:  25%;
+  width:  22%;
   border-radius: 10px;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -408,6 +408,7 @@ color:  white;
   text-shadow: 0 2px 3px rgba(0,0,0,0.5);
 } */
 .dashboard-container {
+  width:30%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -416,6 +417,7 @@ color:  white;
 }
 
 .dashboard-available-container {
+  width:300px;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
@@ -425,10 +427,12 @@ color:  white;
 }
 
 .dashboard-available-staff-title {
-  font-size: 18px;
+  font-size: 20px;
+  font-weight:bold;
   margin-bottom: 20px;
   color: #000D2F;
   text-align: center;
+  font-style: oblique;
 }
 
 .employee-list {
@@ -449,8 +453,12 @@ color:  white;
 }
 
 .employee-list li .name {
-  font-weight: bold;
+font-size: 15px;
+  font-weight:500;
+  /* font-style: oblique; */
+  /* color: #000D2F; */
 }
+
 
 .employee-list li .status {
   display: inline-block;

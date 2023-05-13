@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="../css/add_staff.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
     <title>Pet Care</title>
+
     <style>
                 form {
   display: flex;
@@ -239,27 +242,29 @@ $result = mysqli_query($conn, $sql);
 
         // Check if the insert was successful
         if ($result) {
-            // Set a message to display
-            $message = "Employee record added successfully.";
-            header("Location: staff.php");
-            
-            // Clear the form fields
-            $emp_id = '';
-            $emp_name = '';
-            $emp_address = '';
-            $emp_contactno = '';
-            $emp_designation = '';
-            $emp_email = '';
-            $emp_nic = '';
-            $emp_pwd = '';
-            $emp_initsalary = '';
-            $emp_currsalary = '';
-            $emp_holtaken = '';
-            $emp_dateassigned = '';
-            $working_status = '';
+            // Display a success message using SweetAlert2
+            echo "<script>
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Employee record added successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'staff.php';
+                    }
+                });
+            </script>";
         } else {
-            // Set an error message to display
-            $message = "Error adding employee record: " . mysqli_error($conn);
+            // Display an error message using SweetAlert2
+            echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Error adding employee record: " . mysqli_error($conn) . "',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            </script>";
         }
     }
 }

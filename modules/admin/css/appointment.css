@@ -339,7 +339,7 @@ label{
 }
 .appointment-table {
   border-collapse: collapse;
-  width: 90%;
+  width: 96%;
 
 }
 
@@ -363,13 +363,13 @@ label{
 .appointment-link:hover {
   text-decoration: underline;
 }
-.employee-title{
+.appointment-title{
   font-size: 35px;
   font-weight: 700;
 margin-top:50px;
-margin-left: 50px;
+margin-left: 70px;
 }
 hr{
-  width: 90%;
-  margin-left: 4%;
+  width: 95%;
+  margin-left: 2%;
 }
