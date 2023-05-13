@@ -17,56 +17,9 @@
     <link rel="stylesheet" href="css/viewmedicine.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title></title>
+    <title>Pet Life</title>
     
-    <style>
-    .search-box {
-        float: right;
-        margin-bottom: 10px;
-    }
-    .search-box input[type="text"] {
-        padding: 5px;
-        border: none;
-        border-radius: 5px;
-        margin-left: 5px;
-    }
-    .pagination {
-    display: inline-block;
-    }
-
-    .pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid #ddd;
-    }
-
-    .pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-    border: 1px solid #4CAF50;
-    }
-
-    .pagination a:hover:not(.active) {
-    background-color: #ddd;
-    }
-
-    .pagination a:first-child {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    }
-
-    .pagination a:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    }
-    button{
-    float:right;
-    padding: 5px 10px;
-    }
-</style>
+    <style></style>
 </head>
 
 <body>
@@ -90,9 +43,7 @@
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
+               
                 <div class="hello">
                 <font class="header-font-1">Welcome </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
@@ -207,7 +158,7 @@ $sql = "SELECT * FROM batch LIMIT $start_from, $records_per_page";
 echo '</div>';
 
 ?>
-<a href="addbatch.php"><button>Add</button></a>
+<a href="addbatch.php"><button class="btn-add">Add</button></a>
 <script>
     // Add event listener to all switch buttons
     var switchButtons = document.querySelectorAll('.switch input[type="checkbox"]');

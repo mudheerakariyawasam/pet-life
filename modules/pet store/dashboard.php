@@ -95,7 +95,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <title>Document</title>
+    <title>Pet Life</title>
 </head>
 <body>
     <div class="main-container">
@@ -126,9 +126,7 @@
     <div class="right-container">
     
         <div class="top-bar">
-            <div class="nav-icon">
-                <i class="fa-solid fa-bars"></i>
-            </div>
+            
             <div class="hello">
                 <font class="header-font-1">Welcome </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>

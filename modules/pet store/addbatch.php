@@ -6,28 +6,22 @@
         exit;
     }
 
-    $sql_get_id="SELECT batch_id FROM batch ORDER BY batch_id DESC LIMIT 1";
+    $sql_get_id="SELECT MAX(batch_id) as max_id FROM batch";
     $result_get_id=mysqli_query($conn,$sql_get_id);
     $row=mysqli_fetch_array($result_get_id);
+    $max_id = $row['max_id'];
 
-    $lastid="";
-                    
-    if(mysqli_num_rows($result_get_id)>0){
-        $lastid=$row['batch_id'];
-    }
-
-    if($lastid==""){
-        $batch_id="B001";
-    }else {
-        $batch_id=substr($lastid,3);
-        $batch_id=intval($batch_id);
-
-        if($batch_id>='9'){
-            $batch_id="B0".($batch_id+1);
-        } else if($batch_id>='99'){
-            $batch_id="B".($batch_id+1);
-        }else{
-            $batch_id="B00".($batch_id+1);
+    // generate the new pet ID
+    if ($max_id === null) {
+        $batch_id = "B001";
+    } else {
+        $num = intval(substr($max_id, 1)) + 1;
+        if ($num < 10) {
+            $batch_id = "B00$num";
+        } else if ($num < 100) {
+            $batch_id = "B0$num";
+        } else {
+            $batch_id = "B$num";
         }
     }
 
@@ -57,7 +51,7 @@
                 $sql = "UPDATE medicine SET medicine_status='Available' WHERE medicine_id='$medicine_id'";
                 $result = mysqli_query($conn,$sql);
 
-                header("location: viewallmedicine.php");
+                header("location: viewallbatch.php");
             }else {
                 $error = "There is an error in adding!";
             } 
@@ -76,7 +70,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/add.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <title>Document</title>
+    <title>Pet Life</title>
 </head>
 <body>
     <div class="main-container">
@@ -107,9 +101,7 @@
     <div class="right-container">
     
         <div class="top-bar">
-            <div class="nav-icon">
-                <i class="fa-solid fa-bars"></i>
-            </div>
+            
             <div class="hello">
                 <font class="header-font-1">Welcome </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
@@ -161,7 +153,7 @@
                 <input type="date" name="batch_mfddate" placeholder="Batch Mfd Date"><br>
 
                 <button class="btn-add" type="submit">Add </button>
-                <a class="btn-exit" href="viewallmedicine.php">Exit</a>     
+                <a class="btn-exit" href="viewallbatch.php">Exit</a>     
             </form> 
         </div>
     </div>

@@ -10,36 +10,30 @@
     $current_date = date("Y-m-d");
 
     //get the total holiday count of the employee
-    $sql_getholidaycount="SELECT COUNT(*) FROM holiday WHERE emp_id='$emp_id' AND from_date<'$current_date' OR approval_stage='Accepted'";
+    $sql_getholidaycount="SELECT COUNT(*) AS hol_count FROM holiday WHERE emp_id='$emp_id' AND from_date<'$current_date' OR approval_stage='Accepted'";
     $result_getholidaycount=mysqli_query($conn,$sql_getholidaycount);
     $row=mysqli_fetch_array($result_getholidaycount);
-    $holiday_count=$row[0];
+    $holiday_count=$row["hol_count"];
 
     //generate next holiday ID
-    $sql_get_id="SELECT holiday_id FROM holiday ORDER BY holiday_id DESC LIMIT 1";
+    $sql_get_id="SELECT MAX(holiday_id) AS max_id FROM holiday";
     $result_get_id=mysqli_query($conn,$sql_get_id);
     $row=mysqli_fetch_array($result_get_id);
- 
-    $lastid="";
-                     
-     if(mysqli_num_rows($result_get_id)>0){
-         $lastid=$row['holiday_id'];
-     }
- 
-     if($lastid==""){
-         $holiday_id="L001";
-     }else {
-         $holiday_id=substr($lastid,3);
-         $holiday_id=intval($holiday_id);
- 
-         if($holiday_id>=9){
-             $holiday_id="L0".($holiday_id+1);
-         } else if($holiday_id>=99){
-             $holiday_id="L".($holiday_id+1);
-         }else{
-             $holiday_id="L00".($holiday_id+1);
-         }
-     }
+    $max_id = $row['max_id'];
+
+    // generate the new pet ID
+    if ($max_id === null) {
+        $holiday_id = "H001";
+    } else {
+        $num = intval(substr($max_id, 1)) + 1;
+        if ($num < 10) {
+            $holiday_id = "H00$num";
+        } else if ($num < 100) {
+            $holiday_id = "H0$num";
+        } else {
+            $holiday_id = "H$num";
+        }
+    }
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
             
@@ -99,7 +93,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/leaverequest.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <title>Leave Request</title>
+    <title>Pet Life</title>
 </head>
 <body>
 
@@ -129,9 +123,7 @@
     <div class="right-container">
     
         <div class="top-bar">
-            <div class="nav-icon">
-                <i class="fa-solid fa-bars"></i>
-            </div>
+            
             <div class="hello">
                 <font class="header-font-1">Welcome </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name']; ?> </font>
@@ -174,7 +166,7 @@
             
             <div>
                 <div class="request-type">
-                    <p><b>Remaining No of Leave Requests</b></p><br>
+                    <center><p><b>Remaining No of Leave Requests</b></p><br></center>
                     <?php
                         $sql_tot = "SELECT * FROM holiday_references";
                         $result_tot = mysqli_query($conn, $sql_tot);
@@ -199,7 +191,8 @@
                                 
                             }
                         } else {
-                            echo "0 results";
+                            $image_url = "images/no-results.png";
+                            echo '<img src="' . $image_url . '" alt="No results" width="200" height="200">';
                         }
                     ?>
                 </div>
@@ -249,7 +242,8 @@
                             }
                             echo '</table></form>';
                         } else {
-                            echo "0 results";
+                            $image_url = "images/no-results.png";
+                            echo '<img src="' . $image_url . '" alt="No results" width="200" height="200">';
                         }
                     ?>
                 </div>

@@ -6,30 +6,24 @@
         exit;
     }
 
-     $sql_get_id="SELECT item_id FROM pet_item ORDER BY item_id DESC LIMIT 1";
-     $result_get_id=mysqli_query($conn,$sql_get_id);
-     $row=mysqli_fetch_array($result_get_id);
- 
-     $lastid="";
-                     
-     if(mysqli_num_rows($result_get_id)>0){
-         $lastid=$row['item_id'];
-     }
- 
-     if($lastid==""){
-         $item_id="I001";
-     }else {
-         $item_id=substr($lastid,3);
-         $item_id=intval($item_id);
- 
-         if($item_id>=9){
-             $item_id="I0".($item_id+1);
-         } else if($item_id>=99){
-             $item_id="I".($item_id+1);
-         }else{
-             $item_id="I00".($item_id+1);
-         }
-     }
+    $sql_get_id="SELECT MAX(item_id) AS max_id FROM pet_item";
+    $result_get_id=mysqli_query($conn,$sql_get_id);
+    $row=mysqli_fetch_array($result_get_id);
+    $max_id = $row['max_id'];
+
+    // generate the new pet ID
+    if ($max_id === null) {
+        $item_id = "I001";
+    } else {
+        $num = intval(substr($max_id, 1)) + 1;
+        if ($num < 10) {
+            $item_id = "I00$num";
+        } else if ($num < 100) {
+            $item_id = "I0$num";
+        } else {
+            $item_id = "I$num";
+        }
+    }
      
     if($_SERVER["REQUEST_METHOD"] == "POST") {
  
@@ -67,7 +61,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/add.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <title>Add a New Item</title>
+    <title>Pet Life</title>
 </head>
 <body>
     <div class="main-container">
@@ -98,9 +92,6 @@
     <div class="right-container">
     
         <div class="top-bar">
-            <div class="nav-icon">
-                <i class="fa-solid fa-bars"></i>
-            </div>
             <div class="hello">
                 <font class="header-font-1">Welcome </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
