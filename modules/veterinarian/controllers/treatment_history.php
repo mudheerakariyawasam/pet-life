@@ -79,7 +79,7 @@ while ($row = mysqli_fetch_assoc($all_treatments)) {
         $get_vac = "SELECT medicine_name FROM medicine WHERE medicine_id = '$vac_id'";
         $vaccine_name = mysqli_fetch_assoc(mysqli_query($conn, $get_vac));
 
-        array_push($vaccines, $medicine_name['medicine_name']);
+        array_push($vaccines, $vaccine_name['medicine_name']);
     }
 
     $current_treatment['vaccine'] = $vaccines;
