@@ -12,7 +12,7 @@ body {
   width: 100%;
   overflow: hidden;
   z-index: 2;
-  background-color: #ffffff;
+  background-color: #96CDE1;
 }
 
 .nav-left {
@@ -108,7 +108,7 @@ body {
 
 
 .footer {
-  background-color: rgb(212, 239, 249);
+  background-color: #96CDE1;
 }
 
 .about-us {

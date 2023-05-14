@@ -18,14 +18,12 @@
         <div class="nav-left"><img class="logo" src="/pet-life/public/img/logo_transparent black.png"></div>
         <div class="nav-right">
             <ul class="navbar-ul">
-                <li>Home</li>
+                <li><a href="/pet-life/public/index.php">Home</a></li>
                 <li><a href="/pet-life/public/aboutUs.php">About Us</a></li>
-                <li><a href="#">VIP Programs</a></li>
                 <li><a href="/pet-life/public/services.php">Services</a></li>
-                <li><a href="/pet-life/public/Store/store.php">Pet Store</a></li>
                 <li><a href="/pet-life/public/contactUs.php">Contact Us</a></li>
                 <li><a href="/pet-life/Auth/login.php">Make an appointment</li>
-                <li><a href="/pet-life/register.php">Sign Up</a></li>
+                <li><a href="/pet-life/Auth/register.php">Sign Up</a></li>
                 <li><a href="/pet-life/Auth/login.php">Login</a></li>
             </ul>
 
@@ -62,10 +60,12 @@
                 <div class="sec-title">Qualified Doctors</div>
             </center>
             <br />
-            <P>Lorem ipsum dolor sit amet consectetur.<br />
-                Convallis non ornare amet sed sagittis lobortis at vulputate.</br>
-                Turpis orci penatibus nisl ullamcorper nisl at lectus. </br>
-                Fermentum sit tortor platea habitant.</p>
+            <P>
+            Our qualified veterinarians provide exceptional care for pets, <br>
+            including diagnosis, treatment, and preventative care. <br>
+            They specialize in various areas such as surgery, dentistry, <br>
+            nutrition, and emergency care. Working closely with other staff members,<br>
+             they ensure the best possible care for your furry or feathered friends.</p>
 
         </div>
 
@@ -81,10 +81,12 @@
                 <div class="sec-title">Advanced Technology</div>
             </center>
             <br />
-            <P>Lorem ipsum dolor sit amet consectetur.<br />
-                Convallis non ornare amet sed sagittis lobortis at vulputate.</br>
-                Turpis orci penatibus nisl ullamcorper nisl at lectus. </br>
-                Fermentum sit tortor platea habitant.</p>
+            <P>We utilize advanced technologies at our pet clinic to provide <br>
+            the best possible care for your pets. Our state-of-the-art equipment <br>
+            includes digital radiography, ultrasound, and in-house laboratory testing, <br>
+            which allows for quick and accurate diagnoses. We also offer advanced <br>
+            surgical procedures and anesthesia monitoring to ensure your <br>
+            pet's safety and comfort during procedures.</p>
         </div>
 
         <div class="sec-3">
@@ -100,10 +102,12 @@
                 <div class="sec-title">Pet Friendly Services</div>
             </center>
             <br />
-            <P>Lorem ipsum dolor sit amet consectetur.<br />
-                Convallis non ornare amet sed sagittis lobortis at vulputate.</br>
-                Turpis orci penatibus nisl ullamcorper nisl at lectus. </br>
-                Fermentum sit tortor platea habitant.</p>
+            <P>We offer a range of pet-friendly services at our clinic, <br>
+            including spacious exam rooms, separate waiting areas for dogs and cats, <br>
+            and a fear-free approach to handling pets. We also provide <br>
+            behavioral consultations, nutrition counseling, and grooming services <br>
+            to keep your pet healthy and happy. Our goal is to create a comfortable <br>
+            and stress-free environment for both you and your pet.</p>
         </div>
 
     </div>
@@ -150,25 +154,25 @@
         <p>Our Head Of Departments</p>
         <div class="doc-set">
             <div class="doc-1"><img src="/pet-life/public/img/doc-1.png"><br />
-                <p>Dr. John Doe</p>
+                <p>Dr. Sandun Chathuranga</p>
             </div>
             <div class="doc-2"><img src="/pet-life/public/img/doc-2.png"><br />
-                <p>Dr. Philliphinia Kane</p>
+                <p>Dr. Mudheera Kariyawasam</p>
             </div>
             <div class="doc-3"><img src="/pet-life/public/img/doc-3.png"><br />
-                <p>Dr. Sammy shanya</p>
+                <p>Dr. Senuri Dilsara</p>
             </div>
         </div>
         <br /><br />
         <div class="doc-set">
             <div class="doc-1"><img src="/pet-life/public/img/doc-4.png"><br />
-                <p>Dr. Chris Gayle</p>
+                <p>Mr. Supun Rodrigo</p>
             </div>
             <div class="doc-2"><img src="/pet-life/public/img/doc-5.png"><br />
-                <p>Dr. Tuskinya Ahmed</p>
+                <p>Ms. Ruwani Rupasinghe</p>
             </div>
             <div class="doc-3"><img src="/pet-life/public/img/doc-6.png"><br />
-                <p>Dr. Virati Kohli</p>
+                <p>Ms. Binuri de Silva</p>
             </div>
         </div>
     </div>
@@ -243,12 +247,11 @@
             <div class="about-1">
                 <p class="title">About Us</p>
                 <hr />
-                <p>Lorem ipsum dolor sit consectetur.<br />
-                    Vitae in bibendum posuere nec sed. urna sed.<br />
-                    Pellentesque eget faucibus tri aliquam pharetra.<br />
-                    Viverra pharetra purus rhoncus tellultrices sapien.<br />
-                    etiam vitae. Aliquet enim quam et vel.<br />
-                    Nibh vitae semper ua bibendu.
+                <p>The Pet Life animal hospital is driven by a passion for helping pets and giving their people<br>
+the support they deserve. We know that your pet is precious to your family,<br/>
+and when they're happy, you're happy.<br/>
+For more insight into who we are and what we do, take a moment to learn about our values and</br>
+meet our amazing veterinary teams in Pet Life.
                 </p>
                 <br />
                 <p>Read More.........</p>
@@ -257,7 +260,7 @@
 
             </div>
             <div class="about-2">
-                <p class="title">useful Links</p>
+                <p class="title">Useful Links</p>
                 <hr />
                 <ul>
                     <li>Home</li>

@@ -9,17 +9,15 @@
 <div class="nav-bar">
 <div class="nav-left"><img class="logo" src="/pet-life/public/img/logo_transparent black.png"></div>
 <div class="nav-right">
-<ul class="navbar-ul">
-<li><a href="./index.php">Home</a></li>
-<li><a href="#">About Us</a></li>
-<li><a href="#">VIP Programs</a></li>
-<li><a href="./services.php">Services</a></li>
-<li><a href="./Store/store.php">Pet Store</a></li>
-<li><a href="./contactUs">Contact Us</a></li>
-<li><a href="#">Make an appointment</a></li>
-<li><a href="#">Sign Up</a></li>
-<li><a href="/pet-life/Auth/login.php">Login</a></li>
-</ul>
+            <ul class="navbar-ul">
+                <li><a href="/pet-life/public/index.php">Home</a></li>
+                <li><a href="/pet-life/public/aboutUs.php">About Us</a></li>
+                <li><a href="/pet-life/public/services.php">Services</a></li>
+                <li><a href="/pet-life/public/contactUs.php">Contact Us</a></li>
+                <li><a href="/pet-life/Auth/login.php">Make an appointment</li>
+                <li><a href="/pet-life/Auth/register.php">Sign Up</a></li>
+                <li><a href="/pet-life/Auth/login.php">Login</a></li>
+            </ul>
 
 
 
@@ -37,16 +35,16 @@
 
 <div class="abt-us">
 <div class="abt-title">
-    <p>About Us</p>
-    <hr/>
+<center> <p>About Us<b</p></center>
+
     <br/>
 </div>
-<div class="abt-content"><p>
+<div class="abt-content"><p><center>
 The Pet Life animal hospital is driven by a passion for helping pets and giving their people<br>
 the support they deserve. We know that your pet is precious to your family,<br/>
 and when they're happy, you're happy.<br/>
 For more insight into who we are and what we do, take a moment to learn about our values and</br>
-meet our amazing veterinary teams in Pet Life.
+meet our amazing veterinary teams in Pet Life.</center>
 
 </p>
 <br/>
@@ -132,12 +130,11 @@ our patients and their families. Passion  is our driving force.
     <div class="about">
 <p class="title">About Us</p>
 <hr/>
-<p>Lorem ipsum dolor sit consectetur.<br/>
-Vitae in bibendum posuere nec sed. urna sed.<br/>
-Pellentesque eget faucibus tri aliquam pharetra.<br/>
- Viverra pharetra purus rhoncus tellultrices sapien.<br/>
-etiam vitae. Aliquet enim quam et vel.<br/>
-Nibh vitae semper ua bibendu.
+<p>The Pet Life animal hospital is driven by a passion for helping pets and giving their people<br>
+the support they deserve. We know that your pet is precious to your family,<br/>
+and when they're happy, you're happy.<br/>
+For more insight into who we are and what we do, take a moment to learn about our values and</br>
+meet our amazing veterinary teams in Pet Life.
 </p>
 <br/>
 <p>Read More.........</p>
@@ -146,7 +143,7 @@ Nibh vitae semper ua bibendu.
 
     </div>
     <div class="ulinks">
-    <p class="title">useful Links</p>
+    <p class="title">Useful Links</p>
 <hr/>
 <ul>
 <li>Home</li>
