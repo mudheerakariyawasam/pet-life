@@ -10,7 +10,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
     $current_date = date("Y-m-d");
 
     //get the total holiday count of the employee
-    $sql_getholidaycount="SELECT COUNT(*) AS hol_count FROM holiday WHERE emp_id='$emp_id' AND from_date<'$current_date' OR approval_stage='Approved'";
+    $sql_getholidaycount="SELECT COUNT(*) AS hol_count FROM holiday WHERE emp_id='$emp_id' AND approval_stage='Approved'";
     $result_getholidaycount=mysqli_query($conn,$sql_getholidaycount);
     $row=mysqli_fetch_array($result_getholidaycount);
     $holiday_count=$row["hol_count"];
