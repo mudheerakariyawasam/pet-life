@@ -110,7 +110,6 @@
                 <th>Type</th>
                 <th>Breed</th>
                 <th>Action</th>
-                <th>Availability</th>
             </tr>
             <?php
 
@@ -131,7 +130,8 @@
     // Include pet_name condition in SQL query
     $sql .= " AND pet_name LIKE '%$pet_name%'";
 }
-            $result = mysqli_query($conn, $sql);
+
+         $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
            
 
@@ -187,17 +187,14 @@
                         echo '<td class="action1">
                             <p>Deleted</p>
                         </td>';
-                    } else {
-                        echo '<td class="action1"> 
-                            <p>Registered</p>
-                        </td>';
-                    }
+                    } 
+                   
                 }
-                            
-                    
+     
             }
+           
         else{
-            echo '<td colspan="8"><center><img style="width:50%;" src="images/no-results.png"></center></td>';
+            echo '<td colspan="7"><center><img style="width:50%;" src="images/no-results.png"></center></td>';
         }
 ?>            
             </table>    
