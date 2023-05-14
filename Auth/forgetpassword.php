@@ -107,8 +107,8 @@ if (isset($_POST['Reset'])) {
     $mail->addAddress($email);
 
     $mail->isHTML(true);
-    $mail->Body = "<p>Hello,</p>
-                   <p>Dear user, </p> <p>Your OTP verify code is <b>$otp </b><br></p>
+    $mail->Body = "<p>Hello User,</p>
+                   <p>You have requested to reset your password.</p> <p>Your OTP verify code is <b>$otp </b><br></p>
                   <p>Regards,</p>
                   <p>The Petlife Team</p>";
 

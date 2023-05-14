@@ -106,7 +106,7 @@ if(isset($_POST['delete'])) {
     <link rel="stylesheet" href="css/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <title>Pet Life</title>
 </head>
 
 <body>
@@ -242,7 +242,8 @@ if(isset($_POST['delete'])) {
                         <div class="pwd-content">
                             <button class="btn-add" type="submit">Confirm </button>
                         </div>
-                </form>    
+                </form>  
+                  
                 <?php
                 // Check for success message
                 if (isset($_GET['password_changed']) && $_GET['password_changed'] == 'true') {

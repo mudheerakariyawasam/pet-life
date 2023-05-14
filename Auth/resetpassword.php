@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
@@ -25,7 +23,7 @@
         <div class="login-form">
        
 
-          <form method="POST">
+          <form method="POST" action="">
           <div class="title"><h2 class="welcome">Reset Password</h2>
             <div class="input-boxes">
 
@@ -55,13 +53,13 @@
 // Include the database connection code
 include('../db/dbconnection.php');
 
+$email=$_GET["email"];
 // Check if the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   // Retrieve the new password and confirm password entered by the user
   $newpassword = $_POST['newpassword'];
   $confirmpassword = $_POST['confirmpassword'];
-  $email = $_POST['email'];
 
   // Check if the passwords match
   if ($newpassword == $confirmpassword) {

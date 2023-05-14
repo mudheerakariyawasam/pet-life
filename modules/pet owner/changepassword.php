@@ -1,17 +1,21 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
-
-
 
 $_SESSION['change_password_error'] = ""; // Initialize error message variable
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $oldPassword = mysqli_real_escape_string($conn, $_POST['oldpass']);
     $newPassword = mysqli_real_escape_string($conn, $_POST['newpass']);
     $confirmPassword = mysqli_real_escape_string($conn, $_POST['cnewpass']);
 
+    echo "$oldPassword";
+    echo "$newPassword";
+    echo "$confirmPassword";
+
     // Retrieve the employee's current password from the database
     $owner_email = $_SESSION['login_user'];
+    
+    echo "$owner_email";
 
     $query = "SELECT owner_pwd FROM pet_owner WHERE owner_email='$owner_email'";
     $result = mysqli_query($conn, $query);
@@ -21,14 +25,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $currentHashedPassword = $row[0];
 
     // Verify the current password
-    if (md5($oldPassword) === $currentHashedPassword) {
+    if (md5($oldPassword) == $currentHashedPassword) {
         // Check if the new password and confirm password match
-        if ($newPassword === $confirmPassword) {
+        if ($newPassword == $confirmPassword) {
             // Generate the hashed password
             $newHashedPassword = md5($newPassword);
 
             // Update the owner's password in the database
-            $updateQuery = "UPDATE pey_owner SET owner_pwd='$newHashedPassword' WHERE owner_email='$owner_email'";
+            $updateQuery = "UPDATE pet_owner SET owner_pwd='$newHashedPassword' WHERE owner_email='$owner_email'";
             mysqli_query($conn, $updateQuery);
 
             // Redirect to the updateprofile.php file with the error message as a query parameter
@@ -43,5 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['change_password_error']= "Incorrect current password.";
         header("Location: profile.php");
     }
+}else{
+    echo "Ces";
 }
 ?>

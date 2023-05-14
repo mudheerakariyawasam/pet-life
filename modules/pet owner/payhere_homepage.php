@@ -29,19 +29,28 @@
     
         <div class="imgbox">
             <img src="images/pay.jpg" id="reset">
+<<<<<<< HEAD
             </div>
             <div class="body">
             <div class="title"><h1 class="welcome">Treatment For Your Pet</h1>
             <div class="title"><h2 class="welcome">For Bookings : </h2>
             <div class="title"><h2 class="welcome">Rs. 500/= only</h2>
+=======
+        </div>
+        <div class="body">
+            
+            <div class="title"><h1 class="welcome">You are one step closer to book your appointment.</h1>
+            <h2 class="welcome">For Bookings : Rs. 500/= only</h2>
+>>>>>>> 4215126a554a33a0c04cff906da84b2b247c237e
     
-            <div class="title"><h1 class="welcome">Get Your Slot Booked</h1>
+            <p><i>**Please note that this fee will be non-refundable in case of a cancellation from your end.</i></p>
     
         <!-- button  -->
         <div class="save-btn">
             <button onclick="paymentGateWay('<?php echo $appointment_id; ?>','<?php echo $date; ?>','<?php echo $time_slot; ?>','<?php echo $new_slot_id; ?>','<?php echo $emp_id; ?>','<?php echo $pet_id; ?>');" class="button-01" name="save-info" id="btn-save" type="submit"
                 role="button">Pay Here</button>
         </div>
+        
     </div>
     <script src="script.js"></script>
     <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
