@@ -31,9 +31,9 @@
             <img src="images/pay.jpg" id="reset">
             </div>
             <div class="body">
-            <form>
             <div class="title"><h1 class="welcome">Treatment For Your Pet</h1>
-            <div class="title"><h2 class="welcome">For Bookings : Rs. 500/= only</h2>
+            <div class="title"><h2 class="welcome">For Bookings : </h2>
+            <div class="title"><h2 class="welcome">Rs. 500/= only</h2>
     
             <div class="title"><h1 class="welcome">Get Your Slot Booked</h1>
     

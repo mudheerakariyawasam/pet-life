@@ -4,7 +4,10 @@ session_start();
 if (!isset($_SESSION["login_user"])) {
     header("location:../../Auth/login.php");
     exit;
+
+
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -43,9 +46,7 @@ if (!isset($_SESSION["login_user"])) {
             <li>
                 <a href="daycare.php"><i class="fa-solid fa-file"></i><span>Pet Daycare</span></a></a>
             </li>
-            <li>
-                <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
-            </li>
+            
             <li>
                 <a href="inquiry.php"><i class="fa fa-user"></i><span>Inquiries</span></a>
             </li>
@@ -68,7 +69,7 @@ if (!isset($_SESSION["login_user"])) {
                 </div>
             </div>
 
-           
+
         </div>
 
 
@@ -110,6 +111,17 @@ if (!isset($_SESSION["login_user"])) {
                         <!-- <th>completion status</th> -->
                     </tr>
                     <?php
+
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+
+
                     $loggedInUser = $_SESSION['login_user'];
                     $currentDate = date('Y-m-d');
                     $sql = "SELECT * FROM appointment a
@@ -135,7 +147,7 @@ if (!isset($_SESSION["login_user"])) {
                             $appointment_status = $row_getdetails["appointment_status"];
                             $pet_availability = $row_getdetails["pet_availability"];
 
-                            
+
                             echo '<tr> 
                                 <td>' . $row_getdetails["pet_name"] . '</td>
                                 <td>' . $row_getdetails["appointment_date"] . '</td>
@@ -143,7 +155,7 @@ if (!isset($_SESSION["login_user"])) {
                                 <td>' . $row_getdetails["appointment_slot"] . '</td>
                                 <td>' . $row_getdetails["emp_name"] . '</td>
                                 <td class="action">';
-                            
+
                             // Check if appointment is completed
                             if ($appointment_status == 'Completed') {
                                 echo '<button class="btn-add2" type="button">Cannot Delete</button>';
@@ -155,11 +167,55 @@ if (!isset($_SESSION["login_user"])) {
                                         // Delete appointment
                                         $sql = "UPDATE appointment SET appointment_status = 'Cancelled' WHERE appointment_id = '$appointment_id'";
                                         if ($conn->query($sql) === TRUE) {
-                                            // Success message
-                                            echo '<script>alert("Appointment deleted successfully.");</script>';
-                                           
+
                                             $appointment_status = 'Cancelled';
                                             echo "<script>window.location ='viewapp.php'</script>";
+                                            // Initialize the $error1 and $error2 variables to empty strings
+                                            $error1 = '';
+                                            $error2 = '';
+
+
+                                            // Get the email address entered in the form
+                                            $email = $row_getdetails["owner_email"];
+                                            $owner_fname = $row_getdetails["owner_fname"];
+
+                                            // If the email address is valid, generate an OTP and store it in the database
+                                            // $otp = rand(100000, 999999); // Generate a 6-digit OTP
+                                            // $query = "INSERT INTO email_otps (email, otp) VALUES ('$email', '$otp')";
+                                            // mysqli_query($conn, $query);
+
+                                            // Send email using PHPMailer
+                                            $mail = new PHPMailer();
+                                            $mail->isSMTP();
+                                            $mail->Host = "smtp.gmail.com";
+                                            $mail->SMTPAuth = true;
+                                            $mail->SMTPSecure = "tls";
+                                            $mail->Port = "25";
+                                            $mail->Username = "petlife1023@gmail.com";
+                                            $mail->Password = "mqumfstsythnyndi";
+                                            $mail->Subject = "Your verify code";
+
+                                            $mail->setFrom('petlife1023@gmail.com');
+                                            $mail->addAddress($email);
+
+                                            $mail->isHTML(true);
+                                            $mail->Body = "<p>Hello,</p>
+                           <p>Dear $owner_fname, </p> <p>Your Appointment has been cancelled successfully</p>
+                          <p>Regards,</p>
+                          <p>The Petlife Team</p>";
+
+                                            if ($mail->send()) {
+                                                // Redirect to OTP verification page passing the email as a parameter
+                                                echo '<script>alert("Appointment deleted Successfully. Check your Email");</script>';
+                                            } else {
+                                                // Display an error message if email was not sent successfully
+                                                echo '<script>alert("Invalid OTP please try again.");</script>' . $mail->ErrorInfo;
+                                            }
+
+
+                                            $mail->smtpClose();
+
+
                                             // echo '<button class="btn-add2" type="button">Cannot Delete</button>';
                                         } else {
                                             // Error message
@@ -172,15 +228,15 @@ if (!isset($_SESSION["login_user"])) {
                                 }
                                 // Display delete button
                                 else {
-                                    
+
                                     echo '<form action="" method="post">
                                             <button class="btn-add3" type="submit" name="' . $appointment_id . '">Delete</button>
                                           </form>';
                                 }
                             }
-                            
+
                             echo '</td>';
-                            
+
                             // Determine appointment status
                             if ($appointment_status == 'Cancelled' || $pet_availability == 'Deleted') {
                                 $appointment_status_text = 'Cancelled';
@@ -191,7 +247,7 @@ if (!isset($_SESSION["login_user"])) {
                                 $appointment_status_text = 'Completed';
                                 $appointment_status_button = 'Cannot Delete';
                             }
-                            
+
                             // Update appointment status in database
                             $sql = "UPDATE appointment SET appointment_status = '$appointment_status_text' WHERE appointment_id = '$appointment_id'";
                             if ($conn->query($sql) === TRUE) {
@@ -199,27 +255,26 @@ if (!isset($_SESSION["login_user"])) {
                             } else {
                                 // Error message
                             }
-                            
+
                             // Display the availability status for each appointment
                             echo '<td class="action1"> 
                                     <p>' . $appointment_status_text . '</p>
                                   </td>';
-                            
+
                             echo '</tr>';
                         }
-                    
-                    }
-                    else {
-                           
-                     
-                           echo '<td colspan="7"><center><img style="width:35%;" src="images/no-results.png"></center></td>';
-                       
-                        }
 
-                    
-                    
-?>
-</table>
+                    } else {
+
+
+                        echo '<td colspan="7"><center><img style="width:35%;" src="images/no-results.png"></center></td>';
+
+                    }
+
+
+
+                    ?>
+                </table>
             </div>
         </div>
     </div>

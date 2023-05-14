@@ -150,9 +150,7 @@
             <li>
                 <a href="daycare.php"><i class="fa-solid fa-file"></i><span>Pet Daycare</span></a></a>
             </li>
-            <li>
-                <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
-            </li>
+           
             <li>
                 <a href="inquiry.php"><i class="fa fa-user"></i><span>Inquiries</span></a>
             </li>
@@ -249,9 +247,9 @@
     <label class="loging-label1">Preferred day of appointment</label>
     <?php
         $currentDate = date('Y-m-d');
-        $nextnineDays = date('Y-m-d', strtotime($currentDate . ' +4 days'));
+        $nextfourDays = date('Y-m-d', strtotime($currentDate . ' +4 days'));
     ?>
-    <input type="date" name="date" min="<?= $currentDate ?>" max="<?= $nextnineDays ?>" required>
+    <input type="date" name="date" min="<?= $currentDate ?>" max="<?= $nextfourDays ?>" required>
 </div>
 
 <div class="form-content">

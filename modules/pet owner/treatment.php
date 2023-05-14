@@ -43,9 +43,7 @@ if (!isset($_SESSION["login_user"])) {
             <li>
                 <a href="daycare.php"><i class="fa-solid fa-file"></i><span>Pet Daycare</span></a></a>
             </li>
-            <li>
-                <a href="../../public/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
-            </li>
+           
             <li>
                 <a href="inquiry.php"><i class="fa fa-user"></i><span>Inquiries</span></a>
             </li>
