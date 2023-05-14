@@ -289,22 +289,7 @@ if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
         <div class="container">
         <!-- <div class="heading">Treatment History</div> -->
         <p class="topic">Treatment History </p><hr><br>
-        <div class="toast" style="display: none;">
-
-            <div class="toast-content">
-                <i class="fa-regular fa-circle-check" style="color: #2dc02d;font-size: 35px;"></i>
-
-                <div class="message">
-                    <span class="text text-1">Success</span>
-                    <span class="text text-2">ඔබ සාර්ථකව ලොග් අවුට් වී ඇත</span>
-                </div>
-            </div>
-            <i class="fa-solid fa-xmark close"></i>
-
-
-            <!-- Remove 'active' class, this is just to show in Codepen thumbnail -->
-            <div class="progress"></div>
-        </div>
+        
         <div class="filter-panel">
             <input type="text" class="input-search" id="input-search" placeholder="Type to Search...">
             <i onclick="textSearch()" id="search-icon" class="fa-solid fa-magnifying-glass search-icon"></i>
@@ -373,13 +358,13 @@ if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
                     <tr><!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
                         <th style="width: 4%;padding-right: 10px;"></th>
                         <th style="width: 8%;">ID</th>
-                        <th style="width: 8%;" mytable2="" onclick="sortTable(1, 'myTable3')">Type</th>
-                        <th style="width: 24.8%;" mytable2="" onclick="sortTable(2, 'myTable3')">Symptoms</th>
-                        <th style="width: 20%;" mytable2="" onclick="sortTable(3, 'myTable3')">Diagnosis</th>
-                        <th mytable2="" onclick="sortTable(4, 'myTable3')">Pet</th>
-                        <th mytable2="" onclick="sortTable(6, 'myTable3')">Followup date</th>
+                        <th style="width: 8%;" mytable2="">Type</th>
+                        <th style="width: 24.8%;" mytable2="" >Symptoms</th>
+                        <th style="width: 20%;" mytable2="">Diagnosis</th>
+                        <th mytable2="">Pet</th>
+                        <th mytable2="">Followup date</th>
                         <!-- <th mytable2="" onclick="sortTable(7, 'myTable3')">Comments</th> -->
-                        <th mytable2="" onclick="sortTable(8, 'myTable3')">Date</th>
+                        <th mytable2="">Date</th>
                         <!-- <th mytable2="" onclick="sortTable(9, 'myTable3')">Bill</th> -->
                     </tr>
                 </thead>
@@ -445,6 +430,7 @@ if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
 
                                                     <?php
                                                     if (count($treatment['medicine']) > 0) {
+                                                        // print the medicines
                                                         foreach ($treatment['medicine'] as $key => $value) {
 
                                                             echo "<div class='expand-item-content'><i class='fa-solid fa-check ex-icon'></i>$value</div>";

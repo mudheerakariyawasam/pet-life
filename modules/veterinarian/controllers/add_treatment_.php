@@ -10,8 +10,9 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.p
 $pet_id = isset($_GET['updateid']) ? mysqli_real_escape_string($conn, $_GET['updateid']) : '';
 
 //get pet name
+
 $sql_name = "SELECT pet_name FROM pet WHERE pet_id = '$pet_id'";
-$result_name=mysqli_query($conn,$sql_name);
+$result_name = mysqli_query($conn, $sql_name);
 $row_name = mysqli_fetch_assoc($result_name);
 
 $_SESSION['treatment_added'] = false;
@@ -28,7 +29,7 @@ while ($row = mysqli_fetch_assoc($all_medicines)) {
     $check_with_batch = "SELECT batch_id, batch_qty, batch_expdate FROM batch WHERE medicine_id = '$med_id'";
     $med = mysqli_query($conn, $check_with_batch);
     $med_data = mysqli_fetch_assoc($med);
-    
+
     if ($med_data == null) {
         $row['availability'] = false;
         $row['batch_id'] = null;
@@ -47,12 +48,11 @@ while ($row = mysqli_fetch_assoc($all_medicines)) {
 
     // check whether it is a medicine or a vaccine
     if ($row['medicine_category'] == 'vaccine') {
-       // push to vaccine array if category is vaccine
+        // push to vaccine array if category is vaccine
         array_push($vaccine, $row);
     } else {
         array_push($medicine, $row);
     }
-    
 }
 $sql = "SELECT lab_id , lab_name FROM lab_investigations";
 $lab_inv = mysqli_query($conn, $sql);
@@ -61,11 +61,10 @@ $lab_inv = mysqli_query($conn, $sql);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['treatment_added'] = false;
-
     if (
         isset($_POST["save-info"]) && isset($_POST['symptoms']) && !empty($_POST['symptoms']) && isset($_POST['def_diagnosis'])
-        && isset($_POST['followup_date']) && isset($_POST['sp_comments'])
-    ) {
+        && isset($_POST['followup_date']) && isset($_POST['sp_comments'])) 
+    {
         // die($_POST['symptoms']);
         $sql = 'SELECT * FROM treatment ORDER BY treatment_id  DESC LIMIT 1';
         $last_record = mysqli_query($conn, $sql);
@@ -86,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $emp_id = $_SESSION['emp_id'];
         $sql = "INSERT INTO treatment (treatment_id,vet_id, pet_id, symptoms, definitive_diagnosis, special_comments, followup_date, treatment_bill)
-         VALUES ('$next_t_id','$emp_id', 'P001', '$symptoms', '$def_diagnosis', '$sp_comment', '$followup_date', '5000.00')";
+         VALUES ('$next_t_id','$emp_id', '$pet_id', '$symptoms', '$def_diagnosis', '$sp_comment', '$followup_date', '5000.00')";
 
         if (mysqli_query($conn, $sql) == 1) {
             // die( $_SESSION['treatment_added']);
@@ -127,6 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         unset($_POST["save-info"]);
     } else {
+        echo "<script>alert('error')</script>";
     }
 }
 ?>
@@ -257,14 +257,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             modal.style.opacity = 1;
 
             // When the user clicks on <span> (x), close the modal
-            span.onclick = function () {
+            span.onclick = function() {
                 modal.style.display = "none";
-                //window.location.href="treatment_history.php";
-                window.location.href="change_appstatus.php?treatment_id="+treatment_id;
+                window.location.href = "treatment_history.php?searchQuery=<?php echo "$pet_id"?>";
             }
 
             // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function (event) {
+            window.onclick = function(event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
@@ -338,28 +337,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </ul>
             </div>
         </div>
-        <form action="add_treatment_.php" method="post">
+        <form action="add_treatment_.php?updateid=<?php echo "$pet_id" ?>" method="post">
             <div class="container">
                 <div class="treatment-content">
+                    
                     <div class="treatment-header">
-
-                        <h2>New Treatment For 
-                        <?php echo $row_name["pet_name"]; ?>
+                    <?php if($row_name != null) { ?>
+                        <h2>New Treatment For
+                            <?php echo $row_name["pet_name"]; ?>
                         </h2>
-
+                        <?php } ?>
                     </div>
+                    
                     <div class="treatment-data">
                         <div class="t-symptoms">
 
                             <div class="first-row">
                                 <div class="checkbox-wrapper-43">
                                     <label for="">Treatment</label>
-                                    <input type="checkbox" class="treatment-type-t" name="treatment_type[]"
-                                        value="treatment" id="cbx-43">
+                                    <input type="checkbox" class="treatment-type-t" name="treatment_type[]" value="treatment" id="cbx-43">
                                     <label for="cbx-43" onclick="clickTcheck()" class="check t-check">
                                         <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                            <path
-                                                d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
+                                            <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
                                             </path>
                                             <polyline points="1 9 7 14 15 4"></polyline>
                                         </svg>
@@ -368,12 +367,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <div class="checkbox-wrapper-4">
                                     <label for="">Surgery</label>
-                                    <input type="checkbox" class="treatment-type-s" name="treatment_type[]"
-                                        value="surgery" id="cbx-4">
+                                    <input type="checkbox" class="treatment-type-s" name="treatment_type[]" value="surgery" id="cbx-4">
                                     <label for="cbx-4" class="check s-check" onclick="clickScheck()">
                                         <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                            <path
-                                                d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
+                                            <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z">
                                             </path>
                                             <polyline points="1 9 7 14 15 4"></polyline>
                                         </svg>
@@ -383,16 +380,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                             <label for="textarea">Clinical Signs/Symptoms</label>
-                            <textarea class="add-symptoms" onclick="symptomClick()" name="symptoms"
-                                placeholder="Please enter clinical symptoms"></textarea>
+                            <textarea class="add-symptoms" onclick="symptomClick()" name="symptoms" placeholder="Please enter clinical symptoms"></textarea>
 
                             <label for="textarea">Definitive Diagnosis</label>
-                            <textarea class="add-diagnosis" onclick="diagnosisClick()" name="def_diagnosis"
-                                placeholder="Please enter the definitive diagnosis"></textarea>
+                            <textarea class="add-diagnosis" onclick="diagnosisClick()" name="def_diagnosis" placeholder="Please enter the definitive diagnosis"></textarea>
 
                             <div class="form__group field">
-                                <input type="input" class="form__field" placeholder="Name" name="sp_comments"
-                                    id='name' />
+                                <input type="input" class="form__field" placeholder="Name" name="sp_comments" id='name' />
                                 <label style="white-space: nowrap;" for="name" class="form__label">Additional Medicines
                                     given</label>
                             </div>
@@ -480,14 +474,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <label for="date">Follow Up Date</label><br />
                                     </div>
                                     <div>
-                                        <input type="date" placeholder="Date" id="followup_date" name="followup_date"
-                                            min="<?= date('Y-m-d'); ?>">
+                                        <input type="date" placeholder="Date" id="followup_date" name="followup_date" min="<?= date('Y-m-d'); ?>">
                                     </div>
                                 </div>
 
                                 <div class="save-btn">
-                                    <button onclick="saveTreatment(event)" class="button-01" name="save-info"
-                                        id="btn-save" type="submit" role="button">Save</button>
+                                    <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save" type="submit" role="button">Save</button>
                                 </div>
                             </div>
 
@@ -561,13 +553,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 tCheckBox.style = 'background-color:unset';
                 sCheckBox.style = 'background-color:unset';
             }
+
             function clickScheck() {
                 sCheckBox.style = 'background-color:unset';
                 tCheckBox.style = 'background-color:unset';
             }
+
             function symptomClick() {
                 sympotmsTA.style = 'border-color:unset';
             }
+
             function diagnosisClick() {
                 diagnosisTA.style = 'border-color:unset';
             }
