@@ -29,19 +29,13 @@
     
         <div class="imgbox">
             <img src="images/pay.jpg" id="reset">
-<<<<<<< HEAD
-            </div>
-            <div class="body">
-            <div class="title"><h1 class="welcome">Treatment For Your Pet</h1>
-            <div class="title"><h2 class="welcome">For Bookings : </h2>
-            <div class="title"><h2 class="welcome">Rs. 500/= only</h2>
-=======
         </div>
         <div class="body">
             
             <div class="title"><h1 class="welcome">You are one step closer to book your appointment.</h1>
-            <h2 class="welcome">For Bookings : Rs. 500/= only</h2>
->>>>>>> 4215126a554a33a0c04cff906da84b2b247c237e
+            <h2 class="welcome">For Bookings :</h2>
+            <h2 class="welcome">Rs. 500/= only</h2>
+
     
             <p><i>**Please note that this fee will be non-refundable in case of a cancellation from your end.</i></p>
     
