@@ -104,7 +104,6 @@ if (!isset($_SESSION["login_user"])) {
                         <th>Pet Name</th>
                         <th>Vet Name</th>
                         <th>Treatment Bill</th>
-                        <th>Treatment_date</th>
                         <th>Follow Up Date</th>
                     
                     </tr>
@@ -135,7 +134,6 @@ $sql .= " ORDER BY a.followup_date ASC";
                             <td> ' . $row["pet_name"] . '</td>
                             <td>' . $row["emp_name"] . '</td> 
                             <td>' . $row["treatment_bill"] . '</td> 
-                            <td>' . $row["treatment_date"] . '</td>
                             <td>' . $row["followup_date"] . '</td>
                         
                         </tr>';
