@@ -23,7 +23,7 @@ while ($row = mysqli_fetch_assoc($all_treatments)) {
     $current_treatment['special_comments'] = $row['special_comments'];
     $current_treatment['symptoms'] = $row['symptoms'];
     $current_treatment['treatment_bill'] = $row['treatment_bill'];
-    $current_treatment['treatment_date'] = date("Y-m-j", strtotime($row['treatment_date']));
+    $current_treatment['treatment_date'] = date("Y-m-d", strtotime($row['treatment_date']));
     $t_id = $row['treatment_id'];
 
     // treatment type
