@@ -128,6 +128,10 @@ padding: 5px 10px;
        
 <div class="appointment-title">Appointment Management</div><hr>
 <br/><br/>
+<div class="search-box">
+    <label for="search-input">Search:</label>
+    <input type="text" id="search-input" placeholder="Search by ID or Name...">
+</div>
 <center>
 <?php
 
@@ -149,7 +153,7 @@ $start_from = ($current_page - 1) * $records_per_page;
 		echo "<table class='appointment-table'>";
 		echo "<tr><th class='appointment-table-header'>Appointment ID</th><th class='appointment-table-header'>Appointment Date</th><th class='appointment-table-header'>Appointment Time</th><th class='appointment-table-header'>Appointment Slot</th><th class='appointment-table-header'>Appointment Status</th><th class='appointment-table-header'>Action</th></tr>";
 		while ($row = mysqli_fetch_assoc($result)) {
-			echo "<tr>";
+			echo "<tr class='employee-row'>";
 			echo "<td class='appointment-table-cell'>" . $row['appointment_id'] . "</td>";
 			echo "<td class='appointment-table-cell'>" . $row['appointment_date'] . "</td>";
             echo "<td class='appointment-table-cell'>" . $row['appointment_time'] . "</td>";
@@ -160,7 +164,8 @@ $start_from = ($current_page - 1) * $records_per_page;
 		}
 		echo "</table>";
 	} else {
-		echo "No appointments found.";
+		$image_url = "../images/no-results.png";
+        echo '<center><img src="' . $image_url . '" alt="No results" width="440" height="400"></center>';
 	}
 
     // Count the total number of records in the employee table
@@ -188,7 +193,34 @@ echo '</div>';
 </center>
 
     </div>
-    <script src="script.js"></script>
+    <script>
+   // Add event listener to search input
+var searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', function() {
+    var filterValue = this.value.toUpperCase();
+    var rows = document.querySelectorAll('.employee-row');
+
+    for (var i = 0; i < rows.length; i++) {
+        var idCell = rows[i].querySelector('.emp-id');
+        var firstNameCell = rows[i].querySelector('.emp-name');
+       // var lastNameCell = rows[i].querySelector('.employee-table-cell:nth-child(3)');
+        var ownerStatusCell = rows[i].querySelector('.employee-table-cell:nth-child(4)');
+        var idValue = idCell.textContent || idCell.innerText;
+        var firstNameValue = firstNameCell.textContent || firstNameCell.innerText;
+      ///  var lastNameValue = lastNameCell.textContent || lastNameCell.innerText;
+        var ownerStatusValue = ownerStatusCell.textContent || ownerStatusCell.innerText;
+
+        if (idValue.toUpperCase().indexOf(filterValue) > -1 ||
+            firstNameValue.toUpperCase().indexOf(filterValue) > -1 ||
+          //  lastNameValue.toUpperCase().indexOf(filterValue) > -1 ||
+            ownerStatusValue.toUpperCase().indexOf(filterValue) > -1) {
+            rows[i].style.display = '';
+        } else {
+            rows[i].style.display = 'none';
+        }
+    }
+});
+</script>
 </body>
 
 </html>

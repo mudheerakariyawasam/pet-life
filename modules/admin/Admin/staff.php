@@ -81,7 +81,7 @@
 
 <?php
 // Define the number of records per page
-$records_per_page = 5;
+$records_per_page = 7;
 
 // Get the current page from the URL, or set it to 1 if not provided
 $current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;

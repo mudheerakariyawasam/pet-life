@@ -134,22 +134,11 @@ if (mysqli_num_rows($result) == 0) {
 // Fetch the holiday details from the query result
 $appointment = mysqli_fetch_assoc($result);
 
-// If the user clicks the "Approve" button
-if (isset($_POST['approve'])) {
-    // Update the approval_stage to "Approved"
-    $sql = "UPDATE appointment SET appointment_status = 'Approved' WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
-    if (mysqli_query($conn, $sql)) {
-        // Refresh the page to see the updated appointment details
-        header("Refresh:0");
-    } else {
-        die("Error updating appointment details: " . mysqli_error($conn));
-    }
-}
 
 // If the user clicks the "Reject" button
-if (isset($_POST['reject'])) {
+if (isset($_POST['cancel'])) {
     // Update the approval_stage to "Rejected"
-    $sql = "UPDATE appointment SET appointment_status = 'Rejected' WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
+    $sql = "UPDATE appointment SET appointment_status = 'Canceled' WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
     if (mysqli_query($conn, $sql)) {
         // Refresh the page to see the updated holiday details
         header("Refresh:0");
@@ -189,21 +178,18 @@ if (isset($_POST['reject'])) {
 	
 	</table>
 	<form method="post">
-		<input type="submit" name="approve" value="Approve">
-		<input type="submit" name="reject" value="Reject">
+		<input type="submit" name="cancel" value="Cancel">
 	</form>
 	<?php
-	if (isset($_POST['approve'])) {
-		$appointment['appointment_status'] = 'approved';
-	} else if (isset($_POST['reject'])) {
-		$appointment['appointment_status'] = 'rejected';
+	if (isset($_POST['cancel'])) {
+		$appointment['appointment_status'] = 'canceled';
 	}
 ?>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		let appointmentStatusTd = document.querySelector(".<?php echo $appointment['appointment_status']; ?>");
 		if (appointmentStatusTd) {
-			appointmentStatus.classList.remove("<?php echo $appointment['appointment_status'] === 'approved' ? 'rejected' : 'approved'; ?>");
+			appointmentStatus.classList.remove("<?php echo $appointment['appointment_status'] === 'approved' ? 'canceled' : 'approved'; ?>");
 			appointmentStatus.classList.add("<?php echo $appointment['appointment_status']; ?>");
 		}
 	});
