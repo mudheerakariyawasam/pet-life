@@ -45,8 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $owner_pwd = $_POST['owner_pwd'];
 
     $hashedPassword = md5($owner_pwd);
+    $current_date = date("Y-m-d");
 
-    $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$hashedPassword','Registered')";
+    $sql = "INSERT INTO pet_owner VALUES ('$owner_id','$owner_fname','$owner_lname','$owner_email','$owner_contactno','$owner_address','$owner_nic', '$hashedPassword','$current_date','Registered')";
     $result = mysqli_query($conn, $sql);
 
     if ($result == TRUE) {
@@ -82,8 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->addAddress($email);
         
             $mail->isHTML(true);
-            $mail->Body = "<p>Hello,</p>
-                           <p>Dear user, </p> <p>Your OTP verify code is <b>$otp </b><br></p>
+            $mail->Body = "<p>Hello User,</p>
+                           <p>You are one step close to create an account on Pet Life.</p> <p>Your OTP verify code is <b>$otp </b><br></p>
                           <p>Regards,</p>
                           <p>The Petlife Team</p>";
         
