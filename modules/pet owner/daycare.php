@@ -104,9 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li>
                 <a href="treatment.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatments</span></a>
             </li>
-            <!-- <li>
-                <a href="vaccination.php"><i class="fa-solid fa-file-lines"></i></i><span>Vaccinations</span></a>
-            </li> -->
+         
             <li>
                 <a href="profile.php"><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My
                         Profile</span></a>

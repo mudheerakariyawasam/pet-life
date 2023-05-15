@@ -7,7 +7,6 @@ if(!isset($_SESSION["login_user"])){
     exit;
 } 
 
-//cancelling a holiday request
 
 if(isset($_GET['daycare_id'])) {
     $daycare_id = mysqli_real_escape_string($conn, $_GET['daycare_id']);

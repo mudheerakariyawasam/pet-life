@@ -170,7 +170,6 @@ use PHPMailer\PHPMailer\Exception;
 
                                             $appointment_status = 'Canceled';
                                             echo "<script>window.location ='viewapp.php'</script>";
-                                            // echo '<button class="btn-add2" type="button">Cannot Delete</button>';
                                         } else {
                                             // Error message
                                             echo '<script>alert("Error deleting appointment");</script>';

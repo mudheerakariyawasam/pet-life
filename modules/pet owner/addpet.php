@@ -1,12 +1,14 @@
 <?php
 include("../../db/dbconnection.php");
 session_start();
+// Check if the user is logged in
 if (!isset($_SESSION["login_user"])) {
+        // If the user is not logged in, redirect them to the login page
     header("location:../../Auth/login.php");
     exit;
 }
 
-
+//select the owner_id of the pet owner with the matching email address
 $loggedInUser = $_SESSION['login_user'];
 $sql2 = "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";
 $result2 = mysqli_query($conn, $sql2);
@@ -43,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = "INSERT INTO pet VALUES ('$pet_id','$pet_name','$pet_gender','$pet_dob','$pet_type','$pet_breed','$owner_id','Registered')";
     $result = mysqli_query($conn, $sql);
-    print_r($result);
 
     if ($result == TRUE) {
         echo '<script>alert("Registration Successful!"); window.location = "viewpet.php";</script>';
@@ -81,9 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li>
                 <a href="treatment.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatments</span></a>
             </li>
-            <!-- <li>
-                <a href="vaccination.php"><i class="fa-solid fa-file-lines"></i></i><span>Vaccinations</span></a>
-            </li> -->
             <li>
                 <a href="profile.php"><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My
                         Profile</span></a>

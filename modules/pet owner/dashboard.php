@@ -30,6 +30,7 @@ while ($row_pet = mysqli_fetch_assoc($result_pets)) {
     $total += $row_total['total'];
 }
 
+// Get the count of pets owned by the user
 $sql_total1 = "SELECT COUNT(*) AS total1 FROM pet WHERE  owner_id ='{$row_owner['owner_id']}' AND pet_availability = 'Registered'";
 $result_total1 = mysqli_query($conn, $sql_total1);
 $row1 = mysqli_fetch_array($result_total1);
@@ -92,9 +93,6 @@ while ($row_pet2 = mysqli_fetch_assoc($result_pets)) {
             <li>
                 <a href="treatment.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatments</span></a>
             </li>
-            <!-- <li>
-                <a href="vaccination.php"><i class="fa-solid fa-file-lines"></i></i><span>Vaccinations</span></a>
-            </li> -->
             <li>
                 <a href="profile.php"><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My
                         Profile</span></a>
