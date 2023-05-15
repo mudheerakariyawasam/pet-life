@@ -180,9 +180,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if there are any errors
     if (empty($emp_name_error) && empty($emp_contactno_error) && empty($emp_nic_error) && empty($emp_email_error) && empty($emp_pwd_error) && empty($emp_initsalary_error) ) {
         // Insert the employee record into the database
-        $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, emp_pwd, emp_initsalary, emp_currsalary, working_status) 
-        VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', '$hashedPassword', '$emp_initsalary', '$emp_initsalary', 'enable')";
-$result = mysqli_query($conn, $sql);
+        $sql = "INSERT INTO employee (emp_id, emp_name, emp_address, emp_contactno, emp_designation, emp_email, emp_nic, 
+        emp_pwd, emp_initsalary, emp_currsalary, working_status) 
+        VALUES ('$emp_id', '$emp_name', '$emp_address', '$emp_contactno', '$emp_designation', '$emp_email', '$emp_nic', 
+        '$hashedPassword', '$emp_initsalary', '$emp_initsalary', 'enable')";
+        $result = mysqli_query($conn, $sql);
 
         
 
