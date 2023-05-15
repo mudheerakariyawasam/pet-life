@@ -134,7 +134,6 @@ if (mysqli_num_rows($result) == 0) {
 // Fetch the holiday details from the query result
 $appointment = mysqli_fetch_assoc($result);
 
-
 // If the user clicks the "Reject" button
 if (isset($_POST['cancel'])) {
     // Update the approval_stage to "Rejected"
@@ -180,10 +179,58 @@ if (isset($_POST['cancel'])) {
 	<form method="post">
 		<input type="submit" name="cancel" value="Cancel">
 	</form>
-	<?php
-	if (isset($_POST['cancel'])) {
-		$appointment['appointment_status'] = 'canceled';
-	}
+
+<?php
+    require 'PHPMailer/src/PHPMailer.php';
+    require 'PHPMailer/src/SMTP.php';
+    require 'PHPMailer/src/Exception.php';
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+
+        if (isset($_POST['cancel'])) {
+    $appointment['appointment_status'] = 'canceled';
+    $appointment_date=$appointment["appointment_date"];
+    // Get the email address of the user who made the appointment
+    $query = "SELECT * FROM pet_owner p INNER JOIN pet t ON p.owner_id = t.owner_id 
+    INNER JOIN appointment a ON t.pet_id = a.pet_id WHERE a.appointment_status='canceled'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $user_email = $row['owner_email'];
+
+    // Send email using PHPMailer
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->Host = "smtp.gmail.com";
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = "tls";
+    $mail->Port = "25";
+    $mail->Username = "petlife1023@gmail.com";
+    $mail->Password = "mqumfstsythnyndi";
+    $mail->Subject = "Appointment Canceled";
+
+    $mail->setFrom('petlife1023@gmail.com');
+    $mail->addAddress($user_email);
+
+    $mail->isHTML(true);
+    $mail->Body = "<p>Hello,</p>
+                <p>Sorry to inform that we have canceled your appointment on <b>$appointment_date</b> due to the unavailability of requested Doctor.</p>
+                <p>Your payment will be refunded manually by the Pet Life team on your next visit.</p>
+                <p>Regards,</p>
+                <p>The Petlife Team</p>";
+
+    if ($mail->send()) {
+    // Email sent successfully
+    echo '<script>alert("Email notification successfully sent!");</script>';
+    } else {
+    // Display an error message if email was not sent successfully
+    echo '<script>alert("Error sending email.");</script>' . $mail->ErrorInfo;
+    }
+
+    $mail->smtpClose();
+        }
 ?>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {

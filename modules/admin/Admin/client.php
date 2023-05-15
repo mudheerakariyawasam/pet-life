@@ -213,8 +213,8 @@ if (isChecked === '0') {
     };
     xhr.send('owner_id=' + ownerId + '&wowner_status=' + isChecked + '&page=' + <?php echo $current_page; ?>);
 }
-    // Add event listener to search input
-   // Add event listener to search input
+// Add event listener to search input
+// Add event listener to search input
 var searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', function() {
     var filterValue = this.value.toUpperCase();

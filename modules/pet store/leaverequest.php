@@ -12,8 +12,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
     //get the total holiday count of the employee
     $sql_getholidaycount="SELECT COUNT(*) AS hol_count FROM holiday WHERE emp_id='$emp_id' AND approval_stage='Approved'";
     $result_getholidaycount=mysqli_query($conn,$sql_getholidaycount);
-    $row=mysqli_fetch_array($result_getholidaycount);
-    $holiday_count=$row["hol_count"];
+    $row_getholidaycount=mysqli_fetch_array($result_getholidaycount);
+    $holiday_count=$row_getholidaycount["hol_count"];
 
     //generate next holiday ID
     $sql_get_id="SELECT MAX(holiday_id) AS max_id FROM holiday";
@@ -21,7 +21,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
     $row=mysqli_fetch_array($result_get_id);
     $max_id = $row['max_id'];
 
-    // generate the new pet ID
+    // generate the new ID
     if ($max_id === null) {
         $holiday_id = "H001";
     } else {
@@ -49,9 +49,6 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
                 //check data null values
                 if($holiday_type!="---Select Holiday Type--"){
 
-                    if($row[0]>=1){
-                        echo '<script>alert("Could not place the leave request. Please contact the admin")</script>';
-                    }else{
                         //check whether the user has submitted a leave request previously on the same day
                         $sql_getdaycount="SELECT COUNT(*) FROM holiday WHERE requested_date='$current_date' AND emp_id='$emp_id'";
                         $result_getdaycount=mysqli_query($conn,$sql_getdaycount);
@@ -71,7 +68,6 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
                                 echo '<script>alert("Could not place the leave request. Please try again.")</script>';
                             }
                         }   
-                    }
                 }else{
                     echo '<script>alert("Insert Valid Holiday Type")</script>';
                 }

@@ -95,6 +95,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <title>Pet Life</title>
 </head>
 <body>
@@ -162,7 +163,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 
         <br><hr><br>
         <p class="topic">Pet Medicine Summary</p>
-        <div class="summary">
+        <div class="summary" style="padding:">
             <div class="summary-content  total-items">
                 <a href="viewallitems.php">
                 <span class="tot">Total</span><br>
@@ -171,7 +172,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
             </div>
 
             <div class="summary-content low-stock">
-                <a href="viewlowstock.php">
+                <a href="viewlowmedicine.php">
                 <span class="tot">Low in Stock</span><br>
                 <span class="number"><?php echo $lowmed; ?></span>
                 <div><img class="shopping-cart" src="images/shopping-bag.png"></div></a>

@@ -45,8 +45,7 @@ th, td {
 }
 
 th {
-  background-color: #000D2F;
-  color: #fff;
+  background-color: #96CDE1;
   font-weight: bold;
 }
 
@@ -67,16 +66,18 @@ tr:hover td {
   align-items: center;
   gap: 5px;
   padding: 10px 20px;
-  color: #fff;
-  background-color: #000D2F;
+  background-color: #C38D9E;
   border: none;
   border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
+
 }
 
 .print-button button:hover {
-  background-color: #001B5E;
+  background-color: rgba(215,226,255,0.6);
+  transition: 0.7s;
 }
 
 .print-button i {
@@ -95,16 +96,19 @@ tr:hover td {
     visibility: hidden;
   }
   
-  .print-container, .print-container * {
+  .container, .container * {
     visibility: visible;
+    width: 100%;
+    
   }
   
-  .print-container {
-    position: absolute;
+  /* .container {
+    position: absolute; 
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
+
+  } */
 }
 
 </style>
@@ -158,7 +162,7 @@ tr:hover td {
         </div>
         <div class="container">
         <br/>
-<div class="employee-title">Employee List</div><hr>
+<div class="employee-title">Store Item List</div><hr>
 <br/>
 <div class="container print-container">
   <?php

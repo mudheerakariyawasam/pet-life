@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
+
 section {
     position: relative;
     width: 100%;
@@ -10,7 +12,11 @@ section {
     width: 50%;
     height: 100%;
   }
-  
+  .header-font-2{
+    font-size:30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
   section .imgbox :before {
     content: "";
     position: absolute;

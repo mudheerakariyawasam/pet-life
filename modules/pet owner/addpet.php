@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="nav-icon">
                 </div>
                 <div class="hello">Welcome &nbsp <div class="name">
-                        <?php echo $_SESSION['user_name']; ?>
+                <font class="header-font-2"><?php echo $_SESSION['user_name']; ?></font>
                     </div>
                 </div>
             </div>

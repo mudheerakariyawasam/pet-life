@@ -119,7 +119,7 @@ while ($row_pet2 = mysqli_fetch_assoc($result_pets)) {
     
                 </div>
                 <div class="hello">Welcome &nbsp <div class="name">
-                        <?php echo $_SESSION['user_name']; ?>
+                <font class="header-font-2"><?php echo $_SESSION['user_name']; ?></font>
                     </div>
                 </div>
             </div>

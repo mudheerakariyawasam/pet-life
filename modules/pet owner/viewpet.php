@@ -60,7 +60,7 @@
             <div class="navbar__left">
                 <div class="nav-icon">
                 </div>
-                <div class="hello">Welcome &nbsp <div class="name"><?php echo $_SESSION['user_name'];?></div>
+                <div class="hello">Welcome &nbsp <div class="name"><font class="header-font-2"><?php echo $_SESSION['user_name'];?></font></div>
                 </div>
             </div>
 

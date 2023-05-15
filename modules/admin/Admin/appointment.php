@@ -124,14 +124,15 @@ padding: 5px 10px;
             </div>
         </div>
         <div class="container">
-        <br/><br/><br/>
-       
+        <br/><br/>       
 <div class="appointment-title">Appointment Management</div><hr>
-<br/><br/>
+<br/>
+
 <div class="search-box">
     <label for="search-input">Search:</label>
     <input type="text" id="search-input" placeholder="Search by ID or Name...">
 </div>
+
 <center>
 <?php
 
@@ -153,12 +154,12 @@ $start_from = ($current_page - 1) * $records_per_page;
 		echo "<table class='appointment-table'>";
 		echo "<tr><th class='appointment-table-header'>Appointment ID</th><th class='appointment-table-header'>Appointment Date</th><th class='appointment-table-header'>Appointment Time</th><th class='appointment-table-header'>Appointment Slot</th><th class='appointment-table-header'>Appointment Status</th><th class='appointment-table-header'>Action</th></tr>";
 		while ($row = mysqli_fetch_assoc($result)) {
-			echo "<tr class='employee-row'>";
-			echo "<td class='appointment-table-cell'>" . $row['appointment_id'] . "</td>";
-			echo "<td class='appointment-table-cell'>" . $row['appointment_date'] . "</td>";
+			echo "<tr class='appointment-row'>";
+			echo "<td class='appointment-table-cell appointment-id'>" . $row['appointment_id'] . "</td>";
+			echo "<td class='appointment-table-cell '>" . $row['appointment_date'] . "</td>";
             echo "<td class='appointment-table-cell'>" . $row['appointment_time'] . "</td>";
             echo "<td class='appointment-table-cell'>" . $row['appointment_slot'] . "</td>";
-            echo "<td class='appointment-table-cell'>" . $row['appointment_status'] . "</td>";
+            echo "<td class='appointment-table-cell appointment-status'>" . $row['appointment_status'] . "</td>";
 			echo "<td class='appointment-table-cell'><a class='appointment-link' href='appointment_details.php?appointment_id=" . $row['appointment_id'] . "'><center><i class='fas fa-eye'></i></center></a></td>";
 			echo "</tr>";
 		}
@@ -191,20 +192,18 @@ echo '</div>';
 ?>
 
 </center>
-
-    </div>
-    <script>
-   // Add event listener to search input
+<script>
+    // Add event listener to search input
 var searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', function() {
     var filterValue = this.value.toUpperCase();
-    var rows = document.querySelectorAll('.employee-row');
+    var rows = document.querySelectorAll('.appointment-row');
 
     for (var i = 0; i < rows.length; i++) {
-        var idCell = rows[i].querySelector('.emp-id');
-        var firstNameCell = rows[i].querySelector('.emp-name');
+        var idCell = rows[i].querySelector('.appointment-id');
+        var firstNameCell = rows[i].querySelector('.appointment-status');
        // var lastNameCell = rows[i].querySelector('.employee-table-cell:nth-child(3)');
-        var ownerStatusCell = rows[i].querySelector('.employee-table-cell:nth-child(4)');
+        var ownerStatusCell = rows[i].querySelector('.appointment-table-cell:nth-child(6)');
         var idValue = idCell.textContent || idCell.innerText;
         var firstNameValue = firstNameCell.textContent || firstNameCell.innerText;
       ///  var lastNameValue = lastNameCell.textContent || lastNameCell.innerText;
@@ -221,6 +220,9 @@ searchInput.addEventListener('input', function() {
     }
 });
 </script>
+</script>
+    </div>
+
 </body>
 
 </html>
