@@ -69,7 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
         //insert data into the daycare table
-        $sql = "INSERT INTO daycare (daycare_id, pet_id, pet_name, daycare_date, owner_id,daycare_status) VALUES ('$daycare_id','$pet_id','$pet_name','$daycare_date','$owner_id','Available')";
+        $sql = "INSERT INTO daycare (daycare_id, pet_id, pet_name, daycare_date, owner_id,daycare_status) VALUES 
+        ('$daycare_id','$pet_id','$pet_name','$daycare_date','$owner_id','Available')";
         $result = mysqli_query($conn, $sql);
 
         if ($result == TRUE) {
