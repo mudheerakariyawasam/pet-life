@@ -1,3 +1,8 @@
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
@@ -8,24 +13,24 @@ $sql_get_id = "SELECT owner_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
 $result_get_id = mysqli_query($conn, $sql_get_id);
 $row = mysqli_fetch_array($result_get_id);
 
+// die();
 $lastid = "";
 
 if (mysqli_num_rows($result_get_id) > 0) {
     $lastid = $row['owner_id'];
 }
 
-if ($lastid == "") {
+// generate the new pet ID
+if ($lastid === null) {
     $owner_id = "O001";
 } else {
-    $owner_id = substr($lastid, 3);
-    $owner_id = intval($owner_id);
-
-    if ($owner_id >= 9) {
-        $owner_id = "O0" . ($owner_id + 1);
-    } else if ($owner_id >= 99) {
-        $owner_id = "O" . ($owner_id + 1);
+    $num = intval(substr($lastid, 1)) + 1;
+    if ($num < 10) {
+        $owner_id = "O00$num";
+    } else if ($num < 100) {
+        $owner_id = "O0$num";
     } else {
-        $owner_id = "O00" . ($owner_id + 1);
+        $owner_id = "O$num";
     }
 }
 
@@ -76,16 +81,20 @@ if (empty($pwd)) {
     // Check if there are any errors
     if (empty($owner_fname_error) && empty($owner_contactno_error) && empty($owner_nic_error) && empty($owner_pwd_error)) {
         // Insert the employee record into the database
-        $sql = "INSERT INTO pet_owner  VALUES ('$owner_id','$fname', '$lname', '$email', '$tpn', '$address', '$nic', '$pwd','Current')";
+        $pwd= md5($pwd);
+        $sql = "INSERT INTO pet_owner  VALUES ('$owner_id','$fname', '$lname', '$email', '$tpn', '$address', '$nic', '$pwd','Registered')";
         $result = mysqli_query($conn, $sql);
-
+        // die($sql);
         // Check if the insert was successful
+        print_r($result);
         if ($result) {
             // Set a message to display
             $message = "Employee record added successfully.";
-            
+            $href = "viewcustomer.php?owner_id=" . "$owner_id";
+            header("Location: $href");
             // Clear the form fields
-            
+            print_r($href);
+            print_r("end");
             $fname = '';
             $lname = '';
             $email = '';
@@ -98,6 +107,8 @@ if (empty($pwd)) {
             // Set an error message to display
             $message = "Error adding employee record: " . mysqli_error($conn);
         }
+        echo "<script>alert($message)</script>";
+        die();
     }
 }
 ?>
@@ -251,8 +262,8 @@ if (empty($pwd)) {
                         <!-- <button onclick="saveTreatment(event)" class="button-01" name="save-info" id="btn-save"
                             type="submit" role="button">Submit
                         </button> -->
-                        <button class="btn-add" type="submit" role="button">
-                    <a style="color:black;"href="user.php" > Submit</a>
+                        <button class="btn-add" type="submit" name="save-info" role="button">
+                     Submit
                     </button>
                     </div>
                 </form>

@@ -134,22 +134,10 @@ if (mysqli_num_rows($result) == 0) {
 // Fetch the holiday details from the query result
 $appointment = mysqli_fetch_assoc($result);
 
-// If the user clicks the "Approve" button
-if (isset($_POST['approve'])) {
-    // Update the approval_stage to "Approved"
-    $sql = "UPDATE appointment SET appointment_status = 'Approved' WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
-    if (mysqli_query($conn, $sql)) {
-        // Refresh the page to see the updated appointment details
-        header("Refresh:0");
-    } else {
-        die("Error updating appointment details: " . mysqli_error($conn));
-    }
-}
-
 // If the user clicks the "Reject" button
-if (isset($_POST['reject'])) {
+if (isset($_POST['cancel'])) {
     // Update the approval_stage to "Rejected"
-    $sql = "UPDATE appointment SET appointment_status = 'Rejected' WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
+    $sql = "UPDATE appointment SET appointment_status = 'Canceled' WHERE appointment_id = '" . $_GET['appointment_id'] . "'";
     if (mysqli_query($conn, $sql)) {
         // Refresh the page to see the updated holiday details
         header("Refresh:0");
@@ -189,21 +177,66 @@ if (isset($_POST['reject'])) {
 	
 	</table>
 	<form method="post">
-		<input type="submit" name="approve" value="Approve">
-		<input type="submit" name="reject" value="Reject">
+		<input type="submit" name="cancel" value="Cancel">
 	</form>
-	<?php
-	if (isset($_POST['approve'])) {
-		$appointment['appointment_status'] = 'approved';
-	} else if (isset($_POST['reject'])) {
-		$appointment['appointment_status'] = 'rejected';
-	}
+
+<?php
+    require 'PHPMailer/src/PHPMailer.php';
+    require 'PHPMailer/src/SMTP.php';
+    require 'PHPMailer/src/Exception.php';
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+
+        if (isset($_POST['cancel'])) {
+    $appointment['appointment_status'] = 'canceled';
+    $appointment_date=$appointment["appointment_date"];
+    // Get the email address of the user who made the appointment
+    $query = "SELECT * FROM pet_owner p INNER JOIN pet t ON p.owner_id = t.owner_id 
+    INNER JOIN appointment a ON t.pet_id = a.pet_id WHERE a.appointment_status='canceled'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $user_email = $row['owner_email'];
+
+    // Send email using PHPMailer
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->Host = "smtp.gmail.com";
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = "tls";
+    $mail->Port = "25";
+    $mail->Username = "petlife1023@gmail.com";
+    $mail->Password = "mqumfstsythnyndi";
+    $mail->Subject = "Appointment Canceled";
+
+    $mail->setFrom('petlife1023@gmail.com');
+    $mail->addAddress($user_email);
+
+    $mail->isHTML(true);
+    $mail->Body = "<p>Hello,</p>
+                <p>Sorry to inform that we have canceled your appointment on <b>$appointment_date</b> due to the unavailability of requested Doctor.</p>
+                <p>Your payment will be refunded manually by the Pet Life team on your next visit.</p>
+                <p>Regards,</p>
+                <p>The Petlife Team</p>";
+
+    if ($mail->send()) {
+    // Email sent successfully
+    echo '<script>alert("Email notification successfully sent!");</script>';
+    } else {
+    // Display an error message if email was not sent successfully
+    echo '<script>alert("Error sending email.");</script>' . $mail->ErrorInfo;
+    }
+
+    $mail->smtpClose();
+        }
 ?>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		let appointmentStatusTd = document.querySelector(".<?php echo $appointment['appointment_status']; ?>");
 		if (appointmentStatusTd) {
-			appointmentStatus.classList.remove("<?php echo $appointment['appointment_status'] === 'approved' ? 'rejected' : 'approved'; ?>");
+			appointmentStatus.classList.remove("<?php echo $appointment['appointment_status'] === 'approved' ? 'canceled' : 'approved'; ?>");
 			appointmentStatus.classList.add("<?php echo $appointment['appointment_status']; ?>");
 		}
 	});

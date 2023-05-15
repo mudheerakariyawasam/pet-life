@@ -67,8 +67,19 @@
 <br/>
 
 <?php
+
+
+//Define the number of records per page
+$records_per_page = 10;
+
+// Get the current page from the URL, or set it to 1 if not provided
+$current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
+
+// Calculate the starting record for the SQL query
+$start_from = ($current_page - 1) * $records_per_page;
+
 	// Retrieve all holidays from the database
-	$sql = "SELECT holiday_id, emp_id, approval_stage FROM holiday";
+	$sql = "SELECT holiday_id, emp_id, approval_stage FROM holiday LIMIT $start_from, $records_per_page";
 	$result = mysqli_query($conn, $sql);
 
 	// Display the holidays in a table
@@ -88,6 +99,27 @@
 		$image_url = "../images/no-results.png";
         echo '<center><img src="' . $image_url . '" alt="No results" width="440" height="400"></center>';
 	}
+
+    // Count the total number of records in the employee table
+    $sql_count = "SELECT COUNT(*) as total_records FROM appointment";
+    $result_count = mysqli_query($conn, $sql_count);
+    $row_count = mysqli_fetch_assoc($result_count);
+    $total_records = $row_count['total_records'];
+
+    // Calculate the total number of pages
+    $total_pages = ceil($total_records / $records_per_page);
+    echo '<br/>';
+    // Generate the pagination buttons
+    echo '<div class="pagination">';
+    for ($i = 1; $i <= $total_pages; $i++) {
+        if ($i == $current_page) {
+            echo "<a class='active' href='?page=$i'>$i</a>";
+        } else {
+            echo "<a href='?page=$i'>$i</a>";
+        }
+    }
+
+echo '</div>';
 ?>
 
     </div>

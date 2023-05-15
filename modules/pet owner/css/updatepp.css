@@ -14,7 +14,11 @@ body{
     font-weight: 400;
     font-size: 55px;
 }
-
+.header-font-2{
+    font-size:30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
 .name{
     font-family: 'Amatic SC';
     font-style:  normal;

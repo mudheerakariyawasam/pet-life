@@ -1,4 +1,6 @@
- :root {
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
+
+:root {
    --colour1: #000D2F;
    --colour2: rgba(215,226,255,0.6);
    --backgroundcolour3: #white;
@@ -406,3 +408,14 @@ hr{
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   }
+
+  .search-box {
+    float: right;
+    margin-bottom: 10px;
+}
+.search-box input[type="text"] {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+}

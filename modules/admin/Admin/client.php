@@ -92,7 +92,7 @@
 
 <?php
 // Define the number of records per page
-$records_per_page = 5;
+$records_per_page = 7;
 
 // Get the current page from the URL, or set it to 1 if not provided
 $current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? $_GET['page'] : 1;
@@ -213,8 +213,8 @@ if (isChecked === '0') {
     };
     xhr.send('owner_id=' + ownerId + '&wowner_status=' + isChecked + '&page=' + <?php echo $current_page; ?>);
 }
-    // Add event listener to search input
-   // Add event listener to search input
+// Add event listener to search input
+// Add event listener to search input
 var searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', function() {
     var filterValue = this.value.toUpperCase();

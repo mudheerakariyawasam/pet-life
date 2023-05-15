@@ -148,7 +148,6 @@ $owner_contactno = '';
 $owner_address = '';
 $owner_nic = '';
 $owner_pwd = '';
-$active_status = '';
 
 // Initialize error variables for the form fields
 
@@ -159,7 +158,6 @@ $owner_contactno_error = '';
 $owner_address_error = '';
 $owner_nic_error = '';
 $owner_pwd_error = '';
-$active_status_error = '';
 
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -170,7 +168,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $owner_address = $_POST['owner_address'];
     $owner_nic = $_POST['owner_nic'];
     $owner_pwd = $_POST['owner_pwd'];
-    $active_status = $_POST['active_status'];
 
     // Validate the form field values
     if (empty($owner_name)) {
@@ -208,7 +205,7 @@ if (empty($owner_pwd)) {
     // Check if there are any errors
     if (empty($owner_fname_error) && empty($owner_contactno_error) && empty($owner_contactno_error) && empty($owner_nic_error) && empty($owner_pwd_error)) {
         // Insert the employee record into the database
-        $sql = "INSERT INTO pet_owner (owner_id, owner_fname, owner_lname, owner_email, owner_contactno, owner_address, owner_nic, owner_pwd, active_status) VALUES ('$owner_id', '$owner_fname', '$owner_lname', '$owner_email', '$owner_contactno', '$owner_address', '$owner_nic', '$owner_pwd', '$active_status')";
+        $sql = "INSERT INTO pet_owner (owner_id, owner_fname, owner_lname, owner_email, owner_contactno, owner_address, owner_nic, owner_pwd, owner_status) VALUES ('$owner_id', '$owner_fname', '$owner_lname', '$owner_email', '$owner_contactno', '$owner_address', '$owner_nic', '$owner_pwd', 'Registered')";
         $result = mysqli_query($conn, $sql);
 
         // Check if the insert was successful
@@ -281,18 +278,6 @@ if (empty($owner_pwd)) {
     <input type="text" name="owner_pwd" value="<?php echo $owner_pwd; ?>">
     <?php if (isset($owner_pwd_error)): ?>
         <span style="color: red;"><?php echo $owner_pwd_error; ?></span>
-    <?php endif; ?><br/><br/>
-
-
-
-
-
-
-
-    <label>Active Status:</label>
-    <input type="text" name="active_status" value="<?php echo $active_status; ?>">
-    <?php if (isset($active_status_error)): ?>
-        <span style="color: red;"><?php echo $active_status_error; ?></span>
     <?php endif; ?><br/><br/>
 
     <input type="submit" name="submit" value="Add Client">

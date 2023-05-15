@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="../css/report.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <title>Pet Life</title>
     
     <style>
@@ -65,7 +67,9 @@ padding: 5px 10px;
 
 }
 
-
+.title-set a{
+    color:blue;
+}
 
 		/* Define a CSS class for coloring dates green */
 		.green {
@@ -133,21 +137,47 @@ padding: 5px 10px;
     <div class="t2"><a href="store_report.php">
     <p>Store<br/> Reports</p></a>
     </div>
-    <div class="t3">
-    <p>Payment<br/> Reports</p>
+    <div class="t3"><a href="client_report.php">
+    <p>Client<br/> Reports</p></a>
     </div>
-
+   
 </div>
 <div class="title-set">
 <div class="t4">
-        <p>Meet-up<br/> Reports</p>
+<a>    <p>Meet-up<br/> Reports</p></a>
     </div>
-    <div class="t5">
-    <p>Day-care<br/> Reports</p>
+    <script>
+    // Get the Payment Reports div
+const meetupReportsDiv = document.querySelector('.t4');
+
+// Add a click event listener to the div
+meetupReportsDiv.addEventListener('click', (event) => {
+  // Prevent the link from redirecting to a new page
+  event.preventDefault();
+  
+  // Display the Sweet Alert message
+  swal("Sorry!", "This report generation is currently unavailable.", "warning");
+});
+ </script>
+    <div class="t5"><a href="daycare_report.php">
+    <p>Day-care<br/> Reports</p></a>
     </div>
-    <div class="t6">
-    <p>Income-Expense<br/> Reports</p>
+    <div class="t6"><a>
+    <p>Income-Expense<br/> Reports</p></a>
     </div>
+    <script>
+    // Get the Payment Reports div
+const incomeExpenseReportsDiv = document.querySelector('.t6');
+
+// Add a click event listener to the div
+incomeExpenseReportsDiv.addEventListener('click', (event) => {
+  // Prevent the link from redirecting to a new page
+  event.preventDefault();
+  
+  // Display the Sweet Alert message
+  swal("Sorry!", "This report generation is currently unavailable.", "warning");
+});
+ </script>  
 
 
 </div>
@@ -165,5 +195,6 @@ toggleBtn.addEventListener("click", () => {
 });
 
     </script>
+  
     </body>
 </html>

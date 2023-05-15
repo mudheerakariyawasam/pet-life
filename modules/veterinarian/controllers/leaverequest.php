@@ -11,10 +11,10 @@
     $current_date = date("Y-m-d");
 
     //get the total holiday count of the employee
-    $sql_getholidaycount="SELECT COUNT(*) AS hol_count FROM holiday WHERE emp_id='$emp_id' AND from_date<'$current_date' OR approval_stage='Approved'";
+    $sql_getholidaycount="SELECT COUNT(*) AS hol_count FROM holiday WHERE emp_id='$emp_id' AND approval_stage='Approved'";
     $result_getholidaycount=mysqli_query($conn,$sql_getholidaycount);
-    $row=mysqli_fetch_array($result_getholidaycount);
-    $holiday_count=$row["hol_count"];
+    $row_getholidaycount=mysqli_fetch_array($result_getholidaycount);
+    $holiday_count=$row_getholidaycount["hol_count"];
 
     //generate next holiday ID
     $sql_get_id="SELECT MAX(holiday_id) AS max_id FROM holiday";
@@ -51,11 +51,11 @@
                 if($holiday_type!="---Select Holiday Type--"){
 
                     //check whether the date is free - only for vets
-                    $sql_getcount="SELECT COUNT(*) FROM holiday WHERE from_date='$from_date'";
+                    $sql_getcount="SELECT COUNT(*) FROM holiday WHERE from_date BETWEEN '$from_date' AND '$to_date'";
                     $result_getcount=mysqli_query($conn,$sql_getcount);
-                    $row=mysqli_fetch_array($result_getcount);
+                    $row_getcount=mysqli_fetch_array($result_getcount);
 
-                    if($row[0]>=1){
+                    if($row_getcount[0]>=1){
                         echo '<script>alert("Could not place the leave request. Please contact the admin")</script>';
                     }else{
                         //check whether the user has submitted a leave request previously on the same day
@@ -211,7 +211,7 @@
                     ?>
                 </div>
                 <center>
-                <div class="request-type">
+                <div>
                     <p><b>Requested Leaves</b></p><br>
                     <?php
                         $sql_getholidays = "SELECT * FROM holiday WHERE emp_id='$emp_id'";
@@ -227,11 +227,11 @@
                                     <th>Cancel</th>
                                 </tr>';
 
-                            while($row = mysqli_fetch_assoc($result_getholidays)){
+                            while($row_getholidays = mysqli_fetch_assoc($result_getholidays)){
 
                                 //adding the color according to the approval stage
                                 $stage_color = '';
-                                switch($row["approval_stage"]) {
+                                switch($row_getholidays["approval_stage"]) {
                                     case 'Pending':
                                         $stage_color = '#f5f56c';
                                         break;
@@ -243,14 +243,14 @@
                                         break;
                                 }
 
-                                if($row["from_date"]>=$current_date){
+                                if($row_getholidays["from_date"]>=$current_date){
                                     echo '<tr > 
-                                        <td>' . $row["holiday_type"] . '</td>
-                                        <td> ' . $row["from_date"] . '</td>
-                                        <td>' . $row["to_date"] . '</td> 
-                                        <td style="background-color: ' . $stage_color . ';">' . $row["approval_stage"] . '</td>
+                                        <td>' . $row_getholidays["holiday_type"] . '</td>
+                                        <td> ' . $row_getholidays["from_date"] . '</td>
+                                        <td>' . $row_getholidays["to_date"] . '</td> 
+                                        <td style="background-color: ' . $stage_color . ';">' . $row_getholidays["approval_stage"] . '</td>
                                         <td class="action-btn"><button type="submit" name="holiday_id" 
-                                            value="' . $row["holiday_id"] . '"><img src="../images/delete.png"></button></td>
+                                            value="' . $row_getholidays["holiday_id"] . '"><img src="../images/delete.png"></button></td>
                                     </tr>';
                                 }
                             }

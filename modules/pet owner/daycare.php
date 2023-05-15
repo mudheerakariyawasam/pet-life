@@ -14,28 +14,22 @@ $row2 = mysqli_fetch_assoc($result2);
 $owner_id = $row2["owner_id"];
 
 //generate next day care ID
-$sql_get_id = "SELECT daycare_id FROM daycare ORDER BY daycare_id DESC LIMIT 1";
+$sql_get_id = "SELECT MAX(daycare_id) AS max_id FROM daycare";
 $result_get_id = mysqli_query($conn, $sql_get_id);
 $row = mysqli_fetch_array($result_get_id);
+$max_id = $row['max_id'];
 
-$lastid = "";
-
-if (mysqli_num_rows($result_get_id) > 0) {
-    $lastid = $row['daycare_id'];
-}
-
-if ($lastid == "") {
+// generate the new pet ID
+if ($max_id === null) {
     $daycare_id = "D001";
 } else {
-    $daycare_id = substr($lastid, 3);
-    $daycare_id = intval($daycare_id);
-
-    if ($daycare_id >= 9) {
-        $daycare_id = "D0" . ($daycare_id + 1);
-    } else if ($daycare_id >= 99) {
-        $daycare_id = "D" . ($daycare_id + 1);
+    $num = intval(substr($max_id, 1)) + 1;
+    if ($num < 10) {
+        $daycare_id = "D00$num";
+    } else if ($num < 100) {
+        $daycare_id = "D0$num";
     } else {
-        $daycare_id = "D00" . ($daycare_id + 1);
+        $daycare_id = "D$num";
     }
 }
 
@@ -95,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/daycare.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <title>Pet Life</title>
 </head>
 
 <body>
@@ -111,9 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li>
                 <a href="treatment.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatments</span></a>
             </li>
-            <!-- <li>
-                <a href="vaccination.php"><i class="fa-solid fa-file-lines"></i></i><span>Vaccinations</span></a>
-            </li> -->
+         
             <li>
                 <a href="profile.php"><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My
                         Profile</span></a>
@@ -139,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="nav-icon">
                 </div>
                 <div class="hello">Welcome &nbsp <div class="name">
-                        <?php echo $_SESSION['user_name']; ?>
+                <font class="header-font-2"><?php echo $_SESSION['user_name']; ?></font>
                     </div>
                 </div>
             </div>
@@ -278,7 +270,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 // Check if appointment is completed
                                 if ($daycare_status == 'Canceled' || $daycare_status == 'Completed') {
                                     //echo '<button class="btn-add2" type="reset">Cannot Delete</button>';
-                                    echo"<a class='medicine-link' href='#'>Cannot Delete</a></td>";
+                                    echo"<a class='medicine-link' href='#'>Cannot Cancel</a></td>";
                                 } elseif (strtotime($row['daycare_date']) >= strtotime($currentDate)) {
                                     // Display delete button and handle delete request
                                     //echo '<button class="btn-add3" type="submit" name="daycare_id" value="' . $row["daycare_id"] . '">Cancel</button>';

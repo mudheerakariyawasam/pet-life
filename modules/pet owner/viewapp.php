@@ -64,7 +64,7 @@ if (!isset($_SESSION["login_user"])) {
                 <div class="nav-icon">
                 </div>
                 <div class="hello">Welcome &nbsp <div class="name">
-                        <?php echo $_SESSION['user_name']; ?>
+                <font class="header-font-2"><?php echo $_SESSION['user_name']; ?></font>
                     </div>
                 </div>
             </div>
@@ -128,7 +128,7 @@ use PHPMailer\PHPMailer\Exception;
                      INNER JOIN pet p ON a.pet_id = p.pet_id 
                      INNER JOIN pet_owner o ON o.owner_id = p.owner_id
                     INNER JOIN employee e ON e.emp_id = a.vet_id
-                    WHERE a.appointment_status != 'Cancelled' AND owner_email = '{$_SESSION['login_user']}'";
+                    WHERE a.appointment_status != 'Canceled' AND owner_email = '{$_SESSION['login_user']}'";
 
                     // Check if pet_name parameter is set in the URL
                     if (isset($_GET['pet_name'])) {
@@ -158,19 +158,18 @@ use PHPMailer\PHPMailer\Exception;
 
                             // Check if appointment is completed
                             if ($appointment_status == 'Completed') {
-                                echo '<button class="btn-add2" type="button">Cannot Delete</button>';
+                                echo '<button class="btn-add2" type="button">Cannot Cancel</button>';
                             } else {
                                 // Display delete button and handle delete request
                                 if (isset($_POST[$appointment_id])) {
                                     // Check if appointment date is in the future
                                     if (strtotime($row_getdetails['appointment_date']) >= strtotime($currentDate)) {
                                         // Delete appointment
-                                        $sql = "UPDATE appointment SET appointment_status = 'Cancelled' WHERE appointment_id = '$appointment_id'";
+                                        $sql = "UPDATE appointment SET appointment_status = 'Canceled' WHERE appointment_id = '$appointment_id'";
                                         if ($conn->query($sql) === TRUE) {
 
-                                            $appointment_status = 'Cancelled';
+                                            $appointment_status = 'Canceled';
                                             echo "<script>window.location ='viewapp.php'</script>";
-                                            // echo '<button class="btn-add2" type="button">Cannot Delete</button>';
                                         } else {
                                             // Error message
                                             echo '<script>alert("Error deleting appointment");</script>';
@@ -184,7 +183,7 @@ use PHPMailer\PHPMailer\Exception;
                                 else {
 
                                     echo '<form action="" method="post">
-                                            <button class="btn-add3" type="submit" name="' . $appointment_id . '">Delete</button>
+                                            <button class="btn-add3" type="submit" name="' . $appointment_id . '">Cancel</button>
                                           </form>';
                                 }
                             }
@@ -192,14 +191,14 @@ use PHPMailer\PHPMailer\Exception;
                             echo '</td>';
 
                             // Determine appointment status
-                            if ($appointment_status == 'Cancelled' || $pet_availability == 'Deleted') {
-                                $appointment_status_text = 'Cancelled';
+                            if ($appointment_status == 'Canceled' || $pet_availability == 'Deleted') {
+                                $appointment_status_text = 'Canceled';
                             } elseif ($row_getdetails['appointment_date'] >= $currentDate) {
                                 $appointment_status_text = 'Pending';
-                                $appointment_status_button = 'Delete';
-                            } elseif ($appointment_status != 'Cancelled' && $row_getdetails['appointment_date'] < $currentDate) {
+                                $appointment_status_button = 'Cancel';
+                            } elseif ($appointment_status != 'Canceled' && $row_getdetails['appointment_date'] < $currentDate) {
                                 $appointment_status_text = 'Completed';
-                                $appointment_status_button = 'Cannot Delete';
+                                $appointment_status_button = 'Cannot Cancel';
                             }
 
                             // Update appointment status in database

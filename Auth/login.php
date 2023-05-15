@@ -4,13 +4,6 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-//  if (empty($_POST["remail"])) {
-//         echo '<script>alert("Email is required")</script>';
-
-//     } else if (empty($_POST["rPassword"])) {
-//         echo '<script>alert("Password is required")</script>';
-//     } else {
-
     $rEmail = mysqli_real_escape_string($conn, trim($_REQUEST['rEmail']));
     $rPassword = mysqli_real_escape_string($conn, trim($_REQUEST['rPassword'])); //input password given by the user at login
     
@@ -98,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/pet-life/Auth/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Login </title>
+    <title>Pet Life </title>
 </head>
 
 <body>
