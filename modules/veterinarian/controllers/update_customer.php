@@ -174,7 +174,7 @@ if(isset($_POST['save-info'])){
                 <div class="save-btn">
                 <button class="btn-add" type="submit" role="button">
                     <a style="color:black;"href="user.php" >Update</a>
-                    </button>
+                </button>
                 </div>
             </form>
 </div>

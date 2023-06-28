@@ -1,0 +1,72 @@
+1 Searh by date
+
+
+if (isset($_GET['date'])) {
+    // Sanitize input value to prevent SQL injection
+    $searchDate = mysqli_real_escape_string($conn, $_GET['date']);
+    
+    // Construct the date range for the search (from selected date to next day)
+    $nextDay = date('Y-m-d', strtotime($searchDate . ' +1 day'));
+
+
+<label><b>Date Range</b></label><br>
+<input type="date" name="start_date" placeholder="Start Date">
+<input type="date" name="end_date" placeholder="End Date">
+<button class="btn-add1" type="submit"><img src="images/search.png"></button>
+
+
+if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
+    $start_date = mysqli_real_escape_string($conn, $_GET['start_date']);
+    $end_date = mysqli_real_escape_string($conn, $_GET['end_date']);
+    $sql .= " AND a.appointment_date BETWEEN '$start_date' AND '$end_date'";
+}
+
+<form method="GET">
+
+
+
+<tr>
+    <th>Pet Name</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Slot No</th>
+    <th>Doctor</th>
+    <th>Action</th>
+    <th>Appointment Status</th>
+</tr>
+
+<?php
+while ($row_getdetails = mysqli_fetch_assoc($result_getdetails)) {
+    // ... existing code ...
+
+    // Check if the appointment date is within the selected date range
+    $appointment_date = $row_getdetails["appointment_date"];
+    if ($appointment_date >= $start_date && $appointment_date <= $end_date) {
+        // Display the appointment details within the date range
+        // ... existing code ...
+    }
+}
+?>
+
+2 To get the count of rows in a table, you can use a SQL query with the COUNT() function. Here's an example:
+
+php
+
+<?php
+
+// Assuming you have a database connection established
+
+$tableName = "your_table_name";
+
+$sql = "SELECT COUNT(*) AS row_count FROM $tableName";
+$result = mysqli_query($conn, $sql);
+
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    $rowCount = $row['row_count'];
+    echo "Number of rows in the table: " . $rowCount;
+} else {
+    echo "Error executing the query: " . mysqli_error($conn);
+}
+
+3 c

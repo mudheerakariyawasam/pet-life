@@ -22,6 +22,8 @@ if ($result) {
         $emp_initsalary = $row["emp_initsalary"];
         $emp_currsalary = $row["emp_currsalary"];
         $emp_holtaken = $row["emp_holtaken"];
+        // newly added for code check
+        $reg_id = $row["reg_id"];
         $emp_dateassigned = $row["emp_dateassigned"];
     }
 } else {
@@ -229,6 +231,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 value="<?php echo $emp_name; ?>" readonly><br>
                                         </div>
                                     </div>
+                                    <!-- newly added for code check -->
+                                    <div class="row-wise">
+                                        <div class="column-wise">
+                                            <label>Registered_ID</label><br>
+                                            <input type="text" name="reg_id" placeholder="Registered ID"
+                                                value="<?php echo $reg_id; ?>" readonly><br>
+                                        </div>
+                                       
+                                    </div>
 
                                     <button class="btn-add" type="submit">Update Profile </button>
                                     <button class="btn-add" href="viewallitems.php">Cancel</button>
@@ -237,6 +248,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </form>
                         </div>
                     </div>
+                    <!-- change password starts -->
                     <div class="right-content">
                     <form action="changepassword.php" method="POST">
                         <span class="sub-topic">Change Password</span><br><br>
