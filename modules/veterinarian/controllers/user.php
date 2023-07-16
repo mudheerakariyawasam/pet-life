@@ -56,9 +56,9 @@ if (isset($_POST['save-info'])) {
         $emp_address_error = "Please enter the employee's address.";
     }*/
 
-    if (!preg_match('/^(\+\d{2})?\d{9}$/', $tpn)) {
-        $owner_contactno_error = "Please enter a valid contact number.";
-    }
+    // if (!preg_match('/^(\+\d{2})?\d{9}$/', $tpn)) {
+    //     $owner_contactno_error = "Please enter a valid contact number.";
+    // }
 
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
