@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $pet_name = $_POST['pet_name'];
     $daycare_date = date('Y-m-d', strtotime($_POST['daycare_date']));
+    $pr_time = $_POST['pr_time'];
 
     //check whether the appointment slots are available - maximum is 5
     $sql_availability = "SELECT COUNT(*) FROM daycare WHERE daycare_date='$daycare_date'";
@@ -63,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
         //insert data into the daycare table
-        $sql = "INSERT INTO daycare (daycare_id, pet_id, pet_name, daycare_date, owner_id,daycare_status) VALUES ('$daycare_id','$pet_id','$pet_name','$daycare_date','$owner_id','Available')";
+        $sql = "INSERT INTO daycare (daycare_id, pet_id, pet_name, daycare_date, pr_time, owner_id,daycare_status) VALUES ('$daycare_id','$pet_id','$pet_name','$daycare_date','$pr_time' ,'$owner_id','Available')";
         $result = mysqli_query($conn, $sql);
 
         if ($result == TRUE) {
@@ -184,7 +185,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="date" name="daycare_date" min="<?= $currentDate ?>" max="<?= $nextfiveDays ?>" required>
                     </div>
 
+                    <div class="form-content">
+                    <label class="loging-label1">Urgency</label>
+                    <select name="pr_time" type="text" required>
+                        <option value="">--Select--</option>
+                        <option value="partial">Partial</option>
+                        <option value="full">Full</option>
 
+                        </select>
+                    </div>
                     <p>
                         <button class="btn-add" type="submit">Register</button>
 
@@ -220,6 +229,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <th>Pet ID</th>
                             <th>Pet Name</th>
                             <th>DayCare Date</th>
+                            <th>pr time</th>
+
                             <th>Status</th>
                             <th>Cancel</th>
                         </tr>
@@ -228,8 +239,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     
-                        $sql = "SELECT e.pet_id, e.pet_name, e.daycare_date, e.daycare_id, e.daycare_status FROM daycare e
-                         INNER JOIN pet_owner o ON o.owner_id = e.owner_id WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
+                        $sql = "SELECT e.pet_id, e.pet_name, e.daycare_date,e.pr_time, e.daycare_id, e.daycare_status FROM daycare e
+                         INNER JOIN pet_owner o ON o.owner_id = e.owner_id WHERE e.pr_time != 'partial'  AND o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
                     
                         // Check if pet_name parameter is set in the URL
                         if (isset($_GET['pet_name'])) {
@@ -263,6 +274,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <td>' . $row["pet_id"] . '</td>
                                         <td> ' . $row["pet_name"] . '</td> 
                                         <td>' . $row["daycare_date"] . '</td>
+                                        <td>' . $row["pr_time"] . '</td>
                                         <td>' . $row["daycare_status"] . '</td>
                                         <td class="action" style="background-color: ' . $stage_color . ';">';
                     

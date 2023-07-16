@@ -7,6 +7,8 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
 
+$current_date = date("Y-m-d");
+
 //generate next owner ID
 
 $sql_get_id = "SELECT owner_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
@@ -82,7 +84,7 @@ if (empty($pwd)) {
     if (empty($owner_fname_error) && empty($owner_contactno_error) && empty($owner_nic_error) && empty($owner_pwd_error)) {
         // Insert the employee record into the database
         $pwd= md5($pwd);
-        $sql = "INSERT INTO pet_owner  VALUES ('$owner_id','$fname', '$lname', '$email', '$tpn', '$address', '$nic', '$pwd','Registered')";
+        $sql = "INSERT INTO pet_owner  VALUES ('$owner_id','$fname', '$lname', '$email', '$tpn', '$address', '$nic', '$pwd','$current_date','Registered')";
         $result = mysqli_query($conn, $sql);
         // die($sql);
         // Check if the insert was successful
@@ -123,7 +125,7 @@ if (empty($pwd)) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <title></title>
+    <title>Pet Life</title>
 </head>
 
 <body>

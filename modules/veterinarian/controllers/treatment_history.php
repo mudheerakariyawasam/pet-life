@@ -219,7 +219,7 @@ if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
     <link rel="stylesheet" href="../css/treatment_history.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title></title>
+    <title>Pet Life</title>
 </head>
 
 <body onload="onLoad()">

@@ -39,6 +39,7 @@
         $pet_name = $_POST['pet_name'];
         $emp_name=$_POST['emp_name'];
         $time_slot=$_POST['time_slot'];
+        $urgency= $_POST['urgency'];
 
         //get the appointment slot no
         $sql_getappointmentcount = "SELECT COUNT(*) FROM appointment WHERE appointment_date = '$date'";
@@ -82,8 +83,8 @@
         exit();
     } else {
 
-        $sql_time="SELECT * FROM appointment WHERE appointment_date = '$date' AND appointment_time = '$time_slot' AND appointment_status != 'Cancelled'
-        ";
+        $sql_time="SELECT * FROM appointment WHERE appointment_date = '$date' AND 
+         appointment_time= '$time_slot' AND appointment_status != 'Cancelled'";
         $r3=mysqli_query($conn,$sql_time);
         $r_3=mysqli_num_rows($r3); 
         if($r_3>0) {
@@ -114,7 +115,7 @@
             //     echo '<script>alert("There is an error in booking")</script>';
             // }
 
-            echo "<script>window.location.href = 'payhere_homepage.php?appointment_id=$appointment_id&date=$date&time_slot=$time_slot&new_slot_id=$new_slot_id&emp_id=$emp_id&pet_id=$pet_id';</script>";
+            echo "<script>window.location.href = 'payhere_homepage.php?appointment_id=$appointment_id&date=$date&time_slot=$time_slot&urgency=$urgency&new_slot_id=$new_slot_id&emp_id=$emp_id&pet_id=$pet_id';</script>";
 
         } 
 } 

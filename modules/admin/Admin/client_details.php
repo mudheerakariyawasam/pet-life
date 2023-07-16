@@ -1,9 +1,8 @@
 <?php
     include("../../../db/dbconnection.php");
     session_start();
-
-    // Check if the holiday ID is set in the URL
-    if (!isset($_GET['owner_id'])) {
+     // Check if the holiday ID is set in the URL
+     if (!isset($_GET['owner_id'])) {
         die("Error: Holiday ID not specified.");
     }else{
         $owner_id=$_GET['owner_id'];
@@ -26,7 +25,8 @@
 <body>
     <div class="sidebar">
     <div class="user-img"><center><img src="../images/logo_transparent black.png" width=200px></center></div>
-        <ul>
+        
+    <ul>
             <li>
                 <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
@@ -62,17 +62,93 @@
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
+                <div class="nav-icon">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
             </div>
+
+
+            <div class="navbar__right">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="fa-solid fa-bell"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                        <i class="fa-solid fa-message"></i>
+                        </a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+
         <div class="container">
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?php
+function connect_mysql(){
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "pet_life";
+
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $database);
+
+    // Check connection
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    return $conn;
+}
+
+// Call the connect_mysql() function to establish the database connection
+$conn = connect_mysql();
+
+// Check if the holiday ID is set in the URL
+if (!isset($_GET['owner_id'])) {
+    die("Error: Holiday ID not specified.");
+}
 
 // Retrieve the holiday details from the database based on the holiday ID in the URL
-$sql = "SELECT * FROM pet_owner WHERE owner_id = '$owner_id'";
+$sql = "SELECT owner_id, owner_fname, owner_lname, owner_email, owner_contactno, owner_address, owner_nic, owner_status FROM pet_owner WHERE owner_id = '" . $_GET['owner_id'] . "'";
 $result = mysqli_query($conn, $sql);
 
 // Check if the query failed
@@ -82,31 +158,33 @@ if (!$result) {
 
 // Check if the holiday with the specified ID exists
 if (mysqli_num_rows($result) == 0) {
-    die("Error: Owner with ID " . $_GET['owner_id'] . " not found.");
+    die("Error: Employee with ID " . $_GET['owner_id'] . " not found.");
 }
 
 // Fetch the holiday details from the query result
 $pet_owner = mysqli_fetch_assoc($result);
 
+
+
+
+
+// Close the database connection
+mysqli_close($conn);
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Holiday Details</title>
 
-</head>
-<body>
 	<h1 class="holy-title">Client Details</h1><hr/><br/>
 	<table>
 		<tr><td><strong>Owner ID:</strong></td><td><?php echo $pet_owner['owner_id']; ?></td></tr>
-        <tr><td><strong>Owner First Name:</strong></td><td><?php echo $pet_owner['owner_fname']; ?></td></tr>
-        <tr><td><strong>Owner Last Name:</strong></td><td><?php echo $pet_owner['owner_lname']; ?></td></tr>
-        <tr><td><strong>Owner Email:</strong></td><td><?php echo $pet_owner['owner_email']; ?></td></tr>
-        <tr><td><strong>Owner Contact No:</strong></td><td><?php echo $pet_owner['owner_contactno']; ?></td></tr>
-        <tr><td><strong>Owner Address:</strong></td><td><?php echo $pet_owner['owner_address']; ?></td></tr>
-        <tr><td><strong>Owner NIC:</strong></td><td><?php echo $pet_owner['owner_nic']; ?></td></tr>
-        <tr><td><strong>Active Status:</strong></td><td><?php echo $pet_owner['owner_status']; ?></td></tr>
+<tr><td><strong>Owner First Name:</strong></td><td><?php echo $pet_owner['owner_fname']; ?></td></tr>
+<tr><td><strong>Owner Last Name:</strong></td><td><?php echo $pet_owner['owner_lname']; ?></td></tr>
+<tr><td><strong>Owner Email:</strong></td><td><?php echo $pet_owner['owner_email']; ?></td></tr>
+<tr><td><strong>Owner Contact No:</strong></td><td><?php echo $pet_owner['owner_contactno']; ?></td></tr>
+<tr><td><strong>Owner Address:</strong></td><td><?php echo $pet_owner['owner_address']; ?></td></tr>
+<tr><td><strong>Owner NIC:</strong></td><td><?php echo $pet_owner['owner_nic']; ?></td></tr>
+<tr><td><strong>Active Status:</strong></td><td><?php echo $pet_owner['owner_status']; ?></td></tr>
+
+
 	</table>
 	
 

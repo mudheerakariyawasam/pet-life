@@ -104,6 +104,7 @@ if (!isset($_SESSION["login_user"])) {
                         <th>Pet Name</th>
                         <th>Date</th>
                         <th>Time</th>
+                        <th>Urgency</th>
                         <th>Slot No</th>
                         <th>Doctor</th>
                         <th>Action</th>
@@ -152,8 +153,10 @@ use PHPMailer\PHPMailer\Exception;
                                 <td>' . $row_getdetails["pet_name"] . '</td>
                                 <td>' . $row_getdetails["appointment_date"] . '</td>
                                 <td>' . $row_getdetails["appointment_time"] . '</td>
+                                <td>' . $row_getdetails["urgency_slot"] . '</td>
                                 <td>' . $row_getdetails["appointment_slot"] . '</td>
                                 <td>' . $row_getdetails["emp_name"] . '</td>
+
                                 <td class="action">';
 
                             // Check if appointment is completed
@@ -190,6 +193,7 @@ use PHPMailer\PHPMailer\Exception;
 
                             echo '</td>';
 
+
                             // Determine appointment status
                             if ($appointment_status == 'Canceled' || $pet_availability == 'Deleted') {
                                 $appointment_status_text = 'Canceled';
@@ -220,7 +224,7 @@ use PHPMailer\PHPMailer\Exception;
                     } else {
 
 
-                        echo '<td colspan="7"><center><img style="width:35%;" src="images/no-results.png"></center></td>';
+                        echo '<td colspan="8"><center><img style="width:35%;" src="images/no-results.png"></center></td>';
 
                     }
 
