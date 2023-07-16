@@ -41,6 +41,8 @@
         $pet_name = $_POST['pet_name'];
         $emp_name=$_POST['emp_name'];
         $time_slot=$_POST['time_slot'];
+        $urgency=$_POST['urgency'];
+
 
         //get the appointment slot no
         $sql_getappointmentcount = "SELECT COUNT(*) FROM appointment WHERE appointment_date = '$date'";
@@ -98,7 +100,7 @@
             echo"<script>alert('Pet already Booked')</script>";
         } else {         
             //create a new appointment
-            $sql = "INSERT INTO appointment VALUES ('$appointment_id','$date','$time_slot','$new_slot_id','$emp_id','$pet_id','Available')";
+            $sql = "INSERT INTO appointment VALUES ('$appointment_id','$date','$time_slot','$urgency','$new_slot_id','$emp_id','$pet_id','Available')";
             $result = mysqli_query($conn, $sql);
     
             if ($result == TRUE) {
@@ -113,7 +115,7 @@
 } 
     }   
 }
-?>  -->
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -264,6 +266,8 @@
 
                         </select>
                     </div>
+
+                 
 
                 <div class="form-content">
 

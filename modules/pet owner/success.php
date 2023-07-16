@@ -10,6 +10,7 @@ if(!isset($_SESSION["login_user"])){
 $appointment_id=$_GET["appointment_id"];
 $date=$_GET["date"];
 $time_slot=$_GET["time_slot"];
+$urgency=$_GET["urgency"];
 $new_slot_id=$_GET["new_slot_id"];
 $emp_id=$_GET["emp_id"];
 $pet_id=$_GET["pet_id"];
@@ -17,7 +18,7 @@ $pet_id=$_GET["pet_id"];
 
 
     //create a new appointment
-    $sql = "INSERT INTO appointment VALUES ('$appointment_id','$date','$time_slot','$new_slot_id','$emp_id','$pet_id','Pending')";
+    $sql = "INSERT INTO appointment VALUES ('$appointment_id','$date','$time_slot','$urgency','$new_slot_id','$emp_id','$pet_id','Pending')";
     $result = mysqli_query($conn, $sql);
 
     if ($result == TRUE) {

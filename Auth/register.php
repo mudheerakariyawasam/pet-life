@@ -9,28 +9,22 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-$sql_get_id = "SELECT owner_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
+$sql_get_id = "SELECT MAX(owner_id) AS max_id FROM pet_owner ORDER BY owner_id DESC LIMIT 1";
 $result_get_id = mysqli_query($conn, $sql_get_id);
 $row = mysqli_fetch_array($result_get_id);
+$max_id = $row['max_id'];
 
-$lastid = "";
-
-if (mysqli_num_rows($result_get_id) > 0) {
-    $lastid = $row['owner_id'];
-}
-
-if ($lastid == "") {
+// generate the new pet ID
+if ($max_id === null) {
     $owner_id = "O001";
 } else {
-    $owner_id = substr($lastid, 3);
-    $owner_id = intval($owner_id);
-
-    if ($owner_id >= 9) {
-        $owner_id = "O0" . ($owner_id + 1);
-    } else if ($owner_id >= 99) {
-        $owner_id = "O" . ($owner_id + 1);
+    $num = intval(substr($max_id, 1)) + 1;
+    if ($num < 10) {
+        $owner_id = "O00$num";
+    } else if ($num < 100) {
+        $owner_id = "O0$num";
     } else {
-        $owner_id = "O00" . ($owner_id + 1);
+        $owner_id = "O$num";
     }
 }
 

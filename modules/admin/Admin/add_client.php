@@ -137,8 +137,7 @@ transition: 0.7s;
 <br/>
 
 <?php
-// Include the database connection file
-
+$current_date = date("Y-m-d");
 // Initialize variables for the form fields
 
 $owner_fname = '';
@@ -205,7 +204,7 @@ if (empty($owner_pwd)) {
     // Check if there are any errors
     if (empty($owner_fname_error) && empty($owner_contactno_error) && empty($owner_contactno_error) && empty($owner_nic_error) && empty($owner_pwd_error)) {
         // Insert the employee record into the database
-        $sql = "INSERT INTO pet_owner (owner_id, owner_fname, owner_lname, owner_email, owner_contactno, owner_address, owner_nic, owner_pwd, owner_status) VALUES ('$owner_id', '$owner_fname', '$owner_lname', '$owner_email', '$owner_contactno', '$owner_address', '$owner_nic', '$owner_pwd', 'Registered')";
+        $sql = "INSERT INTO pet_owner (owner_id, owner_fname, owner_lname, owner_email, owner_contactno, owner_address, owner_nic, owner_pwd, owner_regdate,owner_status) VALUES ('$owner_id', '$owner_fname', '$owner_lname', '$owner_email', '$owner_contactno', '$owner_address', '$owner_nic', '$owner_pwd','$current_date', 'Registered')";
         $result = mysqli_query($conn, $sql);
 
         // Check if the insert was successful
