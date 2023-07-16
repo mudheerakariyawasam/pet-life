@@ -107,7 +107,8 @@
             <th class='item-table-header'>Price</th>
             <th class='item-table-header'>Qty</th>
             <th class='item-table-header'>Status</th>
-            <th class='item-table-header'>Action</th></tr>";
+            <th class='item-table-header'>Action</th>
+            <th class='item-table-header'>Re Order</th></tr>";
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr class='item-row'>";
             echo "<td class='item-table-cell item-id'>" . $row['item_id'] . "</td>";
@@ -122,8 +123,15 @@
                 echo "<label class='switch'><input type='checkbox' data-itemid='" . $row['item_id'] . "'><span class='slider round'></span></label>";
             }
             echo "</td>";
-            echo "<td class='item-table-cell'><a class='item-link' href='updateitem.php?item_id=" . $row['item_id'] . "'>Update</a></td>";
-            // echo "<td class='item-table-cell'><button class='item-link' onclick='updateItem(" . $row['item_id'] . ")'><i class='fas fa-pen-to-square'></i></button></td>";
+            echo "<td class='item-table-cell'><a class='item-link' href='updateitem.php?item_id=" . $row['item_id'] . "'>Update</a></td>";            
+            
+            //check reorder level condition
+            if($row['item_reorder']>$row["item_qty"]){
+                echo "<td class='item-table-cell'>Yes</td>";  
+            }else{
+                echo "<td class='item-table-cell'>No</td>";  
+            }
+            
             echo "</tr>";
         }
         echo "</table>";

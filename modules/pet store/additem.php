@@ -32,14 +32,17 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
              echo '<script>alert("Please enter a valid  quantity!")</script>';
          }else if(!(is_numeric($_POST['item_price'])) || $_POST['item_qty']<0){
              echo '<script>alert("Please enter a valid price!")</script>';
+         }else if($_POST['item_reorder']<0){
+            echo '<script>alert("Please enter a valid  reorder level!")</script>';
          }else{
              $item_name=$_POST['item_name'];
              $item_brand=$_POST['item_brand'];
              $item_qty=$_POST['item_qty'];
              $item_price=$_POST['item_price'];
              $item_category=$_POST['item_category'];
+             $item_reorder=$_POST['item_reorder'];
      
-             $sql = "INSERT INTO pet_item VALUES ('$item_id','$item_name','$item_brand','$item_qty','$item_price','$item_category','Available')";
+             $sql = "INSERT INTO pet_item VALUES ('$item_id','$item_name','$item_brand','$item_qty','$item_price','$item_category','Available','$item_reorder')";
              $result = mysqli_query($conn,$sql);
              
              if($result==TRUE) { 
@@ -115,6 +118,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
                 <input type="text" name="item_qty" placeholder="Quantity" required><br>
                 <label>Price</label><br>
                 <input type="text" name="item_price" placeholder="Price" required><br>
+                <label>Re Order Level</label><br>
+                <input type="number" name="item_reorder" placeholder="Re Order Level" required><br>
                 <label>Category</label><br>
                 <div class="dropdown-list" style="width:200px;">
                     <select name="item_category" class="dropdown-list" >
