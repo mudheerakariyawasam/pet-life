@@ -257,16 +257,16 @@ width:50%;
   font-weight: 500;
   font-size: 24px;
 }
-.item-heading-right button{
-  margin-top: 20px;
-padding:7px 20px;
-background-color:#C38D9E;
-border:none;
-color:white;
-cursor:pointer;
-border-radius:20px;
-margin-left: 280px;
+
+input[type="submit"] {
+  padding:7px 20px;
+  background-color:#C38D9E;
+  border:none;
+  color:white;
+  cursor:pointer;
+  border-radius:20px;
 }
+
 
 
 .p-medicine{
@@ -340,4 +340,8 @@ border-radius:20px;
 }
 .bottom-heading-right{
   margin-left: 630px;
+}
+
+select#medicine_id{
+
 }

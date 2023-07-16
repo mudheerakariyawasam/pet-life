@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Roboto&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Amatic SC", cursive;
+  font-family: "Roboto", sans-serif;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+section .imgbox {
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+
+section .imgbox :before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+section .imgbox img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  object-fit: cover;
+}
+
+section .forms {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  background-color: #96CDE1;
+}
+
+form {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+section .login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+h2 {
+  font-family: "Amatic SC";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 70px;
+  color: #C38D9E;
+}
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f7ff;
+  overflow: hidden;
+}
+
+form {
+  padding: 35px;
+  margin-left: 70px;
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.486);
+  margin-right: 90px;
+  height: 70%;
+  width: 90%;
+  margin-top: 30px;
+
+
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.input-boxes input {
+  width: 100%;
+  padding: 0px 20px;
+  outline: none;
+  font-weight: 400;
+  border: 1px solid white;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: black;
+  background: transparent;
+  border-radius: 25px;
+}
+
+input[type="tel"]::value {
+  content: attr(placeholder);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50px;
+  text-align: center;
+}
+
+label {
+  color: black;
+}
+
+
+.btn-add {
+  transition: all 0.5s ease;
+  color: #000000;
+  border: 3px solid white;
+  font-family: "Roboto";
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+  font-size: 17px;
+  background-color: transparent;
+  padding: 10px;
+  outline: none;
+  border-radius: 15px;
+}
+
+.btn-add:hover {
+  background-color: rgba(215, 226, 255, 0.6);
+  transition: 0.7s;
+}
+
+@keyframes progress {
+  100% {
+    right: 100%;
+  }
+}

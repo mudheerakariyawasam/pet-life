@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
 
-root {
+:root {
     --colour1: #000D2F;
     --colour2: rgba(215, 226, 255, 0.6);
     /* --backgroundcolour3: #EEF3FF; */
@@ -16,7 +17,11 @@ root {
     text-decoration: none;
     list-style-type: none;
 }
-
+.header-font-2{
+    font-size:30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
 body {
     margin: 0;
     background-image: url(../images/daycare.jpg);
@@ -129,6 +134,8 @@ body {
     justify-content: space-between;
     width: 82%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    margin-top: -24px;
+    
 }
 
 .navbar__left {
@@ -276,7 +283,7 @@ body {
 }
 
 form {
-    padding: 40px;
+    padding: 31px;
     background-color: rgba(255, 255, 255, 0.699);
     margin-right: 90px;
     height: 90%;
@@ -284,20 +291,18 @@ form {
     margin-left: 90px;
     border-radius: 50px;
     margin-top: 80px;
-    
-
 }
 
 .form-content {
     display:flex;
-    flex-direction: row;
-    padding: 8px;
+    flex-direction: column;
 align-content: baseline;
 }
+
 .container input {
     display: block;
     border: 2px solid #ccc;
-    width: 300px;
+    width: 460px;
     padding: 8px;
     margin: 0;
     border-radius: 30px;

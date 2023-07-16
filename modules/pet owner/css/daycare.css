@@ -1,6 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;700&display=swap');
 
-root {
+:root {
     --colour1: #000D2F;
     --colour2: rgba(215, 226, 255, 0.6);
     /* --backgroundcolour3: #EEF3FF; */
@@ -16,7 +17,11 @@ root {
     text-decoration: none;
     list-style-type: none;
 }
-
+.header-font-2{
+    font-size:30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
 body {
     margin: 0;
     background-image: url(../images/daycare.jpg);
@@ -150,8 +155,6 @@ body {
     flex-direction: row;
 }
 
-.name {}
-
 .top-container{
     display: flex;
     flex-direction: row;
@@ -238,10 +241,7 @@ body {
     background-position: center;
 }
 
-.form-content {
-    display: flex;  
-    justify-content: left;
-}
+
 
 .form-content label{
     margin: 0px 30px 0px 0px;
@@ -275,24 +275,25 @@ body {
     border: none;
 }
 
-form {
-    padding: 40px;
+.left form {
+    padding: 60px;
     background-color: rgba(255, 255, 255, 0.699);
     margin-right: 90px;
     height: 85%;
-    width: 50%;
+    width: 480px;
     margin-left: 90px;
     border-radius: 50px;
-    margin-top: 80px;
+    margin-top: 140px;
     
 
 }
 
 .form-content {
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 16px;
 align-content: baseline;
+font-weight: bolder;
 }
 .container input {
     display: block;
@@ -303,9 +304,17 @@ align-content: baseline;
     border-radius: 30px;
     background-color: #C38D9E;
    margin-left: 6px;
+}
 
-
-
+.container select {
+    display: block;
+    border: 2px solid #ccc;
+    width: 300px;
+    padding: 4px;
+    margin: 0;
+    border-radius: 30px;
+    background-color: #C38D9E;
+   margin-left: 6px;
 }
 
 label {
@@ -317,16 +326,10 @@ label {
 
 label.loging-label1 {
     margin-left: 25px;
-}
-
-
-button {
-    float: right;
-    padding: 10px 15px;
-    color: black;
-    margin-right: 70px;
-    border: none;
-    width: 150px;
+    width: 250px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .btn-add{
@@ -356,6 +359,8 @@ button {
 button:hover {
     opacity: .60;
 }
+
+
 
 .error {
     background: #F2DEDE;
@@ -396,3 +401,88 @@ a {
     margin-top: 0px;
     font-weight:600;
 }
+table {
+    border: none;
+    border-collapse: collapse;
+    width: 80%;
+    margin-left: 117px;
+    margin-top: 23px;
+    margin-right: 37px;
+}
+
+  th, td {
+    width:120px;
+    text-align:center;
+    padding:7x; 
+    background-color: #000D2F; 
+    height: 50px;
+    color: white;
+    font-size: medium;
+  }
+  
+  td{
+    color: black;
+    background-color:#96CDE1;   
+    border-bottom: 5px solid white;
+    width:60px;
+}
+
+
+select#pet_name {
+    display: block;
+    border: 2px solid #ccc;
+    width: 220px;
+    padding: 10px;
+    margin: 0;
+    border-radius: 30px;
+    background-color: #C38D9E;
+   margin-left: 6px;
+   font-size: 14px;
+
+}
+
+input[type="date"] {
+    display: block;
+    border: 2px solid #ccc;
+    width: 220px;
+    padding: 10px;
+    margin: 0;
+    border-radius: 30px;
+    background-color: #C38D9E;
+   margin-left: 6px;
+   font-size: 14px;
+}
+
+.filter select {
+        border: none;
+        padding: 10px;
+        width: 150px;
+        height: 40px;
+        border-radius: 10px;
+}
+
+    .filter {
+        margin-top: 150px;
+        margin-left: 190px;
+    }
+
+    .btn-add1 {
+        background-color: #C38D9E;
+        color: black;
+        padding: 7px 7px;
+        border-radius: 26px;
+        box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
+        border: none;
+        /* margin: auto; */
+        width: 48px;
+        float: right;
+        font-family: poppins, sans-serif;
+        font-style: normal;
+        font-weight: 800;
+        margin-right: 357px;
+        cursor: pointer;
+    }
+    .btn-add1:hover {
+        background-color:rgba(215,226,255,0.6);
+        transition: 0.7s;
+      }

@@ -1,4 +1,5 @@
-root {
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
+:root {
     --colour1: #000D2F;
     --colour2: rgba(215, 226, 255, 0.6);
     /* --backgroundcolour3: #EEF3FF; */
@@ -14,7 +15,11 @@ root {
     text-decoration: none;
     list-style-type: none;
 }
-
+.header-font-2{
+    font-size:30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
 
 body {
     margin: 0;
@@ -348,8 +353,9 @@ width: 20%;
   padding-bottom: 5px;
   border-radius: 20px;
   color: white;
-  background-color: rgb(245, 57, 185);
+  background-color:#C38D9E;
   border: none;
+  font-weight: bolder;
   
 }
 .continfo-right button:hover{
@@ -361,73 +367,3 @@ width: 20%;
   
 }
 
-/* .footer{
-  background-color: rgb(212, 239, 249); 
-}
-.about-us{
-  width:90%;
-  display: flex;
-  font-size:13px;
-font-weight:400;
-margin-left: 185px;
-
-}
-.about-us hr{
-  border-width: 2px;
-  width:30%;
-  margin-left:0;
-  border-color: black;
-}
-.about{
-  width:30%;
-  margin-left:10%;
-}
-.about .title{
-font-weight: bolder;
-}
-.about p{
-  font-family: 'Poppins', sans-serif;
-}
-.ulinks{
-  width:30%;
-   margin-left:5%;
-}
-.ulinks p{
-  font-family: 'Poppins', sans-serif;
-}
-.ulinks .title{
-  font-weight: bolder;
-  
-  }
-
-.gitouch{
-  width:30%;
-  margin-left:5%;
-}
-.gitouch p{
-  font-family: 'Poppins', sans-serif;
-}
-.gitouch .title{
-  font-weight: bolder;
-  
-  }
-  .gitouch ul span{
-    margin-left: 10px;;
-  }
-  ul li{
-    list-style-type: none;
-      font-family: 'Poppins', sans-serif;
-
-
-  }
-  .ulinks ul hr{
-    border-width: 1px;
-    width:30%;
-    margin-left:0;
-    border-color: rgb(0, 0, 0);
-    border-style: dotted;
-  }
-  a{
-    color:black;
-    text-decoration: none;
-  } */

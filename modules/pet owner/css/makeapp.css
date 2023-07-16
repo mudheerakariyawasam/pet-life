@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
 
-root {
+:root {
     --colour1: #000D2F;
     --colour2: rgba(215, 226, 255, 0.6);
     /* --backgroundcolour3: #EEF3FF; */
@@ -16,7 +17,11 @@ root {
     text-decoration: none;
     list-style-type: none;
 }
-
+.header-font-2{
+    font-size:30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
 body {
     margin: 0;
     background-image: url(../images/daycare.jpg);
@@ -128,6 +133,7 @@ body {
     display: flex;
     justify-content: space-between;
     width: 82%;
+    margin-top: -25px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -157,6 +163,16 @@ body {
     flex-direction: row;
     justify-content:space-between;
     margin: 120px;
+}
+
+.header-font-1{
+    font-size:30px;
+    font-family: poppins, sans-serif;
+}
+.header-font-2{
+    font-size:30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
 }
 
 
@@ -280,7 +296,7 @@ form {
     background-color: rgba(255, 255, 255, 0.699);
     margin-right: 90px;
     height: 90%;
-    width: 50%;
+    width: 45%;
     margin-left: 90px;
     border-radius: 50px;
     margin-top: 80px;
@@ -290,19 +306,21 @@ form {
 
 .form-content {
     display:flex;
-    flex-direction: row;
-    padding: 16px;
+    flex-direction: column;
+    padding: 14px;
 align-content: baseline;
+font-weight: bolder;
 }
 .container input {
     display: block;
     border: 2px solid #ccc;
-    width: 300px;
-    padding: 8px;
+    width: 400px;
+    padding: 7px;
     margin: 0;
     border-radius: 30px;
     background-color: #C38D9E;
    margin-left: 6px;
+   
 
 
 
@@ -312,7 +330,7 @@ align-content: baseline;
     display: block;
     border: 2px solid #ccc;
     width: 400px;
-    padding: 3px;
+    padding: 7px;
     margin: 0;
     border-radius: 30px;
     background-color: #C38D9E;

@@ -29,14 +29,20 @@ color:white;
   height: 200px;
   width: 200px;
 }
-.heading{
-  margin-top: 100px;
-  margin-left: 70px;
+/* .heading{
+  margin-top: 50px;
+  margin-left: 30px;
   font-family: poppins, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
   float: left;
+} */
+.topic{
+  font-size: 40px;
+  font-weight: 950;
+  margin-left:50px;
+  margin-top: 30px;
 }
 
  .sidebar {
@@ -268,11 +274,12 @@ margin-top:50px;
 
 }
 table{
-  width:96%;
+  width:100%;
   margin-left:2%;
   text-align: center;
   padding:5px;
-  background-color: #96CDE1
+  /* background-color: #96CDE1; */
+  background-color: #fff;
   
 }
 .content{
@@ -280,17 +287,30 @@ table{
   float:right;
   background-size: cover;
   background-position: center;
-  background-image: url(../images/doctor.jpg);
-  height: 100vh;
-  isolation: isolate;
-  position: relative;
   }
-  .content::after{
-      content: '';
-      position: absolute;
-      z-index: -1;
-      inset: 0;
-      background: white;
-      opacity: 0.9;
-  }
+  
+ /* appointments table css */
+.appointment-table {
+    border-collapse: collapse;
+    width: 95%;
+}
 
+.appointment-table th, .appointment-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.appointment-table th {
+    background-color: #96CDE1;
+    color: black;
+}
+
+.appointment-table tr:hover {
+    background-color: #a7dbee;
+}
+
+.appointment-table a {
+    text-decoration: none;
+    color: #333;
+}

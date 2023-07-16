@@ -1,11 +1,6 @@
 <?php
     include("../../../db/dbconnection.php");
     session_start();
-    if(!isset($_SESSION["login_user"])){
-        header("location:../../../../../Auth/login.php");
-        exit;
-    }
-
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +13,71 @@
     <link rel="stylesheet" href="../css/report.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <title>Pet Life</title>
+    
+    <style>
+    .search-box {
+        float: right;
+        margin-bottom: 10px;
+    }
+    .search-box input[type="text"] {
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        margin-left: 5px;
+    }
+    .pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.pagination a:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.pagination a:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+button{
+float:right;
+padding: 5px 10px;
+
+
+}
+
+.title-set a{
+    color:blue;
+}
+
+		/* Define a CSS class for coloring dates green */
+		.green {
+			background-color: green;
+		}
+	
+</style>
+
 </head>
 
 <body>
@@ -41,6 +100,9 @@
                 <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
             </li>
             <li>
+                <a href="daycare.php"><i class="fa-solid fa-calendar-plus"></i><span>Day Care</span></a>
+            </li>
+            <li>
                 <a href="#" class="active"><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
             </li>
             <li>
@@ -57,61 +119,65 @@
     <div class="content">
         <div class="navbar">
             <div class="navbar__left">
-                <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
                 <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
             </div>
             </div>
-
-
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa-solid fa-message"></i>
-                        </a>
-                    </li>
-                  
-                </ul>
-            </div>
         </div>
         <div class="container">
-
-
         <br/>
-        <div class="report-title">Reports<br></div><hr>
+        <div class="report-title">Report Generation<br></div><hr>
 <br/>
 
 <div class="title-set">
-    <div class="t1">
-        <p>Treatment<br/> Reports<br/></p>
+    <div class="t1"><a href="emp_report.php">
+        <p>Employee<br/> Reports<br/></p></a>
     </div>
-    <div class="t2">
-    <p>Store<br/> Reports</p>
+    <div class="t2"><a href="store_report.php">
+    <p>Store<br/> Reports</p></a>
     </div>
-    <div class="t3">
-    <p>Payment<br/> Reports</p>
+    <div class="t3"><a href="client_report.php">
+    <p>Client<br/> Reports</p></a>
     </div>
-
+   
 </div>
 <div class="title-set">
 <div class="t4">
-        <p>Meet-up<br/> Reports</p>
+<a>    <p>Meet-up<br/> Reports</p></a>
     </div>
-    <div class="t5">
-    <p>Day-care<br/> Reports</p>
+    <script>
+    // Get the Payment Reports div
+const meetupReportsDiv = document.querySelector('.t4');
+
+// Add a click event listener to the div
+meetupReportsDiv.addEventListener('click', (event) => {
+  // Prevent the link from redirecting to a new page
+  event.preventDefault();
+  
+  // Display the Sweet Alert message
+  swal("Sorry!", "This report generation is currently unavailable.", "warning");
+});
+ </script>
+    <div class="t5"><a href="daycare_report.php">
+    <p>Day-care<br/> Reports</p></a>
     </div>
-    <div class="t6">
-    <p>Income-Expense<br/> Reports</p>
+    <div class="t6"><a>
+    <p>Income-Expense<br/> Reports</p></a>
     </div>
+    <script>
+    // Get the Payment Reports div
+const incomeExpenseReportsDiv = document.querySelector('.t6');
+
+// Add a click event listener to the div
+incomeExpenseReportsDiv.addEventListener('click', (event) => {
+  // Prevent the link from redirecting to a new page
+  event.preventDefault();
+  
+  // Display the Sweet Alert message
+  swal("Sorry!", "This report generation is currently unavailable.", "warning");
+});
+ </script>  
 
 
 </div>
@@ -120,5 +186,15 @@
     </div>
     <script src="script.js"></script>
 </body>
+<script>
+    const toggleBtn = document.getElementById("toggle-sidebar");
+const sidebar = document.querySelector(".sidebar");
 
+toggleBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("active");
+});
+
+    </script>
+  
+    </body>
 </html>

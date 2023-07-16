@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
- 
- :root {
+
+:root {
    --colour1: #000D2F;
    --colour2: rgba(215,226,255,0.6);
    --backgroundcolour3: white;
@@ -20,6 +20,32 @@
  body {
    background-color: var(--backgroundcolour3);
  }
+ .holiday-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.holiday-table-header {
+  background-color: #96CDE1;
+  font-weight: bold;
+  padding: 8px;
+  text-align: left;
+}
+
+.holiday-table-cell {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.holiday-link {
+  color: blue;
+  text-decoration: none;
+}
+
+.holiday-link:hover {
+  text-decoration: underline;
+}
+
 
 .container {
   background-size: cover;
@@ -317,3 +343,40 @@ border:#fff solid;
       opacity:0.9;
       
       }
+      .leave-title{
+        margin-left: 70px;
+      }
+
+
+      .pagination {
+        display: inline-block;
+        }
+        
+        .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        }
+        
+        .pagination a.active {
+        background-color: #96CDE1;
+        color: white;
+        border: 1px solid #96CDE1;
+        }
+        
+        .pagination a:hover:not(.active) {
+        background-color: #ddd;
+        }
+        
+        .pagination a:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        }
+        
+        .pagination a:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        }

@@ -40,11 +40,9 @@
                 <a href="profile.php" ><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
             </li>
             <li>
-                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>Pet Daycare</span></a></a>
             </li>
-            <li>
-                <a href="../admin/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
-            </li>
+            
             <li>
                 <a href="inquiry.php" class="active"><i class="fa fa-user"></i><span>Inquiries</span></a>
             </li>
@@ -60,32 +58,14 @@
         <div class="navbar">
             <div class="navbar__left">
                 <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
+
                 </div>
-                <div class="hello">Welcome &nbsp <div class="name"><?php echo $_SESSION['user_name'];?></div>
+                <div class="hello">Welcome &nbsp <div class="name"><font class="header-font-2"><?php echo $_SESSION['user_name'];?></font></div>
                 </div>
             </div>
 
 
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span id="designation"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+           
         </div>
 
 
@@ -122,9 +102,9 @@
     <li><div class="dateandtime"><div class="date">Tuesday</div><div class="time">8.00am - 5.00pm</div></div></li>
     <li><div class="dateandtime"><div class="date">Wednesday</div><div class="time">8.00am - 5.00pm</div></div></li>
     <li><div class="dateandtime"><div class="date">Thursday</div><div class="time">8.00am - 5.00pm</div></div></li>
-    <li><div class="dateandtime"><div class="date">Friday</div><div class="time">8.00am - 4.00pm</div></div></li>
-    <li><div class="dateandtime"><div class="date">Saturday</div><div class="time">8.00am - 12.00pm</div></div></li>
-    <li><div class="dateandtime"><div class="date">Monday</div><div class="time">Closed</div></div></li>
+    <li><div class="dateandtime"><div class="date">Friday</div><div class="time">8.00am - 5.00pm</div></div></li>
+    <li><div class="dateandtime"><div class="date">Saturday</div><div class="time">8.00am - 5.00pm</div></div></li>
+    <li><div class="dateandtime"><div class="date">Sunday</div><div class="time">8.00am - 5.00pm</div></div></li>
     
 </ul>
 
@@ -133,7 +113,7 @@
 <div class="continfo-right">
 <h3>Keeping your pet well doesn't have to be hard (or expensive)</h3> 
 <h1>SIGN UP FOR OUR VIP PROGRAMS!</h1>
-<center><button>Find Out More ...</button></center>
+<center><button> <a href="daycare.php">Register Now ...</a></button></center>
 </div>
 
 </div>

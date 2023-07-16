@@ -1,36 +1,80 @@
 <?php
-    include("../../db/dbconnection.php");
-    session_start();
-    if(!isset($_SESSION["login_user"])){
-        header("location:../../Auth/login.php");
-        exit;
+include("../../db/dbconnection.php");
+session_start();
+if (!isset($_SESSION["login_user"])) {
+    header("location:../../Auth/login.php");
+    exit;
+}
+
+
+$loggedInUser = $_SESSION['login_user'];
+$sql2 = "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";
+$result2 = mysqli_query($conn, $sql2);
+$row2 = mysqli_fetch_assoc($result2);
+$owner_id = $row2["owner_id"];
+
+//generate next day care ID
+$sql_get_id = "SELECT MAX(daycare_id) AS max_id FROM daycare";
+$result_get_id = mysqli_query($conn, $sql_get_id);
+$row = mysqli_fetch_array($result_get_id);
+$max_id = $row['max_id'];
+
+// generate the new pet ID
+if ($max_id === null) {
+    $daycare_id = "D001";
+} else {
+    $num = intval(substr($max_id, 1)) + 1;
+    if ($num < 10) {
+        $daycare_id = "D00$num";
+    } else if ($num < 100) {
+        $daycare_id = "D0$num";
+    } else {
+        $daycare_id = "D$num";
     }
+}
 
-    
-    $loggedInUser = $_SESSION['login_user'];
-    $sql2 =  "SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}'";
-    $result2 = mysqli_query($conn, $sql2);
-    $row2 = mysqli_fetch_assoc($result2);
+//add a new day care request
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-  
-    $pet_id = '';
     $pet_name = $_POST['pet_name'];
-    $pet_gender=$_POST['pet_gender'];
-    $pet_dob=$_POST['pet_dob'];
-    $pet_type=$_POST['pet_type'];
-    $pet_breed=$_POST['pet_breed'];
-    $owner_id=$row2['owner_id'];
+    $daycare_date = date('Y-m-d', strtotime($_POST['daycare_date']));
+    $pr_time = $_POST['pr_time'];
 
-    $sql = "INSERT INTO pet VALUES ('$pet_id','$pet_name','$pet_gender','$pet_dob','$pet_type','$pet_breed','$owner_id')";
-    $result = mysqli_query($conn,$sql);
-    print_r($result);
-    
-    if($result==TRUE) { 
-        header("Location: viewpet.php");
-    }else {
-        echo "There is an error in adding!";
+    //check whether the appointment slots are available - maximum is 5
+    $sql_availability = "SELECT COUNT(*) FROM daycare WHERE daycare_date='$daycare_date'";
+    $result_availability = mysqli_query($conn, $sql_availability);
+    $row_availability = mysqli_fetch_array($result_availability);
+    if ($row_availability[0] > 5) {
+        echo '<script>alert("There are no available slots for the selected date")</script>';
+
+    } else {
+
+        //get pet ID from database
+        $sql_getpid = "SELECT pet_id FROM pet WHERE owner_id='$owner_id' AND pet_name='$pet_name'";
+        $result_getpid = mysqli_query($conn, $sql_getpid);
+        $row = mysqli_fetch_array($result_getpid);
+        $pet_id = $row['pet_id'];
+
+        //duplicate entry
+        $sql_duplicate="SELECT * FROM `daycare` WHERE `daycare_date`='$daycare_date' AND `pet_id` = '$pet_id' AND daycare_status != 'Canceled'";
+        $r2=mysqli_query($conn,$sql_duplicate);
+        $r_2=mysqli_num_rows($r2); 
+        if($r_2>0) {
+            echo"<script>alert('Daycare Date already Booked')</script>";
+        } else {
+
+        //insert data into the daycare table
+        $sql = "INSERT INTO daycare (daycare_id, pet_id, pet_name, daycare_date, pr_time, owner_id,daycare_status) VALUES ('$daycare_id','$pet_id','$pet_name','$daycare_date','$pr_time' ,'$owner_id','Available')";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result == TRUE) {
+            echo '<script>alert("Your daycare slot is booked")</script>';
+            header("Location: daycare.php");
+        } else {
+            echo '<script>alert("There is an error in booking")</script>';
+        }
     }
+}
 }
 
 ?>
@@ -45,34 +89,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/daycare.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>Pet Care</title>
+    <title>Pet Life</title>
 </head>
 
 <body>
     <div class="sidebar">
         <div class="user-img">
-            <center><img src="images/petlife.png" width= 200px></center>
+            <center><img src="images/petlife.png" width=200px></center>
         </div>
         <ul>
-            
-        <li>
-                <a href="dashboard.php" ><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
+
+            <li>
+                <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
             <li>
                 <a href="treatment.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatments</span></a>
             </li>
-            <!-- <li>
-                <a href="vaccination.php"><i class="fa-solid fa-file-lines"></i></i><span>Vaccinations</span></a>
-            </li> -->
+         
             <li>
-                <a href="profile.php" ><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My Profile</span></a>
+                <a href="profile.php"><i class="fa-solid fa-circle-user " aria-hidden="true"></i><span>My
+                        Profile</span></a>
             </li>
             <li>
-                <a href="daycare.php" class="active"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php" class="active"><i class="fa-solid fa-file"></i><span>Pet Daycare</span></a></a>
             </li>
-            <li>
-                <a href="../admin/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
-            </li>
+            
             <li>
                 <a href="inquiry.php"><i class="fa fa-user"></i><span>Inquiries</span></a>
             </li>
@@ -88,84 +129,178 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="navbar">
             <div class="navbar__left">
                 <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
                 </div>
-                <div class="hello">Welcome &nbsp <div class="name"><?php echo $_SESSION['user_name'];?></div>
+                <div class="hello">Welcome &nbsp <div class="name">
+                <font class="header-font-2"><?php echo $_SESSION['user_name']; ?></font>
+                    </div>
                 </div>
             </div>
 
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span id="designation"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+           
         </div>
 
         <div class="container">
-      
-<!-- <div class="left"> -->
-    <form method="POST" action="">
-        <p class="welcome">Register Now</p>
 
-        <div class="form-content">
-            <label class="loging-label1">First Name</label>
-            <input type="text" name="owner_fname" placeholder="first name" required>
-        </div>
-        <div class="form-content">
-            <label class="loging-label1">Last Name</label>
-            <input type="text" name="owner_lname" placeholder="last name" required>
-        </div>
-        <div class="form-content">
-            <label class="loging-label1">Email</label>
-            <input type="email" name="owner_email" placeholder="email" required>
-        </div>
-        <div class="form-content">
-            <label class="loging-label1">Phone</label>
-            <input type="number" name="owner_contactno" placeholder="phone" required>
-        </div>
-        <div class="form-content">
-            <label class="loging-label1">Pets Name</label>
-            <input type="text" name="pet_name" placeholder="address" required>
-        </div>
-        <div class="form-content">
-            <label class="loging-label1">Pet ID</label>
-            <input type="text" name="pet_id" placeholder="NIC"required>
-        </div>
-         <div class="form-content">
-            <label class="loging-label1">DayCare Date</label>
-            <input type="text" name="meetup_date" placeholder="Meetup Date" required>
-        </div> 
-        
+            <div class="left">
+                <form method="POST" action="">
+                    <p class="welcome">Register Now</p>
 
-        <p>
-            <button class="btn-add" type="submit">Register</button>
-            
-        </p>
-    </form>
+                    <div class="form-content">
+                        <label class="loging-label1">Pets Name</label>
+                        <select id='pet_name' name='pet_name' class='dropdown-list'>
+                            <?php
 
-    
-</div>
+                            //get the pet name from the sql table
+                            $sql_mid = "SELECT pet_name FROM pet WHERE owner_id='$owner_id' ";
 
-            <!-- <div class="top-container">
-
-         <div>
-                        <button class="register-btn2"><a href="./viewpet.php">View Pets</a></button>
+                            $result_getdata = $conn->query($sql_mid);
+                            if ($result_getdata->num_rows > 0) {
+                                while ($optionData = $result_getdata->fetch_assoc()) {
+                                    $option = $optionData['pet_name'];
+                                    ?>
+                                    <?php
+                                    
+                                    //selected option
+                                    if (!empty($pet_name) && $pet_name == $option) {
+                                        // selected option
+                                        ?>
+                                        <option value="<?php echo $option; ?>" selected><?php echo $option; ?> </option>
+                                        <?php
+                                        continue;
+                                    } ?>
+                                    <option value="<?php echo $option; ?>"><?php echo $option; ?> </option>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </select>
                     </div>
-        </div> -->
+
+                    <div class="form-content">
+                        <label class="loging-label1">DayCare Date</label>
+                        <?php
+                            $currentDate = date('Y-m-d');
+                            $nextfiveDays = date('Y-m-d', strtotime($currentDate . ' +4 days'));
+                        ?>
+            <input type="date" name="daycare_date" min="<?= $currentDate ?>" max="<?= $nextfiveDays ?>" required>
+                    </div>
+
+                    <div class="form-content">
+                    <label class="loging-label1">Urgency</label>
+                    <select name="pr_time" type="text" required>
+                        <option value="">--Select--</option>
+                        <option value="partial">Partial</option>
+                        <option value="full">Full</option>
+
+                        </select>
+                    </div>
+                    <p>
+                        <button class="btn-add" type="submit">Register</button>
+
+                    </p>
+                </form>
+            </div>
+            <div class="right-side">
+                <div class="filter">
+                    <form method="GET">
+                        <label><b>Pet Name</b></label><br>
+                        <select name="pet_name">
+                            <option value="">Select a pet</option>
+                            <?php
+                            $loggedInUser = $_SESSION['login_user'];
+                            // Get all pets of the logged-in user
+                            $sql_pets = "SELECT * FROM pet WHERE owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '$loggedInUser')";
+                            $result_pets = mysqli_query($conn, $sql_pets);
+                            while ($row_pets = mysqli_fetch_assoc($result_pets)) {
+                                // Set the selected attribute if the current pet is selected in the URL
+                                $selected = ($row_pets['pet_name'] == $_GET['pet_name']) ? 'selected' : '';
+                                echo '<option value="' . $row_pets['pet_name'] . '" ' . $selected . '>' . $row_pets['pet_name'] . '</option>';
+                            }
+                            ?>
+                        </select>
+                        <button class="btn-add1" type="submit"><img src="images/search.png"></button>
+                    </form>
+                </div>
+
+                <div class="tble">
+
+                    <table>
+                        <tr>
+                            <th>Pet ID</th>
+                            <th>Pet Name</th>
+                            <th>DayCare Date</th>
+                            <th>pr time</th>
+
+                            <th>Status</th>
+                            <th>Cancel</th>
+                        </tr>
+                        <?php
+                     
+
+
+                    
+                        $sql = "SELECT e.pet_id, e.pet_name, e.daycare_date,e.pr_time, e.daycare_id, e.daycare_status FROM daycare e
+                         INNER JOIN pet_owner o ON o.owner_id = e.owner_id WHERE e.pr_time != 'partial'  AND o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
+                    
+                        // Check if pet_name parameter is set in the URL
+                        if (isset($_GET['pet_name'])) {
+                            // Sanitize input value to prevent SQL injection
+                            $pet_name = mysqli_real_escape_string($conn, $_GET['pet_name']);
+                            // Include pet_name condition in SQL query
+                            $sql .= " AND e.pet_name LIKE '%$pet_name%'";
+                        }
+                    
+                        $result = mysqli_query($conn, $sql);
+                        if (mysqli_num_rows($result) > 0) {
+                            $currentDate = date('Y-m-d');
+                    
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $daycare_id = $row['daycare_id'];
+                                $daycare_status = $row['daycare_status'];
+                    
+                                //adding the color according to the approval stage
+                                $stage_color = '';
+                                switch($row["daycare_status"]) {
+                                    case 'Available':
+                                        $stage_color = '#f5f56c';
+                                        break;
+                                    case 'Canceled':
+                                        $stage_color = '#c74a4a';
+                                        break;
+                                }
+
+                    
+                                echo '<tr > 
+                                        <td>' . $row["pet_id"] . '</td>
+                                        <td> ' . $row["pet_name"] . '</td> 
+                                        <td>' . $row["daycare_date"] . '</td>
+                                        <td>' . $row["pr_time"] . '</td>
+                                        <td>' . $row["daycare_status"] . '</td>
+                                        <td class="action" style="background-color: ' . $stage_color . ';">';
+                    
+                                // Check if appointment is completed
+                                if ($daycare_status == 'Canceled' || $daycare_status == 'Completed') {
+                                    //echo '<button class="btn-add2" type="reset">Cannot Delete</button>';
+                                    echo"<a class='medicine-link' href='#'>Cannot Cancel</a></td>";
+                                } elseif (strtotime($row['daycare_date']) >= strtotime($currentDate)) {
+                                    // Display delete button and handle delete request
+                                    //echo '<button class="btn-add3" type="submit" name="daycare_id" value="' . $row["daycare_id"] . '">Cancel</button>';
+                                    echo"<a class='medicine-link' href='delete_daycare.php?daycare_id=" . $row['daycare_id'] . "'>Cancel</a></td>";                     
+                                } else {
+                                    // Display cannot delete button
+                                    //echo"<td><a class='medicine-link' href='#'>Cannot Delete</a></td>";
+                                }
+                            }
+                        } else {
+                            echo '<td colspan="7"><center><img style="width:40%;" src="images/no-results.png"></center></td>';
+                        }
+                        ?>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
         <script src="script.js"></script>
 
 </body>

@@ -1,33 +1,27 @@
 <?php
-    include("data/dbconnection.php");
+include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
     session_start();
     if(!isset($_SESSION["login_user"])){
         header("location:login.php");
         exit;
     }
 
-    $sql_get_id="SELECT medicine_id FROM medicine ORDER BY medicine_id DESC LIMIT 1";
+    $sql_get_id="SELECT MAX(medicine_id) AS max_id FROM medicine";
     $result_get_id=mysqli_query($conn,$sql_get_id);
     $row=mysqli_fetch_array($result_get_id);
+    $max_id = $row['max_id'];
 
-    $lastid="";
-                    
-    if(mysqli_num_rows($result_get_id)>0){
-        $lastid=$row['medicine_id'];
-    }
-
-    if($lastid==""){
-        $medicine_id="M001";
-    }else {
-        $medicine_id=substr($lastid,3);
-        $medicine_id=intval($medicine_id);
-
-        if($medicine_id>='9'){
-            $medicine_id="M0".($medicine_id+1);
-        } else if($medicine_id>='99'){
-            $medicine_id="M".($medicine_id+1);
-        }else{
-            $medicine_id="M00".($medicine_id+1);
+    // generate the new pet ID
+    if ($max_id === null) {
+        $medicine_id = "M001";
+    } else {
+        $num = intval(substr($max_id, 1)) + 1;
+        if ($num < 10) {
+            $medicine_id = "M00$num";
+        } else if ($num < 100) {
+            $medicine_id = "M0$num";
+        } else {
+            $medicine_id = "M$num";
         }
     }
    if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,7 +30,7 @@
         $medicine_category=$_POST['medicine_category'];
         $medicine_usage=$_POST['medicine_usage'];
         
-        $sql = "INSERT INTO medicine VALUES ('$medicine_id','$medicine_name','$medicine_brand','$medicine_category','$medicine_usage')";
+        $sql = "INSERT INTO medicine VALUES ('$medicine_id','$medicine_name','$medicine_brand','$medicine_category','$medicine_usage','Not Available')";
         $result = mysqli_query($conn,$sql);
         
         if($result==TRUE) { 
@@ -55,7 +49,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/add.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <title>Document</title>
+    <title>Pet Life</title>
 </head>
 <body>
     <div class="main-container">
@@ -70,6 +64,7 @@
                 <li><a  href="dashboard.php"><i class="fa fa-tachometer"></i><span>Home</span></a></li>
                 <li><a href="viewallitems.php"><i class="fa fa-paw"></i><span>Pet Items</span></a></li>
                 <li><a class="active" href="viewallmedicine.php"><i class="fa fa-stethoscope"></i><span>Medicine</span></a></li>
+                <li><a href="viewallbatch.php"><i class="fa fa-stethoscope"></i><span>Batches</span></a></li>
                 <li><a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a></li>
                 <li><a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a></li>
         </ul>
@@ -85,9 +80,7 @@
     <div class="right-container">
     
         <div class="top-bar">
-            <div class="nav-icon">
-                <i class="fa-solid fa-bars"></i>
-            </div>
+           
             <div class="hello">
                 <font class="header-font-1">Welcome </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
@@ -101,7 +94,7 @@
             <p class="topic">Add New Medicine</p><hr><br>
         
             <form method="POST">
-                <label><b>Item ID : </label> 
+                <label><b>Medicine ID : </label> 
                 <label class="item-id" name="medicine_id" ><?php echo $medicine_id;?></b><br><br>
                 <label>Medicine Name</label><br>
                 <input type="text" name="medicine_name" placeholder="Medicine Name"><br>
@@ -110,11 +103,8 @@
                 <label>Category</label><br>
                 <div class="dropdown-list">
                     <select name="medicine_category" class="dropdown-list">
-                        <option value="antibiotics">Antibiotics</option>
-                        <option value="antiparasitics">Antiparasitics</option>
-                        <option value="antifungals">Antifungals</option>
-                        <option value="steroids">Steroids</option>
-                        <option value="pain-relievers">Pain Relievers</option>
+                        <option value="medicine">medicine</option>
+                        <option value="vaccine">vaccine</option>
                     </select><br><br>
                 </div>
                 <label>Medicine Usage</label><br>

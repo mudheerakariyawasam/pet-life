@@ -8,6 +8,7 @@ if (!isset($_SESSION["login_user"])) {
 
 $employee_id = $_SESSION['emp_id'];
 
+
 $sql = "SELECT * FROM employee WHERE emp_id='$employee_id'";
 $result = mysqli_query($conn, $sql);
 if ($result) {
@@ -21,6 +22,8 @@ if ($result) {
         $emp_initsalary = $row["emp_initsalary"];
         $emp_currsalary = $row["emp_currsalary"];
         $emp_holtaken = $row["emp_holtaken"];
+        // newly added for code check
+        $reg_id = $row["reg_id"];
         $emp_dateassigned = $row["emp_dateassigned"];
     }
 } else {
@@ -44,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,14 +57,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/updateprofile.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <title>My Profile</title>
+    <title>Pet Life</title>
+    <style>
+.modal {
+    /* display: none; */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+    </style>
+
 </head>
 
 <body>
-    <!-- <div class="full">
-    
-</div> -->
+
 
     <div class="main-container">
 
@@ -78,8 +119,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <a href="showclients.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
                 </li>
                 <li>
-                <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment History</span></a></a>
-            </li>
+                    <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment
+                            History</span></a></a>
+                </li>
                 <li>
                     <a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a>
                 </li>
@@ -119,11 +161,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <hr><br>
 
                 <div class="main-content">
+             
                     <div class="left-content">
                         <div class="form-content">
-
+                        <form action="updateprofile.php" method="POST">
+                       
                             <p>
-                            <form method="POST">
+                            
                                 <label><b>Employee ID : </label>
                                 <label class="item-id" name="staff_id">
                                     <?php echo $employee_id; ?></b><br><br>
@@ -183,41 +227,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         </div>
                                         <div class="column-wise">
                                             <label>No of Holidays Left :</label><br>
-                                            <input type="number" name="emp_holleft" placeholder="Mo of Holidays Left"
+                                            <input type="number" name="emp_holleft" placeholder="No of Holidays Left"
                                                 value="<?php echo $emp_name; ?>" readonly><br>
                                         </div>
+                                    </div>
+                                    <!-- newly added for code check -->
+                                    <div class="row-wise">
+                                        <div class="column-wise">
+                                            <label>Registered_ID</label><br>
+                                            <input type="text" name="reg_id" placeholder="Registered ID"
+                                                value="<?php echo $reg_id; ?>" readonly><br>
+                                        </div>
+                                       
                                     </div>
 
                                     <button class="btn-add" type="submit">Update Profile </button>
                                     <button class="btn-add" href="viewallitems.php">Cancel</button>
+
                                     </p>
-                            </form>
+                                    </form>
                         </div>
                     </div>
-
+                    <!-- change password starts -->
                     <div class="right-content">
-                        <span class="sub-topic">Change Password</span><br>
-                        <p>
+                    <form action="changepassword.php" method="POST">
+                        <span class="sub-topic">Change Password</span><br><br>
                         <div class="pwd-content">
                             <label>Current Password :</label><br>
-                            <input type="password" name="emp_name" placeholder="Enter Current Password"><br>
+                            <input type="password" name="oldpass" placeholder="Enter Current Password"><br>
                         </div>
                         <div class="pwd-content">
                             <label>New Password :</label><br>
-                            <input type="password" name="emp_name" placeholder="Enter New Password"><br>
+                            <input type="password" name="newpass" placeholder="Enter New Password"><br>
                         </div>
                         <div class="pwd-content">
                             <label>Confirm New Password :</label><br>
-                            <input type="password" name="emp_name" placeholder="Re Enter Password"><br>
+                            <input type="password" name="cnewpass" placeholder="Re Enter Password"><br>
                         </div>
                         <div class="pwd-content">
-                            <button class="btn-add">Confirm </button>
+                            <button class="btn-add" type="submit">Confirm </button>
                         </div>
-                        </p>
-                    </div>
-                </div>
+                </form>    
+                <?php
+                // Check for success message
+                if (isset($_GET['password_changed']) && $_GET['password_changed'] == 'true') {
+                    echo '<span style="color: green;">Password changed successfully.</span>';
+                }
 
-            </div>
+                // Check for error message
+                if (isset($_SESSION['change_password_error']) && strlen($_SESSION['change_password_error']) > 1) {
+                    echo '<span style="color: red;">' . $_SESSION['change_password_error'] . '</span>';
+                    unset($_SESSION['change_password_error']);
+                }
+                ?>
+            
         </div>
     </div>
 </body>

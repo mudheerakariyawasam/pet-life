@@ -41,11 +41,9 @@ if (!isset($_SESSION["login_user"])) {
                         Profile</span></a>
             </li>
             <li>
-                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>VIP Programmes</span></a></a>
+                <a href="daycare.php"><i class="fa-solid fa-file"></i><span>Pet Daycare</span></a></a>
             </li>
-            <li>
-                <a href="../admin/Store/store.php"><i class="fas fa-cart-plus"></i><span>Pet Shop</span></a>
-            </li>
+           
             <li>
                 <a href="inquiry.php"><i class="fa fa-user"></i><span>Inquiries</span></a>
             </li>
@@ -61,77 +59,96 @@ if (!isset($_SESSION["login_user"])) {
         <div class="navbar">
             <div class="navbar__left">
                 <div class="nav-icon">
-                    <i class="fa-solid fa-bars"></i>
                 </div>
                 <div class="hello">Welcome &nbsp <div class="name">
-                        <?php echo $_SESSION['user_name']; ?>
+                <font class="header-font-2"><?php echo $_SESSION['user_name']; ?></font>
                     </div>
                 </div>
             </div>
 
 
-            <div class="navbar__right">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-bell"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span id="designation"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+           
         </div>
-
-    </div>
         
-   
-</body>
+        <div class="container">
 
-</html>
-
-<?php
-$sql = "SELECT *  FROM employee e 
-INNER JOIN treatment a ON e.emp_id = a.vet_id 
-INNER JOIN treatment_type t ON t.treatment_id =  a.treatment_id
-INNER JOIN pet p ON a.pet_id = p.pet_id 
-INNER JOIN pet_owner o ON o.owner_id = p.owner_id 
-WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
-
-$result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) > 0) {
-    echo '<table>
+            <!-- search items-->
+            <    <div class="bar-content search-bar">
+            <form method="GET">
+    <label><b>Pet Name</b></label><br>
+    <select name="pet_name">
+        <option value="">Select a pet</option>
+        <?php
+          $loggedInUser = $_SESSION['login_user'];
+        // Get all pets of the logged-in user
+        $sql_pets = "SELECT * FROM pet WHERE owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '$loggedInUser')";
+        $result_pets = mysqli_query($conn, $sql_pets);
+        while ($row_pets = mysqli_fetch_assoc($result_pets)) {
+            // Set the selected attribute if the current pet is selected in the URL
+            $selected = ($row_pets['pet_name'] == $_GET['pet_name']) ? 'selected' : '';
+            echo '<option value="' . $row_pets['pet_name'] . '" ' . $selected . '>' . $row_pets['pet_name'] . '</option>';
+        }
+        ?>
+    </select>
+    <button class="btn-add1" type="submit"><img src="images/search.png"></button>
+</form>
+        </div>
+                </div>
+            <div class ="app">
+                <p>TREATMENT RECORDS </P>
+                    </div>
+        <div class="tble">
+        <table>
                     <tr>
                         <th>Treatment type</th>
                         <th>Pet Name</th>
                         <th>Vet Name</th>
                         <th>Treatment Bill</th>
                         <th>Follow Up Date</th>
-                        <th colspan="2">Actions</th>
-                    </tr>';
+                    
+                    </tr>
+            <?php
+            $sql = "SELECT *  FROM employee e 
+INNER JOIN treatment a ON e.emp_id = a.vet_id 
+INNER JOIN treatment_type t ON t.treatment_id =  a.treatment_id
+INNER JOIN pet p ON a.pet_id = p.pet_id 
+INNER JOIN pet_owner o ON o.owner_id = p.owner_id 
+WHERE o.owner_id = (SELECT owner_id FROM pet_owner WHERE owner_email = '{$_SESSION['login_user']}')";
 
-    while ($row = mysqli_fetch_assoc($result)) {
+  // Check if pet_name parameter is set in the URL
+  if (isset($_GET['pet_name'])) {
+    // Sanitize input value to prevent SQL injection
+    $pet_name = mysqli_real_escape_string($conn, $_GET['pet_name']);
+    // Include pet_name condition in SQL query
+    $sql .= " AND p.pet_name LIKE '%$pet_name%'";
+}
+$sql .= " ORDER BY a.followup_date ASC";
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result) > 0) {
+               
 
-        echo '<tr > 
+                while ($row = mysqli_fetch_assoc($result)) {
+
+                    echo '<tr > 
                             <td><b>' . $row["treatment_type"] . '</b></td>
                             <td> ' . $row["pet_name"] . '</td>
                             <td>' . $row["emp_name"] . '</td> 
                             <td>' . $row["treatment_bill"] . '</td> 
                             <td>' . $row["followup_date"] . '</td>
-                            <td class="action-btn"><button type="submit"><img src="images/update.png"></button></td>
-                            <td class="action-btn"><button type="submit"><img src="images/delete.png"></button></td>
+                        
                         </tr>';
-    }
-    echo '</table>';
-} else {
-    echo "0 results";
-}
-?>
+                }
+                echo '</table>';
+            } else {
+                echo '<td colspan="7"><center><img style="width:25%;" src="images/no-results.png"></center></td>';
+            }
+            ?>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>

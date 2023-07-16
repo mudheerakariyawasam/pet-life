@@ -54,7 +54,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/updateprofile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <title>Update My Profile</title>
+    <title>Pet Life</title>
 </head>
 <body>
     <!-- <div class="full">
@@ -86,6 +86,9 @@
                 <a href="leave.php"><i class="fa-solid fa-file"></i><span>Leave Management</span></a></a>
             </li>
             <li>
+                <a href="daycare.php"><i class="fa-solid fa-calendar-plus"></i><span>Day Care</span></a>
+            </li>
+            <li>
                 <a href="report.php" ><i class="fa-solid fa-file-lines"></i><span>Reports</span></a>
             </li>
             <li>
@@ -104,9 +107,6 @@
     <div class="right-container">
     
         <div class="top-bar">
-            <div class="nav-icon">
-                <i class="fa-solid fa-bars"></i>
-            </div>
             <div class="hello">
                 <font class="header-font-1">Hello </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
@@ -167,18 +167,9 @@
                             <input type="number" name="emp_cursal" placeholder="Current Salary" value="<?php echo $emp_currsalary;?>" readonly><br>
                         </div>
                     </div>
-                    <div class="row-wise">
-                        <div class="column-wise">
-                            <label>No of Holidays Taken :</label><br>
-                            <input type="number" name="emp_holtaken" placeholder="No of Holidays Taken" value="<?php echo $emp_holtaken;?>" readonly><br>
-                        </div>
-                        <div class="column-wise">
-                            <label>No of Holidays Left :</label><br>
-                            <input type="number" name="emp_holleft" placeholder="Mo of Holidays Left" value="<?php echo $emp_name;?>" readonly><br>
-                        </div>
-                    </div>
+                   <br>
                     
-                    <button class="btn-add" type="submit">Update </button>
+                    <button class="btn-add" type="submit">Update Profile </button>
                     <button class="btn-add" href="viewallitems.php">Cancel</button>
                 </p>   
                 </form> 

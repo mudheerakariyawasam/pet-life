@@ -1,5 +1,5 @@
 <?php
-    include("data/dbconnection.php");
+    include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
     session_start();
     if(!isset($_SESSION["login_user"])){
         header("location:login.php");
@@ -54,7 +54,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/updateprofile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <title>Update My Profile</title>
+    <title>Pet Life</title>
 </head>
 <body>
     <!-- <div class="full">
@@ -73,6 +73,7 @@
                 <li><a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Home</span></a></li>
                 <li><a href="viewallitems.php"><i class="fa fa-paw"></i><span>Pet Items</span></a></li>
                 <li><a href="viewallmedicine.php"><i class="fa fa-stethoscope"></i><span>Medicine</span></a></li>
+                <li><a href="viewallbatch.php"><i class="fa fa-stethoscope"></i><span>Batches</span></a></li>
                 <li><a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Requests</span></a></li>
                 <li><a class="active" href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a></li>
         </ul>
@@ -88,9 +89,7 @@
     <div class="right-container">
     
         <div class="top-bar">
-            <div class="nav-icon">
-                <i class="fa-solid fa-bars"></i>
-            </div>
+            
             <div class="hello">
                 <font class="header-font-1">Welcome </font> &nbsp
                 <font class="header-font-2"><?php echo $_SESSION['user_name'];?> </font>
@@ -151,16 +150,7 @@
                             <input type="number" name="emp_cursal" placeholder="Current Salary" value="<?php echo $emp_currsalary;?>" readonly><br>
                         </div>
                     </div>
-                    <div class="row-wise">
-                        <div class="column-wise">
-                            <label>No of Holidays Taken :</label><br>
-                            <input type="number" name="emp_holtaken" placeholder="No of Holidays Taken" value="<?php echo $emp_holtaken;?>" readonly><br>
-                        </div>
-                        <div class="column-wise">
-                            <label>No of Holidays Left :</label><br>
-                            <input type="number" name="emp_holleft" placeholder="Mo of Holidays Left" value="<?php echo $emp_name;?>" readonly><br>
-                        </div>
-                    </div>
+                    <br><br>
                     
                     <button class="btn-add" type="submit">Update Profile </button>
                     <button class="btn-add" href="viewallitems.php">Cancel</button>
@@ -170,24 +160,37 @@
         </div>
     
         <div class="right-content">
-            <span class="sub-topic">Change Password</span><br>
-            <p>
-            <div class="pwd-content">
-                <label>Current Password :</label><br>
-                <input type="password" name="emp_name" placeholder="Enter Current Password"><br>
-            </div>
-            <div class="pwd-content">
-                <label>New Password :</label><br>
-                <input type="password" name="emp_name" placeholder="Enter New Password"><br>
-            </div>
-            <div class="pwd-content">
-                <label>Confirm New Password :</label><br>
-                <input type="password" name="emp_name" placeholder="Re Enter Password"><br>
-            </div>
-            <div class="pwd-content">
-                <button class="btn-add">Confim </button>
-            </div>
-            </p>
+                    <form action="changepassword.php" method="POST">
+                        <span class="sub-topic">Change Password</span><br><br>
+                        <div class="pwd-content">
+                            <label>Current Password :</label><br>
+                            <input type="password" name="oldpass" placeholder="Enter Current Password"><br>
+                        </div>
+                        <div class="pwd-content">
+                            <label>New Password :</label><br>
+                            <input type="password" name="newpass" placeholder="Enter New Password"><br>
+                        </div>
+                        <div class="pwd-content">
+                            <label>Confirm New Password :</label><br>
+                            <input type="password" name="cnewpass" placeholder="Re Enter Password"><br>
+                        </div>
+                        <div class="pwd-content">
+                            <button class="btn-add" type="submit">Confirm </button>
+                        </div>
+                </form>    
+                <?php
+                // Check for success message
+                if (isset($_GET['password_changed']) && $_GET['password_changed'] == 'true') {
+                    echo '<span style="color: green;">Password changed successfully.</span>';
+                }
+
+                // Check for error message
+                if (isset($_SESSION['change_password_error']) && strlen($_SESSION['change_password_error']) > 1) {
+                    echo '<span style="color: red;">' . $_SESSION['change_password_error'] . '</span>';
+                    unset($_SESSION['change_password_error']);
+                }
+                ?>
+            
         </div>
     </div>
 

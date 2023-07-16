@@ -1,3 +1,7 @@
+<?php
+include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/db/dbconnection.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/pet-life/modules/veterinarian/permission.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,13 +15,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&display=swap" rel="stylesheet">
-    <title></title>
+    <title>Pet Life</title>
 </head>
 
 <body>
+    <div class="main" >
     <div class="sidebar">
         <div class="user-img">
-            <center><img src="../images/logo_transparent black.png"></center>
+            <img src="../images/logo_transparent black.png">
         </div>
         <ul>
             <li>
@@ -27,7 +32,8 @@
                 <a href="showclients.php" class="active"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
             <li>
-                <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment History</span></a></a>
+                <a href="treatment_history.php"><i class="fa-solid fa-calendar-plus"></i><span>Treatment
+                        History</span></a></a>
             </li>
             <li>
                 <a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
@@ -42,7 +48,7 @@
         </div>
     </div>
 
-    <!-- //Navigation bar ends -->
+    <!-- //Left Navigation bar ends -->
 
 
     <div class="content">
@@ -52,8 +58,10 @@
                     <i class="fa-solid fa-bars"></i>
                 </div>
                 <div class="hello">
-                    <font class="header-font-1">Welcome </font> &nbsp 
-                    <font class="header-font-2"> Senuri</font>
+                    <font class="header-font-1">Welcome </font> &nbsp
+                    <font class="header-font-2">
+                        <?php echo $_SESSION['user_name']; ?>
+                    </font>
                 </div>
             </div>
 
@@ -67,71 +75,135 @@
                     </li>
                     <li>
                         <a href="#">
-                        <i class="fa-solid fa-message"></i>
+                            <i class="fa-solid fa-message"></i>
                         </a>
                     </li>
                     <li>
-                        <!-- <a href="">
-                            <span id="designation">Admin</span>
-                        </a> -->
+                       
                     </li>
                 </ul>
             </div>
         </div>
         <div class="container">
-            <div class="heading">Clients' Details</div>
+            <br/><br/><br/>
+            <p class="topic">Clients</p><hr><br>
+            <div class="table-btn">
+                <div class="search-field">
+                    <input type="text" class="search-input" id="live-search" class="form-control" autocomplete="off" placeholder="search on NIC">
+                    <div id="results" class="results"></div>
+                </div>
+                <div class="save-btn">
+                    <div class="tooltip tooltip-ex" onclick="getAll()" id="btn-all-treatments">
+                        <i class="fa-solid fa-reply-all" ></i>
+                        <span class="tooltiptext tooltip-all-t">all treatments</span>
+                    </div>
+                    <br>
+                    <button onclick="saveTreatment(event)" class="btn-add" name="" type="submit" role="button">
+                    <a style="color:black;"href="user.php" > + Add new Client</a>
+                    </button>
+                </div>
+            </div>
             <div class="data-table">
                 <table id="showclients">
                     <tr>
-                        <th> Client ID </th>
-                        <th>Name</th>
-                        <th> Date Registered</th>
-                        <th> Address </th>
-                        <th> Mobile</th>
-                        <th> Email</th>
-                        <th> Action</th>
+                        <th>Pet Owner's ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Contact Number</th>
+                        <th>Address</th>
+                        <th>NIC</th>
+                        <th>Action</th>
                     </tr>
-                    <tr>
-                        <td>C001</td>
-                        <td>Sachintha</td>
-                        <td>02/05/2022</td>
-                        <td>No.24, New York</td>
-                        <td>0789414977</td>
-                        <td>sachintha@gmail.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>C002</td>
-                        <td>John</td>
-                        <td>02/05/2022</td>
-                        <td>No.74, New York</td>
-                        <td>0705369977</td>
-                        <td>john@gmail.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>C003</td>
-                        <td>Swanson</td>
-                        <td>02/05/2022</td>
-                        <td>No.38/4, New York</td>
-                        <td>0705836977</td>
-                        <td>swan@gmail.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td>C004</td>
-                        <td>Brown</td>
-                        <td>02/05/2022</td>
-                        <td>No.4,London</td>
-                        <td>0789814977</td>
-                        <td>brown@yahooo.com</td>
-                        <td> <a href="viewcustomer.php"><i class="fa-sharp fa-solid fa-eye"></i></a></td>
-                    </tr>
+                    <?php
+                    if (isset($_GET['nic']) && $_GET['nic'] != '') {
+                        $nic = $_GET['nic'];
+                        $sql = "SELECT * from pet_owner WHERE owner_nic LIKE '%$nic%' AND owner_status='Registered'";
+                    } else {
+                        $sql = "SELECT * from pet_owner WHERE owner_status='Registered'";
+                    }
+
+                    $clients = mysqli_query($conn, $sql);
+                    // die(mysqli_fetch_assoc($clients));
+                    if ($clients) {
+                        // die(mysqli_fetch_assoc($clients));
+                        while ($row = mysqli_fetch_assoc($clients)) {
+                            $owner_id = $row['owner_id'];
+                            $fname = $row['owner_fname'];
+                            $lname = $row['owner_lname'];
+                            $email = $row['owner_email'];
+                            $tpn = $row['owner_contactno'];
+                            $address = $row['owner_address'];
+                            $nic = $row['owner_nic'];
+                            echo '<tr>
+                            <td>' . $owner_id . '</td>
+                            <td>' . $fname . '</td>
+                            <td>' . $lname . '</td>
+                            <td>' . $email . '</td>
+                            <td>' . $tpn . '</td>
+                            <td>' . $address . '</td>
+                            <td>' . $nic . '</td>
+                            <td>
+                            <div class="action all" style="display:flex;">
+                            <a href="viewcustomer.php? owner_id=' . $owner_id . '"><i class="fa-sharp fa-solid fa-eye" style="margin:5px;"></i></a>
+                            <a href="update_customer.php? owner_id=' . $owner_id . '"><i class="fa-sharp fa-solid fa-pen-to-square" style="margin:5px;"></i></a>
+                            </div>
+                            </td>
+                            </tr>';
+                        }
+                    } else {
+                        // die('mm');
+                        $noData = "No data to show";
+                        echo '<tr>
+                            <td>' .$noData. '</td>
+                            
+                           
+                            </tr>';
+                    }
+
+                    ?>
+
                 </table>
 
             </div>
         </div>
-        <script src="script.js"></script>
+    </div>
+    <!-- Content ends -->
+    
+    
+    <div id="searchresult">
+
+    </div>
+    <script src="../js/show_clients.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#live-search').on('input', function() {
+                var query = $(this).val();
+                if (query !== '') {
+                    $.ajax({
+                        url: 'livesearch.php',
+                        type: 'POST',
+                        data: {
+                            query: query
+                        },
+                        success: function(response) {
+                            if (response.includes("<div") || response.includes("No results found")) {
+                                $('#results').css('visibility', 'visible');
+                            } else {
+                                $('#results').css('visibility', 'hidden');
+                            }
+                            $('#results').html(response);
+                        }
+                    });
+                } else {
+                    $('#results').css('visibility', 'hidden');
+                    $('#results').html('');
+                }
+            });
+        });
+    </script>
+    </div>
 </body>
 
 </html>

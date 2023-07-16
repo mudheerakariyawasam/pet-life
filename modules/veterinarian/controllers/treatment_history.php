@@ -23,7 +23,7 @@ while ($row = mysqli_fetch_assoc($all_treatments)) {
     $current_treatment['special_comments'] = $row['special_comments'];
     $current_treatment['symptoms'] = $row['symptoms'];
     $current_treatment['treatment_bill'] = $row['treatment_bill'];
-    $current_treatment['treatment_date'] = date("Y-m-j", strtotime($row['treatment_date']));
+    $current_treatment['treatment_date'] = date("Y-m-d", strtotime($row['treatment_date']));
     $t_id = $row['treatment_id'];
 
     // treatment type
@@ -79,14 +79,135 @@ while ($row = mysqli_fetch_assoc($all_treatments)) {
         $get_vac = "SELECT medicine_name FROM medicine WHERE medicine_id = '$vac_id'";
         $vaccine_name = mysqli_fetch_assoc(mysqli_query($conn, $get_vac));
 
-        array_push($vaccines, $medicine_name['medicine_name']);
+        array_push($vaccines, $vaccine_name['medicine_name']);
     }
 
     $current_treatment['vaccine'] = $vaccines;
     // die(json_encode($current_treatment));
 
     array_push($treatment_list, $current_treatment);
-} ?>
+}
+
+function extractContent($array, $state)
+{
+    $returnArray = array();
+    foreach ($array as $key => $value) {
+
+        if ($state != 'text') {
+            switch ($state) {
+                case '1':
+                    $condition = (($key == 'followup_date') && $value != null);
+                    break;
+                case '2':
+                    $condition = (($key == 'treatment_date') && $value != null);
+                    break;
+
+                default:
+                    $condition = (($key == 'followup_date' || $key == 'treatment_date') && $value != null);
+                    break;
+            }
+        } else {
+            $condition = ($key != 'followup_date' && $key != 'treatment_date' && $value != null);
+        }
+        if ($condition) {
+            if (is_array($value)) {
+                foreach ($value as $row) {
+                    $returnArray[] = $row;
+                }
+            } else {
+                $returnArray[] = $value;
+            }
+        }
+    }
+    return $returnArray;
+}
+
+function checkValue($content, $text)
+{
+    foreach ($content as $data) {
+
+        // die(json_encode($text));
+        if (preg_match("/{$text}/i", $data)) {
+            // die(json_encode($data));
+            return true;
+        }
+    }
+    return false;
+}
+
+function checkDateRange($content, $startDate, $endDate)
+{
+    foreach ($content as $data) {
+
+        $searchDateBegin = date('Y-m-d', strtotime($startDate));
+        $searchDateEnd = date('Y-m-d', strtotime($endDate));
+        $checkingDate = date('Y-m-d', strtotime($data));
+
+        if (($checkingDate >= $searchDateBegin) && ($checkingDate <= $searchDateEnd)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function filter_array($treatment_list, $text)
+{
+    $matches = array();
+
+    foreach ($treatment_list as $treatment) {
+
+        $content = extractContent($treatment, 'text');
+
+        if (checkValue($content, $text)) {
+            $matches[] = $treatment;
+        }
+    }
+    return $matches;
+}
+
+function date_filter($treatment_list, $startDate, $endDate, $state)
+{
+    $matches = array();
+
+    foreach ($treatment_list as $treatment) {
+
+        $content = extractContent($treatment, $state);
+        if ($startDate && $endDate) {
+            if (checkDateRange($content, $startDate, $endDate)) {
+                $matches[] = $treatment;
+            }
+        } else if ($startDate) {
+            if (checkValue($content, $startDate)) {
+                $matches[] = $treatment;
+            }
+        }
+    }
+    return $matches;
+}
+
+// text search
+if (isset($_GET['searchQuery']) && $_GET['searchQuery'] != '') {
+
+    $text = $_GET['searchQuery'];
+    $treatment_list = filter_array($treatment_list, $text);
+} else if (isset($_GET['dateFilter']) && $_GET['dateFilter'] != '') { // date search
+
+    $dates = $_GET['dateFilter'];
+
+    if (is_array($dates) && count($dates) == 3) {
+        $startDate = $dates[0];
+        $endDate = $dates[1];
+        $state = $dates[2];
+    } else if (is_array($dates) && count($dates) == 2) {
+        $startDate = $dates[0];
+        $state = $dates[1];
+        $endDate = null;
+    }
+
+    $treatment_list = date_filter($treatment_list, $startDate, $endDate, $state);
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -101,28 +222,29 @@ while ($row = mysqli_fetch_assoc($all_treatments)) {
     <title>Pet Life</title>
 </head>
 
-<body>
+<body onload="onLoad()">
+
     <div class="sidebar">
         <div class="user-img">
             <center><img src="../images/logo_transparent black.png"></center>
         </div>
         <ul>
-            <li>
+        <li>
                 <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
             </li>
-
+           
             <li>
-                <a href="showclients.php" ><i class="fa fa-user"></i></i><span>Clients</span></a>
+                <a href="showclients.php"><i class="fa fa-user"></i></i><span>Clients</span></a>
             </li>
             <li>
                 <a href="treatment_history.php" class="active"><i class="fa-solid fa-calendar-plus"></i><span>Treatment History</span></a></a>
             </li>
             <li>
-                <a href="#"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
+                <a href="leaverequest.php"><i class="fa-solid fa-file"></i><span>Leave Request</span></a></a>
             </li>
-
+         
             <li>
-                <a href="#"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+                <a href="updateprofile.php"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
             </li>
         </ul>
         <div class="logout">
@@ -131,8 +253,9 @@ while ($row = mysqli_fetch_assoc($all_treatments)) {
         </div>
     </div>
 
-    <!-- //Navigation bar -->
+    
     <div class="content">
+        <!-- //Top Navigation bar starts-->
         <div class="navbar">
             <div class="navbar__left">
                 <div class="nav-icon">
@@ -140,7 +263,9 @@ while ($row = mysqli_fetch_assoc($all_treatments)) {
                 </div>
                 <div class="hello">
                     <font class="header-font-1">Welcome </font> &nbsp
-                    <font class="header-font-2">Senuri </font>
+                    <font class="header-font-2">
+                        <?php echo $_SESSION['user_name']; ?>
+                    </font>
                 </div>
             </div>
 
@@ -157,83 +282,278 @@ while ($row = mysqli_fetch_assoc($all_treatments)) {
                             <i class="fa-solid fa-message"></i>
                         </a>
                     </li>
-                    <li>
-                    </li>
                 </ul>
             </div>
         </div>
+ <!-- //Top Navigation bar ends-->
         <div class="container">
-        <div class="heading">Treatment History</div>
-             <div class="table-view">
-                <table id="history">
-                    <tr>
-                        <th>Treatment ID </th>
-                        <th>Vet ID</th>
-                        <th>Pet ID</th>
-                        <th> Symptoms</th>
-                        <th> Definitive Diagnosis</th>
-                        <th>Treatment Date</th>
-                        <th> Followup Date</th>
-                        <th> Special Comments</th>
-                        <th> Treatment Bill</th>
+        <!-- <div class="heading">Treatment History</div> -->
+        <p class="topic">Treatment History </p><hr><br>
+        
+        <div class="filter-panel">
+            <input type="text" class="input-search" id="input-search" placeholder="Type to Search...">
+            <i onclick="textSearch()" id="search-icon" class="fa-solid fa-magnifying-glass search-icon"></i>
+        </div>
+        <div class="action-panel">
+            <div class="tooltip tooltip-ex" id="btn-all-treatments">
+                <i class="fa-solid fa-reply-all" onclick="textSearch('all')"></i>
+                <span class="tooltiptext tooltip-all-t">all treatments</span>
+            </div>
+            <div class="tooltip tooltip-ex" id="btn-expand">
+                <i class="fa-solid fa-angles-down" onclick="toggleExpand(true)"></i>
+                <span class="tooltiptext tooltip-all-t">expand data</span>
+            </div>
+            <div class="tooltip tooltip-ex" id="btn-collapse">
+                <i class="fa-solid fa-angles-up" onclick="toggleExpand(false)"></i>
+                <span class="tooltiptext tooltip-all-t">collapse data</span>
+            </div>
+            <div class="tooltip tooltip-ex">
+                <i class="fa-solid fa-calendar-days" onclick="searchCalendar()"></i>
+                <span class="tooltiptext tooltip-calendar">date filter</span>
+                <div id="calendar-filter">
+                    <div id="c-checkbox-panel">
+                        <div class="c-checkbox">
+                            <input type="checkbox" id="ct-date" class="c-input-box" checked />
+                            <label for="">treatment date</label>
+                        </div>
+                        <div class="c-checkbox">
+                            <input type="checkbox" id="cf-date" class="c-input-box" />
+                            <label for="">followup date</label>
+                        </div>
+                    </div>
+                    <div id="c-calendar-panel">
+                        <div id="c-calendar-toggle">
+                            <div></div>
+                            <div class="toggle-switch">
+                                <label class="toggle-name"> Date range </label>
+                                <input id="toggle" class="toggle-input" type='checkbox' onclick="dateRangeChange()" checked />
+                                <label for="toggle" class="toggle-label" id="toggle-label" />
+                            </div>
+                        </div>
+                        <div id="c-calendar-datepicker">
+                            <div class="c-datepicker-row">
+                                <label id="label-start"><i class="fa-solid fa-calendar-plus" style="margin-right: 8px;"></i>select specific date</label>
+                                <input style="cursor: pointer; font-size: 12px" type="date" id="start-date" class="c-calendar-left" webkitdirectory>
+                            </div>
+                            <div class="c-datepicker-row" id="c-datepicker-end">
+                                <label id="label-end"><i class="fa-solid fa-calendar-check" style="margin-right: 8px;"></i>select end date</label>
+                                <input style="cursor: pointer; font-size: 12px" type="date" id="end-date" class="c-calendar-left">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="c-error-panel" id="c-error-panel"></div>
+                    <div id="c-btn-panel">
+                        <div id="btn-filter" class="btn-filter" onclick="dateSearch()">filter treatments</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-view">
+
+
+            <table border="1" id="myTable3" cellspacing="0" cellpadding="0">
+                <!-- <caption>Treatment history</caption> -->
+                <thead>
+                    <tr><!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
+                        <th style="width: 4%;padding-right: 10px;"></th>
+                        <th style="width: 8%;">ID</th>
+                        <th style="width: 8%;" mytable2="">Type</th>
+                        <th style="width: 24.8%;" mytable2="" >Symptoms</th>
+                        <th style="width: 20%;" mytable2="">Diagnosis</th>
+                        <th mytable2="">Pet</th>
+                        <th mytable2="">Followup date</th>
+                        <!-- <th mytable2="" onclick="sortTable(7, 'myTable3')">Comments</th> -->
+                        <th mytable2="">Date</th>
+                        <!-- <th mytable2="" onclick="sortTable(9, 'myTable3')">Bill</th> -->
                     </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td>Total treatments: &nbsp;<?= count($treatment_list) ?></td>
+                    </tr>
+                </tfoot>
+                <tbody>
+
+
                     <?php
-                    while ($rows = mysqli_fetch_assoc($result))
-                    {
-                    ?>
-                    <tr>
-                       <td><?php echo $rows['treatment_id'] ?></td>
-                       <td><?php echo $rows['vet_id'] ?></td>
-                       <td><?php echo $rows['pet_id'] ?></td>
-                       <td><?php echo $rows['symptoms'] ?></td>
-                       <td><?php echo $rows['definitive_diagnosis'] ?></td>
-                       <td><?php echo $rows['treatment_date'] ?></td>
-                       <td><?php echo $rows['followup_date'] ?></td>
-                       <td><?php echo $rows['special_comments'] ?></td>
-                       <td><?php echo $rows['treatment_bill'] ?></td>
-                     
-                    </tr>
-                    <?php 
+                    if (count($treatment_list) > 0) {
+                        foreach ($treatment_list as $treatment) : ?>
+                            <tr>
+                                <td style="width: 4%;padding-right: 10px;color: #56afbbb0;font-size: 16px;"><i onclick="expandRow(this)" id="expand-icon" class="fa-regular fa-square-plus expand-icon"></i></td>
+                                <td style="width: 8%;"> <?= $treatment['treatment_id']; ?></td>
+                                <td style="width: 8%; padding: 30px 0 30px 0;">
+                                    <?php foreach ($treatment['treatment_type'] as $key => $value) {
+
+                                        if ($value == 'treatment') {
+                                    ?>
+                                            <div class="tooltip">
+                                                <?php
+                                                echo "<i class='t-icon fa-solid fa-t'></i>";
+                                                ?>
+                                                <span class="tooltiptext">treatment</span>
+                                            </div>
+                                        <?php
+                                        }
+                                        if ($value == 'surgery') {
+                                        ?>
+                                            <div class="tooltip">
+                                                <?php
+                                                echo "<i class='s-icon fa-solid fa-s'></i>";
+                                                ?>
+                                                <span class="tooltiptext">surgery</span>
+                                            </div>
+                                    <?php
+                                        }
+                                    } ?>
+                                </td>
+                                <td style="width: 24%;"><?= $treatment['symptoms']; ?></td>
+                                <td style="width: 20%;"><?= $treatment['definitive_diagnosis']; ?></td>
+                                <td><?= $treatment['pet_id']; ?></td>
+                                <td><?= $treatment['followup_date']; ?></td>
+
+                                <td><?= $treatment['treatment_date']; ?></td>
+
+
+                            </tr>
+                            <tr class="action">
+                                <td>
+                                    <div class="expand-content" id="expand-content">
+                                        <div class="expand-col">
+                                            <div class="expand-row">
+
+                                                <div class="tooltip tooltip-ex">
+                                                    <label class="expand-label"><i class="fa-solid fa-prescription-bottle-medical expand-data"></i></label>
+                                                    <span class="tooltiptext tooltiptext-ex">medicine</span>
+                                                </div>
+                                                <div class="expand-item">
+
+                                                    <?php
+                                                    if (count($treatment['medicine']) > 0) {
+                                                        // print the medicines
+                                                        foreach ($treatment['medicine'] as $key => $value) {
+
+                                                            echo "<div class='expand-item-content'><i class='fa-solid fa-check ex-icon'></i>$value</div>";
+                                                        }
+                                                    } else {
+                                                        echo "<div class='expand-item-content'><i class='fa-solid fa-xmark ex-icon-no'></i>No medicine given</div>";
+                                                    }
+
+                                                    ?>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="expand-row">
+
+                                                <div class="tooltip tooltip-ex">
+                                                    <label class="expand-label" style="margin-right: 13px;"><i class="fa-solid fa-flask-vial expand-data"></i></label>
+                                                    <span class="tooltiptext tooltiptext-ex">labs</span>
+                                                </div>
+                                                <div class="expand-item">
+
+                                                    <?php
+                                                    if (count($treatment['lab_investigations']) > 0) {
+                                                        foreach ($treatment['lab_investigations'] as $key => $value) {
+
+                                                            echo "<div class='expand-item-content'><i class='fa-solid fa-check ex-icon'></i>$value</div>";
+                                                        }
+                                                    } else {
+                                                        echo "<div class='expand-item-content'><i class='fa-solid fa-xmark ex-icon-no'></i>No lab investigation reported</div>";
+                                                    }
+
+                                                    ?>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="expand-row">
+
+                                                <div class="tooltip tooltip-ex">
+                                                    <label class="expand-label" style="margin-right: 19px;"><i class="fa-solid fa-syringe expand-data"></i></label>
+                                                    <span class="tooltiptext tooltiptext-ex">vaccines</span>
+                                                </div>
+                                                <div class="expand-item">
+
+                                                    <?php
+                                                    if (count($treatment['vaccine']) > 0) {
+                                                        foreach ($treatment['vaccine'] as $key => $value) {
+
+                                                            echo "<div class='expand-item-content'><i class='fa-solid fa-check ex-icon'></i>$value</div>";
+                                                        }
+                                                    } else {
+                                                        echo "<div class='expand-item-content'><i class='fa-solid fa-xmark ex-icon-no'></i>No vaccine given</div>";
+                                                    }
+
+                                                    ?>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="expand-col" style="line-height: 1.5">
+                                            <div class="expand-row">
+                                                <label class="expand-label expand-label-right"><i class="fa-solid fa-comment-medical expand-data" style="padding-right:8px;"></i>comments</label>
+                                                <div class="expand-item">
+                                                    <?php
+                                                    $comment = $treatment['special_comments'];
+                                                    if ($comment != null) {
+                                                        echo "<div class='expand-item-content'  >$comment</div>";
+                                                    } else {
+                                                        echo "<div class='expand-item-content' ><i class='fa-solid fa-xmark ex-icon-no'></i>No comments</div>";
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            <div class="expand-row">
+                                                <label class="expand-label expand-label-right" style="margin-right: 35px;"><i class="fa-solid fa-dollar-sign expand-data" style="padding-right:16px;"></i>charges</label>
+                                                <div class="expand-item">
+                                                    <?php
+                                                    $bill = $treatment['treatment_bill'];
+                                                    if ($bill != null) {
+                                                        echo "<div class='expand-item-content'  >$bill</div>";
+                                                    } else {
+                                                        echo "<div class='expand-item-content' ><i class='fa-solid fa-xmark ex-icon-no'></i>No comments</div>";
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            <div class="expand-row">
+                                                <label class="expand-label expand-label-right" style="margin-right: 49px;"><i class="fa-solid fa-user-doctor expand-data" style="padding-right:13px;"></i>Vet Id</label>
+                                                <div class="expand-item">
+                                                    <?php
+                                                    $vet = $treatment['vet_id'];
+                                                    if ($vet != null) {
+                                                        echo "<div class='expand-item-content'  >$vet</div>";
+                                                    } else {
+                                                        echo "<div class='expand-item-content' ><i class='fa-solid fa-xmark ex-icon-no'></i>No vet specified</div>";
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                    <?php endforeach;
+                    } else {
+                        echo "<tr style='margin-top:100px;'><td style='text-align:center;'><h2>No treatments!</h2></td></tr>";
                     }
                     ?>
-                    <tr>
-                        <!-- <td>C002</td>
-                        <td>John</td>
-                        <td>02/05/2022</td>
-                        <td>No.74, New York</td>
-                        <td>0705369977</td>
-                        <td>john@gmail.com</td>
-                        <td>sachintha@gmail.com</td>
-                        <td>sachintha@gmail.com</td>
-                        <td>sachintha@gmail.com</td> -->
-                    </tr>
-                    <tr>
-                        <!-- <td>C003</td>
-                        <td>Swanson</td>
-                        <td>02/05/2022</td>
-                        <td>No.38/4, New York</td>
-                        <td>0705836977</td>
-                        <td>swan@gmail.com</td>
-                        <td>sachintha@gmail.com</td>
-                        <td>sachintha@gmail.com</td>
-                        <td>sachintha@gmail.com</td> -->
-                    </tr>
-                    <tr>
-                        <!-- <td>C004</td>
-                        <td>Brown</td>
-                        <td>02/05/2022</td>
-                        <td>No.4,London</td>
-                        <td>0789814977</td>
-                        <td>brown@yahooo.com</td>
-                        <td>sachintha@gmail.com</td>
-                        <td>sachintha@gmail.com</td>
-                        <td>sachintha@gmail.com</td> -->
-                    </tr>
-                    </table>
-</div>
-       
+
+                </tbody>
+            </table>
+            
+        </div>
+        
         </div>
     </div>
+
+
+
+    <script src="../js/treatment_history.js">
+    </script>
 </body>
 
-<!-- </html> -->
+</html>

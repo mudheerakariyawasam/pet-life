@@ -1,4 +1,5 @@
-root {
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
+:root {
     --colour1: #000D2F;
     --colour2: rgba(215, 226, 255, 0.6);
     /* --backgroundcolour3: #EEF3FF; */
@@ -14,7 +15,11 @@ root {
     text-decoration: none;
     list-style-type: none;
 }
-
+.header-font-2{
+    font-size:30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
+}
 
 body {
     margin: 0;
@@ -22,7 +27,10 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
-
+.sub-topic{
+    font-size: 20px;
+    font-weight: 700;
+  }
 
 .user-img {
     color: rgb(0, 0, 0);
@@ -157,7 +165,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content:space-between;
-    margin: 80px;
+    margin: 70px;
 }
 
 
@@ -236,8 +244,8 @@ body {
 
 .text {
     font-size: xx-large;
-  margin-left: 300px;
-    font-weight: bold;
+    margin-left: 250px;
+      font-weight: bold;
 }
 
 .topic {
@@ -247,11 +255,11 @@ body {
 }
 
 form{
-    font-size: 15px; 
-    margin-left: 40px; 
-    background-color: #ffffffd2;
-    width: 400px;
+    background-color: #e6e6e6fa;
+    width: 420px;
     border-radius: 10%;
+    padding: 30px;
+    height: 540px;
 }
 
 input{
@@ -261,11 +269,11 @@ input{
     border: none;
     padding: 3px;
     margin-bottom: 20px;
-    background-color: #C38D9E;
+    background-color: #ffffff;
     margin-left: 30px;
 }
 
-.right-content2 input{
+.right-content input{
     background-color: white;
 }
 
@@ -297,20 +305,24 @@ label{
     display: flex;
     flex-direction: row;
     justify-content:space-between;
-    margin: 90px;
+    margin-left: 50px;
+    margin-top: 30px;
+    margin-right: 50px;
 }
 
 .right-content{
-    width: 35%;
+    width: 30%;
     display: flex;
     flex-direction: column;
-    background-color: #D9D9D9;
-    border-radius: 20px;
-    padding: 20px;
-    border-style: solid;
-    border-color: white;
-    height: 350px;
+    margin-right: 170px; 
+    height: 50px;
+      
 }
+
+.form-content2 {
+    margin-left: 60px;
+}
+
 
 button.btn-add{
     background-color: #C38D9E;

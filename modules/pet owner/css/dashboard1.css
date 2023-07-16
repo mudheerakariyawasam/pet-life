@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&family=Poppins&display=swap');
 
-root {
-    --colour1: #000D2F;
-    --colour2: rgba(215, 226, 255, 0.6);
-    /* --backgroundcolour3: #EEF3FF; */
-    --colour4: black;
-    --colour5: white;
-}
 
 * {
     padding: 0;
@@ -16,17 +10,10 @@ root {
     text-decoration: none;
     list-style-type: none;
 }
-
-body {
-    margin: 0;
-    background-image: url(../images/dash.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.user-img {
-    color: rgb(0, 0, 0);
-
+.header-font-2{
+    font-size:30px;
+    font-family: 'Amatic SC';
+    font-weight: bold;
 }
 
 .sidebar {
@@ -88,8 +75,6 @@ body {
     padding-left: 1.8rem;
 }
 
-
-
 .logout a i {
     font-size: 1.2rem;
     padding-right: 1.5rem;
@@ -105,11 +90,13 @@ body {
 }
 
 .content {
-    position: fixed;
+   /*position: fixed;*/
     background: var(--backgroundcolour3);
     width: 82%;
+
     margin-left: 18%;
-    margin-bottom: 56px;
+    margin-bottom: 200px;
+    
 }
 
 .logout hr {
@@ -130,16 +117,13 @@ body {
     justify-content: space-between;
     width: 82%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    margin-top: 6px;
+    /* margin-top: 6px; */
 }
 
 .navbar__left {
     display: flex;
     align-items: center;
 }
-
-
-
 .nav-icon {
     font-size: 1.5rem;
     margin-right: 1rem;
@@ -150,15 +134,10 @@ body {
     font-size: 25px;
     display: flex;
     flex-direction: row;
+    
 }
 
-.text {
-    color: black;
-    font-size: 25px;
-    display:flex;
-    flex-direction: row;
-}
-.name {}
+
 
 .top-container{
     display: flex;
@@ -166,7 +145,6 @@ body {
     justify-content:space-between;
     margin: 120px;
 }
-
 
 .box{
     box-sizing: border-box;
@@ -178,16 +156,32 @@ body {
     left: 63px;
     top: 164px;
     background: #96CDE1;
-    border: 1px solid #FFFFFF;
+    border: 1px solid #ffffff;
     border-radius: 20px;
     padding: 20PX;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
+    
 }
+
+.box:hover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    background-color: #96CDE1;
+    /* width:  22%;
+    border-radius: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px; */
+    color: #fff;
+  
+  }
 
 .top-text{
     margin: 20px 0px 0px 0px;
     font-weight: bold;
-    font-size: medium;
+    font-size: large;
 }
 
 .count{
@@ -208,17 +202,16 @@ body {
     float:right;
     font-family: poppins, sans-serif;
     font-style: normal;
-    font-weight: 800;
+    font-weight: bold;
     margin-right: 5px;
     margin-top: 12px;
     cursor: pointer;
-  
   }
+
 .btn-add:hover {
     background-color:rgba(215,226,255,0.6);
     transition: 0.7s;
   }
-
 
 .btn-add2{
     background-color: #C38D9E;
@@ -228,15 +221,15 @@ body {
     /* box-shadow: 0px 0px 2px 2px rgb(0,0,0); */
     box-shadow: 0 8px 8px 0 rgba(0,0,0,0.0), 0 2px 2px 0 rgba(0,0,0,1);
     border: none;
-    margin: auto;
-    width: 120px;
+    margin-top: 40px;
+    width: 180px;
     float:right;
     font-family: poppins, sans-serif;
     font-style: normal;
-    font-weight: 800;
+    font-weight: 1000;
     margin-right: 60px;
+
     margin-left: 1050px;
-    margin-top: 50px;
     cursor: pointer;
   
   }
@@ -302,9 +295,12 @@ body {
   align-items: center;
   /* background-image: linear-gradient(45deg, #d1fdff, #fddb92); */
   font-size: 0.24rem;
-  font-family: 'Nunito', sans-serif;
-  padding: 0.5rem 0.2rem;
-  color: #333;
+  /* font-family: 'Nunito', sans-serif; */
+  /* padding: 0.5rem 0.2rem;
+  color: #333; */
+  background-image: url(../images/dash.png);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 table {
@@ -317,11 +313,12 @@ table {
   th, td {
     width:120px;
     text-align:center;
-    padding:p7x; 
+    padding:7px; 
     background-color: #000D2F; 
     height: 50px;
     color: white;
     font-size: medium;
+    font-weight: bolder;
   }
   
   td{
@@ -329,7 +326,7 @@ table {
     background-color:#96CDE1;   
     border-bottom: 5px solid white;
     width:60px;
-  }
+}
 
 .details{
     text-align:left;
@@ -343,4 +340,5 @@ table {
 .app{
     font-size: large;
     margin-left: 130px;
+    font-weight: bolder;
 }

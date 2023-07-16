@@ -11,7 +11,7 @@ width:100%;
 overflow: hidden;
  
   z-index: 2;
- background-color: rgb(255, 255, 255); 
+ background-color: #96CDE1; 
 }
 .nav-left{
 width:10%;
@@ -109,7 +109,7 @@ width: 20%;
 .continfo-right button:hover{
 
   color: black;
-  background-color: rgb(255, 255, 255);
+  background-color: #96CDE1;
   border: solid black;
   cursor: pointer;
   
@@ -124,24 +124,8 @@ width: 20%;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .footer{
-  background-color: rgb(212, 239, 249); 
+  background-color: #96CDE1; 
 }
 .about-us{
   width:90%;
@@ -209,3 +193,5 @@ font-weight: bolder;
     color:black;
     text-decoration: none;
   }
+
+

@@ -11,7 +11,7 @@ width:100%;
 overflow: hidden;
  
   z-index: 2;
- background-color: rgb(212, 239, 249); 
+ background-color: #96CDE1; 
 }
 .nav-left{
 width:10%;
@@ -63,7 +63,7 @@ margin-left: 4%;
 font-family: 'Poppins', sans-serif;  
 }
 .mission{
-  background-color: rgb(214, 124, 211);
+  background-color: #D3E5F3;
 }
 
 .mission-sec{
@@ -106,7 +106,7 @@ font-family: 'Poppins', sans-serif;
   
 }
 .footer{
-  background-color: rgb(212, 239, 249); 
+  background-color: #96CDE1; 
 }
 .about-us{
   width:90%;

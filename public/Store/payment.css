@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Amatic+SC&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.save-btn {
+    justify-content: center;
+    display: flex;
+}
+
+.button-01 {
+    appearance: none;
+    background-color: #f9f9f9;
+    border-radius: 40em;
+    border-style: none;
+    box-shadow: #b6ecef 0 -12px 6px inset;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    display: inline-block;
+    font-family: poppins;
+    font-size: 16px;
+    font-weight: 700;
+    /* margin: 0; */
+    outline: none;
+    padding: 5px 20px;
+    quotes: auto;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-01:hover {
+    background-color: #86b0f7;
+    box-shadow: #4285f4 0 -6px 8px inset;
+    transform: scale(1.125);
+}
+
+.button-01:active {
+    transform: scale(1.025);
+}
+
+/*responsive*/
+@media screen and (max-width:500px) {
+    .form .column {
+        flex-wrap: wrap;
+    }
+
+}
